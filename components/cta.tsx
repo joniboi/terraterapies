@@ -1,5 +1,6 @@
+
+import Stripes from "@/public/images/stripes-dark.svg?url";
 import Image from "next/image";
-import Stripes from "@/public/images/stripes-dark.svg";
 
 export default function Cta() {
   return (
@@ -21,14 +22,13 @@ export default function Cta() {
             className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/2 transform"
             aria-hidden="true"
           >
-            <Stripes className="w-768 h-432"/>
-            {/* <Image
+           <Image
               className="max-w-none"
               src={Stripes}
               width={768}
               height={432}
               alt="Stripes"
-            /> */}
+            />
           </div>
           <div className="px-4 py-12 md:px-12 md:py-20">
             <h2 className="mb-6 border-y text-3xl font-bold text-gray-200 [border-image:linear-gradient(to_right,transparent,--theme(--color-slate-700/.7),transparent)1] md:mb-12 md:text-4xl">

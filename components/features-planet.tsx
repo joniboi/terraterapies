@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PlanetImg from "@/public/images/planet.png";
-import PlanetOverlayImg from "@/public/images/planet-overlay.svg";
+import PlanetOverlayImg from "@/public/images/planet-overlay.svg?url"; // URL import for Next Image
 import PlanetTagImg01 from "@/public/images/planet-tag-01.png";
 import PlanetTagImg02 from "@/public/images/planet-tag-02.png";
 import PlanetTagImg03 from "@/public/images/planet-tag-03.png";
@@ -29,14 +29,14 @@ export default function FeaturesPlanet() {
                   alt="Planet"
                 />
                 <div className="pointer-events-none" aria-hidden="true">
-                  <PlanetOverlayImg className="absolute -right-64 -top-20 z-10 max-w-none" />
-                  {/* <Image
-                    className="absolute -right-64 -top-20 z-10 max-w-none"
+                  {/* Overlay SVG */}
+                  <Image
                     src={PlanetOverlayImg}
-                    width={789}
-                    height={755}
+                    width={789} // use the SVG's original width
+                    height={755} // use the SVG's original height
                     alt="Planet decoration"
-                  /> */}
+                    className="absolute -right-64 -top-20 z-10 max-w-none pointer-events-none"
+                  />
                   <div>
                     <Image
                       className="absolute -left-28 top-16 z-10 animate-[float_4s_ease-in-out_infinite_both] opacity-80 transition-opacity duration-500"
