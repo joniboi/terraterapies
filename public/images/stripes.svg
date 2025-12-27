@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="736" height="420" viewBox="0 0 736 420" fill="none">
+  <!-- Soft vertical gradient stripes -->
+  <rect width="64" height="420" fill="url(#a)"/>
+  <rect x="84" width="64" height="420" fill="url(#b)"/>
+  <rect x="168" width="64" height="420" fill="url(#c)"/>
+  <rect x="252" width="64" height="420" fill="url(#d)"/>
+  <rect x="336" width="64" height="420" fill="url(#e)"/>
+  <rect x="420" width="64" height="420" fill="url(#f)"/>
+  <rect x="504" width="64" height="420" fill="url(#g)"/>
+  <rect x="588" width="64" height="420" fill="url(#h)"/>
+  <rect x="672" width="64" height="420" fill="url(#i)"/>
+
+  <!-- Subtle Thai-inspired motifs repeated -->
+  <g opacity="0.07" fill="#B68D40">
+    <!-- Left motif -->
+    <g transform="translate(184 240)">
+      <path d="M0 40C-60 40 -100 0 -100 -30C-100 -60 -60 -80 0 -80C60 -80 100 -60 100 -30C100 0 60 40 0 40Z"/>
+      <path d="M0 -80C-10 -90 -20 -100 -20 -115C-20 -130 -10 -140 0 -140C10 -140 20 -130 20 -115C20 -100 10 -90 0 -80Z"/>
+      <path d="M0 -80C-35 -75 -55 -50 -55 -20C-55 10 -35 40 0 40C35 40 55 10 55 -20C55 -50 35 -75 0 -80Z"/>
+    </g>
+
+    <!-- Center motif -->
+    <g transform="translate(368 240)">
+      <path d="M0 40C-60 40 -100 0 -100 -30C-100 -60 -60 -80 0 -80C60 -80 100 -60 100 -30C100 0 60 40 0 40Z"/>
+      <path d="M0 -80C-10 -90 -20 -100 -20 -115C-20 -130 -10 -140 0 -140C10 -140 20 -130 20 -115C20 -100 10 -90 0 -80Z"/>
+      <path d="M0 -80C-35 -75 -55 -50 -55 -20C-55 10 -35 40 0 40C35 40 55 10 55 -20C55 -50 35 -75 0 -80Z"/>
+    </g>
+
+    <!-- Right motif -->
+    <g transform="translate(552 240)">
+      <path d="M0 40C-60 40 -100 0 -100 -30C-100 -60 -60 -80 0 -80C60 -80 100 -60 100 -30C100 0 60 40 0 40Z"/>
+      <path d="M0 -80C-10 -90 -20 -100 -20 -115C-20 -130 -10 -140 0 -140C10 -140 20 -130 20 -115C20 -100 10 -90 0 -80Z"/>
+      <path d="M0 -80C-35 -75 -55 -50 -55 -20C-55 10 -35 40 0 40C35 40 55 10 55 -20C55 -50 35 -75 0 -80Z"/>
+    </g>
+  </g>
+
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="a" x1="32" x2="32" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="b" x1="116" x2="116" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="c" x1="200" x2="200" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="d" x1="284" x2="284" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="e" x1="368" x2="368" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="f" x1="452" x2="452" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g" x1="536" x2="536" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="h" x1="620" x2="620" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="i" x1="704" x2="704" y1="0" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7ED"/>
+      <stop offset=".3" stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
