@@ -344,11 +344,8 @@
           "shortDescription": "Maderoterapia con herramientas de madera que tonifica músculos, mejora circulación y linfa, reduce tensiones y celulitis, favorece la relajación y bienestar, aportando firmeza, ligereza y sensación de equilibrio corporal.",
           "longDescription": "La Maderoterapia es una técnica de masaje originaria de la tradición oriental que utiliza herramientas de madera diseñadas específicamente para trabajar sobre los músculos y la piel.\nA través de movimientos rítmicos y precisos, estas herramientas ayudan a tonificar la musculatura, mejorar la circulación sanguínea y linfática, favorecer el drenaje de líquidos y reducir la apariencia de celulitis.\n\nEste masaje no solo actúa a nivel físico, sino que también induce una profunda relajación, liberando tensiones acumuladas y devolviendo sensación de ligereza y bienestar. Es ideal para quienes buscan un tratamiento natural, estético y terapéutico al mismo tiempo.\n\n✨ Beneficios: tonifica músculos, mejora circulación, reduce celulitis, favorece drenaje linfático, alivia tensiones, aporta firmeza, ligereza y sensación de equilibrio corporal.",
           "options": [
-            { "duration": "15 minutos (estiramientos)", "price": "25€" },
-            { "duration": "Fusión Bali y Thai 60 minutos", "price": "60€" },
-            { "duration": "Tradicional 60 minutos", "price": "65€" },
-            { "duration": "Fusión Bali y Thai 90 minutos", "price": "85€" },
-            { "duration": "Tradicional 90 minutos", "price": "85€" }
+            { "duration": "30 minutos", "price": "40€" },
+            { "duration": "60 minutos", "price": "75€" }
           ]
         }
       ]
