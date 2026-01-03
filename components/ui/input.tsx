@@ -1,8 +1,8 @@
-import * as React from "react"
-import { cn } from "@/app/lib/utils"
+import * as React from "react";
+import { cn } from "@/app/lib/utils";
 
 interface InputProps extends React.ComponentProps<"input"> {
-  color?: "light" | "dark" | "muted"
+  color?: "light" | "dark" | "muted";
 }
 
 function Input({ className, type, color = "muted", ...props }: InputProps) {
@@ -11,7 +11,7 @@ function Input({ className, type, color = "muted", ...props }: InputProps) {
       ? "text-white placeholder:text-white/70 border-white/60 focus-visible:border-white focus-visible:ring-white/40"
       : color === "dark"
       ? "text-gray-900 placeholder:text-gray-700/70 border-gray-800 focus-visible:border-gray-800 focus-visible:ring-gray-700/40"
-      : "text-gray-700 placeholder:text-muted-foreground/70 border-input focus-visible:border-ring focus-visible:ring-ring/50"
+      : "text-gray-700 placeholder:text-muted-foreground/70 border-input focus-visible:border-ring focus-visible:ring-ring/50";
 
   return (
     <input
@@ -30,7 +30,7 @@ function Input({ className, type, color = "muted", ...props }: InputProps) {
       )}
       {...props}
     />
-  )
+  );
 }
 
-export { Input }
+export { Input };

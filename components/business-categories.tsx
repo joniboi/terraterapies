@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
 import { useEffect } from "react";
-import servicesData from "@/data/services.json"
+import servicesData from "@/data/services.json";
 
 export default function BusinessCategories() {
   useEffect(() => {

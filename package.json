@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
+    "@react-email/components": "^1.0.3",
+    "@react-email/render": "^2.0.1",
     "@react-pdf/renderer": "^4.3.2",
     "@types/node": "^22.13.0",
     "@types/react": "19.0.8",

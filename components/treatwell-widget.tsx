@@ -14,14 +14,16 @@ export default function TreatwellWidget() {
     // Append stylesheet
     const link = document.createElement("link");
     link.type = "text/css";
-    link.href = "https://widget.treatwell.es/common/venue-menu/css/widget-button.css";
+    link.href =
+      "https://widget.treatwell.es/common/venue-menu/css/widget-button.css";
     link.rel = "stylesheet";
     link.media = "screen";
     document.head.appendChild(link);
 
     // Append widget script
     const script = document.createElement("script");
-    script.src = "https://widget.treatwell.es/common/venue-menu/javascript/widget-button.js?v1";
+    script.src =
+      "https://widget.treatwell.es/common/venue-menu/javascript/widget-button.js?v1";
     script.async = true;
     containerRef.current.appendChild(script);
 

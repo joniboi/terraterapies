@@ -1,4 +1,3 @@
-
 import Stripes from "@/public/images/stripes-dark.svg?url";
 import Image from "next/image";
 
@@ -22,7 +21,7 @@ export default function Cta() {
             className="pointer-events-none absolute left-1/2 top-0 -z-10 -translate-x-1/2 transform"
             aria-hidden="true"
           >
-           <Image
+            <Image
               className="max-w-none"
               src={Stripes}
               width={768}

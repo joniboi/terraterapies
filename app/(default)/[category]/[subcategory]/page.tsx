@@ -27,8 +27,7 @@ export default async function SubcategoryPage({
     .filter(Boolean)
     .join(" ");
 
-  const backgroundImage =
-    sub.backgroundImage ?? servicesData.defaultBackground;
+  const backgroundImage = sub.backgroundImage ?? servicesData.defaultBackground;
 
   return (
     <main>

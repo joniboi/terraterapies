@@ -1,38 +1,40 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
-import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
+import * as React from "react";
+import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
+import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 
-import { cn } from "@/app/lib/utils"
+import { cn } from "@/app/lib/utils";
 
 // 1️⃣ Create a context
-const DropdownColorContext = React.createContext<"light" | "dark" | "muted">("light")
+const DropdownColorContext = React.createContext<"light" | "dark" | "muted">(
+  "light"
+);
 
 export function useDropdownColor() {
-  return React.useContext(DropdownColorContext)
+  return React.useContext(DropdownColorContext);
 }
 
 type PointerDownEvent = Parameters<
   NonNullable<DropdownMenuPrimitive.DropdownMenuContentProps["onPointerDown"]>
->[0]
+>[0];
 type PointerDownOutsideEvent = Parameters<
   NonNullable<
     DropdownMenuPrimitive.DropdownMenuContentProps["onPointerDownOutside"]
   >
->[0]
+>[0];
 
 function DropdownMenu({
   color = "light",
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root> & {
-  color?: "light" | "dark" | "muted"
+  color?: "light" | "dark" | "muted";
 }) {
   return (
     <DropdownColorContext.Provider value={color}>
       <DropdownMenuPrimitive.Root {...props} />
     </DropdownColorContext.Provider>
-  )
+  );
 }
 
 function DropdownMenuPortal({
@@ -40,7 +42,7 @@ function DropdownMenuPortal({
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
   return (
     <DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
-  )
+  );
 }
 
 function DropdownMenuTrigger({
@@ -48,13 +50,13 @@ function DropdownMenuTrigger({
   asChild,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
-  const color = useDropdownColor()
+  const color = useDropdownColor();
   const colorClass =
     color === "dark"
       ? "data-[state=open]:bg-gray-800/60 text-white"
       : color === "muted"
       ? "data-[state=open]:bg-accent text-popover-foreground"
-      : "data-[state=open]:bg-gray-100 text-gray-900"
+      : "data-[state=open]:bg-gray-100 text-gray-900";
 
   return (
     <DropdownMenuPrimitive.Trigger
@@ -63,22 +65,21 @@ function DropdownMenuTrigger({
       className={cn("transition-colors", colorClass, className)}
       {...props}
     />
-  )
+  );
 }
-
 
 function DropdownMenuContent({
   className,
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Content>) {
-  const color = useDropdownColor()
+  const color = useDropdownColor();
   const colorClass =
     color === "light"
       ? "bg-white/80 backdrop-blur-md text-gray-900 border-white/30"
       : color === "dark"
       ? "bg-gray-900/80 backdrop-blur-md text-white border-gray-700/40"
-      : "bg-popover text-popover-foreground border"
+      : "bg-popover text-popover-foreground border";
 
   return (
     <DropdownMenuPrimitive.Portal>
@@ -95,7 +96,7 @@ function DropdownMenuContent({
         {...props}
       />
     </DropdownMenuPrimitive.Portal>
-  )
+  );
 }
 
 function DropdownMenuGroup({
@@ -103,8 +104,11 @@ function DropdownMenuGroup({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
   return (
-    <DropdownMenuPrimitive.Group className={cn("flex flex-col gap-0.5", className)} {...props} />
-  )
+    <DropdownMenuPrimitive.Group
+      className={cn("flex flex-col gap-0.5", className)}
+      {...props}
+    />
+  );
 }
 
 function DropdownMenuItem({
@@ -113,16 +117,16 @@ function DropdownMenuItem({
   variant = "default",
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
-  inset?: boolean
-  variant?: "default" | "destructive"
+  inset?: boolean;
+  variant?: "default" | "destructive";
 }) {
-  const color = useDropdownColor()
+  const color = useDropdownColor();
   const colorClass =
     color === "light"
       ? "focus:bg-white/30 text-gray-900"
       : color === "dark"
       ? "focus:bg-gray-800/60 text-white"
-      : "focus:bg-accent text-popover-foreground"
+      : "focus:bg-accent text-popover-foreground";
 
   return (
     <DropdownMenuPrimitive.Item
@@ -137,7 +141,7 @@ function DropdownMenuItem({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuCheckboxItem({
@@ -163,7 +167,7 @@ function DropdownMenuCheckboxItem({
       </span>
       {children}
     </DropdownMenuPrimitive.CheckboxItem>
-  )
+  );
 }
 
 function DropdownMenuRadioGroup({
@@ -174,7 +178,7 @@ function DropdownMenuRadioGroup({
       data-slot="dropdown-menu-radio-group"
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuRadioItem({
@@ -198,43 +202,50 @@ function DropdownMenuRadioItem({
       </span>
       {children}
     </DropdownMenuPrimitive.RadioItem>
-  )
+  );
 }
 
 function DropdownMenuLabel({
   className,
   inset,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Label> & { inset?: boolean }) {
-  const color = useDropdownColor()
-  const base = color === "dark" ? "text-gray-300" : "text-gray-500"
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Label> & {
+  inset?: boolean;
+}) {
+  const color = useDropdownColor();
+  const base = color === "dark" ? "text-gray-300" : "text-gray-500";
 
   return (
     <DropdownMenuPrimitive.Label
-      className={cn("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", base, className)}
+      className={cn(
+        "px-2 py-1.5 text-sm font-semibold",
+        inset && "pl-8",
+        base,
+        className
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuSeparator({
   className,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
-  const color = useDropdownColor()
+  const color = useDropdownColor();
   const border =
     color === "dark"
       ? "bg-gray-700/60"
       : color === "light"
       ? "bg-gray-200/60"
-      : "bg-border"
+      : "bg-border";
 
   return (
     <DropdownMenuPrimitive.Separator
       className={cn("-mx-1 my-1 h-px", border, className)}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuShortcut({
@@ -250,13 +261,13 @@ function DropdownMenuShortcut({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuSub({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Sub>) {
-  return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />
+  return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />;
 }
 
 function DropdownMenuSubTrigger({
@@ -265,7 +276,7 @@ function DropdownMenuSubTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
-  inset?: boolean
+  inset?: boolean;
 }) {
   return (
     <DropdownMenuPrimitive.SubTrigger
@@ -283,7 +294,7 @@ function DropdownMenuSubTrigger({
         className="ml-auto text-muted-foreground/80"
       />
     </DropdownMenuPrimitive.SubTrigger>
-  )
+  );
 }
 
 function DropdownMenuSubContent({
@@ -299,7 +310,7 @@ function DropdownMenuSubContent({
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -318,4 +329,4 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-}
+};

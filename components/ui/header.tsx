@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./logo";
-import servicesData from "@/data/services.json"
+import servicesData from "@/data/services.json";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -24,11 +24,16 @@ export default function Header() {
             <NavigationMenuList>
               {categories.map((category) => (
                 <NavigationMenuItem key={category.slug}>
-                  <NavigationMenuTrigger>{category.title}</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>
+                    {category.title}
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <div className="grid gap-2 p-3 w-[220px]">
                       <NavigationMenuLink asChild>
-                        <Link href={`/${category.slug}`} className="font-semibold text-gray-800">
+                        <Link
+                          href={`/${category.slug}`}
+                          className="font-semibold text-gray-800"
+                        >
                           Ver todos →
                         </Link>
                       </NavigationMenuLink>
@@ -49,12 +54,18 @@ export default function Header() {
 
           <ul className="flex flex-1 items-center justify-end gap-3">
             <li>
-              <Link href="/gallery" className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+              <Link
+                href="/gallery"
+                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+              >
                 Galeria
               </Link>
             </li>
             <li>
-              <Link href="/giftcard" className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900">
+              <Link
+                href="/giftcard"
+                className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900"
+              >
                 Regalar
               </Link>
             </li>

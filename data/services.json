@@ -57,9 +57,7 @@
           "backgroundImage": "/images/treatment-detail.jpg",
           "shortDescription": "El masaje japonés Shiatsu trabaja sobre los meridianos energéticos aplicando presiones rítmicas con los dedos, palmas y codos. Su objetivo es desbloquear la energía vital, aliviar dolores y armonizar el sistema nervioso.",
           "longDescription": "Descubre el arte ancestral del Shiatsu, una técnica manual japonesa que utiliza presiones rítmicas con los pulgares y las palmas sobre puntos energéticos del cuerpo para restaurar el equilibrio natural y liberar tensiones acumuladas.\n\nA través de amasamientos suaves, presiones profundas y delicados estiramientos, este masaje estimula la energía vital (Ki), promoviendo una sensación de relajación profunda y bienestar integral.\n\n✨ Beneficios:\n\n- Alivia dolores de espalda, cuello y cabeza (incluidas migrañas)\n- Mejora la movilidad y reduce la rigidez muscular\n- Contribuye a aliviar ciática, reumatismo y fatiga crónica\n- Favorece la circulación y el equilibrio energético\n- Ayuda en trastornos menstruales, digestivos y respiratorios\n\nRegálate —o regala— un momento de serenidad japonesa, donde cuerpo y mente se reencuentran en perfecta armonía.",
-          "options": [
-            { "duration": "60 minutos", "price": "60€" }
-          ]
+          "options": [{ "duration": "60 minutos", "price": "60€" }]
         },
         {
           "slug": "piedras-calientes",

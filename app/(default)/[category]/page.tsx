@@ -7,8 +7,10 @@ export async function generateStaticParams() {
   return servicesData.categories.map((c) => ({ category: c.slug }));
 }
 
-export default async function CategoryPage({ params }: {
-  params: Promise<{ category: string }>
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
 }) {
   const { category } = await params; // ⬅ required by Next 15
   const data = getCategory(category);
@@ -20,26 +22,24 @@ export default async function CategoryPage({ params }: {
   return (
     <main>
       {/* Hero — dynamic */}
-      <CategoryHero
-        title={data.title}
-        images={data.heroImages}
-      />
+      <CategoryHero title={data.title} images={data.heroImages} />
 
       {/* Category description */}
-      <div className="max-w-4xl mx-auto px-6 text-center py-12" data-aos="fade-up">
-        <p className="text-gray-600 text-lg">
-          {data.shortDescription}
-        </p>
+      <div
+        className="max-w-4xl mx-auto px-6 text-center py-12"
+        data-aos="fade-up"
+      >
+        <p className="text-gray-600 text-lg">{data.shortDescription}</p>
       </div>
 
       {/* Subcategories */}
       <SubcategoryShowcase
         items={data.subcategories.map((s) => ({
-            ...s,
-            link: `/${data.slug}/${s.slug}`
-          }))}
-          title={data.showCase?.title}
-          description={data.showCase?.description}
+          ...s,
+          link: `/${data.slug}/${s.slug}`,
+        }))}
+        title={data.showCase?.title}
+        description={data.showCase?.description}
       />
     </main>
   );

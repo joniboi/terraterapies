@@ -8,11 +8,9 @@ export default function Logo() {
       <Image
         src={LogoIcon}
         alt="Cruip Logo"
-        width={72}   // Tailwind w-6 = 24px
-        height={72}  // Tailwind h-6 = 24px
+        width={72} // Tailwind w-6 = 24px
+        height={72} // Tailwind h-6 = 24px
       />
     </Link>
   );
 }
-
-
