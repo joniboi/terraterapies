@@ -5,53 +5,72 @@ import servicesData from "@/data/services.json"; // Import your JSON
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { treatmentSlug, subCategorySlug, optionIndex, from, to, message } =
-    body;
+  try {
+    const body = await req.json();
+    const { categorySlug, subCategorySlug, optionIndex, from, to, message } =
+      body;
 
-  // 1. SECURITY: Find the price in your JSON. Do not trust the client.
-  const category = servicesData.categories.find((c) =>
-    c.subcategories.some((s) => s.slug === subCategorySlug)
-  );
-  const sub = category?.subcategories.find((s) => s.slug === subCategorySlug);
-  const option = sub?.options[optionIndex];
+    // --- SECURITY CHECK START ---
 
-  if (!option)
-    return NextResponse.json({ error: "Invalid treatment" }, { status: 400 });
+    // 1. Find Category
+    const category = servicesData.categories.find(
+      (c) => c.slug === categorySlug
+    );
+    if (!category) throw new Error("Categoría no encontrada");
 
-  // Clean the price string (e.g. "60€" -> 6000 cents)
-  const priceAmount = parseInt(option.price.replace("€", "")) * 100;
+    // 2. Find Subcategory (Treatment)
+    const treatment = category.subcategories.find(
+      (s) => s.slug === subCategorySlug
+    );
+    if (!treatment) throw new Error("Tratamiento no encontrado");
 
-  // 2. Create Stripe Session
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "eur",
-          product_data: {
-            name: `Tarjeta Regalo: ${sub.title}`,
-            description: option.duration,
-            images: [process.env.NEXT_PUBLIC_URL + sub.image], // Must be absolute URL
+    // 3. Find Option (Duration & Price)
+    // We trust the index sent by frontend, but we verify it exists
+    const selectedOption = treatment.options[optionIndex];
+    if (!selectedOption) throw new Error("Opción inválida");
+
+    // 4. Extract and Clean Price
+    // Your JSON has prices like "60€". Stripe needs integer cents (6000).
+    const priceString = selectedOption.price.replace("€", "").trim();
+    const priceAmount = parseInt(priceString, 10) * 100; // 60 -> 6000
+
+    // --- SECURITY CHECK END ---
+
+    // 5. Create Stripe Session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price_data: {
+            currency: "eur",
+            product_data: {
+              name: `Tarjeta Regalo: ${treatment.title}`,
+              description: `Duración: ${selectedOption.duration}`,
+              // Ensure this image URL is absolute (https://...) or Stripe will complain
+              images: [`${process.env.NEXT_PUBLIC_URL}${treatment.image}`],
+            },
+            unit_amount: priceAmount, // WE USE THE SERVER-SIDE CALCULATED PRICE
           },
-          unit_amount: priceAmount,
+          quantity: 1,
         },
-        quantity: 1,
+      ],
+      mode: "payment",
+      success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/services/${categorySlug}/${subCategorySlug}`,
+      metadata: {
+        buyerName: from,
+        receiverName: to,
+        message: message || "",
+        treatmentName: treatment.title,
+        duration: selectedOption.duration,
+        categorySlug, // Store for reference
+        subCategorySlug, // Store for reference
       },
-    ],
-    mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/services`,
-    // 3. STORE DATA IN METADATA
-    metadata: {
-      buyerName: from,
-      receiverName: to,
-      message: message,
-      treatmentName: sub.title,
-      duration: option.duration,
-      locatorDate: new Date().toISOString(), // To track purchase date
-    },
-  });
+    });
 
-  return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: session.url });
+  } catch (error: any) {
+    console.error("Stripe Checkout Error:", error);
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
 }

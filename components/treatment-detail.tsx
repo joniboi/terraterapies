@@ -18,6 +18,9 @@ interface Option {
 }
 
 interface TreatmentDetailProps {
+  categorySlug: string;
+  subCategorySlug: string;
+
   title: string;
   description: string;
   backgroundImage: string;
@@ -25,6 +28,8 @@ interface TreatmentDetailProps {
 }
 
 export default function TreatmentDetail({
+  categorySlug,
+  subCategorySlug,
   title,
   description,
   backgroundImage,
@@ -32,6 +37,7 @@ export default function TreatmentDetail({
 }: TreatmentDetailProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
+  const [loading, setLoading] = useState(false); // Optional: nice for UX
 
   const handlePayment = async () => {
     if (!selectedOption || !form.from || !form.to) {
@@ -39,34 +45,37 @@ export default function TreatmentDetail({
       return;
     }
 
+    setLoading(true);
+
     // Assuming you can get slug/index from props or derived state
     // You might need to pass the slug as a prop to TreatmentDetail
 
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        treatmentSlug: "orientales", // You need to pass this prop
-        subCategorySlug: "tailandes", // You need to pass this prop
-        optionIndex: options.indexOf(selectedOption), // Find index
-        from: form.from,
-        to: form.to,
-        message: form.message,
-      }),
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          categorySlug: categorySlug, // You need to pass this prop
+          subCategorySlug: subCategorySlug,
+          optionIndex: options.indexOf(selectedOption), // Find index
+          from: form.from,
+          to: form.to,
+          message: form.message,
+        }),
+      });
 
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url; // Redirect to Stripe
-    } else {
-      alert("Error al procesar el pago");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error");
+
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error al procesar el pago. Inténtalo de nuevo.");
+      setLoading(false);
     }
   };
-
-  // ... inside render:
-  <Button onClick={handlePayment} className="w-full mt-8 ...">
-    Proceder al pago
-  </Button>;
 
   return (
     <section className="relative min-h-screen flex flex-col md:flex-row items-stretch pt-32 md:pt-40">
@@ -171,9 +180,10 @@ export default function TreatmentDetail({
           {/* Payment button */}
           <Button
             className="w-full mt-8 bg-gray-900 text-white text-lg py-3 rounded-full hover:bg-gray-800 transition-all"
-            onClick={() => handlePayment()}
+            onClick={handlePayment}
+            disabled={loading}
           >
-            Proceder al pago
+            {loading ? "Procesando..." : "Proceder al pago"}
           </Button>
         </div>
       </div>

@@ -32,6 +32,8 @@ export default async function SubcategoryPage({
   return (
     <main>
       <TreatmentDetail
+        categorySlug={category}
+        subCategorySlug={subcategory}
         title={composedTitle}
         backgroundImage={backgroundImage}
         description={sub.longDescription}
