@@ -12,15 +12,20 @@ export interface Subcategory {
   shortDescription?: string;
 }
 
+// 1. Define Props Interface
+interface SubcategoryShowcaseProps {
+  items: Subcategory[];
+  title?: string;
+  description?: string;
+  ctaLabel: string; // <--- New Prop
+}
+
 export default function SubcategoryShowcase({
   items,
   title,
   description,
-}: {
-  items: Subcategory[];
-  title?: string;
-  description?: string;
-}) {
+  ctaLabel,
+}: SubcategoryShowcaseProps) {
   useEffect(() => {
     AOS.init({ once: true, duration: 700, easing: "ease-out-cubic" });
   }, []);
@@ -75,7 +80,8 @@ export default function SubcategoryShowcase({
                     href={sub.link}
                     className="inline-block self-center md:self-start bg-gray-900 text-white font-medium px-6 py-2 rounded-full shadow-md hover:bg-gray-800 transition"
                   >
-                    Ver más
+                    {/* 2. Use the dynamic label */}
+                    {ctaLabel}
                   </Link>
                 </div>
               </div>

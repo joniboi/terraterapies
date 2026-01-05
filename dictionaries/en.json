@@ -1,0 +1,79 @@
+{
+  "header": {
+    "seeAll": "See all →",
+    "languages": {
+      "es": "Spanish",
+      "ca": "Catalan",
+      "en": "English"
+    }
+  },
+  "pages": {
+    "category": {
+      "notFound": "Category not found"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Terrateràpies Thai & Bali",
+      "tagline": "Massages with Thai and Balinese essence",
+      "cta": "Book now"
+    },
+    "categories": {
+      "title": "Our Massages",
+      "subtitle": "Discover our different massage categories, each designed to offer you wellness, balance, and harmony."
+    }
+  },
+  "booking": {
+    "bookBtn": "Book Now",
+    "giftTitle": "Gift this treatment",
+    "selectDuration": "Select duration",
+    "fromPlaceholder": "From (your name)",
+    "toPlaceholder": "To (recipient's name)",
+    "msgPlaceholder": "Message (optional)",
+    "payBtn": "Proceed to payment",
+    "processing": "Processing...",
+    "alerts": {
+      "fillAll": "Please fill in all fields",
+      "error": "Error processing payment. Please try again."
+    }
+  },
+  "giftCard": {
+    "title": "Gift Card",
+    "labelFrom": "FROM:",
+    "labelTo": "TO:",
+    "labelDate": "DATE:",
+    "labelTreatment": "TREATMENT:",
+    "labelNote": "SPECIAL NOTE:",
+    "labelCode": "CODE:",
+    "validity": "Valid for one year from the date of purchase.",
+    "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
+    "addressLine2": "08172 Sant Cugat del Vallès, Barcelona (Spain)",
+    "phone": "Phone: +34603177049"
+  },
+  "common": {
+    "seeMore": "See more"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "experiences": {
+      "title": "Experiences",
+      "thai": "Thai",
+      "bali": "Bali",
+      "combos": "Combos"
+    },
+    "collabs": {
+      "title": "Collaborations",
+      "mezzanote": "Mezzanote"
+    },
+    "info": {
+      "title": "Information",
+      "contact": "Contact",
+      "about": "About us",
+      "faq": "FAQ"
+    },
+    "social": {
+      "title": "Social",
+      "whatsappMsg": "Hello, I want information about Terraterapies Thai & Bali"
+    }
+  }
+}

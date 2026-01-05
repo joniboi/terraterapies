@@ -1,7 +1,22 @@
 import Link from "next/link";
 import Logo from "./logo";
 
-export default function Footer({ border = false }: { border?: boolean }) {
+// Define the shape of the dictionary part this component needs
+interface FooterDict {
+  copyright: string;
+  experiences: { title: string; thai: string; bali: string; combos: string };
+  collabs: { title: string; mezzanote: string };
+  info: { title: string; contact: string; about: string; faq: string };
+  social: { title: string; whatsappMsg: string };
+  bigText: string;
+}
+
+interface FooterProps {
+  border?: boolean;
+  dict: FooterDict; // <--- NEW PROP
+}
+
+export default function Footer({ border = false, dict }: FooterProps) {
   return (
     <footer>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -19,21 +34,21 @@ export default function Footer({ border = false }: { border?: boolean }) {
               <Logo />
             </div>
             <div className="text-sm text-gray-600">
-              &copy; {new Date().getFullYear()} Terraterapies Thai & Bali. All
-              rights reserved.
+              &copy; {new Date().getFullYear()} Terraterapies Thai & Bali.{" "}
+              {dict.copyright}
             </div>
           </div>
 
           {/* 2nd block */}
           <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">Experiencias</h3>
+            <h3 className="text-sm font-medium">{dict.experiences.title}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Thai
+                  {dict.experiences.thai}
                 </Link>
               </li>
               <li>
@@ -41,7 +56,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Bali
+                  {dict.experiences.bali}
                 </Link>
               </li>
               <li>
@@ -49,7 +64,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Combos
+                  {dict.experiences.combos}
                 </Link>
               </li>
             </ul>
@@ -57,14 +72,14 @@ export default function Footer({ border = false }: { border?: boolean }) {
 
           {/* 3rd block */}
           <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">Colaboraciones</h3>
+            <h3 className="text-sm font-medium">{dict.collabs.title}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Mezzanote
+                  {dict.collabs.mezzanote}
                 </Link>
               </li>
             </ul>
@@ -72,14 +87,14 @@ export default function Footer({ border = false }: { border?: boolean }) {
 
           {/* 4th block */}
           <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">Información</h3>
+            <h3 className="text-sm font-medium">{dict.info.title}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Contacto
+                  {dict.info.contact}
                 </Link>
               </li>
               <li>
@@ -87,7 +102,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  Sobre nosotros
+                  {dict.info.about}
                 </Link>
               </li>
               <li>
@@ -95,7 +110,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
                   className="text-gray-600 transition hover:text-gray-900"
                   href="#0"
                 >
-                  FAQ
+                  {dict.info.faq}
                 </Link>
               </li>
             </ul>
@@ -103,12 +118,14 @@ export default function Footer({ border = false }: { border?: boolean }) {
 
           {/* 5th block */}
           <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">Social</h3>
+            <h3 className="text-sm font-medium">{dict.social.title}</h3>
             <ul className="flex gap-1">
               <li>
                 <Link
                   className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
-                  href="https://wa.me/34603177049?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Terraterapies%20Thai%20%26%20Bali"
+                  href={`https://wa.me/34603177049?text=${encodeURIComponent(
+                    dict.social.whatsappMsg
+                  )}`}
                   aria-label="Whatsapp"
                 >
                   <svg

@@ -1,0 +1,79 @@
+{
+  "header": {
+    "seeAll": "Ver todos →",
+    "languages": {
+      "es": "Español",
+      "ca": "Català",
+      "en": "English"
+    }
+  },
+  "pages": {
+    "category": {
+      "notFound": "Categoría no encontrada"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Terrateràpies Thai & Bali",
+      "tagline": "Masajes con esencia Tailandesa y Balinesa",
+      "cta": "Reserva ahora"
+    },
+    "categories": {
+      "title": "Nuestros Masajes",
+      "subtitle": "Descubre nuestras diferentes categorías de masajes, cada una diseñada para ofrecerte bienestar, equilibrio y armonía."
+    }
+  },
+  "booking": {
+    "bookBtn": "Reservar",
+    "giftTitle": "Regala este tratamiento",
+    "selectDuration": "Selecciona duración",
+    "fromPlaceholder": "De (tu nombre)",
+    "toPlaceholder": "Para (nombre del destinatario)",
+    "msgPlaceholder": "Mensaje o dedicatoria (opcional)",
+    "payBtn": "Proceder al pago",
+    "processing": "Procesando...",
+    "alerts": {
+      "fillAll": "Por favor rellena todos los datos",
+      "error": "Error al procesar el pago. Inténtalo de nuevo."
+    }
+  },
+  "giftCard": {
+    "title": "Tarjeta de regalo",
+    "labelFrom": "DE:",
+    "labelTo": "PARA:",
+    "labelDate": "FECHA:",
+    "labelTreatment": "TRATAMIENTO:",
+    "labelNote": "NOTA ESPECIAL:",
+    "labelCode": "CÓDIGO:",
+    "validity": "Válido durante un año desde la fecha de compra.",
+    "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
+    "addressLine2": "08172 Sant Cugat del Vallès, Barcelona",
+    "phone": "Teléfono: +34603177049"
+  },
+  "common": {
+    "seeMore": "Ver más"
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados.",
+    "experiences": {
+      "title": "Experiencias",
+      "thai": "Thai",
+      "bali": "Bali",
+      "combos": "Combos"
+    },
+    "collabs": {
+      "title": "Colaboraciones",
+      "mezzanote": "Mezzanote"
+    },
+    "info": {
+      "title": "Información",
+      "contact": "Contacto",
+      "about": "Sobre nosotros",
+      "faq": "Preguntas frecuentes"
+    },
+    "social": {
+      "title": "Social",
+      "whatsappMsg": "Hola, quiero información sobre Terraterapies Thai & Bali"
+    }
+  }
+}

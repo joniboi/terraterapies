@@ -39,20 +39,14 @@ Font.register({
       src: fontUrl("Montserrat-Bold.ttf"), // Renamed from the DEMO file
       fontWeight: "bold",
     },
-    {
-      src: fontUrl("Montserrat-Italic.ttf"),
-      fontStyle: "italic",
-    },
   ],
 });
 
 // 2. DEFINE STYLES WITH EXACT COORDINATES
 const styles = StyleSheet.create({
-  page: {
-    flexDirection: "column",
-    backgroundColor: "#ffffff",
-    padding: 0,
-  },
+  // ... Keep your existing styles ...
+  // Make sure you keep the styles exactly as you tuned them
+  page: { flexDirection: "column", backgroundColor: "#ffffff", padding: 0 },
   backgroundImage: {
     position: "absolute",
     top: 0,
@@ -61,15 +55,13 @@ const styles = StyleSheet.create({
     height: "100%",
     zIndex: -1,
   },
-  // --- TOP LEFT: LABELS ---
-  // "margin of 100 pixels from left and 70 pixels from top"
   labelsContainer: {
     position: "absolute",
     top: 70,
     left: 100,
     display: "flex",
     flexDirection: "column",
-    gap: 30, // Adjusted gap for the larger canvas
+    gap: 30,
   },
   labelText: {
     fontFamily: "Intro Rust",
@@ -77,28 +69,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: "#000",
   },
-
-  // --- VALUES (Offset) ---
-  // "500 pixels from the left"
   valuesContainer: {
     position: "absolute",
     top: 70,
-    left: 350, // EXACTLY as you requested
+    left: 350,
     display: "flex",
     flexDirection: "column",
-    gap: 30, // Must match labelsContainer gap
-    width: 800, // Plenty of space now
+    gap: 30,
+    width: 800,
   },
   valueText: {
     fontFamily: "Intro Rust",
     textAlign: "justify",
     lineHeight: 1.4,
-    fontSize: 24, // Slightly larger to match the scale of the image
+    fontSize: 24,
     color: "#000",
   },
-
-  // --- TOP RIGHT: TITLE ---
-  // "Brittany font 27"
   titleText: {
     position: "absolute",
     top: 70,
@@ -106,30 +92,20 @@ const styles = StyleSheet.create({
     fontFamily: "Brittany",
     fontSize: 84,
   },
-
-  // --- BOTTOM CENTER: LOCATOR ---
-  // "850 px from the top"
   bottomCenterContainer: {
     position: "absolute",
-    top: 850, // EXACTLY as you requested
+    top: 850,
     left: 0,
-    right: 0, // spanning left to right allows textAlign: center to work
+    right: 0,
     textAlign: "center",
   },
-  locatorText: {
-    fontFamily: "Montserrat",
-    fontSize: 20,
-    marginBottom: 5,
-  },
+  locatorText: { fontFamily: "Montserrat", fontSize: 20, marginBottom: 5 },
   validityText: {
     fontFamily: "Montserrat",
     fontSize: 18,
     fontWeight: "bold",
     color: "#444",
   },
-
-  // --- BOTTOM RIGHT: ADDRESS & LINK ---
-  // "Montserrat"
   addressContainer: {
     position: "absolute",
     bottom: 30,
@@ -146,7 +122,21 @@ const styles = StyleSheet.create({
   },
 });
 
-// 1. Define the structure of the data object
+// 1. DEFINE THE LABELS INTERFACE
+interface GiftCardLabels {
+  title: string;
+  labelFrom: string;
+  labelTo: string;
+  labelDate: string;
+  labelTreatment: string;
+  labelNote: string;
+  labelCode: string;
+  validity: string;
+  addressLine1: string;
+  addressLine2: string;
+  phone: string;
+}
+
 interface GiftCardData {
   buyerName: string;
   receiverName: string;
@@ -155,36 +145,39 @@ interface GiftCardData {
   message: string;
 }
 
-// 2. Define the props the component expects
 interface GiftCardPdfProps {
   data: GiftCardData;
   locator: string;
+  labels: GiftCardLabels; // <--- NEW
+  lang: string; // <--- NEW (for date formatting)
 }
 
-export const GiftCardPdf = ({ data, locator }: GiftCardPdfProps) => {
-  const backgroundUrl = `${process.env.NEXT_PUBLIC_URL}/images/gift-template.png`;
+export const GiftCardPdf = ({
+  data,
+  locator,
+  labels,
+  lang,
+}: GiftCardPdfProps) => {
+  const backgroundUrl = `${process.env.NEXT_PUBLIC_URL}/images/gift-template.jpg`;
 
-  const purchaseDate = new Date().toLocaleDateString("es-ES");
+  // Dynamic Date Formatting based on Language
+  const purchaseDate = new Date().toLocaleDateString(
+    lang === "en" ? "en-GB" : "es-ES" // en-GB gives DD/MM/YYYY, usually preferred over US MM/DD/YYYY in Europe
+  );
 
   return (
     <Document>
-      {/* 
-         SETTING CUSTOM SIZE HERE: [WIDTH, HEIGHT] 
-         Now 1 PDF unit = 1 pixel of your image
-      */}
       <Page size={[1724, 947]} style={styles.page}>
-        {/* Background Image */}
         <Image src={backgroundUrl} style={styles.backgroundImage} />
 
         {/* 1. Labels */}
         <View style={styles.labelsContainer}>
-          <Text style={styles.labelText}>DE:</Text>
-          <Text style={styles.labelText}>PARA:</Text>
-          <Text style={styles.labelText}>FECHA:</Text>
-          <Text style={styles.labelText}>TRATAMIENTO:</Text>
-          {/* Add extra margin for the "Special Note" label if needed */}
+          <Text style={styles.labelText}>{labels.labelFrom}</Text>
+          <Text style={styles.labelText}>{labels.labelTo}</Text>
+          <Text style={styles.labelText}>{labels.labelDate}</Text>
+          <Text style={styles.labelText}>{labels.labelTreatment}</Text>
           <Text style={{ ...styles.labelText, marginTop: 20 }}>
-            NOTA ESPECIAL:
+            {labels.labelNote}
           </Text>
         </View>
 
@@ -196,7 +189,6 @@ export const GiftCardPdf = ({ data, locator }: GiftCardPdfProps) => {
           <Text style={styles.valueText}>
             {data.treatmentName} ({data.duration})
           </Text>
-          {/* Extra margin to match the label's marginTop */}
           <Text
             style={{ ...styles.valueText, marginTop: 20 }}
             hyphenationCallback={(word) => [word]}
@@ -206,16 +198,15 @@ export const GiftCardPdf = ({ data, locator }: GiftCardPdfProps) => {
         </View>
 
         {/* 3. Title */}
-        <Text style={styles.titleText}>Tarjeta de regalo</Text>
+        <Text style={styles.titleText}>{labels.title}</Text>
 
-        {/* 4. Locator & Validity (At 850px top) */}
+        {/* 4. Locator & Validity */}
         <View style={styles.bottomCenterContainer}>
           <Text style={styles.locatorText}>
-            Código: <Text style={{ fontWeight: "bold" }}>{locator}</Text>
+            {labels.labelCode}{" "}
+            <Text style={{ fontWeight: "bold" }}>{locator}</Text>
           </Text>
-          <Text style={styles.validityText}>
-            Válido durante un año desde la fecha de compra.
-          </Text>
+          <Text style={styles.validityText}>{labels.validity}</Text>
         </View>
 
         {/* 5. Address Link */}
@@ -224,9 +215,11 @@ export const GiftCardPdf = ({ data, locator }: GiftCardPdfProps) => {
             src="https://maps.app.goo.gl/iKQzo2bKECesL75r8"
             style={styles.addressLink}
           >
-            Carrer de Josep Puig i Cadafalch, 42-44,{"\n"}
-            08172 Sant Cugat del Vallès, Barcelona{"\n"}
-            Telefono: +34603177049
+            {labels.addressLine1}
+            {"\n"}
+            {labels.addressLine2}
+            {"\n"}
+            {labels.phone}
           </Link>
         </View>
       </Page>

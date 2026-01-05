@@ -12,15 +12,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
+// 1. Define the Dictionary Interface for this component
+interface BookingDict {
+  bookBtn: string;
+  giftTitle: string;
+  selectDuration: string;
+  fromPlaceholder: string;
+  toPlaceholder: string;
+  msgPlaceholder: string;
+  payBtn: string;
+  processing: string;
+  alerts: {
+    fillAll: string;
+    error: string;
+  };
+}
+
 interface Option {
   duration: string;
   price: string;
 }
 
 interface TreatmentDetailProps {
+  lang: string; // <--- New Prop
+  dict: BookingDict; // <--- New Prop
+
   categorySlug: string;
   subCategorySlug: string;
-
   title: string;
   description: string;
   backgroundImage: string;
@@ -28,6 +46,8 @@ interface TreatmentDetailProps {
 }
 
 export default function TreatmentDetail({
+  lang,
+  dict,
   categorySlug,
   subCategorySlug,
   title,
@@ -37,27 +57,25 @@ export default function TreatmentDetail({
 }: TreatmentDetailProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
-  const [loading, setLoading] = useState(false); // Optional: nice for UX
+  const [loading, setLoading] = useState(false);
 
   const handlePayment = async () => {
     if (!selectedOption || !form.from || !form.to) {
-      alert("Por favor rellena todos los datos");
+      alert(dict.alerts.fillAll); // <--- Dynamic Alert
       return;
     }
 
     setLoading(true);
-
-    // Assuming you can get slug/index from props or derived state
-    // You might need to pass the slug as a prop to TreatmentDetail
 
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          categorySlug: categorySlug, // You need to pass this prop
-          subCategorySlug: subCategorySlug,
-          optionIndex: options.indexOf(selectedOption), // Find index
+          lang, // <--- Send language to API
+          categorySlug,
+          subCategorySlug,
+          optionIndex: options.indexOf(selectedOption),
           from: form.from,
           to: form.to,
           message: form.message,
@@ -68,18 +86,18 @@ export default function TreatmentDetail({
       if (!res.ok) throw new Error(data.error || "Error");
 
       if (data.url) {
-        window.location.href = data.url; // Redirect to Stripe
+        window.location.href = data.url;
       }
     } catch (error) {
       console.error(error);
-      alert("Error al procesar el pago. Inténtalo de nuevo.");
+      alert(dict.alerts.error); // <--- Dynamic Alert
       setLoading(false);
     }
   };
 
   return (
     <section className="relative min-h-screen flex flex-col md:flex-row items-stretch pt-32 md:pt-40">
-      {/* Background image with soft fade */}
+      {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
           src={backgroundImage}
@@ -88,7 +106,6 @@ export default function TreatmentDetail({
           className="object-cover brightness-95 opacity-90"
           priority
         />
-        {/* No fade overlay at all */}
         <div className="absolute inset-0 bg-transparent" />
       </div>
 
@@ -109,7 +126,7 @@ export default function TreatmentDetail({
             className="px-10 py-4 text-lg rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all"
             onClick={() => alert("Open Treatwell widget here")}
           >
-            Reservar
+            {dict.bookBtn} {/* <--- Dynamic */}
           </Button>
         </div>
       </div>
@@ -117,7 +134,7 @@ export default function TreatmentDetail({
       {/* Right side — gift panel */}
       <div className="w-full md:w-1/3 bg-gray-900/45 border border-white/30 p-8 md:p-12 flex flex-col justify-center rounded-2xl shadow-xl">
         <h2 className="text-2xl font-semibold text-white mb-6">
-          Regala este tratamiento
+          {dict.giftTitle} {/* <--- Dynamic */}
         </h2>
 
         {/* Duration / Price selector */}
@@ -129,9 +146,8 @@ export default function TreatmentDetail({
                 color="light"
                 className="w-full justify-between text-gray-700"
               >
-                {selectedOption
-                  ? selectedOption.duration
-                  : "Selecciona duración"}
+                {selectedOption ? selectedOption.duration : dict.selectDuration}{" "}
+                {/* <--- Dynamic */}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-full">
@@ -155,21 +171,21 @@ export default function TreatmentDetail({
           {/* Form fields */}
           <div className="space-y-3 mt-6">
             <Input
-              placeholder="De (tu nombre)"
+              placeholder={dict.fromPlaceholder} // <--- Dynamic
               value={form.from}
               onChange={(e) => setForm({ ...form, from: e.target.value })}
               color="light"
               required
             />
             <Input
-              placeholder="Para (nombre del destinatario)"
+              placeholder={dict.toPlaceholder} // <--- Dynamic
               color="light"
               value={form.to}
               onChange={(e) => setForm({ ...form, to: e.target.value })}
               required
             />
             <Textarea
-              placeholder="Mensaje o dedicatoria (opcional)"
+              placeholder={dict.msgPlaceholder} // <--- Dynamic
               value={form.message}
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               rows={4}
@@ -183,7 +199,7 @@ export default function TreatmentDetail({
             onClick={handlePayment}
             disabled={loading}
           >
-            {loading ? "Procesando..." : "Proceder al pago"}
+            {loading ? dict.processing : dict.payBtn} {/* <--- Dynamic */}
           </Button>
         </div>
       </div>

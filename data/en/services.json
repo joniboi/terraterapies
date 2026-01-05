@@ -1,0 +1,352 @@
+{
+  "defaultBackground": "/images/treatment-detail.jpg",
+  "categories": [
+    {
+      "slug": "orientales",
+      "title": "Oriental",
+      "image": "/images/categories/orientales.jpg",
+      "shortDescription": "Oriental massages combine ancestral techniques and spiritual philosophy to balance body, mind, and energy. Discover our options and choose the perfect gift for those who need it most.",
+      "heroImages": [
+        { "src": "/images/hero/oriental1.jpg", "alt": "Oriental1" },
+        { "src": "/images/hero/oriental2.jpg", "alt": "Oriental2" },
+        { "src": "/images/hero/oriental3.jpg", "alt": "Oriental3" }
+      ],
+      "showCase": {
+        "title": "Choose your experience",
+        "description": "Each oriental massage has a unique essence. Gift wellness, balance, and serenity."
+      },
+      "subcategories": [
+        {
+          "slug": "tailandes",
+          "title": "Thai Massage",
+          "emoji": "🪷",
+          "tagline": "Energy, balance, and inner harmony",
+          "image": "/images/subcategories/tailandes.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Experience a unique combination of stretching and pressure that revitalizes body and mind. This traditional Thai massage improves flexibility, relieves tension, and restores the natural flow of energy.",
+          "longDescription": "Immerse yourself in an ancestral experience that awakens body and spirit. Thai Massage combines rhythmic pressure, gentle stretching, and precise movements inspired by the ancient wisdom of Southeast Asia.\n\nWithout oils, but full of intention, this massage stimulates energy channels, improves circulation, and releases accumulated tension, helping to restore the natural flow of vital energy.\n\nA harmonious dance between strength and serenity that returns you to your center of balance, leaving a sensation of lightness, clarity, and deep inner peace.",
+          "options": [
+            { "duration": "15 minutes (stretching)", "price": "25€" },
+            { "duration": "Bali & Thai Fusion 60 minutes", "price": "60€" },
+            { "duration": "Traditional 60 minutes", "price": "65€" },
+            { "duration": "Bali & Thai Fusion 90 minutes", "price": "85€" },
+            { "duration": "Traditional 90 minutes", "price": "85€" }
+          ]
+        },
+        {
+          "slug": "balines",
+          "title": "Balinese",
+          "emoji": "🌺",
+          "tagline": "A total wellness experience",
+          "image": "/images/subcategories/balines.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Travel to Bali without leaving the city. This massage combines gentle techniques and deep pressure to relieve stress, relax muscles, and balance body and spirit.",
+          "longDescription": "Let yourself be transported to the exotic island of Bali, the cradle of an ancient tradition that combines the best of Hindu medicine, Ayurvedic wisdom, and ancestral oriental techniques.\n\nThe Balinese Massage harmonizes body and mind through enveloping movements, deep kneading, precise pressure, and gentle stretching, performed with hands, forearms, and even feet.\n\nImmerse yourself in a unique sensory journey that relieves tension, stimulates circulation, and renews your vital energy.\nPerfect for gifting or treating yourself to a moment of authentic peace and balance.",
+          "options": [
+            { "duration": "45 minutes", "price": "50€" },
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        },
+        {
+          "slug": "shiatsu",
+          "title": "Shiatsu",
+          "emoji": "🌿",
+          "tagline": "Balance and harmony, Japanese style",
+          "image": "/images/subcategories/shiatsu.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Japanese Shiatsu massage works on energy meridians by applying rhythmic pressure with fingers, palms, and elbows. Its goal is to unblock vital energy, relieve pain, and harmonize the nervous system.",
+          "longDescription": "Discover the ancient art of Shiatsu, a Japanese manual technique that uses rhythmic pressure with thumbs and palms on the body's energy points to restore natural balance and release accumulated tension.\n\nThrough gentle kneading, deep pressure, and delicate stretching, this massage stimulates vital energy (Ki), promoting a deep sense of relaxation and holistic well-being.\n\n✨ Benefits:\n\n- Relieves back, neck, and head pain (including migraines)\n- Improves mobility and reduces muscle stiffness\n- Helps alleviate sciatica, rheumatism, and chronic fatigue\n- Favors circulation and energy balance\n- Helps with menstrual, digestive, and respiratory disorders\n\nGift yourself—or someone else—a moment of Japanese serenity, where body and mind meet in perfect harmony.",
+          "options": [{ "duration": "60 minutes", "price": "60€" }]
+        },
+        {
+          "slug": "piedras-calientes",
+          "title": "Hot Stones",
+          "emoji": "🔥",
+          "tagline": "Warmth that embraces, energy that renews",
+          "image": "/images/subcategories/piedras.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "The warmth of volcanic stones deeply relaxes muscles, improves circulation, and dissolves accumulated tension, enveloping you in a sensation of total peace.",
+          "longDescription": "Treat yourself to a moment of pause and well-being with the Hot Stone Massage, an ancestral technique of oriental origin that combines the touch of heat with the art of massage to deeply relax body and mind.\n\nHot volcanic stones glide gently over the skin, transmitting an enveloping sensation of calm and balance. The heat penetrates the muscles, relieving tension, improving circulation, and helping to release toxins and accumulated stress.\n\nA unique sensory experience that will make you feel light, revitalized, and in total harmony.\nIdeal for gifting or enjoying when you need to reconnect with yourself.",
+          "options": [
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        },
+        {
+          "slug": "pindas-herbales",
+          "title": "Herbal Compresses",
+          "emoji": "🌸",
+          "tagline": "Scents that heal, heat that relaxes",
+          "image": "/images/subcategories/pindas.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Pindas, small bags of aromatic herbs and spices, are applied hot with rhythmic movements. A sensory experience that relieves tension, nourishes the skin, and revitalizes the soul.",
+          "longDescription": "Discover a unique experience that combines traditional massage techniques with the therapeutic power of herbal pindas: small fabric bags filled with carefully selected medicinal and aromatic herbs.\n\nWhen heated with steam, the pindas release their essential oils and healing properties, enveloping the body in a natural and relaxing aroma that calms the mind and relieves muscle tension.\n\nA massage that nourishes the skin, stimulates the senses, and renews vital energy, inviting you into a deep state of well-being and serenity.",
+          "options": [
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "relajantes",
+      "title": "Relaxing",
+      "image": "/images/categories/relajantes.jpg",
+      "shortDescription": "Immerse yourself in a haven of calm where time stands still and the body breathes in harmony. Soft scents, the warmth of aromatic candles, and the synchronized touch of a 4-hands massage envelop the senses in serenity. Each session is a caress for the soul, a whisper that dissolves stress and returns inner peace.",
+      "heroImages": [
+        { "src": "/images/hero/relajante1.jpg", "alt": "Relaxing1" },
+        { "src": "/images/hero/relajante2.jpg", "alt": "Relaxing2" },
+        { "src": "/images/hero/relajante3.jpg", "alt": "Relaxing3" }
+      ],
+      "showCase": {
+        "title": "Choose your experience",
+        "description": "Each relaxing massage is a pause for the soul. Gift calm, tenderness, and a moment of respite."
+      },
+      "subcategories": [
+        {
+          "slug": "relajante",
+          "title": "Relaxing Massage",
+          "emoji": "🌙",
+          "tagline": "A pause for your well-being",
+          "image": "/images/subcategories/relajante.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "The slow, enveloping rhythm of this massage calms the mind, soothes the body, and restores harmony. Ideal for leaving stress behind and letting serenity flow like a sigh over the skin.",
+          "longDescription": "When the pace of daily life accelerates, gift yourself a moment of calm. The Relaxing Massage is designed to help you disconnect from stress, relieve tension, and recover harmony between body and mind.\n\nThrough gentle and enveloping movements, this massage wraps you in a sensation of deep tranquility, promoting rest, circulation, and general well-being.\n\nIdeal for those looking to stop time for a few moments and feel balanced again.",
+          "options": [
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "50€" },
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "75€" }
+          ]
+        },
+        {
+          "slug": "aromaterapia",
+          "title": "Aromatherapy",
+          "emoji": "🌺",
+          "tagline": "Fragrances that balance body and soul",
+          "image": "/images/subcategories/aromaterapia.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Essential aromas envelop your senses while gentle movements dissolve tension and awaken inner serenity. Each breath becomes a whisper of well-being and balance.",
+          "longDescription": "Let yourself be enveloped by a dance of aromas and sensations that transport you far from daily stress. The Aromatherapy Massage combines the power of relaxing touch with natural essential oils, carefully selected to stimulate your senses and renew your inner energy.\n\nEach fragrance acts on body and mind, helping to reduce stress, regulate blood pressure, improve digestion, and strengthen the immune system.\n\nA multi-sensory experience that restores calm, awakens vitality, and leaves a lasting sensation of balance and well-being.",
+          "options": [
+            { "duration": "30 minutes", "price": "30€" },
+            { "duration": "45 minutes", "price": "45€" },
+            { "duration": "60 minutes", "price": "55€" },
+            { "duration": "90 minutes", "price": "75€" }
+          ]
+        },
+        {
+          "slug": "velas-aromaticas",
+          "title": "Aromatic Candles",
+          "emoji": "🕯️",
+          "tagline": "Warmth, aroma, and profound well-being",
+          "image": "/images/subcategories/velas.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Warm shea wax transforms into a silky balm that caresses the skin, nourishing it deeply. Hands glide in harmony, freeing the body from stiffness and leaving a trail of perfume and peace.",
+          "longDescription": "Stress, fatigue, insomnia… sound familiar?\nSay goodbye to those tensions with a stimulating and delicate massage performed with an aromatic oil candle that, upon melting, transforms into a warm, soft elixir for the skin.\n\nThe atmosphere fills with light, aroma, and serenity, inviting you to deep and restorative rest. Ideal for all skin types and any area of the body, this treatment nourishes, hydrates, and reconnects body and mind.\n\n✨ Benefits: improves circulation, regulates heart rate and blood pressure, reduces stress, and strengthens the immune system.\n\nA unique sensory experience that will leave you renewed inside and out.",
+          "options": [
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "50€" },
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        },
+        {
+          "slug": "craneofacial",
+          "title": "Craniofacial",
+          "emoji": "💆‍♀️",
+          "tagline": "Free your mind, renew your expression",
+          "image": "/images/subcategories/craneofacial.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Through gentle pressure and movements on the scalp, neck, and shoulders, this massage releases accumulated tension, improves circulation, and awakens a sense of clarity and inner lightness.",
+          "longDescription": "Daily tension often accumulates in the neck, scalp, and face, generating stiffness and fatigue. The Craniofacial Massage helps release these tensions through gentle pressure and rhythmic movements that relax facial muscles and stimulate circulation.\n\nThis treatment not only relieves mental stress but also brightens the face, improves oxygenation, and leaves an immediate sensation of lightness and well-being.\n\nPerfect for those seeking mental clarity, deep rest, and a renewed look.",
+          "options": [
+            { "duration": "15 minutes", "price": "20€" },
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "50€" }
+          ]
+        },
+        {
+          "slug": "a-cuatro-manos",
+          "title": "Four Hands",
+          "emoji": "🤲",
+          "tagline": "Double energy, perfect harmony",
+          "image": "/images/subcategories/cuatro.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Four hands move in complete synchrony, creating a symphony of caresses that envelopes the body in a wave of sensations. An immersive and unique experience that multiplies pleasure and relaxation.",
+          "longDescription": "Imagine two therapists working in total synchrony, combining fluid movements, pressure, and stretching in a perfectly balanced choreography. The result: a unique experience that multiplies relaxation and well-being.\n\nThe Four Hands Massage envelopes the body in a harmonious rhythm that dissolves tension, stimulates circulation, and leads the mind to a state of deep calm.\nA sensation so enveloping that time seems to stand still.\n\nIdeal for those seeking an exclusive, sensory, and absolutely unforgettable treatment.\nDouble the hands, double the pleasure.",
+          "options": [
+            { "duration": "60 minutes", "price": "120€" },
+            { "duration": "90 minutes", "price": "150€" }
+          ]
+        },
+        {
+          "slug": "antiestres",
+          "title": "Anti-stress",
+          "emoji": "🌿",
+          "tagline": "Release tension, recover your calm",
+          "image": "/images/subcategories/antiestres.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "With techniques combining gentle pressure and deep breathing, this massage helps release emotional and physical blockages. Each movement dissolves fatigue, inviting tranquility and restorative rest.",
+          "longDescription": "Need to disconnect and let go of the tension accumulated from day-to-day life?\nThe Anti-stress Massage is specially designed to relax the neck, shoulders, and back, the areas where physical and emotional burdens concentrate most.\n\nThrough firm and precise movements, this treatment dissolves muscle knots, improves circulation, and provides an immediate sensation of lightness and well-being.\n\nIdeal for those looking to recover energy, serenity, and deep rest.\n✨ Leave the rush behind… and feel balanced again.",
+          "options": [
+            { "duration": "60 minutes", "price": "55€" },
+            { "duration": "90 minutes", "price": "75€" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "terapeuticos",
+      "title": "Therapeutic",
+      "image": "/images/categories/terapeuticos.jpg",
+      "shortDescription": "Therapeutic massages are a journey toward recovery and inner balance. Through conscious touch, they relieve tension, reactivate energy, and return harmony to the body. An experience that nourishes, repairs, and renews from deep within.",
+      "heroImages": [
+        { "src": "/images/hero/terapeutico1.jpg", "alt": "Therapeutic1" },
+        { "src": "/images/hero/terapeutico2.jpg", "alt": "Therapeutic2" },
+        { "src": "/images/hero/terapeutico3.jpg", "alt": "Therapeutic3" }
+      ],
+      "showCase": {
+        "title": "Choose your experience",
+        "description": "Each therapeutic massage is a gesture of care. Gift relief, strength, and lasting well-being."
+      },
+      "subcategories": [
+        {
+          "slug": "descontracturante",
+          "title": "Deep Tissue",
+          "emoji": "💆‍♀️",
+          "tagline": "Relief from deep tension",
+          "image": "/images/subcategories/descontracturante.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "A deep massage that releases muscle stiffness, relieves knots and tension, improves circulation, and relaxes the nervous system. Leaves an immediate sensation of well-being, lightness, and vitality.",
+          "longDescription": "After long hours in the same position, muscles tighten and annoying knots appear.\nThis deep and precise massage releases muscle stiffness, relieves pain, and returns your body to its natural lightness.\nYou will leave with a pleasant sensation of well-being and freedom in every movement.\n\nBenefits: relieves muscle knots, improves circulation, reduces accumulated tension, relaxes the nervous system, and brings an immediate sense of rest and vitality.",
+          "options": [
+            { "duration": "30 minutes", "price": "40€" },
+            { "duration": "60 minutes", "price": "65€" },
+            { "duration": "90 minutes", "price": "85€" }
+          ]
+        },
+        {
+          "slug": "embarazadas",
+          "title": "Pregnancy Massage",
+          "emoji": "🤰",
+          "tagline": "Care and well-being during a unique stage",
+          "image": "/images/subcategories/embarazadas.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Prenatal massage that relieves lower back pain, tired legs, and fluid retention. Relaxes muscles, improves circulation, reduces stress and swelling, offering well-being, serenity, and a special connection with your baby.",
+          "longDescription": "Pregnancy is a wonderful stage, but it can also bring physical discomforts like lower back pain, tired legs, or fluid retention. This massage is specially designed to relieve those discomforts and help you fully enjoy this special moment.\n\nThrough gentle and safe movements, it relaxes muscles involved in childbirth, improves circulation, reduces swelling, and promotes rest.\n\n✨ Benefits: relief from joint pain and cramps, improved intestinal transit, prevention of stretch marks, stress reduction, and a general feeling of lightness, serenity, and connection with your baby.",
+          "options": [
+            { "duration": "45 minutes", "price": "50€" },
+            { "duration": "60 minutes", "price": "60€" }
+          ]
+        },
+        {
+          "slug": "embarazadas-piernas-cansadas",
+          "title": "Pregnancy (Tired Legs)",
+          "emoji": "🪽",
+          "tagline": "Lightness and well-being for maternity",
+          "image": "/images/subcategories/embarazadas-piernas-cansadas.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Prenatal massage for tired legs that reduces swelling, cramps, and heaviness. Improves circulation, relieves muscles, promotes rest and well-being, providing lightness, relaxation, and connection with your baby.",
+          "longDescription": "The countdown to your big day has begun… and your body deserves a break.\nThis massage, specially designed for tired legs during pregnancy, helps reduce swelling, improve circulation, and relieve cramps and heaviness.\n\nThrough gentle, draining movements, it provides an immediate sensation of lightness and rest, helping you reconnect with your physical and emotional well-being.\n\n✨ Benefits: reduction of swelling and fluid retention, relief from joint and muscle pain, improved rest, circulation, and posture, as well as prevention of stretch marks and stress reduction.\n\nA necessary treat for you and your baby, during such a special stage.",
+          "options": [
+            { "duration": "15 minutes", "price": "20€" },
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "45€" }
+          ]
+        },
+        {
+          "slug": "espalda-cuello-hombros",
+          "title": "Back, Neck & Shoulders",
+          "emoji": "💆‍♂️",
+          "tagline": "Relief in the most tense areas",
+          "image": "/images/subcategories/espalda-cuello.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Massage focused on the back, neck, and shoulders that relieves knots and stiffness. Improves posture and mobility, reduces stress and discomfort, providing an immediate sensation of well-being, lightness, and deep relaxation.",
+          "longDescription": "Daily tensions tend to accumulate right there: in the back, neck, and shoulders. This massage focuses on releasing those key areas, relieving knots, reducing stiffness, and returning a pleasant sensation of lightness and well-being.\n\nBenefits: deep relaxation of dorsal and cervical muscles, relief from pain and discomfort, improved posture and mobility, and reduction of accumulated stress.",
+          "options": [
+            { "duration": "45 minutes", "price": "50€" },
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        },
+        {
+          "slug": "lomi-lomi",
+          "title": "Lomi-Lomi",
+          "emoji": "🌊",
+          "tagline": "The spirit of Hawaii in your hands",
+          "image": "/images/subcategories/lomi-lomi.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Hawaiian Lomi-Lomi massage with rhythmic and enveloping movements that relieve tension, relax muscles and the nervous system, improve circulation and lymphatic drainage, providing well-being, harmony, lightness, and inner balance.",
+          "longDescription": "The most pleasant way to travel to Hawaii without getting on a plane.\nLomi-Lomi Massage, also known as “loving hands massage”, combines rhythmic and enveloping movements performed with hands and forearms, simulating the flow of ocean waves.\n\nThis ancestral Hawaiian technique releases deep tensions, relaxes the nervous and muscular systems, and favors circulation and lymphatic drainage, bringing a sensation of balance, lightness, and inner harmony.\n\n✨ Benefits: stress reduction, improved flexibility, body toning, relief from muscle pain, and stimulation of the immune system.",
+          "options": [
+            { "duration": "60 minutes", "price": "60€" },
+            { "duration": "90 minutes", "price": "80€" }
+          ]
+        },
+        {
+          "slug": "piernas-cansadas",
+          "title": "Tired Legs",
+          "emoji": "🦵",
+          "tagline": "Reactivate circulation, recover lightness",
+          "image": "/images/subcategories/piernas-cansadas.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Specialized massage for tired legs that improves circulation, relieves swelling, heaviness, and cramps, relaxes feet and legs, prevents varicose veins, and returns an immediate sensation of lightness and well-being.",
+          "longDescription": "Whether you spend the day standing or sitting, your legs eventually feel the effort: they swell, feel heavy, and ask for rest. This specialized massage will help you reactivate circulation, relieve tension, and give them back the lightness they need.\n\nBenefits: stimulation of blood circulation, relief from heaviness and swelling, reduction of cramps, relaxation of feet and legs, and prevention of varicose veins.",
+          "options": [
+            { "duration": "15 minutes", "price": "20€" },
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "50€" }
+          ]
+        },
+        {
+          "slug": "reflexologia",
+          "title": "Reflexology",
+          "emoji": "🦶",
+          "tagline": "Balance through your feet",
+          "image": "/images/subcategories/reflexologia.png",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Foot reflexology stimulates specific points on the feet to relieve tension, reduce physical and mental stress, improve general well-being and energy circulation, providing vitality, lightness, and inner harmony.",
+          "longDescription": "Foot Reflexology is an ancient technique that applies precise pressure to specific points on the feet, which are connected to different organs and systems of the body.\n\nBy stimulating these reflex zones, energy circulation is encouraged, tensions are reduced, and physical and mental stress is alleviated, helping the organism recover its natural balance.\n\nA deeply relaxing experience that renews vitality, improves general well-being, and leaves a sensation of lightness and inner harmony.",
+          "options": [
+            { "duration": "15 minutes", "price": "20€" },
+            { "duration": "30 minutes", "price": "35€" },
+            { "duration": "45 minutes", "price": "50€" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reafirmantes",
+      "title": "Firming",
+      "image": "/images/categories/reafirmantes.jpg",
+      "shortDescription": "Firming massages stimulate the skin and awaken the vital energy that inhabits every fiber. Through firm and enveloping movements, they activate circulation, tone tissues, and return the body to its natural form of harmony and strength.",
+      "heroImages": [
+        { "src": "/images/hero/reafirmante1.jpg", "alt": "Firming1" },
+        { "src": "/images/hero/reafirmante2.jpg", "alt": "Firming2" },
+        { "src": "/images/hero/reafirmante3.jpg", "alt": "Firming3" }
+      ],
+      "showCase": {
+        "title": "Choose your experience",
+        "description": "Each firming massage is a revitalizing caress. Gift firmness, beauty, and renewal from within."
+      },
+      "subcategories": [
+        {
+          "slug": "maderoterapia",
+          "title": "Wood Therapy",
+          "emoji": "🌿",
+          "tagline": "Tone, drain, and restore firmness",
+          "image": "/images/subcategories/maderoterapia.jpg",
+          "backgroundImage": "/images/treatment-detail.jpg",
+          "shortDescription": "Wood therapy uses wooden tools to tone muscles, improve circulation and lymph flow, reduce tension and cellulite, and promote relaxation and well-being, providing firmness, lightness, and a sense of body balance.",
+          "longDescription": "Wood Therapy is a massage technique originating from oriental tradition that uses wooden tools specifically designed to work on muscles and skin.\nThrough rhythmic and precise movements, these tools help tone muscles, improve blood and lymphatic circulation, promote fluid drainage, and reduce the appearance of cellulite.\n\nThis massage not only acts on a physical level but also induces deep relaxation, releasing accumulated tension and returning a sensation of lightness and well-being. It is ideal for those seeking a treatment that is natural, aesthetic, and therapeutic at the same time.\n\n✨ Benefits: tones muscles, improves circulation, reduces cellulite, favors lymphatic drainage, relieves tension, provides firmness, lightness, and a sensation of body balance.",
+          "options": [
+            { "duration": "30 minutes", "price": "40€" },
+            { "duration": "60 minutes", "price": "75€" }
+          ]
+        }
+      ]
+    }
+  ]
+}

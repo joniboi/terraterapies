@@ -4,8 +4,16 @@ import { useState } from "react";
 import TreatwellWidget from "@/components/treatwell-widget";
 import PageIllustration from "@/components/page-illustration";
 
-export default function HeroHome() {
+// 1. Define the Dictionary Interface
+interface HeroDict {
+  title: string;
+  tagline: string;
+  cta: string;
+}
+
+export default function HeroHome({ dict }: { dict: HeroDict }) {
   const [showWidget, setShowWidget] = useState(false);
+
   return (
     <section className="relative">
       <PageIllustration />
@@ -25,7 +33,8 @@ export default function HeroHome() {
               data-aos="zoom-y-out"
               data-aos-delay={150}
             >
-              Terrateràpies Thai & Bali
+              {/* 2. Use Dictionary Title */}
+              {dict.title}
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
@@ -33,7 +42,8 @@ export default function HeroHome() {
                 data-aos="zoom-y-out"
                 data-aos-delay={300}
               >
-                Massatges amb essencia Tailandesa i Balinesa
+                {/* 3. Use Dictionary Tagline */}
+                {dict.tagline}
               </p>
               <div className="relative before:absolute before:inset-0 before:border-y before:[border-image:linear-gradient(to_right,transparent,--theme(--color-slate-300/.8),transparent)1]">
                 <div
@@ -46,7 +56,8 @@ export default function HeroHome() {
                     onClick={() => setShowWidget(true)}
                   >
                     <span className="relative inline-flex items-center">
-                      Reserva ara
+                      {/* 4. Use Dictionary CTA */}
+                      {dict.cta}
                     </span>
                   </a>
                 </div>
@@ -60,6 +71,7 @@ export default function HeroHome() {
             data-aos-delay={600}
           >
             <div className="relative aspect-[3/2] mx-auto rounded-2xl overflow-hidden shadow-xl border border-gray-200 bg-gray-900">
+              {/* Images remain hardcoded as they are assets, unrelated to language */}
               <img
                 src="/images/hero/spa1.jpg"
                 alt="Spa 1"

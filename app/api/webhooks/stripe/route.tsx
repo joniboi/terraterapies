@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { GiftCardPdf } from "@/components/pdf/giftcardpdf";
 import { generateLocator } from "@/utils/locator";
+import { getDictionary } from "@/app/lib/getDictionary";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -30,18 +31,21 @@ export async function POST(req: Request) {
     const session = event.data.object as Stripe.Checkout.Session;
 
     // Retrieve metadata we sent in Step 2
-    const { buyerName, receiverName, message, treatmentName, duration } =
+    const { buyerName, receiverName, message, treatmentName, duration, lang } =
       session.metadata!;
     const customerEmail = session.customer_details?.email;
 
     // 3. Generate Secure Locator
     const locator = await generateLocator(buyerName);
 
+    const dict = await getDictionary(lang || "es");
     // 4. Generate PDF Buffer
     const pdfBuffer = await renderToBuffer(
       <GiftCardPdf
         data={{ buyerName, receiverName, message, treatmentName, duration }}
         locator={locator}
+        labels={dict.giftCard} // <--- Pass the labels
+        lang={lang || "es"} // <--- Pass the language for dates
       />
     );
 
