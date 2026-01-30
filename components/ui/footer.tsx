@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Logo from "./logo";
+import { ChevronDown } from "lucide-react";
 
 // Define the shape of the dictionary part this component needs
 interface FooterDict {
@@ -13,7 +17,7 @@ interface FooterDict {
 
 interface FooterProps {
   border?: boolean;
-  dict: FooterDict; // <--- NEW PROP
+  dict: FooterDict;
 }
 
 export default function Footer({ border = false, dict }: FooterProps) {
@@ -22,14 +26,14 @@ export default function Footer({ border = false, dict }: FooterProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Top area: Blocks */}
         <div
-          className={`grid gap-10 py-8 sm:grid-cols-12 md:py-12 ${
+          className={`grid gap-8 py-8 sm:grid-cols-12 md:py-12 ${
             border
               ? "border-t [border-image:linear-gradient(to_right,transparent,var(--color-slate-200),transparent)1]"
               : ""
           }`}
         >
-          {/* 1st block */}
-          <div className="space-y-2 sm:col-span-12 lg:col-span-4">
+          {/* 1st block: Branding (Always visible) */}
+          <div className="space-y-4 sm:col-span-12 lg:col-span-4 mb-4 lg:mb-0">
             <div>
               <Logo />
             </div>
@@ -39,9 +43,11 @@ export default function Footer({ border = false, dict }: FooterProps) {
             </div>
           </div>
 
-          {/* 2nd block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">{dict.experiences.title}</h3>
+          {/* 2nd block: Experiences */}
+          <FooterSection
+            title={dict.experiences.title}
+            className="sm:col-span-6 md:col-span-3 lg:col-span-2"
+          >
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -68,11 +74,13 @@ export default function Footer({ border = false, dict }: FooterProps) {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
 
-          {/* 3rd block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">{dict.collabs.title}</h3>
+          {/* 3rd block: Collabs */}
+          <FooterSection
+            title={dict.collabs.title}
+            className="sm:col-span-6 md:col-span-3 lg:col-span-2"
+          >
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -83,11 +91,13 @@ export default function Footer({ border = false, dict }: FooterProps) {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
 
-          {/* 4th block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">{dict.info.title}</h3>
+          {/* 4th block: Info */}
+          <FooterSection
+            title={dict.info.title}
+            className="sm:col-span-6 md:col-span-3 lg:col-span-2"
+          >
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -114,18 +124,18 @@ export default function Footer({ border = false, dict }: FooterProps) {
                 </Link>
               </li>
             </ul>
-          </div>
+          </FooterSection>
 
-          {/* 5th block */}
-          <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-medium">{dict.social.title}</h3>
-            <ul className="flex gap-1">
+          {/* 5th block: Social (Always visible as grid/list, rarely accordion) */}
+          <div className="space-y-4 sm:col-span-6 md:col-span-3 lg:col-span-2">
+            <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
+              {dict.social.title}
+            </h3>
+            <ul className="flex gap-4">
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
-                  href={`https://wa.me/34603177049?text=${encodeURIComponent(
-                    dict.social.whatsappMsg
-                  )}`}
+                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
+                  href={`https://wa.me/34603177049?text=${encodeURIComponent(dict.social.whatsappMsg)}`}
                   aria-label="Whatsapp"
                 >
                   <svg
@@ -139,7 +149,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
+                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
                   href="https://www.facebook.com/people/Terraterapies-Thai-Y-Bali/61580296106688"
                   aria-label="Facebook"
                 >
@@ -154,7 +164,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600"
+                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
                   href="https://www.instagram.com/terrapiesthaiybali"
                   aria-label="Instagram"
                 >
@@ -173,20 +183,73 @@ export default function Footer({ border = false, dict }: FooterProps) {
       </div>
 
       {/* Big text */}
-      {/* ADD pointer-events-none HERE 👇 */}
       <div
-        className="pointer-events-none relative -mt-16 h-60 w-full"
+        className="pointer-events-none relative -mt-16 h-60 w-full overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[348px] font-bold leading-none before:bg-linear-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Thai&Bali'] after:absolute after:inset-0 after:bg-gray-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Thai&Bali'] after:[text-shadow:0_1px_0_white]"></div>
+        <div className="absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[120px] md:text-[348px] font-bold leading-none before:bg-linear-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Thai&Bali'] after:absolute after:inset-0 after:bg-gray-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Thai&Bali'] after:[text-shadow:0_1px_0_white]"></div>
         {/* Glow */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2/3"
           aria-hidden="true"
         >
-          <div className="h-56 w-56 rounded-full border-[20px] border-blue-700 blur-[80px]"></div>
+          <div className="h-40 w-40 md:h-56 md:w-56 rounded-full border-[20px] border-blue-700 blur-[60px] md:blur-[80px]"></div>
         </div>
       </div>
     </footer>
+  );
+}
+
+// --------------------------------------------------------------------------------
+// HELPER COMPONENT: Responsive Accordion
+// - On Mobile: It's a button that toggles visibility
+// - On Desktop: It's just a static block
+// --------------------------------------------------------------------------------
+function FooterSection({
+  title,
+  children,
+  className,
+}: {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      className={`space-y-2 border-b border-gray-100 sm:border-none pb-4 sm:pb-0 ${className}`}
+    >
+      {/* 
+         MOBILE HEADER: Clickable
+         DESKTOP HEADER: Static
+      */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between sm:hidden group"
+      >
+        <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
+          {title}
+        </h3>
+        <ChevronDown
+          className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <h3 className="hidden sm:block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">
+        {title}
+      </h3>
+
+      {/* 
+         CONTENT: 
+         - Mobile: Hidden unless open
+         - Desktop: Always visible (block)
+      */}
+      <div
+        className={`${isOpen ? "block" : "hidden"} sm:block animate-in slide-in-from-top-1`}
+      >
+        {children}
+      </div>
+    </div>
   );
 }

@@ -1,26 +1,9 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getServicesData } from "@/app/lib/getService"; // ✅ Use the dynamic loader
+import { Category, Subcategory, Option } from "@/types/definitions"; // Import global types
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-// ✅ Define types to fix "implicitly has an any type" errors
-interface ServiceOption {
-  duration: string;
-  price: string;
-}
-
-interface ServiceSubcategory {
-  slug: string;
-  title: string;
-  image: string;
-  options: ServiceOption[];
-}
-
-interface ServiceCategory {
-  slug: string;
-  subcategories: ServiceSubcategory[];
-}
 
 export async function POST(req: Request) {
   try {
@@ -32,7 +15,8 @@ export async function POST(req: Request) {
       from,
       to,
       message,
-      lang = "es", // ✅ Default to Spanish if frontend forgets to send it
+      lang = "es",
+      ...rest
     } = body;
 
     // --- SECURITY CHECK START ---
@@ -41,20 +25,20 @@ export async function POST(req: Request) {
     const servicesData = await getServicesData(lang);
 
     // 1. Find Category
-    const category = servicesData.categories.find(
-      (c: ServiceCategory) => c.slug === categorySlug
-    );
+    const category = servicesData.navItems
+      .flatMap((i) => i.categories)
+      .find((c: Category) => c.slug === rest.categorySlug);
     if (!category) throw new Error("Categoría no encontrada");
 
     // 2. Find Subcategory (Treatment)
     const treatment = category.subcategories.find(
-      (s: ServiceSubcategory) => s.slug === subCategorySlug
+      (s: Subcategory) => s.slug === rest.subCategorySlug
     );
     if (!treatment) throw new Error("Tratamiento no encontrado");
 
     // 3. Find Option (Duration & Price)
     // We trust the index sent by frontend, but we verify it exists
-    const selectedOption = treatment.options[optionIndex];
+    const selectedOption = treatment.options?.[rest.optionIndex];
     if (!selectedOption) throw new Error("Opción inválida");
 
     // 4. Extract and Clean Price

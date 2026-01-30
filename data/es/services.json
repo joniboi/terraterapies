@@ -1,349 +1,629 @@
 {
   "defaultBackground": "/images/treatment-detail.jpg",
-  "categories": [
+  "navItems": [
     {
-      "slug": "orientales",
-      "title": "Orientales",
-      "image": "/images/categories/orientales.jpg",
-      "shortDescription": "Los masajes orientales combinan técnicas ancestrales y filosofía espiritual para equilibrar cuerpo, mente y energía. Descubre nuestras opciones y elige el regalo perfecto para quien más lo necesite.",
-      "heroImages": [
-        { "src": "/images/hero/oriental1.jpg", "alt": "Oriental1" },
-        { "src": "/images/hero/oriental2.jpg", "alt": "Oriental2" },
-        { "src": "/images/hero/oriental3.jpg", "alt": "Oriental3" }
-      ],
-      "showCase": {
-        "title": "Elige tu experiencia",
-        "description": "Cada masaje oriental tiene una esencia única. Regala bienestar, equilibrio y serenidad."
-      },
-      "subcategories": [
+      "id": "treatments",
+      "label": "Tratamientos",
+      "layout": "mega-menu",
+      "highlight": false,
+      "categories": [
         {
-          "slug": "tailandes",
-          "title": "Tailandés",
-          "emoji": "🪷",
-          "tagline": "Energía, equilibrio y armonía interior",
-          "image": "/images/subcategories/tailandes.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Experimenta una combinación única de estiramientos y presiones que revitalizan cuerpo y mente. Este masaje tradicional tailandés mejora la flexibilidad, alivia tensiones y restaura el flujo natural de la energía.",
-          "longDescription": "Sumérgete en una experiencia ancestral que despierta cuerpo y espíritu. El Masaje Tailandés combina presiones rítmicas, estiramientos suaves y movimientos precisos inspirados en la sabiduría milenaria del sudeste asiático.\n\n Sin aceites, pero lleno de intención, este masaje estimula los canales energéticos, mejora la circulación y libera tensiones acumuladas, ayudando a restablecer el flujo natural de la energía vital.\n\n Una danza armoniosa entre fuerza y serenidad, que te devuelve a tu centro de equilibrio y deja una sensación de ligereza, claridad y profunda paz interior.",
-          "options": [
-            { "duration": "15 minutos (estiramientos)", "price": "25€" },
-            { "duration": "Fusión Bali y Thai 60 minutos", "price": "60€" },
-            { "duration": "Tradicional 60 minutos", "price": "65€" },
-            { "duration": "Fusión Bali y Thai 90 minutos", "price": "85€" },
-            { "duration": "Tradicional 90 minutos", "price": "85€" }
+          "slug": "orientales",
+          "title": "Orientales",
+          "image": "/images/categories/orientales.jpg",
+          "shortDescription": "Los masajes orientales combinan técnicas ancestrales y filosofía espiritual para equilibrar cuerpo, mente y energía. Descubre nuestras opciones y elige el regalo perfecto para quien más lo necesite.",
+          "heroImages": [
+            { "src": "/images/hero/oriental1.jpg", "alt": "Oriental1" },
+            { "src": "/images/hero/oriental2.jpg", "alt": "Oriental2" },
+            { "src": "/images/hero/oriental3.jpg", "alt": "Oriental3" }
+          ],
+          "showCase": {
+            "title": "Elige tu experiencia",
+            "description": "Cada masaje oriental tiene una esencia única. Regala bienestar, equilibrio y serenidad."
+          },
+          "subcategories": [
+            {
+              "slug": "tailandes",
+              "title": "Tailandés",
+              "emoji": "🪷",
+              "tagline": "Energía, equilibrio y armonía interior",
+              "image": "/images/subcategories/tailandes.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Experimenta una combinación única de estiramientos y presiones que revitalizan cuerpo y mente. Este masaje tradicional tailandés mejora la flexibilidad, alivia tensiones y restaura el flujo natural de la energía.",
+              "longDescription": "Sumérgete en una experiencia ancestral que despierta cuerpo y espíritu. El Masaje Tailandés combina presiones rítmicas, estiramientos suaves y movimientos precisos inspirados en la sabiduría milenaria del sudeste asiático.\n\n Sin aceites, pero lleno de intención, este masaje estimula los canales energéticos, mejora la circulación y libera tensiones acumuladas, ayudando a restablecer el flujo natural de la energía vital.\n\n Una danza armoniosa entre fuerza y serenidad, que te devuelve a tu centro de equilibrio y deja una sensación de ligereza, claridad y profunda paz interior.",
+              "options": [
+                { "duration": "15 minutos (estiramientos)", "price": "25€" },
+                { "duration": "Fusión Bali y Thai 60 minutos", "price": "60€" },
+                { "duration": "Tradicional 60 minutos", "price": "65€" },
+                { "duration": "Fusión Bali y Thai 90 minutos", "price": "85€" },
+                { "duration": "Tradicional 90 minutos", "price": "85€" }
+              ]
+            },
+            {
+              "slug": "balines",
+              "title": "Balinés",
+              "emoji": "🌺",
+              "tagline": "Una experiencia de bienestar total",
+              "image": "/images/subcategories/balines.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Viaja a Bali sin salir de la ciudad. Este masaje combina técnicas suaves y presiones profundas para aliviar el estrés, relajar los músculos y equilibrar cuerpo y espíritu.",
+              "longDescription": "Déjate transportar a la exótica isla de Bali, cuna de una tradición milenaria que combina lo mejor de la medicina hindú, la sabiduría ayurvédica y las técnicas orientales más ancestrales.\n\nEl Masaje Balinés armoniza cuerpo y mente a través de movimientos envolventes, amasamientos profundos, presiones precisas y suaves estiramientos, realizados con manos, antebrazos e incluso pies.\n\nSumérgete en un viaje sensorial único que alivia tensiones, estimula la circulación y renueva tu energía vital.\nPerfecto para regalar o regalarte un momento de auténtica paz y equilibrio.",
+              "options": [
+                { "duration": "45 minutos", "price": "50€" },
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "shiatsu",
+              "title": "Shiatsu",
+              "emoji": "🌿",
+              "tagline": "Equilibrio y armonía al estilo japonés",
+              "image": "/images/subcategories/shiatsu.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El masaje japonés Shiatsu trabaja sobre los meridianos energéticos aplicando presiones rítmicas con los dedos, palmas y codos. Su objetivo es desbloquear la energía vital, aliviar dolores y armonizar el sistema nervioso.",
+              "longDescription": "Descubre el arte ancestral del Shiatsu, una técnica manual japonesa que utiliza presiones rítmicas con los pulgares y las palmas sobre puntos energéticos del cuerpo para restaurar el equilibrio natural y liberar tensiones acumuladas.\n\nA través de amasamientos suaves, presiones profundas y delicados estiramientos, este masaje estimula la energía vital (Ki), promoviendo una sensación de relajación profunda y bienestar integral.\n\n✨ Beneficios:\n\n- Alivia dolores de espalda, cuello y cabeza (incluidas migrañas)\n- Mejora la movilidad y reduce la rigidez muscular\n- Contribuye a aliviar ciática, reumatismo y fatiga crónica\n- Favorece la circulación y el equilibrio energético\n- Ayuda en trastornos menstruales, digestivos y respiratorios\n\nRegálate —o regala— un momento de serenidad japonesa, donde cuerpo y mente se reencuentran en perfecta armonía.",
+              "options": [{ "duration": "60 minutos", "price": "60€" }]
+            },
+            {
+              "slug": "piedras-calientes",
+              "title": "Piedras Calientes",
+              "emoji": "🔥",
+              "tagline": "Calor que envuelve, energía que renueva",
+              "image": "/images/subcategories/piedras.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "La calidez de las piedras volcánicas relaja profundamente los músculos, mejora la circulación y disuelve tensiones acumuladas, envolviéndote en una sensación de paz total.",
+              "longDescription": "Regálate un momento de pausa y bienestar con el Masaje con Piedras Calientes, una técnica ancestral de origen oriental que combina el contacto del calor con el arte del masaje para relajar cuerpo y mente profundamente.\n\nLas piedras volcánicas calientes se deslizan suavemente sobre la piel, transmitiendo una sensación envolvente de calma y equilibrio. El calor penetra en los músculos, aliviando tensiones, mejorando la circulación y ayudando a liberar toxinas y estrés acumulado.\n\nUna experiencia sensorial única que te hará sentir ligero, revitalizado y en total armonía.\nIdeal para regalar o disfrutar cuando necesitas reconectar contigo mismo.",
+              "options": [
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "pindas-herbales",
+              "title": "Pindas Herbales",
+              "emoji": "🌸",
+              "tagline": "Aromas que sanan, calor que relaja",
+              "image": "/images/subcategories/pindas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Las pindas, bolsitas de hierbas y especias aromáticas, se aplican calientes con movimientos rítmicos. Una experiencia sensorial que alivia tensiones, nutre la piel y revitaliza el alma.",
+              "longDescription": "Descubre una experiencia única que combina las técnicas del masaje tradicional con el poder terapéutico de las pindas herbales: pequeñas bolsas de tela llenas de hierbas medicinales y aromáticas cuidadosamente seleccionadas.\n\nAl calentarse con vapor de agua, las pindas liberan sus aceites esenciales y propiedades curativas, envolviendo el cuerpo en un aroma natural y relajante que calma la mente y alivia las tensiones musculares.\n\nUn masaje que nutre la piel, estimula los sentidos y renueva la energía vital, invitándote a un profundo estado de bienestar y serenidad.",
+              "options": [
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "balines",
-          "title": "Balinés",
-          "emoji": "🌺",
-          "tagline": "Una experiencia de bienestar total",
-          "image": "/images/subcategories/balines.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Viaja a Bali sin salir de la ciudad. Este masaje combina técnicas suaves y presiones profundas para aliviar el estrés, relajar los músculos y equilibrar cuerpo y espíritu.",
-          "longDescription": "Déjate transportar a la exótica isla de Bali, cuna de una tradición milenaria que combina lo mejor de la medicina hindú, la sabiduría ayurvédica y las técnicas orientales más ancestrales.\n\nEl Masaje Balinés armoniza cuerpo y mente a través de movimientos envolventes, amasamientos profundos, presiones precisas y suaves estiramientos, realizados con manos, antebrazos e incluso pies.\n\nSumérgete en un viaje sensorial único que alivia tensiones, estimula la circulación y renueva tu energía vital.\nPerfecto para regalar o regalarte un momento de auténtica paz y equilibrio.",
-          "options": [
-            { "duration": "45 minutos", "price": "50€" },
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
+          "slug": "relajantes",
+          "title": "Relajantes",
+          "image": "/images/categories/relajantes.jpg",
+          "shortDescription": "Sumérgete en un refugio de calma donde el tiempo se detiene y el cuerpo respira en armonía. Los aromas suaves, la calidez de las velas aromáticas y el toque sincronizado de un masaje a 4 manos envuelven los sentidos en serenidad. Cada sesión es una caricia al alma, un susurro que disuelve el estrés y devuelve la paz interior.",
+          "heroImages": [
+            { "src": "/images/hero/relajante1.jpg", "alt": "Relajante1" },
+            { "src": "/images/hero/relajante2.jpg", "alt": "Relajante2" },
+            { "src": "/images/hero/relajante3.jpg", "alt": "Relajante3" }
+          ],
+          "showCase": {
+            "title": "Elige tu experiencia",
+            "description": "Cada masaje relajante es una pausa para el alma. Regala calma, ternura y un instante de respiro."
+          },
+          "subcategories": [
+            {
+              "slug": "relajante",
+              "title": "Relajante",
+              "emoji": "🌙",
+              "tagline": "Una pausa para tu bienestar",
+              "image": "/images/subcategories/relajante.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El ritmo pausado y envolvente de este masaje calma la mente, alivia el cuerpo y devuelve la armonía. Ideal para dejar atrás el estrés y dejar que la serenidad fluya como un suspiro sobre la piel.",
+              "longDescription": "Cuando el ritmo del día a día se acelera, regálate un momento de calma. El Masaje Relajante está diseñado para ayudarte a desconectar del estrés, aliviar tensiones y recuperar la armonía entre cuerpo y mente.\n\nA través de movimientos suaves y envolventes, este masaje te envuelve en una sensación de tranquilidad profunda, favoreciendo el descanso, la circulación y el bienestar general.\n\nIdeal para quienes buscan detener el tiempo unos instantes y volver a sentirse en equilibrio.",
+              "options": [
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "50€" },
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "75€" }
+              ]
+            },
+            {
+              "slug": "aromaterapia",
+              "title": "Aromaterapia",
+              "emoji": "🌺",
+              "tagline": "Fragancias que equilibran cuerpo y alma",
+              "image": "/images/subcategories/aromaterapia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Los aromas esenciales envuelven tus sentidos mientras suaves movimientos disuelven tensiones y despiertan la serenidad interior. Cada respiración se convierte en un susurro de bienestar y equilibrio.",
+              "longDescription": "Déjate envolver por un baile de aromas y sensaciones que te transportan lejos del estrés cotidiano. El Masaje con Aromaterapia combina el poder del tacto relajante con los aceites esenciales naturales, cuidadosamente seleccionados para estimular tus sentidos y renovar tu energía interior.\n\nCada fragancia actúa sobre cuerpo y mente, ayudando a reducir el estrés, regular la presión arterial, mejorar la digestión y reforzar el sistema inmunológico.\n\nUna experiencia multisensorial que restaura la calma, despierta la vitalidad y deja una sensación duradera de equilibrio y bienestar.",
+              "options": [
+                { "duration": "30 minutos", "price": "30€" },
+                { "duration": "45 minutos", "price": "45€" },
+                { "duration": "60 minutos", "price": "55€" },
+                { "duration": "90 minutos", "price": "75€" }
+              ]
+            },
+            {
+              "slug": "velas-aromaticas",
+              "title": "Velas aromáticas",
+              "emoji": "🕯️",
+              "tagline": "Calor, aroma y bienestar profundo",
+              "image": "/images/subcategories/velas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "La cálida cera de karité se transforma en un bálsamo sedoso que acaricia la piel, nutriéndola en profundidad. Las manos se deslizan con armonía, liberando el cuerpo de toda rigidez y dejando un rastro de perfume y paz.",
+              "longDescription": "Estrés, cansancio, insomnio… ¿te suena familiar?\nDespide todas esas tensiones con un masaje estimulante y delicado, realizado con una vela de aceite aromático que, al fundirse, se transforma en un suave elixir tibio para la piel.\n\nEl ambiente se llena de luz, aroma y serenidad, invitándote a un descanso profundo y reparador. Ideal para todo tipo de piel y cualquier zona del cuerpo, este tratamiento nutre, hidrata y reconecta cuerpo y mente.\n\n✨ Beneficios: mejora la circulación, regula el ritmo cardíaco y la presión arterial, reduce el estrés y fortalece el sistema inmunológico.\n\nUna experiencia sensorial única que te dejará renovado por dentro y por fuera.",
+              "options": [
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "50€" },
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "craneofacial",
+              "title": "Craneofacial",
+              "emoji": "💆‍♀️",
+              "tagline": "Libera tu mente, renueva tu expresión",
+              "image": "/images/subcategories/craneofacial.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "A través de suaves presiones y movimientos en cuero cabelludo, cuello y hombros, este masaje libera la tensión acumulada, mejora la circulación y despierta una sensación de claridad y ligereza interior.",
+              "longDescription": "La tensión del día a día suele acumularse en el cuello, el cuero cabelludo y el rostro, generando rigidez y cansancio. El Masaje Craneofacial ayuda a liberar esas tensiones mediante suaves presiones y movimientos rítmicos que relajan los músculos faciales y estimulan la circulación.\n\nEste tratamiento no solo alivia el estrés mental, sino que también ilumina el rostro, mejora la oxigenación y deja una sensación inmediata de ligereza y bienestar.\n\nPerfecto para quienes buscan claridad mental, descanso profundo y un aire renovado.",
+              "options": [
+                { "duration": "15 minutos", "price": "20€" },
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "50€" }
+              ]
+            },
+            {
+              "slug": "a-cuatro-manos",
+              "title": "A cuatro manos",
+              "emoji": "🤲",
+              "tagline": "Doble energía, armonía perfecta",
+              "image": "/images/subcategories/cuatro.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Cuatro manos se mueven en completa sincronía, creando una sinfonía de caricias que envuelve el cuerpo en una oleada de sensaciones. Una experiencia envolvente y única que multiplica el placer y la relajación.",
+              "longDescription": "Imagina dos terapeutas trabajando en total sincronía, combinando movimientos fluidos, presiones y estiramientos en una coreografía perfectamente equilibrada. El resultado: una experiencia única que multiplica la relajación y el bienestar.\n\nEl Masaje a Cuatro Manos envuelve el cuerpo en un ritmo armonioso que disuelve tensiones, estimula la circulación y lleva la mente a un estado de profunda calma.\nUna sensación tan envolvente que el tiempo parece detenerse.\n\nIdeal para quienes buscan un tratamiento exclusivo, sensorial y absolutamente inolvidable.\nDoble de manos, doble de placer.",
+              "options": [
+                { "duration": "60 minutos", "price": "120€" },
+                { "duration": "90 minutos", "price": "150€" }
+              ]
+            },
+            {
+              "slug": "antiestres",
+              "title": "Antiestrés",
+              "emoji": "🌿",
+              "tagline": "Libera tensiones, recupera tu calma",
+              "image": "/images/subcategories/antiestres.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Con técnicas que combinan presión suave y respiración profunda, este masaje ayuda a liberar bloqueos emocionales y físicos. Cada movimiento disuelve el cansancio, invitando a la tranquilidad y al descanso más reparador.",
+              "longDescription": "¿Necesitas desconectar y soltar la tensión acumulada del día a día?\nEl Masaje Antiestrés está especialmente diseñado para relajar cuello, hombros y espalda, las zonas donde más se concentra la carga física y emocional.\n\nMediante movimientos firmes y precisos, este tratamiento disuelve contracturas, mejora la circulación y proporciona una sensación inmediata de ligereza y bienestar.\n\nIdeal para quienes buscan recuperar energía, serenidad y un descanso profundo.\n✨ Deja atrás las prisas… y vuelve a sentirte en equilibrio.",
+              "options": [
+                { "duration": "60 minutos", "price": "55€" },
+                { "duration": "90 minutos", "price": "75€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "shiatsu",
-          "title": "Shiatsu",
-          "emoji": "🌿",
-          "tagline": "Equilibrio y armonía al estilo japonés",
-          "image": "/images/subcategories/shiatsu.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "El masaje japonés Shiatsu trabaja sobre los meridianos energéticos aplicando presiones rítmicas con los dedos, palmas y codos. Su objetivo es desbloquear la energía vital, aliviar dolores y armonizar el sistema nervioso.",
-          "longDescription": "Descubre el arte ancestral del Shiatsu, una técnica manual japonesa que utiliza presiones rítmicas con los pulgares y las palmas sobre puntos energéticos del cuerpo para restaurar el equilibrio natural y liberar tensiones acumuladas.\n\nA través de amasamientos suaves, presiones profundas y delicados estiramientos, este masaje estimula la energía vital (Ki), promoviendo una sensación de relajación profunda y bienestar integral.\n\n✨ Beneficios:\n\n- Alivia dolores de espalda, cuello y cabeza (incluidas migrañas)\n- Mejora la movilidad y reduce la rigidez muscular\n- Contribuye a aliviar ciática, reumatismo y fatiga crónica\n- Favorece la circulación y el equilibrio energético\n- Ayuda en trastornos menstruales, digestivos y respiratorios\n\nRegálate —o regala— un momento de serenidad japonesa, donde cuerpo y mente se reencuentran en perfecta armonía.",
-          "options": [{ "duration": "60 minutos", "price": "60€" }]
-        },
-        {
-          "slug": "piedras-calientes",
-          "title": "Piedras Calientes",
-          "emoji": "🔥",
-          "tagline": "Calor que envuelve, energía que renueva",
-          "image": "/images/subcategories/piedras.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "La calidez de las piedras volcánicas relaja profundamente los músculos, mejora la circulación y disuelve tensiones acumuladas, envolviéndote en una sensación de paz total.",
-          "longDescription": "Regálate un momento de pausa y bienestar con el Masaje con Piedras Calientes, una técnica ancestral de origen oriental que combina el contacto del calor con el arte del masaje para relajar cuerpo y mente profundamente.\n\nLas piedras volcánicas calientes se deslizan suavemente sobre la piel, transmitiendo una sensación envolvente de calma y equilibrio. El calor penetra en los músculos, aliviando tensiones, mejorando la circulación y ayudando a liberar toxinas y estrés acumulado.\n\nUna experiencia sensorial única que te hará sentir ligero, revitalizado y en total armonía.\nIdeal para regalar o disfrutar cuando necesitas reconectar contigo mismo.",
-          "options": [
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
+          "slug": "terapeuticos",
+          "title": "Terapéuticos",
+          "image": "/images/categories/terapeuticos.jpg",
+          "shortDescription": "Los masajes terapéuticos son un viaje hacia la recuperación y el equilibrio interior. A través del tacto consciente, alivian tensiones, reactivan la energía y devuelven armonía al cuerpo. Una experiencia que nutre, repara y renueva desde lo profundo.",
+          "heroImages": [
+            { "src": "/images/hero/terapeutico1.jpg", "alt": "Terapeutico1" },
+            { "src": "/images/hero/terapeutico2.jpg", "alt": "Terapeutico2" },
+            { "src": "/images/hero/terapeutico3.jpg", "alt": "Terapeutico3" }
+          ],
+          "showCase": {
+            "title": "Elige tu experiencia",
+            "description": "Cada masaje terapéutico es un gesto de cuidado. Regala alivio, fuerza y bienestar duradero."
+          },
+          "subcategories": [
+            {
+              "slug": "descontracturante",
+              "title": "Descontracturante",
+              "emoji": "💆‍♀️",
+              "tagline": "Alivio de tensiones profundas",
+              "image": "/images/subcategories/descontracturante.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje profundo que libera la rigidez muscular, alivia contracturas y tensión, mejora la circulación y relaja el sistema nervioso. Deja una sensación inmediata de bienestar, ligereza y vitalidad.",
+              "longDescription": "Tras largas horas en la misma posición, los músculos se tensan y aparecen las molestas contracturas.\nEste masaje profundo y preciso libera la rigidez muscular, alivia el dolor y devuelve a tu cuerpo su ligereza natural.\nSaldrás con una agradable sensación de bienestar y libertad en cada movimiento.\n\nBeneficios: alivia contracturas, mejora la circulación, reduce la tensión acumulada, relaja el sistema nervioso y aporta una sensación inmediata de descanso y vitalidad.",
+              "options": [
+                { "duration": "30 minutos", "price": "40€" },
+                { "duration": "60 minutos", "price": "65€" },
+                { "duration": "90 minutos", "price": "85€" }
+              ]
+            },
+            {
+              "slug": "embarazadas",
+              "title": "Embarazadas",
+              "emoji": "🤰",
+              "tagline": "Cuidado y bienestar en una etapa única",
+              "image": "/images/subcategories/embarazadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje prenatal que alivia dolores lumbares, piernas cansadas y retención de líquidos. Relaja músculos, mejora circulación, reduce estrés y edemas, ofreciendo bienestar, serenidad y una conexión especial con tu bebé.",
+              "longDescription": "El embarazo es una etapa maravillosa, pero también puede traer molestias físicas como dolores lumbares, piernas cansadas o retención de líquidos. Este masaje está diseñado especialmente para aliviar esas incomodidades y ayudarte a disfrutar plenamente de este momento tan especial.\n\nA través de movimientos suaves y seguros, se logra relajar los músculos implicados en el parto, mejorar la circulación, reducir edemas y favorecer el descanso.\n\n✨ Beneficios: alivio de dolores articulares y calambres, mejora del tránsito intestinal, prevención de estrías, reducción del estrés y una sensación general de ligereza, serenidad y conexión con tu bebé.",
+              "options": [
+                { "duration": "45 minutos", "price": "50€" },
+                { "duration": "60 minutos", "price": "60€" }
+              ]
+            },
+            {
+              "slug": "embarazadas-piernas-cansadas",
+              "title": "Embarazadas (Piernas cansadas)",
+              "emoji": "🪽",
+              "tagline": "Ligereza y bienestar para la maternidad",
+              "image": "/images/subcategories/embarazadas-piernas-cansadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje prenatal para piernas cansadas que reduce hinchazón, calambres y pesadez. Mejora circulación, alivia músculos, favorece el descanso y bienestar, proporcionando ligereza, relajación y conexión con tu bebé.",
+              "longDescription": "La cuenta atrás para tu gran día ha comenzado… y tu cuerpo merece un respiro.\nEste masaje, especialmente diseñado para piernas cansadas durante el embarazo, ayuda a reducir la hinchazón, mejorar la circulación y aliviar calambres y pesadez.\n\nA través de movimientos suaves y drenantes, aporta una sensación inmediata de ligereza y descanso, ayudándote a reconectar con tu bienestar físico y emocional.\n\n✨ Beneficios: reducción de edemas y retención de líquidos, alivio de dolores articulares y musculares, mejora del descanso, de la circulación y de la postura, así como prevención de estrías y reducción del estrés.\n\nUn mimo necesario para ti y tu bebé, en una etapa tan especial.",
+              "options": [
+                { "duration": "15 minutos", "price": "20€" },
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "45€" }
+              ]
+            },
+            {
+              "slug": "espalda-cuello-hombros",
+              "title": "Espalda, cuello y hombros",
+              "emoji": "💆‍♂️",
+              "tagline": "Alivio en las zonas más tensionadas",
+              "image": "/images/subcategories/espalda-cuello.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje centrado en espalda, cuello y hombros que alivia contracturas y rigidez. Mejora postura y movilidad, reduce estrés y molestias, proporcionando una sensación inmediata de bienestar, ligereza y relajación profunda.",
+              "longDescription": "Las tensiones del día a día suelen acumularse justo ahí: en la espalda, el cuello y los hombros. Este masaje se centra en liberar esas zonas clave, aliviando contracturas, reduciendo la rigidez y devolviéndote una agradable sensación de ligereza y bienestar.\n\nBeneficios: relajación profunda de la musculatura dorsal y cervical, alivio de dolores y molestias, mejora de la postura y la movilidad, y reducción del estrés acumulado.",
+              "options": [
+                { "duration": "45 minutos", "price": "50€" },
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "lomi-lomi",
+              "title": "Lomi-Lomi",
+              "emoji": "🌊",
+              "tagline": "El espíritu de Hawaii en tus manos",
+              "image": "/images/subcategories/lomi-lomi.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje Lomi-Lomi hawaiano con movimientos rítmicos y envolventes que alivian tensiones, relajan músculos y sistema nervioso, mejoran circulación y drenaje linfático, proporcionando bienestar, armonía, ligereza y equilibrio interior.",
+              "longDescription": "La forma más placentera de viajar a Hawaii sin subirte a un avión.\nEl Masaje Lomi-Lomi, también conocido como “el masaje de las manos amorosas”, combina movimientos rítmicos y envolventes realizados con las manos y antebrazos, simulando el fluir de las olas del océano.\n\nEsta técnica ancestral hawaiana libera tensiones profundas, relaja el sistema nervioso y muscular y favorece la circulación y el drenaje linfático, aportando una sensación de equilibrio, ligereza y armonía interior.\n\n✨ Beneficios: reducción del estrés, mejora de la flexibilidad, tonificación del cuerpo, alivio de dolores musculares y estimulación del sistema inmunológico.",
+              "options": [
+                { "duration": "60 minutos", "price": "60€" },
+                { "duration": "90 minutos", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "piernas-cansadas",
+              "title": "Piernas cansadas",
+              "emoji": "🦵",
+              "tagline": "Reactivar la circulación, recuperar ligereza",
+              "image": "/images/subcategories/piernas-cansadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Masaje especializado para piernas cansadas que mejora la circulación, alivia hinchazón, pesadez y calambres, relaja pies y piernas, previene varices y devuelve sensación inmediata de ligereza y bienestar.",
+              "longDescription": "anto si pasas el día de pie como sentado, tus piernas acaban notando el esfuerzo: se hinchan, se cargan y piden descanso. Este masaje especializado te ayudará a reactivar la circulación, aliviar la tensión y devolverles la ligereza que necesitan.\n\nBeneficios: estimulación de la circulación sanguínea, alivio de la sensación de pesadez e hinchazón, reducción de calambres, relajación de pies y piernas, y prevención de varices.",
+              "options": [
+                { "duration": "15 minutos", "price": "20€" },
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "50€" }
+              ]
+            },
+            {
+              "slug": "reflexologia",
+              "title": "Reflexología podal",
+              "emoji": "🦶",
+              "tagline": "Equilibrio a través de tus pies",
+              "image": "/images/subcategories/reflexologia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Reflexología podal que estimula puntos específicos de los pies para aliviar tensiones, reducir estrés físico y mental, mejorar bienestar general y circulación energética, proporcionando vitalidad, ligereza y armonía interior.",
+              "longDescription": "La Reflexología Podal es una técnica milenaria que aplica presiones precisas en puntos específicos de los pies, conectados con diferentes órganos y sistemas del cuerpo.\n\nAl estimular estas zonas reflejas, se favorece la circulación energética, se reducen tensiones y se alivia el estrés físico y mental, ayudando al organismo a recuperar su equilibrio natural.\n\nUna experiencia profundamente relajante que renueva la vitalidad, mejora el bienestar general y deja una sensación de ligereza y armonía interior.",
+              "options": [
+                { "duration": "15 minutos", "price": "20€" },
+                { "duration": "30 minutos", "price": "35€" },
+                { "duration": "45 minutos", "price": "50€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "pindas-herbales",
-          "title": "Pindas Herbales",
-          "emoji": "🌸",
-          "tagline": "Aromas que sanan, calor que relaja",
-          "image": "/images/subcategories/pindas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Las pindas, bolsitas de hierbas y especias aromáticas, se aplican calientes con movimientos rítmicos. Una experiencia sensorial que alivia tensiones, nutre la piel y revitaliza el alma.",
-          "longDescription": "Descubre una experiencia única que combina las técnicas del masaje tradicional con el poder terapéutico de las pindas herbales: pequeñas bolsas de tela llenas de hierbas medicinales y aromáticas cuidadosamente seleccionadas.\n\nAl calentarse con vapor de agua, las pindas liberan sus aceites esenciales y propiedades curativas, envolviendo el cuerpo en un aroma natural y relajante que calma la mente y alivia las tensiones musculares.\n\nUn masaje que nutre la piel, estimula los sentidos y renueva la energía vital, invitándote a un profundo estado de bienestar y serenidad.",
-          "options": [
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
+          "slug": "reafirmantes",
+          "title": "Reafirmantes",
+          "image": "/images/categories/reafirmantes.jpg",
+          "shortDescription": "Los masajes reafirmantes estimulan la piel y despiertan la energía vital que habita en cada fibra. A través de movimientos firmes y envolventes, activan la circulación, tonifican los tejidos y devuelven al cuerpo su forma natural de armonía y fuerza.",
+          "heroImages": [
+            { "src": "/images/hero/reafirmante1.jpg", "alt": "Reafirmante1" },
+            { "src": "/images/hero/reafirmante2.jpg", "alt": "Reafirmante2" },
+            { "src": "/images/hero/reafirmante3.jpg", "alt": "Reafirmante3" }
+          ],
+          "showCase": {
+            "title": "Elige tu experiencia",
+            "description": "Cada masaje reafirmante es una caricia revitalizadora. Regala firmeza, belleza y renovación desde el interior."
+          },
+          "subcategories": [
+            {
+              "slug": "maderoterapia",
+              "title": "Maderoterapia",
+              "emoji": "🌿",
+              "tagline": "Tonifica, drena y devuelve firmeza",
+              "image": "/images/subcategories/maderoterapia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Maderoterapia con herramientas de madera que tonifica músculos, mejora circulación y linfa, reduce tensiones y celulitis, favorece la relajación y bienestar, aportando firmeza, ligereza y sensación de equilibrio corporal.",
+              "longDescription": "La Maderoterapia es una técnica de masaje originaria de la tradición oriental que utiliza herramientas de madera diseñadas específicamente para trabajar sobre los músculos y la piel.\nA través de movimientos rítmicos y precisos, estas herramientas ayudan a tonificar la musculatura, mejorar la circulación sanguínea y linfática, favorecer el drenaje de líquidos y reducir la apariencia de celulitis.\n\nEste masaje no solo actúa a nivel físico, sino que también induce una profunda relajación, liberando tensiones acumuladas y devolviendo sensación de ligereza y bienestar. Es ideal para quienes buscan un tratamiento natural, estético y terapéutico al mismo tiempo.\n\n✨ Beneficios: tonifica músculos, mejora circulación, reduce celulitis, favorece drenaje linfático, alivia tensiones, aporta firmeza, ligereza y sensación de equilibrio corporal.",
+              "options": [
+                { "duration": "30 minutos", "price": "40€" },
+                { "duration": "60 minutos", "price": "75€" }
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "slug": "relajantes",
-      "title": "Relajantes",
-      "image": "/images/categories/relajantes.jpg",
-      "shortDescription": "Sumérgete en un refugio de calma donde el tiempo se detiene y el cuerpo respira en armonía. Los aromas suaves, la calidez de las velas aromáticas y el toque sincronizado de un masaje a 4 manos envuelven los sentidos en serenidad. Cada sesión es una caricia al alma, un susurro que disuelve el estrés y devuelve la paz interior.",
-      "heroImages": [
-        { "src": "/images/hero/relajante1.jpg", "alt": "Relajante1" },
-        { "src": "/images/hero/relajante2.jpg", "alt": "Relajante2" },
-        { "src": "/images/hero/relajante3.jpg", "alt": "Relajante3" }
-      ],
-      "showCase": {
-        "title": "Elige tu experiencia",
-        "description": "Cada masaje relajante es una pausa para el alma. Regala calma, ternura y un instante de respiro."
-      },
-      "subcategories": [
+      "id": "rituals",
+      "label": "Rituales",
+      "layout": "rich-dropdown",
+      "highlight": true,
+      "emoji": "✨",
+      "categories": [
         {
-          "slug": "relajante",
-          "title": "Relajante",
-          "emoji": "🌙",
-          "tagline": "Una pausa para tu bienestar",
-          "image": "/images/subcategories/relajante.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "El ritmo pausado y envolvente de este masaje calma la mente, alivia el cuerpo y devuelve la armonía. Ideal para dejar atrás el estrés y dejar que la serenidad fluya como un suspiro sobre la piel.",
-          "longDescription": "Cuando el ritmo del día a día se acelera, regálate un momento de calma. El Masaje Relajante está diseñado para ayudarte a desconectar del estrés, aliviar tensiones y recuperar la armonía entre cuerpo y mente.\n\nA través de movimientos suaves y envolventes, este masaje te envuelve en una sensación de tranquilidad profunda, favoreciendo el descanso, la circulación y el bienestar general.\n\nIdeal para quienes buscan detener el tiempo unos instantes y volver a sentirse en equilibrio.",
-          "options": [
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "50€" },
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "75€" }
-          ]
-        },
-        {
-          "slug": "aromaterapia",
-          "title": "Aromaterapia",
-          "emoji": "🌺",
-          "tagline": "Fragancias que equilibran cuerpo y alma",
-          "image": "/images/subcategories/aromaterapia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Los aromas esenciales envuelven tus sentidos mientras suaves movimientos disuelven tensiones y despiertan la serenidad interior. Cada respiración se convierte en un susurro de bienestar y equilibrio.",
-          "longDescription": "Déjate envolver por un baile de aromas y sensaciones que te transportan lejos del estrés cotidiano. El Masaje con Aromaterapia combina el poder del tacto relajante con los aceites esenciales naturales, cuidadosamente seleccionados para estimular tus sentidos y renovar tu energía interior.\n\nCada fragancia actúa sobre cuerpo y mente, ayudando a reducir el estrés, regular la presión arterial, mejorar la digestión y reforzar el sistema inmunológico.\n\nUna experiencia multisensorial que restaura la calma, despierta la vitalidad y deja una sensación duradera de equilibrio y bienestar.",
-          "options": [
-            { "duration": "30 minutos", "price": "30€" },
-            { "duration": "45 minutos", "price": "45€" },
-            { "duration": "60 minutos", "price": "55€" },
-            { "duration": "90 minutos", "price": "75€" }
-          ]
-        },
-        {
-          "slug": "velas-aromaticas",
-          "title": "Velas aromáticas",
-          "emoji": "🕯️",
-          "tagline": "Calor, aroma y bienestar profundo",
-          "image": "/images/subcategories/velas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "La cálida cera de karité se transforma en un bálsamo sedoso que acaricia la piel, nutriéndola en profundidad. Las manos se deslizan con armonía, liberando el cuerpo de toda rigidez y dejando un rastro de perfume y paz.",
-          "longDescription": "Estrés, cansancio, insomnio… ¿te suena familiar?\nDespide todas esas tensiones con un masaje estimulante y delicado, realizado con una vela de aceite aromático que, al fundirse, se transforma en un suave elixir tibio para la piel.\n\nEl ambiente se llena de luz, aroma y serenidad, invitándote a un descanso profundo y reparador. Ideal para todo tipo de piel y cualquier zona del cuerpo, este tratamiento nutre, hidrata y reconecta cuerpo y mente.\n\n✨ Beneficios: mejora la circulación, regula el ritmo cardíaco y la presión arterial, reduce el estrés y fortalece el sistema inmunológico.\n\nUna experiencia sensorial única que te dejará renovado por dentro y por fuera.",
-          "options": [
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "50€" },
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "craneofacial",
-          "title": "Craneofacial",
-          "emoji": "💆‍♀️",
-          "tagline": "Libera tu mente, renueva tu expresión",
-          "image": "/images/subcategories/craneofacial.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "A través de suaves presiones y movimientos en cuero cabelludo, cuello y hombros, este masaje libera la tensión acumulada, mejora la circulación y despierta una sensación de claridad y ligereza interior.",
-          "longDescription": "La tensión del día a día suele acumularse en el cuello, el cuero cabelludo y el rostro, generando rigidez y cansancio. El Masaje Craneofacial ayuda a liberar esas tensiones mediante suaves presiones y movimientos rítmicos que relajan los músculos faciales y estimulan la circulación.\n\nEste tratamiento no solo alivia el estrés mental, sino que también ilumina el rostro, mejora la oxigenación y deja una sensación inmediata de ligereza y bienestar.\n\nPerfecto para quienes buscan claridad mental, descanso profundo y un aire renovado.",
-          "options": [
-            { "duration": "15 minutos", "price": "20€" },
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "50€" }
-          ]
-        },
-        {
-          "slug": "a-cuatro-manos",
-          "title": "A cuatro manos",
-          "emoji": "🤲",
-          "tagline": "Doble energía, armonía perfecta",
-          "image": "/images/subcategories/cuatro.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Cuatro manos se mueven en completa sincronía, creando una sinfonía de caricias que envuelve el cuerpo en una oleada de sensaciones. Una experiencia envolvente y única que multiplica el placer y la relajación.",
-          "longDescription": "Imagina dos terapeutas trabajando en total sincronía, combinando movimientos fluidos, presiones y estiramientos en una coreografía perfectamente equilibrada. El resultado: una experiencia única que multiplica la relajación y el bienestar.\n\nEl Masaje a Cuatro Manos envuelve el cuerpo en un ritmo armonioso que disuelve tensiones, estimula la circulación y lleva la mente a un estado de profunda calma.\nUna sensación tan envolvente que el tiempo parece detenerse.\n\nIdeal para quienes buscan un tratamiento exclusivo, sensorial y absolutamente inolvidable.\nDoble de manos, doble de placer.",
-          "options": [
-            { "duration": "60 minutos", "price": "120€" },
-            { "duration": "90 minutos", "price": "150€" }
-          ]
-        },
-        {
-          "slug": "antiestres",
-          "title": "Antiestrés",
-          "emoji": "🌿",
-          "tagline": "Libera tensiones, recupera tu calma",
-          "image": "/images/subcategories/antiestres.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Con técnicas que combinan presión suave y respiración profunda, este masaje ayuda a liberar bloqueos emocionales y físicos. Cada movimiento disuelve el cansancio, invitando a la tranquilidad y al descanso más reparador.",
-          "longDescription": "¿Necesitas desconectar y soltar la tensión acumulada del día a día?\nEl Masaje Antiestrés está especialmente diseñado para relajar cuello, hombros y espalda, las zonas donde más se concentra la carga física y emocional.\n\nMediante movimientos firmes y precisos, este tratamiento disuelve contracturas, mejora la circulación y proporciona una sensación inmediata de ligereza y bienestar.\n\nIdeal para quienes buscan recuperar energía, serenidad y un descanso profundo.\n✨ Deja atrás las prisas… y vuelve a sentirte en equilibrio.",
-          "options": [
-            { "duration": "60 minutos", "price": "55€" },
-            { "duration": "90 minutos", "price": "75€" }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "terapeuticos",
-      "title": "Terapéuticos",
-      "image": "/images/categories/terapeuticos.jpg",
-      "shortDescription": "Los masajes terapéuticos son un viaje hacia la recuperación y el equilibrio interior. A través del tacto consciente, alivian tensiones, reactivan la energía y devuelven armonía al cuerpo. Una experiencia que nutre, repara y renueva desde lo profundo.",
-      "heroImages": [
-        { "src": "/images/hero/terapeutico1.jpg", "alt": "Terapeutico1" },
-        { "src": "/images/hero/terapeutico2.jpg", "alt": "Terapeutico2" },
-        { "src": "/images/hero/terapeutico3.jpg", "alt": "Terapeutico3" }
-      ],
-      "showCase": {
-        "title": "Elige tu experiencia",
-        "description": "Cada masaje terapéutico es un gesto de cuidado. Regala alivio, fuerza y bienestar duradero."
-      },
-      "subcategories": [
-        {
-          "slug": "descontracturante",
-          "title": "Descontracturante",
-          "emoji": "💆‍♀️",
-          "tagline": "Alivio de tensiones profundas",
-          "image": "/images/subcategories/descontracturante.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje profundo que libera la rigidez muscular, alivia contracturas y tensión, mejora la circulación y relaja el sistema nervioso. Deja una sensación inmediata de bienestar, ligereza y vitalidad.",
-          "longDescription": "Tras largas horas en la misma posición, los músculos se tensan y aparecen las molestas contracturas.\nEste masaje profundo y preciso libera la rigidez muscular, alivia el dolor y devuelve a tu cuerpo su ligereza natural.\nSaldrás con una agradable sensación de bienestar y libertad en cada movimiento.\n\nBeneficios: alivia contracturas, mejora la circulación, reduce la tensión acumulada, relaja el sistema nervioso y aporta una sensación inmediata de descanso y vitalidad.",
-          "options": [
-            { "duration": "30 minutos", "price": "40€" },
-            { "duration": "60 minutos", "price": "65€" },
-            { "duration": "90 minutos", "price": "85€" }
-          ]
-        },
-        {
-          "slug": "embarazadas",
-          "title": "Embarazadas",
-          "emoji": "🤰",
-          "tagline": "Cuidado y bienestar en una etapa única",
-          "image": "/images/subcategories/embarazadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje prenatal que alivia dolores lumbares, piernas cansadas y retención de líquidos. Relaja músculos, mejora circulación, reduce estrés y edemas, ofreciendo bienestar, serenidad y una conexión especial con tu bebé.",
-          "longDescription": "El embarazo es una etapa maravillosa, pero también puede traer molestias físicas como dolores lumbares, piernas cansadas o retención de líquidos. Este masaje está diseñado especialmente para aliviar esas incomodidades y ayudarte a disfrutar plenamente de este momento tan especial.\n\nA través de movimientos suaves y seguros, se logra relajar los músculos implicados en el parto, mejorar la circulación, reducir edemas y favorecer el descanso.\n\n✨ Beneficios: alivio de dolores articulares y calambres, mejora del tránsito intestinal, prevención de estrías, reducción del estrés y una sensación general de ligereza, serenidad y conexión con tu bebé.",
-          "options": [
-            { "duration": "45 minutos", "price": "50€" },
-            { "duration": "60 minutos", "price": "60€" }
-          ]
-        },
-        {
-          "slug": "embarazadas-piernas-cansadas",
-          "title": "Embarazadas (Piernas cansadas)",
-          "emoji": "🪽",
-          "tagline": "Ligereza y bienestar para la maternidad",
-          "image": "/images/subcategories/embarazadas-piernas-cansadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje prenatal para piernas cansadas que reduce hinchazón, calambres y pesadez. Mejora circulación, alivia músculos, favorece el descanso y bienestar, proporcionando ligereza, relajación y conexión con tu bebé.",
-          "longDescription": "La cuenta atrás para tu gran día ha comenzado… y tu cuerpo merece un respiro.\nEste masaje, especialmente diseñado para piernas cansadas durante el embarazo, ayuda a reducir la hinchazón, mejorar la circulación y aliviar calambres y pesadez.\n\nA través de movimientos suaves y drenantes, aporta una sensación inmediata de ligereza y descanso, ayudándote a reconectar con tu bienestar físico y emocional.\n\n✨ Beneficios: reducción de edemas y retención de líquidos, alivio de dolores articulares y musculares, mejora del descanso, de la circulación y de la postura, así como prevención de estrías y reducción del estrés.\n\nUn mimo necesario para ti y tu bebé, en una etapa tan especial.",
-          "options": [
-            { "duration": "15 minutos", "price": "20€" },
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "45€" }
-          ]
-        },
-        {
-          "slug": "espalda-cuello-hombros",
-          "title": "Espalda, cuello y hombros",
-          "emoji": "💆‍♂️",
-          "tagline": "Alivio en las zonas más tensionadas",
-          "image": "/images/subcategories/espalda-cuello.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje centrado en espalda, cuello y hombros que alivia contracturas y rigidez. Mejora postura y movilidad, reduce estrés y molestias, proporcionando una sensación inmediata de bienestar, ligereza y relajación profunda.",
-          "longDescription": "Las tensiones del día a día suelen acumularse justo ahí: en la espalda, el cuello y los hombros. Este masaje se centra en liberar esas zonas clave, aliviando contracturas, reduciendo la rigidez y devolviéndote una agradable sensación de ligereza y bienestar.\n\nBeneficios: relajación profunda de la musculatura dorsal y cervical, alivio de dolores y molestias, mejora de la postura y la movilidad, y reducción del estrés acumulado.",
-          "options": [
-            { "duration": "45 minutos", "price": "50€" },
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "lomi-lomi",
-          "title": "Lomi-Lomi",
-          "emoji": "🌊",
-          "tagline": "El espíritu de Hawaii en tus manos",
-          "image": "/images/subcategories/lomi-lomi.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje Lomi-Lomi hawaiano con movimientos rítmicos y envolventes que alivian tensiones, relajan músculos y sistema nervioso, mejoran circulación y drenaje linfático, proporcionando bienestar, armonía, ligereza y equilibrio interior.",
-          "longDescription": "La forma más placentera de viajar a Hawaii sin subirte a un avión.\nEl Masaje Lomi-Lomi, también conocido como “el masaje de las manos amorosas”, combina movimientos rítmicos y envolventes realizados con las manos y antebrazos, simulando el fluir de las olas del océano.\n\nEsta técnica ancestral hawaiana libera tensiones profundas, relaja el sistema nervioso y muscular y favorece la circulación y el drenaje linfático, aportando una sensación de equilibrio, ligereza y armonía interior.\n\n✨ Beneficios: reducción del estrés, mejora de la flexibilidad, tonificación del cuerpo, alivio de dolores musculares y estimulación del sistema inmunológico.",
-          "options": [
-            { "duration": "60 minutos", "price": "60€" },
-            { "duration": "90 minutos", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "piernas-cansadas",
-          "title": "Piernas cansadas",
-          "emoji": "🦵",
-          "tagline": "Reactivar la circulación, recuperar ligereza",
-          "image": "/images/subcategories/piernas-cansadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Masaje especializado para piernas cansadas que mejora la circulación, alivia hinchazón, pesadez y calambres, relaja pies y piernas, previene varices y devuelve sensación inmediata de ligereza y bienestar.",
-          "longDescription": "anto si pasas el día de pie como sentado, tus piernas acaban notando el esfuerzo: se hinchan, se cargan y piden descanso. Este masaje especializado te ayudará a reactivar la circulación, aliviar la tensión y devolverles la ligereza que necesitan.\n\nBeneficios: estimulación de la circulación sanguínea, alivio de la sensación de pesadez e hinchazón, reducción de calambres, relajación de pies y piernas, y prevención de varices.",
-          "options": [
-            { "duration": "15 minutos", "price": "20€" },
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "50€" }
-          ]
-        },
-        {
-          "slug": "reflexologia",
-          "title": "Reflexología podal",
-          "emoji": "🦶",
-          "tagline": "Equilibrio a través de tus pies",
-          "image": "/images/subcategories/reflexologia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Reflexología podal que estimula puntos específicos de los pies para aliviar tensiones, reducir estrés físico y mental, mejorar bienestar general y circulación energética, proporcionando vitalidad, ligereza y armonía interior.",
-          "longDescription": "La Reflexología Podal es una técnica milenaria que aplica presiones precisas en puntos específicos de los pies, conectados con diferentes órganos y sistemas del cuerpo.\n\nAl estimular estas zonas reflejas, se favorece la circulación energética, se reducen tensiones y se alivia el estrés físico y mental, ayudando al organismo a recuperar su equilibrio natural.\n\nUna experiencia profundamente relajante que renueva la vitalidad, mejora el bienestar general y deja una sensación de ligereza y armonía interior.",
-          "options": [
-            { "duration": "15 minutos", "price": "20€" },
-            { "duration": "30 minutos", "price": "35€" },
-            { "duration": "45 minutos", "price": "50€" }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "reafirmantes",
-      "title": "Reafirmantes",
-      "image": "/images/categories/reafirmantes.jpg",
-      "shortDescription": "Los masajes reafirmantes estimulan la piel y despiertan la energía vital que habita en cada fibra. A través de movimientos firmes y envolventes, activan la circulación, tonifican los tejidos y devuelven al cuerpo su forma natural de armonía y fuerza.",
-      "heroImages": [
-        { "src": "/images/hero/reafirmante1.jpg", "alt": "Reafirmante1" },
-        { "src": "/images/hero/reafirmante2.jpg", "alt": "Reafirmante2" },
-        { "src": "/images/hero/reafirmante3.jpg", "alt": "Reafirmante3" }
-      ],
-      "showCase": {
-        "title": "Elige tu experiencia",
-        "description": "Cada masaje reafirmante es una caricia revitalizadora. Regala firmeza, belleza y renovación desde el interior."
-      },
-      "subcategories": [
-        {
-          "slug": "maderoterapia",
-          "title": "Maderoterapia",
-          "emoji": "🌿",
-          "tagline": "Tonifica, drena y devuelve firmeza",
-          "image": "/images/subcategories/maderoterapia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Maderoterapia con herramientas de madera que tonifica músculos, mejora circulación y linfa, reduce tensiones y celulitis, favorece la relajación y bienestar, aportando firmeza, ligereza y sensación de equilibrio corporal.",
-          "longDescription": "La Maderoterapia es una técnica de masaje originaria de la tradición oriental que utiliza herramientas de madera diseñadas específicamente para trabajar sobre los músculos y la piel.\nA través de movimientos rítmicos y precisos, estas herramientas ayudan a tonificar la musculatura, mejorar la circulación sanguínea y linfática, favorecer el drenaje de líquidos y reducir la apariencia de celulitis.\n\nEste masaje no solo actúa a nivel físico, sino que también induce una profunda relajación, liberando tensiones acumuladas y devolviendo sensación de ligereza y bienestar. Es ideal para quienes buscan un tratamiento natural, estético y terapéutico al mismo tiempo.\n\n✨ Beneficios: tonifica músculos, mejora circulación, reduce celulitis, favorece drenaje linfático, alivia tensiones, aporta firmeza, ligereza y sensación de equilibrio corporal.",
-          "options": [
-            { "duration": "30 minutos", "price": "40€" },
-            { "duration": "60 minutos", "price": "75€" }
+          "slug": "rituales",
+          "title": "Rituales",
+          "image": "/images/categories/rituals.png",
+          "shortDescription": "Experiencias completas que combinan lo mejor de nuestras técnicas. Diseñadas para renovar cuerpo y mente a través de una secuencia perfecta de tratamientos.",
+          "isFeatured": true,
+          "badge": "✨ Experiencia Exclusiva",
+          "heroImages": [
+            { "src": "/images/hero/ritual1.jpg", "alt": "Ritual 1" },
+            { "src": "/images/hero/ritual2.jpg", "alt": "Ritual 2" }
+          ],
+          "showCase": {
+            "title": "Elige tu Ritual",
+            "description": "Más que un masaje, un viaje completo de renovación."
+          },
+          "subcategories": [
+            {
+              "slug": "ritual-armonia-total",
+              "title": "Ritual de Armonía Total",
+              "emoji": "✨",
+              "tagline": "El reinicio definitivo para todo el cuerpo",
+              "image": "/images/subcategories/ritual-armonia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una inmersión completa de 90 minutos que combina masaje corporal completo con relajación craneal y reflexología podal.",
+              "longDescription": "Este es nuestro ritual más completo para quienes necesitan un reinicio total.\n\n**¿Qué incluye?**\n• 60 minutos: Masaje corporal completo (oriental o relajante)\n• 15 minutos: Masaje craneofacial (alivia el estrés mental)\n• 15 minutos: Reflexología podal (equilibra la energía interna)\n\nUn viaje de 90 minutos que no deja ninguna tensión sin resolver.",
+              "options": [
+                {
+                  "duration": "90 minutos",
+                  "price": "75€",
+                  "originalPrice": "100€",
+                  "tag": "Best Seller"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-luxury",
+              "title": "Ritual Luxury",
+              "emoji": "👑",
+              "tagline": "2 horas de bienestar absoluto",
+              "image": "/images/subcategories/ritual-luxury.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Nuestra experiencia más exclusiva. 90 minutos de masaje corporal complementados con técnicas craneales y de reflexología.",
+              "longDescription": "La joya de la corona de nuestra carta. Dos horas completas dedicadas exclusivamente a ti.\n\n**¿Qué incluye?**\n• 90 minutos: Masaje corporal completo extendido\n• 15 minutos: Masaje craneofacial\n• 15 minutos: Reflexología podal\n\nEl regalo definitivo para alguien especial o el capricho que te mereces.",
+              "options": [
+                {
+                  "duration": "120 minutos",
+                  "price": "95€",
+                  "originalPrice": "120€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-recuperacion-profunda",
+              "title": "Ritual de Recuperación Profunda",
+              "emoji": "🧱",
+              "tagline": "Alivio para todo el cuerpo",
+              "image": "/images/subcategories/ritual-recuperacion.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Alivio intenso para el dolor muscular. 60 minutos de masaje de tejido profundo más técnicas craneales y reflexología para desconectar.",
+              "longDescription": "Ideal para quienes tienen fatiga acumulada y rigidez muscular.\n\n**¿Qué incluye?**\n• 60 minutos: Masaje de tejido profundo (descontracturante) para liberar nudos\n• 15 minutos: Masaje craneofacial\n• 15 minutos: Reflexología podal\n\nUna combinación potente que trata el dolor físico mientras calma el sistema nervioso.",
+              "options": [
+                {
+                  "duration": "90 minutos",
+                  "price": "85€",
+                  "originalPrice": "105€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-profundo",
+              "title": "Ritual de Equilibrio Profundo",
+              "emoji": "🧘",
+              "tagline": "Cuidado prolongado para cuerpo y mente",
+              "image": "/images/subcategories/ritual-profundo.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Combinación extendida de 60 minutos de masaje más 30 minutos de terapia específica (reflexología o craneal).",
+              "longDescription": "Regálate tiempo para soltarte de verdad. Este ritual amplía la experiencia para garantizar una relajación profunda.\n\n**¿Qué incluye?**\n• 60 minutos: Masaje corporal completo\n• 30 minutos: A elegir entre reflexología podal o masaje craneofacial\n\nIdeal para tratar molestias específicas mientras relajas todo el cuerpo.",
+              "options": [
+                {
+                  "duration": "90 minutos",
+                  "price": "80€",
+                  "originalPrice": "95€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-bienestar-esencial",
+              "title": "Pack Bienestar Esencial",
+              "emoji": "🎁",
+              "tagline": "Personaliza tu relajación",
+              "image": "/images/subcategories/pack-bienestar.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Combina un masaje de una hora con un tratamiento específico a elegir: craneal, reflexología o piernas cansadas.",
+              "longDescription": "Diseña tu propio momento de paz. Empieza con una base sólida de 60 minutos de masaje y añade ese extra que tu cuerpo necesita hoy.\n\n**¿Qué incluye?**\n• 60 minutos: Masaje a elegir\n• 15 minutos: Complemento GRATIS (elige: craneofacial, reflexología o piernas cansadas)\n\nPerfecto para un tratamiento completo a un precio excepcional.",
+              "options": [
+                {
+                  "duration": "75 minutos",
+                  "price": "65€",
+                  "originalPrice": "80€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-alivio-express",
+              "title": "Pack Alivio Express",
+              "emoji": "🔋",
+              "tagline": "Alivio del dolor localizado en 1 hora",
+              "image": "/images/subcategories/pack-alivio.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Cuidado focalizado para dolor de espalda y estrés. 30 minutos de trabajo profundo seguidos de relajación en cabeza y pies.",
+              "longDescription": "¿No tienes 90 minutos pero necesitas un alivio profundo? Este pack condensa los beneficios de nuestro ritual de recuperación.\n\n**¿Qué incluye?**\n• 30 minutos: Tejido profundo (descontracturante) enfocado en la espalda\n• 15 minutos: Masaje craneofacial\n• 15 minutos: Reflexología podal\n\nEficiente, eficaz y reparador.",
+              "options": [
+                {
+                  "duration": "60 minutos",
+                  "price": "60€",
+                  "originalPrice": "80€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-express",
+              "title": "Reinicio Express",
+              "emoji": "⚡",
+              "tagline": "Máxima relajación en el mínimo tiempo",
+              "image": "/images/subcategories/ritual-express.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Relajación inteligente: 45 minutos de trabajo intenso más 10 minutos de masaje de regalo localizado.",
+              "longDescription": "¿No tienes mucho tiempo pero necesitas alivio? Este pack está diseñado para la eficiencia.\n\n**¿Qué incluye?**\n• 45 minutos: Masaje terapéutico o relajante\n• 10 minutos: Bonus de masaje localizado\n\nUna hora de autocuidado que encaja en cualquier agenda.",
+              "options": [
+                {
+                  "duration": "60 minutos",
+                  "price": "55€",
+                  "originalPrice": "70€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-silueta",
+              "title": "Silueta y Maderoterapia",
+              "emoji": "🌲",
+              "tagline": "Tonifica y relaja",
+              "image": "/images/subcategories/pack-madero.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El equilibrio perfecto entre estética y relajación. Maderoterapia para tonificar y masaje manual para relajar.",
+              "longDescription": "¿Por qué elegir entre belleza y bienestar?\n\n**¿Qué incluye?**\n• 30 minutos: Maderoterapia (reafirmante/anticelulítica)\n• 60 minutos: Masaje relajante o circulatorio\n\nUna combinación que te deja con sensación de ligereza y con la piel más firme.",
+              "options": [
+                {
+                  "duration": "90 minutos",
+                  "price": "80€",
+                  "originalPrice": "100€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-madero-express",
+              "title": "Reafirmante Express",
+              "emoji": "🪵",
+              "tagline": "Moldea y relaja en 1 hora",
+              "image": "/images/subcategories/pack-madero-express.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Un combo rápido de belleza y bienestar. 30 minutos de maderoterapia vigorosa y 30 minutos de masaje.",
+              "longDescription": "La versión ligera de nuestro pack Silueta.\n\n**¿Qué incluye?**\n• 30 minutos: Maderoterapia (enfoque en piernas/abdomen)\n• 30 minutos: Masaje manual\n\nObtén los beneficios de tonificación y relajación en solo una hora.",
+              "options": [
+                {
+                  "duration": "60 minutos",
+                  "price": "60€",
+                  "originalPrice": "75€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-nueva-mama",
+              "title": "Ritual Nueva Mamá",
+              "emoji": "🤱",
+              "tagline": "Cuidado y mimo en el posparto",
+              "image": "/images/subcategories/nueva-mama.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una sesión suave de 75 minutos diseñada para la etapa posparto. Masaje relajante más un cuidado específico para piernas o cabeza.",
+              "longDescription": "Tú has cuidado de todo; ahora deja que cuidemos de ti. Un ritual diseñado para la recuperación física y emocional de las nuevas mamás.\n\n**¿Qué incluye?**\n• 60 minutos: Masaje suave y relajante\n• 15 minutos: A elegir entre piernas cansadas (drenaje) o craneofacial\n\nUn momento de silencio, paz y reconexión con tu cuerpo.",
+              "options": [
+                {
+                  "duration": "75 minutos",
+                  "price": "60€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-ligereza-total",
+              "title": "Trío de Ligereza Total",
+              "emoji": "🪽",
+              "tagline": "Circulación y claridad mental",
+              "image": "/images/subcategories/ligereza.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una combinación única enfocada en las extremidades. Reflexología, craneal y masaje de piernas cansadas.",
+              "longDescription": "Perfecto para quienes prefieren no recibir un masaje de espalda o no pueden recibirlo (p. ej., embarazo). Este ritual se centra en los sistemas periféricos para inducir una relajación profunda.\n\n**¿Qué incluye?**\n• 15 minutos: Reflexología podal\n• 15 minutos: Masaje craneofacial\n• 15 minutos: Masaje de piernas cansadas\n\nVive una sensación de flotar y de ligereza total.",
+              "options": [
+                {
+                  "duration": "45 minutos",
+                  "price": "50€",
+                  "originalPrice": "60€"
+                }
+              ]
+            },
+            {
+              "slug": "mini-ritual-cabezapies",
+              "title": "Mini Ritual de Cabeza a Pies",
+              "emoji": "⚖️",
+              "tagline": "Equilibrio rápido para mentes ocupadas",
+              "image": "/images/subcategories/mini-ritual.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "¿Vas justo de tiempo? 30 minutos para reiniciarte. Masaje craneal para despejar la mente y reflexología para enraizar el cuerpo.",
+              "longDescription": "La pausa perfecta en un día ajetreado. Trabajamos en los dos polos del cuerpo para equilibrar tu energía al instante.\n\n**¿Qué incluye?**\n• 15 minutos: Masaje craneofacial\n• 15 minutos: Reflexología podal\n\nMáximo efecto en mínimo tiempo.",
+              "options": [
+                {
+                  "duration": "30 minutos",
+                  "price": "35€",
+                  "originalPrice": "40€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-duo-independiente",
+              "title": "Ritual Dúo Independiente",
+              "emoji": "👥",
+              "tagline": "Tiempo compartido, espacio individual",
+              "image": "/images/subcategories/duo.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Disfruta de un masaje de 90 minutos al mismo tiempo que tu acompañante, pero en cabinas separadas para total privacidad.",
+              "longDescription": "Ideal para parejas o amigos que quieren ir al spa juntos pero prefieren disfrutar del tratamiento en su propio espacio privado.\n\n**¿Qué incluye?**\n• 90 minutos: Masaje a elegir para la persona A (cabina 1)\n• 90 minutos: Masaje a elegir para la persona B (cabina 2)\n\n*Nota: Este servicio se realiza en salas separadas a la misma hora.*",
+              "options": [
+                {
+                  "duration": "90 minutos (precio para dos)",
+                  "price": "150€",
+                  "originalPrice": "160€"
+                }
+              ]
+            },
+            {
+              "slug": "antiestres-promo",
+              "title": "Promo Antiestrés",
+              "emoji": "💆",
+              "tagline": "Oferta especial para una relajación profunda",
+              "image": "/images/subcategories/antiestres.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Nuestro masaje Antiestrés característico a un precio promocional especial. Libera tensión y ahorra.",
+              "longDescription": "El Masaje Antiestrés está especialmente diseñado para relajar el cuello, los hombros y la espalda.\n\n**Oferta especial:**\nDisfruta de este tratamiento con un descuento especial incluido en el precio.\n\nIdeal para quienes buscan recuperar energía, serenidad y un descanso profundo.",
+              "options": [
+                {
+                  "duration": "60 minutos",
+                  "price": "54€",
+                  "originalPrice": "60€",
+                  "tag": "Promo -10%"
+                },
+                {
+                  "duration": "90 minutos",
+                  "price": "72€",
+                  "originalPrice": "80€",
+                  "tag": "Promo -10%"
+                }
+              ]
+            }
           ]
         }
       ]

@@ -1,19 +1,8 @@
-import { getServicesData } from "@/app/lib/getService"; // Use the helper we made
+import { getCategoryStaticParams, getServicesData } from "@/app/lib/getService";
 import { getDictionary } from "@/app/lib/getDictionary";
-import SubcategoryShowcase from "@/components/categories/subcategory-grid";
-import { CategoryHero } from "@/components/categories/categoryHero";
-
-// 1. Generate Static Params
-// We use the 'es' (Spanish) data as the "Master" list of slugs.
-// Since slugs are the same across languages, this works for all.
-export async function generateStaticParams() {
-  const data = await getServicesData("es");
-
-  // Fix "Parameter 'c' implicitly has any type" by defining shape or using any temporarily
-  return data.categories.map((c: { slug: string }) => ({
-    category: c.slug,
-  }));
-}
+import SubcategoryShowcase from "@/components/categories/subcategory-grid"; // Check your path matches your project
+import { CategoryHero } from "@/components/categories/categoryHero"; // Check your path matches your project
+import { Category } from "@/types/definitions"; // ✅ Use the global type
 
 interface PageProps {
   params: Promise<{
@@ -22,30 +11,49 @@ interface PageProps {
   }>;
 }
 
+export async function generateStaticParams() {
+  return getCategoryStaticParams();
+}
+
 export default async function CategoryPage({ params }: PageProps) {
   const { lang, category } = await params;
 
-  // 2. Load Data & Dictionary dynamically
+  // 2. Load Data & Dictionary
   const [services, dict] = await Promise.all([
     getServicesData(lang),
     getDictionary(lang),
   ]);
 
-  // 3. Find the specific category in the correct language
-  // We explicitly type 'c' as any here because we know the JSON structure
-  const data = services.categories.find((c: any) => c.slug === category);
+  // 3. Find the specific category efficiently
+  // We look through navItems and stop looking as soon as we find it.
+  // No flatMap overhead.
+  let data: Category | undefined;
 
-  // 4. Handle Not Found using Dictionary
+  for (const group of services.navItems) {
+    const found = group.categories.find((c) => c.slug === category);
+    if (found) {
+      data = found;
+      break; // Stop searching once found
+    }
+  }
+
+  // 4. Handle Not Found
   if (!data) {
     return (
-      <div className="p-20 text-center">{dict.pages.category.notFound}</div>
+      <div className="p-20 text-center text-gray-500">
+        {dict.pages.category.notFound}
+      </div>
     );
   }
 
   return (
     <main>
       {/* Hero — dynamic */}
-      <CategoryHero title={data.title} images={data.heroImages} />
+      <CategoryHero
+        title={data.title}
+        // Ensure heroImages exists in JSON or provide fallback
+        images={data.heroImages || [{ src: data.image, alt: data.title }]}
+      />
 
       {/* Category description */}
       <div
@@ -58,10 +66,11 @@ export default async function CategoryPage({ params }: PageProps) {
       {/* Subcategories */}
       <SubcategoryShowcase
         ctaLabel={dict.common.seeMore}
-        items={data.subcategories.map((s: any) => ({
+        items={data.subcategories.map((s) => ({
           ...s,
-          // 6. IMPORTANT: Inject the current language into the links
-          link: `/${lang}/${data.slug}/${s.slug}`,
+          // Handle cases where image might be missing in subcategory logic if needed
+          image: s.image || "/images/placeholder.jpg",
+          link: `/${lang}/${data!.slug}/${s.slug}`, // data! is safe here because of the check above
         }))}
         title={data.showCase?.title}
         description={data.showCase?.description}

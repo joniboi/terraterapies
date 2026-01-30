@@ -1,349 +1,629 @@
 {
   "defaultBackground": "/images/treatment-detail.jpg",
-  "categories": [
+  "navItems": [
     {
-      "slug": "orientales",
-      "title": "Orientals",
-      "image": "/images/categories/orientales.jpg",
-      "shortDescription": "Els massatges orientals combinen tècniques ancestrals i filosofia espiritual per equilibrar cos, ment i energia. Descobreix les nostres opcions i tria el regal perfecte per a qui més ho necessiti.",
-      "heroImages": [
-        { "src": "/images/hero/oriental1.jpg", "alt": "Oriental1" },
-        { "src": "/images/hero/oriental2.jpg", "alt": "Oriental2" },
-        { "src": "/images/hero/oriental3.jpg", "alt": "Oriental3" }
-      ],
-      "showCase": {
-        "title": "Tria la teva experiència",
-        "description": "Cada massatge oriental té una essència única. Regala benestar, equilibri i serenitat."
-      },
-      "subcategories": [
+      "id": "treatments",
+      "label": "Tractaments",
+      "layout": "mega-menu",
+      "highlight": false,
+      "categories": [
         {
-          "slug": "tailandes",
-          "title": "Tailandès",
-          "emoji": "🪷",
-          "tagline": "Energia, equilibri i harmonia interior",
-          "image": "/images/subcategories/tailandes.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Experimenta una combinació única d'estiraments i pressions que revitalitzen cos i ment. Aquest massatge tradicional tailandès millora la flexibilitat, alleuja tensions i restaura el flux natural de l'energia.",
-          "longDescription": "Submergeix-te en una experiència ancestral que desperta cos i esperit. El Massatge Tailandès combina pressions rítmiques, estiraments suaus i moviments precisos inspirats en la saviesa mil·lenària del sud-est asiàtic.\n\nSense olis, però ple d'intenció, aquest massatge estimula els canals energètics, millora la circulació i allibera tensions acumulades, ajudant a restablir el flux natural de l'energia vital.\n\nUna dansa harmoniosa entre força i serenitat, que et retorna al teu centre d'equilibri i deixa una sensació de lleugeresa, claredat i profunda pau interior.",
-          "options": [
-            { "duration": "15 minuts (estiraments)", "price": "25€" },
-            { "duration": "Fusió Bali i Thai 60 minuts", "price": "60€" },
-            { "duration": "Tradicional 60 minuts", "price": "65€" },
-            { "duration": "Fusió Bali i Thai 90 minuts", "price": "85€" },
-            { "duration": "Tradicional 90 minuts", "price": "85€" }
+          "slug": "orientales",
+          "title": "Orientals",
+          "image": "/images/categories/orientales.jpg",
+          "shortDescription": "Els massatges orientals combinen tècniques ancestrals i filosofia espiritual per equilibrar cos, ment i energia. Descobreix les nostres opcions i tria el regal perfecte per a qui més ho necessiti.",
+          "heroImages": [
+            { "src": "/images/hero/oriental1.jpg", "alt": "Oriental1" },
+            { "src": "/images/hero/oriental2.jpg", "alt": "Oriental2" },
+            { "src": "/images/hero/oriental3.jpg", "alt": "Oriental3" }
+          ],
+          "showCase": {
+            "title": "Tria la teva experiència",
+            "description": "Cada massatge oriental té una essència única. Regala benestar, equilibri i serenitat."
+          },
+          "subcategories": [
+            {
+              "slug": "tailandes",
+              "title": "Tailandès",
+              "emoji": "🪷",
+              "tagline": "Energia, equilibri i harmonia interior",
+              "image": "/images/subcategories/tailandes.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Experimenta una combinació única d'estiraments i pressions que revitalitzen cos i ment. Aquest massatge tradicional tailandès millora la flexibilitat, alleuja tensions i restaura el flux natural de l'energia.",
+              "longDescription": "Submergeix-te en una experiència ancestral que desperta cos i esperit. El Massatge Tailandès combina pressions rítmiques, estiraments suaus i moviments precisos inspirats en la saviesa mil·lenària del sud-est asiàtic.\n\nSense olis, però ple d'intenció, aquest massatge estimula els canals energètics, millora la circulació i allibera tensions acumulades, ajudant a restablir el flux natural de l'energia vital.\n\nUna dansa harmoniosa entre força i serenitat, que et retorna al teu centre d'equilibri i deixa una sensació de lleugeresa, claredat i profunda pau interior.",
+              "options": [
+                { "duration": "15 minuts (estiraments)", "price": "25€" },
+                { "duration": "Fusió Bali i Thai 60 minuts", "price": "60€" },
+                { "duration": "Tradicional 60 minuts", "price": "65€" },
+                { "duration": "Fusió Bali i Thai 90 minuts", "price": "85€" },
+                { "duration": "Tradicional 90 minuts", "price": "85€" }
+              ]
+            },
+            {
+              "slug": "balines",
+              "title": "Balinès",
+              "emoji": "🌺",
+              "tagline": "Una experiència de benestar total",
+              "image": "/images/subcategories/balines.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Viatja a Bali sense sortir de la ciutat. Aquest massatge combina tècniques suaus i pressions profundes per alleujar l'estrès, relaxar els músculs i equilibrar cos i esperit.",
+              "longDescription": "Deixa't transportar a l'exòtica illa de Bali, bressol d'una tradició mil·lenària que combina el millor de la medicina hindú, la saviesa ayurvèdica i les tècniques orientals més ancestrals.\n\nEl Massatge Balinès harmonitza cos i ment a través de moviments envoltants, amassaments profunds, pressions precises i suaus estiraments, realitzats amb mans, avantbraços i fins i tot peus.\n\nSubmergeix-te en un viatge sensorial únic que alleuja tensions, estimula la circulació i renova la teva energia vital.\nPerfecte per regalar o regalar-te un moment d'autèntica pau i equilibri.",
+              "options": [
+                { "duration": "45 minuts", "price": "50€" },
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "shiatsu",
+              "title": "Shiatsu",
+              "emoji": "🌿",
+              "tagline": "Equilibri i harmonia a l'estil japonès",
+              "image": "/images/subcategories/shiatsu.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El massatge japonès Shiatsu treballa sobre els meridians energètics aplicant pressions rítmiques amb els dits, els palmells i els colzes. El seu objectiu és desbloquejar l'energia vital, alleujar dolors i harmonitzar el sistema nerviós.",
+              "longDescription": "Descobreix l'art ancestral del Shiatsu, una tècnica manual japonesa que utilitza pressions rítmiques amb els polzes i els palmells sobre punts energètics del cos per restaurar l'equilibri natural i alliberar tensions acumulades.\n\nA través d'amassaments suaus, pressions profundes i delicats estiraments, aquest massatge estimula l'energia vital (Ki), promovent una sensació de relaxació profunda i benestar integral.\n\n✨ Beneficis:\n\n- Alleuja dolors d'esquena, coll i cap (incloent-hi migranyes)\n- Millora la mobilitat i redueix la rigidesa muscular\n- Contribueix a alleujar ciàtica, reumatisme i fatiga crònica\n- Afavoreix la circulació i l'equilibri energètic\n- Ajuda en trastorns menstruals, digestius i respiratoris\n\nRegala't —o regala— un moment de serenitat japonesa, on cos i ment es retroben en perfecta harmonia.",
+              "options": [{ "duration": "60 minuts", "price": "60€" }]
+            },
+            {
+              "slug": "piedras-calientes",
+              "title": "Pedres Calentes",
+              "emoji": "🔥",
+              "tagline": "Calor que envolta, energia que renova",
+              "image": "/images/subcategories/piedras.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "La calidesa de les pedres volcàniques relaxa profundament els músculs, millora la circulació i dissol tensions acumulades, envoltant-te en una sensació de pau total.",
+              "longDescription": "Regala't un moment de pausa i benestar amb el Massatge amb Pedres Calentes, una tècnica ancestral d'origen oriental que combina el contacte de la calor amb l'art del massatge per relaxar cos i ment profundament.\n\nLes pedres volcàniques calentes llisquen suaument sobre la pell, transmetent una sensació envoltant de calma i equilibri. La calor penetra als músculs, alleujant tensions, millorant la circulació i ajudant a alliberar toxines i estrès acumulat.\n\nUna experiència sensorial única que et farà sentir lleuger, revitalitzat i en total harmonia.\nIdeal per regalar o gaudir quan necessites reconnectar amb tu mateix.",
+              "options": [
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "pindas-herbales",
+              "title": "Pindes Herbals",
+              "emoji": "🌸",
+              "tagline": "Aromes que guareixen, calor que relaxa",
+              "image": "/images/subcategories/pindas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Les pindes, bossetes d'herbes i espècies aromàtiques, s'apliquen calentes amb moviments rítmics. Una experiència sensorial que alleuja tensions, nodreix la pell i revitalitza l'ànima.",
+              "longDescription": "Descobreix una experiència única que combina les tècniques del massatge tradicional amb el poder terapèutic de les pindes herbals: petites bosses de tela plenes d'herbes medicinals i aromàtiques acuradament seleccionades.\n\nEn escalfar-se amb vapor d'aigua, les pindes alliberen els seus olis essencials i propietats curatives, envoltant el cos en una aroma natural i relaxant que calma la ment i alleuja les tensions musculars.\n\nUn massatge que nodreix la pell, estimula els sentits i renova l'energia vital, convidant-te a un profund estat de benestar i serenitat.",
+              "options": [
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "balines",
-          "title": "Balinès",
-          "emoji": "🌺",
-          "tagline": "Una experiència de benestar total",
-          "image": "/images/subcategories/balines.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Viatja a Bali sense sortir de la ciutat. Aquest massatge combina tècniques suaus i pressions profundes per alleujar l'estrès, relaxar els músculs i equilibrar cos i esperit.",
-          "longDescription": "Deixa't transportar a l'exòtica illa de Bali, bressol d'una tradició mil·lenària que combina el millor de la medicina hindú, la saviesa ayurvèdica i les tècniques orientals més ancestrals.\n\nEl Massatge Balinès harmonitza cos i ment a través de moviments envoltants, amassaments profunds, pressions precises i suaus estiraments, realitzats amb mans, avantbraços i fins i tot peus.\n\nSubmergeix-te en un viatge sensorial únic que alleuja tensions, estimula la circulació i renova la teva energia vital.\nPerfecte per regalar o regalar-te un moment d'autèntica pau i equilibri.",
-          "options": [
-            { "duration": "45 minuts", "price": "50€" },
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
+          "slug": "relajantes",
+          "title": "Relaxants",
+          "image": "/images/categories/relajantes.jpg",
+          "shortDescription": "Submergeix-te en un refugi de calma on el temps s'atura i el cos respira en harmonia. Les aromes suaus, la calidesa de les espelmes aromàtiques i el toc sincronitzat d'un massatge a 4 mans envolten els sentits en serenitat. Cada sessió és una carícia a l'ànima, un murmuri que dissol l'estrès i retorna la pau interior.",
+          "heroImages": [
+            { "src": "/images/hero/relajante1.jpg", "alt": "Relaxant1" },
+            { "src": "/images/hero/relajante2.jpg", "alt": "Relaxant2" },
+            { "src": "/images/hero/relajante3.jpg", "alt": "Relaxant3" }
+          ],
+          "showCase": {
+            "title": "Tria la teva experiència",
+            "description": "Cada massatge relaxant és una pausa per a l'ànima. Regala calma, tendresa i un instant de respir."
+          },
+          "subcategories": [
+            {
+              "slug": "relajante",
+              "title": "Relaxant",
+              "emoji": "🌙",
+              "tagline": "Una pausa per al teu benestar",
+              "image": "/images/subcategories/relajante.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El ritme pausat i envoltant d'aquest massatge calma la ment, alleuja el cos i retorna l'harmonia. Ideal per deixar enrere l'estrès i deixar que la serenitat flueixi com un sospir sobre la pell.",
+              "longDescription": "Quan el ritme del dia a dia s'accelera, regala't un moment de calma. El Massatge Relaxant està dissenyat per ajudar-te a desconnectar de l'estrès, alleujar tensions i recuperar l'harmonia entre cos i ment.\n\nA través de moviments suaus i envoltants, aquest massatge t'envolta en una sensació de tranquil·litat profunda, afavorint el descans, la circulació i el benestar general.\n\nIdeal per als qui busquen aturar el temps uns instants i tornar a sentir-se en equilibri.",
+              "options": [
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "50€" },
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "75€" }
+              ]
+            },
+            {
+              "slug": "aromaterapia",
+              "title": "Aromateràpia",
+              "emoji": "🌺",
+              "tagline": "Fragàncies que equilibren cos i ànima",
+              "image": "/images/subcategories/aromaterapia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Les aromes essencials envolten els teus sentits mentre suaus moviments dissolen tensions i desperten la serenitat interior. Cada respiració es converteix en un murmuri de benestar i equilibri.",
+              "longDescription": "Deixa't envoltar per un ball d'aromes i sensacions que et transporten lluny de l'estrès quotidià. El Massatge amb Aromateràpia combina el poder del tacte relaxant amb els olis essencials naturals, acuradament seleccionats per estimular els teus sentits i renovar la teva energia interior.\n\nCada fragància actua sobre cos i ment, ajudant a reduir l'estrès, regular la pressió arterial, millorar la digestió i reforçar el sistema immunitari.\n\nUna experiència multisensorial que restaura la calma, desperta la vitalitat i deixa una sensació duradora d'equilibri i benestar.",
+              "options": [
+                { "duration": "30 minuts", "price": "30€" },
+                { "duration": "45 minuts", "price": "45€" },
+                { "duration": "60 minuts", "price": "55€" },
+                { "duration": "90 minuts", "price": "75€" }
+              ]
+            },
+            {
+              "slug": "velas-aromaticas",
+              "title": "Espelmes aromàtiques",
+              "emoji": "🕯️",
+              "tagline": "Calor, aroma i benestar profund",
+              "image": "/images/subcategories/velas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "La càlida cera de karité es transforma en un bàlsam sedós que acaricia la pell, nodrint-la en profunditat. Les mans llisquen amb harmonia, alliberant el cos de tota rigidesa i deixant un rastre de perfum i pau.",
+              "longDescription": "Estrès, cansament, insomni… et sona familiar?\nAccomiada totes aquestes tensions amb un massatge estimulant i delicat, realitzat amb una espelma d'oli aromàtic que, en fondre's, es transforma en un suau elixir tebi per a la pell.\n\nL'ambient s'omple de llum, aroma i serenitat, convidant-te a un descans profund i reparador. Ideal per a tota mena de pell i qualsevol zona del cos, aquest tractament nodreix, hidrata i reconnecta cos i ment.\n\n✨ Beneficis: millora la circulació, regula el ritme cardíac i la pressió arterial, redueix l'estrès i enforteix el sistema immunitari.\n\nUna experiència sensorial única que et deixarà renovat per dins i per fora.",
+              "options": [
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "50€" },
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "craneofacial",
+              "title": "Craneofacial",
+              "emoji": "💆‍♀️",
+              "tagline": "Allibera la teva ment, renova la teva expressió",
+              "image": "/images/subcategories/craneofacial.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "A través de suaus pressions i moviments al cuir cabellut, coll i espatlles, aquest massatge allibera la tensió acumulada, millora la circulació i desperta una sensació de claredat i lleugeresa interior.",
+              "longDescription": "La tensió del dia a dia sol acumular-se al coll, el cuir cabellut i el rostre, generant rigidesa i cansament. El Massatge Craneofacial ajuda a alliberar aquestes tensions mitjançant suaus pressions i moviments rítmics que relaxen els músculs facials i estimulen la circulació.\n\nAquest tractament no només alleuja l'estrès mental, sinó que també il·lumina el rostre, millora l'oxigenació i deixa una sensació immediata de lleugeresa i benestar.\n\nPerfecte per als qui busquen claredat mental, descans profund i un aire renovat.",
+              "options": [
+                { "duration": "15 minuts", "price": "20€" },
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "50€" }
+              ]
+            },
+            {
+              "slug": "a-cuatro-manos",
+              "title": "A quatre mans",
+              "emoji": "🤲",
+              "tagline": "Doble energia, harmonia perfecta",
+              "image": "/images/subcategories/cuatro.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Quatre mans es mouen en completa sincronia, creant una simfonia de carícies que envolta el cos en una onada de sensacions. Una experiència envoltant i única que multiplica el plaer i la relaxació.",
+              "longDescription": "Imagina dos terapeutes treballant en total sincronia, combinant moviments fluids, pressions i estiraments en una coreografia perfectament equilibrada. El resultat: una experiència única que multiplica la relaxació i el benestar.\n\nEl Massatge a Quatre Mans envolta el cos en un ritme harmoniós que dissol tensions, estimula la circulació i porta la ment a un estat de profunda calma.\nUna sensació tan envoltant que el temps sembla aturar-se.\n\nIdeal per als qui busquen un tractament exclusiu, sensorial i absolutament inoblidable.\nDoble de mans, doble de plaer.",
+              "options": [
+                { "duration": "60 minuts", "price": "120€" },
+                { "duration": "90 minuts", "price": "150€" }
+              ]
+            },
+            {
+              "slug": "antiestres",
+              "title": "Antiestrès",
+              "emoji": "🌿",
+              "tagline": "Allibera tensions, recupera la teva calma",
+              "image": "/images/subcategories/antiestres.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Amb tècniques que combinen pressió suau i respiració profunda, aquest massatge ajuda a alliberar bloquejos emocionals i físics. Cada moviment dissol el cansament, convidant a la tranquil·litat i al descans més reparador.",
+              "longDescription": "¿Necessites desconnectar i deixar anar la tensió acumulada del dia a dia?\nEl Massatge Antiestrès està especialment dissenyat per relaxar coll, espatlles i esquena, les zones on més es concentra la càrrega física i emocional.\n\nMitjançant moviments ferms i precisos, aquest tractament dissol contractures, millora la circulació i proporciona una sensació immediata de lleugeresa i benestar.\n\nIdeal per als qui busquen recuperar energia, serenitat i un descans profund.\n✨ Deixa enrere les presses… i torna a sentir-te en equilibri.",
+              "options": [
+                { "duration": "60 minuts", "price": "55€" },
+                { "duration": "90 minuts", "price": "75€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "shiatsu",
-          "title": "Shiatsu",
-          "emoji": "🌿",
-          "tagline": "Equilibri i harmonia a l'estil japonès",
-          "image": "/images/subcategories/shiatsu.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "El massatge japonès Shiatsu treballa sobre els meridians energètics aplicant pressions rítmiques amb els dits, els palmells i els colzes. El seu objectiu és desbloquejar l'energia vital, alleujar dolors i harmonitzar el sistema nerviós.",
-          "longDescription": "Descobreix l'art ancestral del Shiatsu, una tècnica manual japonesa que utilitza pressions rítmiques amb els polzes i els palmells sobre punts energètics del cos per restaurar l'equilibri natural i alliberar tensions acumulades.\n\nA través d'amassaments suaus, pressions profundes i delicats estiraments, aquest massatge estimula l'energia vital (Ki), promovent una sensació de relaxació profunda i benestar integral.\n\n✨ Beneficis:\n\n- Alleuja dolors d'esquena, coll i cap (incloent-hi migranyes)\n- Millora la mobilitat i redueix la rigidesa muscular\n- Contribueix a alleujar ciàtica, reumatisme i fatiga crònica\n- Afavoreix la circulació i l'equilibri energètic\n- Ajuda en trastorns menstruals, digestius i respiratoris\n\nRegala't —o regala— un moment de serenitat japonesa, on cos i ment es retroben en perfecta harmonia.",
-          "options": [{ "duration": "60 minuts", "price": "60€" }]
-        },
-        {
-          "slug": "piedras-calientes",
-          "title": "Pedres Calentes",
-          "emoji": "🔥",
-          "tagline": "Calor que envolta, energia que renova",
-          "image": "/images/subcategories/piedras.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "La calidesa de les pedres volcàniques relaxa profundament els músculs, millora la circulació i dissol tensions acumulades, envoltant-te en una sensació de pau total.",
-          "longDescription": "Regala't un moment de pausa i benestar amb el Massatge amb Pedres Calentes, una tècnica ancestral d'origen oriental que combina el contacte de la calor amb l'art del massatge per relaxar cos i ment profundament.\n\nLes pedres volcàniques calentes llisquen suaument sobre la pell, transmetent una sensació envoltant de calma i equilibri. La calor penetra als músculs, alleujant tensions, millorant la circulació i ajudant a alliberar toxines i estrès acumulat.\n\nUna experiència sensorial única que et farà sentir lleuger, revitalitzat i en total harmonia.\nIdeal per regalar o gaudir quan necessites reconnectar amb tu mateix.",
-          "options": [
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
+          "slug": "terapeuticos",
+          "title": "Terapèutics",
+          "image": "/images/categories/terapeuticos.jpg",
+          "shortDescription": "Els massatges terapèutics són un viatge cap a la recuperació i l'equilibri interior. A través del tacte conscient, alleugen tensions, reactiven l'energia i retornen harmonia al cos. Una experiència que nodreix, repara i renova des de la profunditat.",
+          "heroImages": [
+            { "src": "/images/hero/terapeutico1.jpg", "alt": "Terapeutic1" },
+            { "src": "/images/hero/terapeutico2.jpg", "alt": "Terapeutic2" },
+            { "src": "/images/hero/terapeutico3.jpg", "alt": "Terapeutic3" }
+          ],
+          "showCase": {
+            "title": "Tria la teva experiència",
+            "description": "Cada massatge terapèutic és un gest de cura. Regala alleujament, força i benestar durador."
+          },
+          "subcategories": [
+            {
+              "slug": "descontracturante",
+              "title": "Descontracturant",
+              "emoji": "💆‍♀️",
+              "tagline": "Alleujament de tensions profundes",
+              "image": "/images/subcategories/descontracturante.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge profund que allibera la rigidesa muscular, alleuja contractures i tensió, millora la circulació i relaxa el sistema nerviós. Deixa una sensació immediata de benestar, lleugeresa i vitalitat.",
+              "longDescription": "Després de llargues hores en la mateixa posició, els músculs es tensen i apareixen les molestes contractures.\nAquest massatge profund i precís allibera la rigidesa muscular, alleuja el dolor i retorna al teu cos la seva lleugeresa natural.\nSortiràs amb una agradable sensació de benestar i llibertat en cada moviment.\n\nBeneficis: alleuja contractures, millora la circulació, redueix la tensió acumulada, relaxa el sistema nerviós i aporta una sensació immediata de descans i vitalitat.",
+              "options": [
+                { "duration": "30 minuts", "price": "40€" },
+                { "duration": "60 minuts", "price": "65€" },
+                { "duration": "90 minuts", "price": "85€" }
+              ]
+            },
+            {
+              "slug": "embarazadas",
+              "title": "Embarassades",
+              "emoji": "🤰",
+              "tagline": "Cura i benestar en una etapa única",
+              "image": "/images/subcategories/embarazadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge prenatal que alleuja dolors lumbars, cames cansades i retenció de líquids. Relaxa músculs, millora circulació, redueix estrès i edemes, oferint benestar, serenitat i una connexió especial amb el teu nadó.",
+              "longDescription": "L'embaràs és una etapa meravellosa, però també pot portar molèsties físiques com dolors lumbars, cames cansades o retenció de líquids. Aquest massatge està dissenyat especialment per alleujar aquestes incomoditats i ajudar-te a gaudir plenament d'aquest moment tan especial.\n\nA través de moviments suaus i segurs, s'aconsegueix relaxar els músculs implicats en el part, millorar la circulació, reduir edemes i afavorir el descans.\n\n✨ Beneficis: alleujament de dolors articulars i rampes, millora del trànsit intestinal, prevenció d'estries, reducció de l'estrès i una sensació general de lleugeresa, serenitat i connexió amb el teu nadó.",
+              "options": [
+                { "duration": "45 minuts", "price": "50€" },
+                { "duration": "60 minuts", "price": "60€" }
+              ]
+            },
+            {
+              "slug": "embarazadas-piernas-cansadas",
+              "title": "Embarassades (Cames cansades)",
+              "emoji": "🪽",
+              "tagline": "Lleugeresa i benestar per a la maternitat",
+              "image": "/images/subcategories/embarazadas-piernas-cansadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge prenatal per a cames cansades que redueix inflor, rampes i pesadesa. Millora circulació, alleuja músculs, afavoreix el descans i benestar, proporcionant lleugeresa, relaxació i connexió amb el teu nadó.",
+              "longDescription": "El compte enrere per al teu gran dia ha començat… i el teu cos mereix un respir.\nAquest massatge, especialment dissenyat per a cames cansades durant l'embaràs, ajuda a reduir la inflor, millorar la circulació i alleujar rampes i pesadesa.\n\nA través de moviments suaus i drenants, aporta una sensació immediata de lleugeresa i descans, ajudant-te a reconnectar amb el teu benestar físic i emocional.\n\n✨ Beneficis: reducció d'edemes i retenció de líquids, alleujament de dolors articulars i musculars, millora del descans, de la circulació i de la postura, així com prevenció d'estries i reducció de l'estrès.\n\nUn mim necessari per a tu i el teu nadó, en una etapa tan especial.",
+              "options": [
+                { "duration": "15 minuts", "price": "20€" },
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "45€" }
+              ]
+            },
+            {
+              "slug": "espalda-cuello-hombros",
+              "title": "Esquena, coll i espatlles",
+              "emoji": "💆‍♂️",
+              "tagline": "Alleujament a les zones més tensionades",
+              "image": "/images/subcategories/espalda-cuello.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge centrat en esquena, coll i espatlles que alleuja contractures i rigidesa. Millora postura i mobilitat, redueix estrès i molèsties, proporcionant una sensació immediata de benestar, lleugeresa i relaxació profunda.",
+              "longDescription": "Les tensions del dia a dia solen acumular-se just aquí: a l'esquena, el coll i les espatlles. Aquest massatge se centra a alliberar aquestes zones clau, alleujant contractures, reduint la rigidesa i retornant-te una agradable sensació de lleugeresa i benestar.\n\nBeneficis: relaxació profunda de la musculatura dorsal i cervical, alleujament de dolors i molèsties, millora de la postura i la mobilitat, i reducció de l'estrès acumulat.",
+              "options": [
+                { "duration": "45 minuts", "price": "50€" },
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "lomi-lomi",
+              "title": "Lomi-Lomi",
+              "emoji": "🌊",
+              "tagline": "L'esperit de Hawaii a les teves mans",
+              "image": "/images/subcategories/lomi-lomi.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge Lomi-Lomi hawaià amb moviments rítmics i envoltants que alleugen tensions, relaxen músculs i sistema nerviós, milloren circulació i drenatge limfàtic, proporcionant benestar, harmonia, lleugeresa i equilibri interior.",
+              "longDescription": "La forma més plaent de viatjar a Hawaii sense pujar-te a un avió.\nEl Massatge Lomi-Lomi, també conegut com “el massatge de les mans amoroses”, combina moviments rítmics i envoltants realitzats amb les mans i avantbraços, simulant el fluir de les onades de l'oceà.\n\nAquesta tècnica ancestral hawaiana allibera tensions profundes, relaxa el sistema nerviós i muscular i afavoreix la circulació i el drenatge limfàtic, aportant una sensació d'equilibri, lleugeresa i harmonia interior.\n\n✨ Beneficis: reducció de l'estrès, millora de la flexibilitat, tonificació del cos, alleujament de dolors musculars i estimulació del sistema immunitari.",
+              "options": [
+                { "duration": "60 minuts", "price": "60€" },
+                { "duration": "90 minuts", "price": "80€" }
+              ]
+            },
+            {
+              "slug": "piernas-cansadas",
+              "title": "Cames cansades",
+              "emoji": "🦵",
+              "tagline": "Reactivar la circulació, recuperar lleugeresa",
+              "image": "/images/subcategories/piernas-cansadas.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Massatge especialitzat per a cames cansades que millora la circulació, alleuja inflor, pesadesa i rampes, relaxa peus i cames, prevé varius i retorna sensació immediata de lleugeresa i benestar.",
+              "longDescription": "Tant si passes el dia dempeus com assegut, les teves cames acaben notant l'esforç: s'inflen, es carreguen i demanen descans. Aquest massatge especialitzat t'ajudarà a reactivar la circulació, alleujar la tensió i retornar-los la lleugeresa que necessiten.\n\nBeneficis: estimulació de la circulació sanguínia, alleujament de la sensació de pesadesa i inflor, reducció de rampes, relaxació de peus i cames, i prevenció de varius.",
+              "options": [
+                { "duration": "15 minuts", "price": "20€" },
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "50€" }
+              ]
+            },
+            {
+              "slug": "reflexologia",
+              "title": "Reflexologia podal",
+              "emoji": "🦶",
+              "tagline": "Equilibri a través dels teus peus",
+              "image": "/images/subcategories/reflexologia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Reflexologia podal que estimula punts específics dels peus per alleujar tensions, reduir estrès físic i mental, millorar benestar general i circulació energètica, proporcionant vitalitat, lleugeresa i harmonia interior.",
+              "longDescription": "La Reflexologia Podal és una tècnica mil·lenària que aplica pressions precises en punts específics dels peus, connectats amb diferents òrgans i sistemes del cos.\n\nEn estimular aquestes zones reflexes, s'afavoreix la circulació energètica, es redueixen tensions i s'alleuja l'estrès físic i mental, ajudant l'organisme a recuperar el seu equilibri natural.\n\nUna experiència profundament relaxant que renova la vitalitat, millora el benestar general i deixa una sensació de lleugeresa i harmonia interior.",
+              "options": [
+                { "duration": "15 minuts", "price": "20€" },
+                { "duration": "30 minuts", "price": "35€" },
+                { "duration": "45 minuts", "price": "50€" }
+              ]
+            }
           ]
         },
         {
-          "slug": "pindas-herbales",
-          "title": "Pindes Herbals",
-          "emoji": "🌸",
-          "tagline": "Aromes que guareixen, calor que relaxa",
-          "image": "/images/subcategories/pindas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Les pindes, bossetes d'herbes i espècies aromàtiques, s'apliquen calentes amb moviments rítmics. Una experiència sensorial que alleuja tensions, nodreix la pell i revitalitza l'ànima.",
-          "longDescription": "Descobreix una experiència única que combina les tècniques del massatge tradicional amb el poder terapèutic de les pindes herbals: petites bosses de tela plenes d'herbes medicinals i aromàtiques acuradament seleccionades.\n\nEn escalfar-se amb vapor d'aigua, les pindes alliberen els seus olis essencials i propietats curatives, envoltant el cos en una aroma natural i relaxant que calma la ment i alleuja les tensions musculars.\n\nUn massatge que nodreix la pell, estimula els sentits i renova l'energia vital, convidant-te a un profund estat de benestar i serenitat.",
-          "options": [
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
+          "slug": "reafirmantes",
+          "title": "Reafirmants",
+          "image": "/images/categories/reafirmantes.jpg",
+          "shortDescription": "Els massatges reafirmants estimulen la pell i desperten l'energia vital que habita en cada fibra. A través de moviments ferms i envoltants, activen la circulació, tonifiquen els teixits i retornen al cos la seva forma natural d'harmonia i força.",
+          "heroImages": [
+            { "src": "/images/hero/reafirmante1.jpg", "alt": "Reafirmant1" },
+            { "src": "/images/hero/reafirmante2.jpg", "alt": "Reafirmant2" },
+            { "src": "/images/hero/reafirmante3.jpg", "alt": "Reafirmant3" }
+          ],
+          "showCase": {
+            "title": "Tria la teva experiència",
+            "description": "Cada massatge reafirmant és una carícia revitalitzadora. Regala fermesa, bellesa i renovació des de l'interior."
+          },
+          "subcategories": [
+            {
+              "slug": "maderoterapia",
+              "title": "Maderoteràpia",
+              "emoji": "🌿",
+              "tagline": "Tonifica, drena i retorna fermesa",
+              "image": "/images/subcategories/maderoterapia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Maderoteràpia amb eines de fusta que tonifica músculs, millora circulació i limfa, redueix tensions i cel·lulitis, afavoreix la relaxació i benestar, aportant fermesa, lleugeresa i sensació d'equilibri corporal.",
+              "longDescription": "La Maderoteràpia és una tècnica de massatge originària de la tradició oriental que utilitza eines de fusta dissenyades específicament per treballar sobre els músculs i la pell.\nA través de moviments rítmics i precisos, aquestes eines ajuden a tonificar la musculatura, millorar la circulació sanguínia i limfàtica, afavorir el drenatge de líquids i reduir l'aparença de cel·lulitis.\n\nAquest massatge no només actua a nivell físic, sinó que també indueix una profunda relaxació, alliberant tensions acumulades i retornant sensació de lleugeresa i benestar. És ideal per als qui busquen un tractament natural, estètic i terapèutic al mateix temps.\n\n✨ Beneficis: tonifica músculs, millora circulació, redueix cel·lulitis, afavoreix drenatge limfàtic, alleuja tensions, aporta fermesa, lleugeresa i sensació d'equilibri corporal.",
+              "options": [
+                { "duration": "30 minuts", "price": "40€" },
+                { "duration": "60 minuts", "price": "75€" }
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "slug": "relajantes",
-      "title": "Relaxants",
-      "image": "/images/categories/relajantes.jpg",
-      "shortDescription": "Submergeix-te en un refugi de calma on el temps s'atura i el cos respira en harmonia. Les aromes suaus, la calidesa de les espelmes aromàtiques i el toc sincronitzat d'un massatge a 4 mans envolten els sentits en serenitat. Cada sessió és una carícia a l'ànima, un murmuri que dissol l'estrès i retorna la pau interior.",
-      "heroImages": [
-        { "src": "/images/hero/relajante1.jpg", "alt": "Relaxant1" },
-        { "src": "/images/hero/relajante2.jpg", "alt": "Relaxant2" },
-        { "src": "/images/hero/relajante3.jpg", "alt": "Relaxant3" }
-      ],
-      "showCase": {
-        "title": "Tria la teva experiència",
-        "description": "Cada massatge relaxant és una pausa per a l'ànima. Regala calma, tendresa i un instant de respir."
-      },
-      "subcategories": [
+      "id": "rituals",
+      "label": "Rituals",
+      "layout": "rich-dropdown",
+      "highlight": true,
+      "emoji": "✨",
+      "categories": [
         {
-          "slug": "relajante",
-          "title": "Relaxant",
-          "emoji": "🌙",
-          "tagline": "Una pausa per al teu benestar",
-          "image": "/images/subcategories/relajante.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "El ritme pausat i envoltant d'aquest massatge calma la ment, alleuja el cos i retorna l'harmonia. Ideal per deixar enrere l'estrès i deixar que la serenitat flueixi com un sospir sobre la pell.",
-          "longDescription": "Quan el ritme del dia a dia s'accelera, regala't un moment de calma. El Massatge Relaxant està dissenyat per ajudar-te a desconnectar de l'estrès, alleujar tensions i recuperar l'harmonia entre cos i ment.\n\nA través de moviments suaus i envoltants, aquest massatge t'envolta en una sensació de tranquil·litat profunda, afavorint el descans, la circulació i el benestar general.\n\nIdeal per als qui busquen aturar el temps uns instants i tornar a sentir-se en equilibri.",
-          "options": [
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "50€" },
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "75€" }
-          ]
-        },
-        {
-          "slug": "aromaterapia",
-          "title": "Aromateràpia",
-          "emoji": "🌺",
-          "tagline": "Fragàncies que equilibren cos i ànima",
-          "image": "/images/subcategories/aromaterapia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Les aromes essencials envolten els teus sentits mentre suaus moviments dissolen tensions i desperten la serenitat interior. Cada respiració es converteix en un murmuri de benestar i equilibri.",
-          "longDescription": "Deixa't envoltar per un ball d'aromes i sensacions que et transporten lluny de l'estrès quotidià. El Massatge amb Aromateràpia combina el poder del tacte relaxant amb els olis essencials naturals, acuradament seleccionats per estimular els teus sentits i renovar la teva energia interior.\n\nCada fragància actua sobre cos i ment, ajudant a reduir l'estrès, regular la pressió arterial, millorar la digestió i reforçar el sistema immunitari.\n\nUna experiència multisensorial que restaura la calma, desperta la vitalitat i deixa una sensació duradora d'equilibri i benestar.",
-          "options": [
-            { "duration": "30 minuts", "price": "30€" },
-            { "duration": "45 minuts", "price": "45€" },
-            { "duration": "60 minuts", "price": "55€" },
-            { "duration": "90 minuts", "price": "75€" }
-          ]
-        },
-        {
-          "slug": "velas-aromaticas",
-          "title": "Espelmes aromàtiques",
-          "emoji": "🕯️",
-          "tagline": "Calor, aroma i benestar profund",
-          "image": "/images/subcategories/velas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "La càlida cera de karité es transforma en un bàlsam sedós que acaricia la pell, nodrint-la en profunditat. Les mans llisquen amb harmonia, alliberant el cos de tota rigidesa i deixant un rastre de perfum i pau.",
-          "longDescription": "Estrès, cansament, insomni… et sona familiar?\nAccomiada totes aquestes tensions amb un massatge estimulant i delicat, realitzat amb una espelma d'oli aromàtic que, en fondre's, es transforma en un suau elixir tebi per a la pell.\n\nL'ambient s'omple de llum, aroma i serenitat, convidant-te a un descans profund i reparador. Ideal per a tota mena de pell i qualsevol zona del cos, aquest tractament nodreix, hidrata i reconnecta cos i ment.\n\n✨ Beneficis: millora la circulació, regula el ritme cardíac i la pressió arterial, redueix l'estrès i enforteix el sistema immunitari.\n\nUna experiència sensorial única que et deixarà renovat per dins i per fora.",
-          "options": [
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "50€" },
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "craneofacial",
-          "title": "Craneofacial",
-          "emoji": "💆‍♀️",
-          "tagline": "Allibera la teva ment, renova la teva expressió",
-          "image": "/images/subcategories/craneofacial.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "A través de suaus pressions i moviments al cuir cabellut, coll i espatlles, aquest massatge allibera la tensió acumulada, millora la circulació i desperta una sensació de claredat i lleugeresa interior.",
-          "longDescription": "La tensió del dia a dia sol acumular-se al coll, el cuir cabellut i el rostre, generant rigidesa i cansament. El Massatge Craneofacial ajuda a alliberar aquestes tensions mitjançant suaus pressions i moviments rítmics que relaxen els músculs facials i estimulen la circulació.\n\nAquest tractament no només alleuja l'estrès mental, sinó que també il·lumina el rostre, millora l'oxigenació i deixa una sensació immediata de lleugeresa i benestar.\n\nPerfecte per als qui busquen claredat mental, descans profund i un aire renovat.",
-          "options": [
-            { "duration": "15 minuts", "price": "20€" },
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "50€" }
-          ]
-        },
-        {
-          "slug": "a-cuatro-manos",
-          "title": "A quatre mans",
-          "emoji": "🤲",
-          "tagline": "Doble energia, harmonia perfecta",
-          "image": "/images/subcategories/cuatro.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Quatre mans es mouen en completa sincronia, creant una simfonia de carícies que envolta el cos en una onada de sensacions. Una experiència envoltant i única que multiplica el plaer i la relaxació.",
-          "longDescription": "Imagina dos terapeutes treballant en total sincronia, combinant moviments fluids, pressions i estiraments en una coreografia perfectament equilibrada. El resultat: una experiència única que multiplica la relaxació i el benestar.\n\nEl Massatge a Quatre Mans envolta el cos en un ritme harmoniós que dissol tensions, estimula la circulació i porta la ment a un estat de profunda calma.\nUna sensació tan envoltant que el temps sembla aturar-se.\n\nIdeal per als qui busquen un tractament exclusiu, sensorial i absolutament inoblidable.\nDoble de mans, doble de plaer.",
-          "options": [
-            { "duration": "60 minuts", "price": "120€" },
-            { "duration": "90 minuts", "price": "150€" }
-          ]
-        },
-        {
-          "slug": "antiestres",
-          "title": "Antiestrès",
-          "emoji": "🌿",
-          "tagline": "Allibera tensions, recupera la teva calma",
-          "image": "/images/subcategories/antiestres.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Amb tècniques que combinen pressió suau i respiració profunda, aquest massatge ajuda a alliberar bloquejos emocionals i físics. Cada moviment dissol el cansament, convidant a la tranquil·litat i al descans més reparador.",
-          "longDescription": "¿Necessites desconnectar i deixar anar la tensió acumulada del dia a dia?\nEl Massatge Antiestrès està especialment dissenyat per relaxar coll, espatlles i esquena, les zones on més es concentra la càrrega física i emocional.\n\nMitjançant moviments ferms i precisos, aquest tractament dissol contractures, millora la circulació i proporciona una sensació immediata de lleugeresa i benestar.\n\nIdeal per als qui busquen recuperar energia, serenitat i un descans profund.\n✨ Deixa enrere les presses… i torna a sentir-te en equilibri.",
-          "options": [
-            { "duration": "60 minuts", "price": "55€" },
-            { "duration": "90 minuts", "price": "75€" }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "terapeuticos",
-      "title": "Terapèutics",
-      "image": "/images/categories/terapeuticos.jpg",
-      "shortDescription": "Els massatges terapèutics són un viatge cap a la recuperació i l'equilibri interior. A través del tacte conscient, alleugen tensions, reactiven l'energia i retornen harmonia al cos. Una experiència que nodreix, repara i renova des de la profunditat.",
-      "heroImages": [
-        { "src": "/images/hero/terapeutico1.jpg", "alt": "Terapeutic1" },
-        { "src": "/images/hero/terapeutico2.jpg", "alt": "Terapeutic2" },
-        { "src": "/images/hero/terapeutico3.jpg", "alt": "Terapeutic3" }
-      ],
-      "showCase": {
-        "title": "Tria la teva experiència",
-        "description": "Cada massatge terapèutic és un gest de cura. Regala alleujament, força i benestar durador."
-      },
-      "subcategories": [
-        {
-          "slug": "descontracturante",
-          "title": "Descontracturant",
-          "emoji": "💆‍♀️",
-          "tagline": "Alleujament de tensions profundes",
-          "image": "/images/subcategories/descontracturante.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge profund que allibera la rigidesa muscular, alleuja contractures i tensió, millora la circulació i relaxa el sistema nerviós. Deixa una sensació immediata de benestar, lleugeresa i vitalitat.",
-          "longDescription": "Després de llargues hores en la mateixa posició, els músculs es tensen i apareixen les molestes contractures.\nAquest massatge profund i precís allibera la rigidesa muscular, alleuja el dolor i retorna al teu cos la seva lleugeresa natural.\nSortiràs amb una agradable sensació de benestar i llibertat en cada moviment.\n\nBeneficis: alleuja contractures, millora la circulació, redueix la tensió acumulada, relaxa el sistema nerviós i aporta una sensació immediata de descans i vitalitat.",
-          "options": [
-            { "duration": "30 minuts", "price": "40€" },
-            { "duration": "60 minuts", "price": "65€" },
-            { "duration": "90 minuts", "price": "85€" }
-          ]
-        },
-        {
-          "slug": "embarazadas",
-          "title": "Embarassades",
-          "emoji": "🤰",
-          "tagline": "Cura i benestar en una etapa única",
-          "image": "/images/subcategories/embarazadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge prenatal que alleuja dolors lumbars, cames cansades i retenció de líquids. Relaxa músculs, millora circulació, redueix estrès i edemes, oferint benestar, serenitat i una connexió especial amb el teu nadó.",
-          "longDescription": "L'embaràs és una etapa meravellosa, però també pot portar molèsties físiques com dolors lumbars, cames cansades o retenció de líquids. Aquest massatge està dissenyat especialment per alleujar aquestes incomoditats i ajudar-te a gaudir plenament d'aquest moment tan especial.\n\nA través de moviments suaus i segurs, s'aconsegueix relaxar els músculs implicats en el part, millorar la circulació, reduir edemes i afavorir el descans.\n\n✨ Beneficis: alleujament de dolors articulars i rampes, millora del trànsit intestinal, prevenció d'estries, reducció de l'estrès i una sensació general de lleugeresa, serenitat i connexió amb el teu nadó.",
-          "options": [
-            { "duration": "45 minuts", "price": "50€" },
-            { "duration": "60 minuts", "price": "60€" }
-          ]
-        },
-        {
-          "slug": "embarazadas-piernas-cansadas",
-          "title": "Embarassades (Cames cansades)",
-          "emoji": "🪽",
-          "tagline": "Lleugeresa i benestar per a la maternitat",
-          "image": "/images/subcategories/embarazadas-piernas-cansadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge prenatal per a cames cansades que redueix inflor, rampes i pesadesa. Millora circulació, alleuja músculs, afavoreix el descans i benestar, proporcionant lleugeresa, relaxació i connexió amb el teu nadó.",
-          "longDescription": "El compte enrere per al teu gran dia ha començat… i el teu cos mereix un respir.\nAquest massatge, especialment dissenyat per a cames cansades durant l'embaràs, ajuda a reduir la inflor, millorar la circulació i alleujar rampes i pesadesa.\n\nA través de moviments suaus i drenants, aporta una sensació immediata de lleugeresa i descans, ajudant-te a reconnectar amb el teu benestar físic i emocional.\n\n✨ Beneficis: reducció d'edemes i retenció de líquids, alleujament de dolors articulars i musculars, millora del descans, de la circulació i de la postura, així com prevenció d'estries i reducció de l'estrès.\n\nUn mim necessari per a tu i el teu nadó, en una etapa tan especial.",
-          "options": [
-            { "duration": "15 minuts", "price": "20€" },
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "45€" }
-          ]
-        },
-        {
-          "slug": "espalda-cuello-hombros",
-          "title": "Esquena, coll i espatlles",
-          "emoji": "💆‍♂️",
-          "tagline": "Alleujament a les zones més tensionades",
-          "image": "/images/subcategories/espalda-cuello.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge centrat en esquena, coll i espatlles que alleuja contractures i rigidesa. Millora postura i mobilitat, redueix estrès i molèsties, proporcionant una sensació immediata de benestar, lleugeresa i relaxació profunda.",
-          "longDescription": "Les tensions del dia a dia solen acumular-se just aquí: a l'esquena, el coll i les espatlles. Aquest massatge se centra a alliberar aquestes zones clau, alleujant contractures, reduint la rigidesa i retornant-te una agradable sensació de lleugeresa i benestar.\n\nBeneficis: relaxació profunda de la musculatura dorsal i cervical, alleujament de dolors i molèsties, millora de la postura i la mobilitat, i reducció de l'estrès acumulat.",
-          "options": [
-            { "duration": "45 minuts", "price": "50€" },
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "lomi-lomi",
-          "title": "Lomi-Lomi",
-          "emoji": "🌊",
-          "tagline": "L'esperit de Hawaii a les teves mans",
-          "image": "/images/subcategories/lomi-lomi.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge Lomi-Lomi hawaià amb moviments rítmics i envoltants que alleugen tensions, relaxen músculs i sistema nerviós, milloren circulació i drenatge limfàtic, proporcionant benestar, harmonia, lleugeresa i equilibri interior.",
-          "longDescription": "La forma més plaent de viatjar a Hawaii sense pujar-te a un avió.\nEl Massatge Lomi-Lomi, també conegut com “el massatge de les mans amoroses”, combina moviments rítmics i envoltants realitzats amb les mans i avantbraços, simulant el fluir de les onades de l'oceà.\n\nAquesta tècnica ancestral hawaiana allibera tensions profundes, relaxa el sistema nerviós i muscular i afavoreix la circulació i el drenatge limfàtic, aportant una sensació d'equilibri, lleugeresa i harmonia interior.\n\n✨ Beneficis: reducció de l'estrès, millora de la flexibilitat, tonificació del cos, alleujament de dolors musculars i estimulació del sistema immunitari.",
-          "options": [
-            { "duration": "60 minuts", "price": "60€" },
-            { "duration": "90 minuts", "price": "80€" }
-          ]
-        },
-        {
-          "slug": "piernas-cansadas",
-          "title": "Cames cansades",
-          "emoji": "🦵",
-          "tagline": "Reactivar la circulació, recuperar lleugeresa",
-          "image": "/images/subcategories/piernas-cansadas.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Massatge especialitzat per a cames cansades que millora la circulació, alleuja inflor, pesadesa i rampes, relaxa peus i cames, prevé varius i retorna sensació immediata de lleugeresa i benestar.",
-          "longDescription": "Tant si passes el dia dempeus com assegut, les teves cames acaben notant l'esforç: s'inflen, es carreguen i demanen descans. Aquest massatge especialitzat t'ajudarà a reactivar la circulació, alleujar la tensió i retornar-los la lleugeresa que necessiten.\n\nBeneficis: estimulació de la circulació sanguínia, alleujament de la sensació de pesadesa i inflor, reducció de rampes, relaxació de peus i cames, i prevenció de varius.",
-          "options": [
-            { "duration": "15 minuts", "price": "20€" },
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "50€" }
-          ]
-        },
-        {
-          "slug": "reflexologia",
-          "title": "Reflexologia podal",
-          "emoji": "🦶",
-          "tagline": "Equilibri a través dels teus peus",
-          "image": "/images/subcategories/reflexologia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Reflexologia podal que estimula punts específics dels peus per alleujar tensions, reduir estrès físic i mental, millorar benestar general i circulació energètica, proporcionant vitalitat, lleugeresa i harmonia interior.",
-          "longDescription": "La Reflexologia Podal és una tècnica mil·lenària que aplica pressions precises en punts específics dels peus, connectats amb diferents òrgans i sistemes del cos.\n\nEn estimular aquestes zones reflexes, s'afavoreix la circulació energètica, es redueixen tensions i s'alleuja l'estrès físic i mental, ajudant l'organisme a recuperar el seu equilibri natural.\n\nUna experiència profundament relaxant que renova la vitalitat, millora el benestar general i deixa una sensació de lleugeresa i harmonia interior.",
-          "options": [
-            { "duration": "15 minuts", "price": "20€" },
-            { "duration": "30 minuts", "price": "35€" },
-            { "duration": "45 minuts", "price": "50€" }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "reafirmantes",
-      "title": "Reafirmants",
-      "image": "/images/categories/reafirmantes.jpg",
-      "shortDescription": "Els massatges reafirmants estimulen la pell i desperten l'energia vital que habita en cada fibra. A través de moviments ferms i envoltants, activen la circulació, tonifiquen els teixits i retornen al cos la seva forma natural d'harmonia i força.",
-      "heroImages": [
-        { "src": "/images/hero/reafirmante1.jpg", "alt": "Reafirmant1" },
-        { "src": "/images/hero/reafirmante2.jpg", "alt": "Reafirmant2" },
-        { "src": "/images/hero/reafirmante3.jpg", "alt": "Reafirmant3" }
-      ],
-      "showCase": {
-        "title": "Tria la teva experiència",
-        "description": "Cada massatge reafirmant és una carícia revitalitzadora. Regala fermesa, bellesa i renovació des de l'interior."
-      },
-      "subcategories": [
-        {
-          "slug": "maderoterapia",
-          "title": "Maderoteràpia",
-          "emoji": "🌿",
-          "tagline": "Tonifica, drena i retorna fermesa",
-          "image": "/images/subcategories/maderoterapia.jpg",
-          "backgroundImage": "/images/treatment-detail.jpg",
-          "shortDescription": "Maderoteràpia amb eines de fusta que tonifica músculs, millora circulació i limfa, redueix tensions i cel·lulitis, afavoreix la relaxació i benestar, aportant fermesa, lleugeresa i sensació d'equilibri corporal.",
-          "longDescription": "La Maderoteràpia és una tècnica de massatge originària de la tradició oriental que utilitza eines de fusta dissenyades específicament per treballar sobre els músculs i la pell.\nA través de moviments rítmics i precisos, aquestes eines ajuden a tonificar la musculatura, millorar la circulació sanguínia i limfàtica, afavorir el drenatge de líquids i reduir l'aparença de cel·lulitis.\n\nAquest massatge no només actua a nivell físic, sinó que també indueix una profunda relaxació, alliberant tensions acumulades i retornant sensació de lleugeresa i benestar. És ideal per als qui busquen un tractament natural, estètic i terapèutic al mateix temps.\n\n✨ Beneficis: tonifica músculs, millora circulació, redueix cel·lulitis, afavoreix drenatge limfàtic, alleuja tensions, aporta fermesa, lleugeresa i sensació d'equilibri corporal.",
-          "options": [
-            { "duration": "30 minuts", "price": "40€" },
-            { "duration": "60 minuts", "price": "75€" }
+          "slug": "rituales",
+          "title": "Rituals",
+          "image": "/images/categories/rituals.png",
+          "isFeatured": true,
+          "badge": "✨ Experiència Exclusiva",
+          "shortDescription": "Experiències completes que combinen el millor de les nostres tècniques. Dissenyades per renovar cos i ment a través d'una seqüència perfecta de tractaments.",
+          "heroImages": [
+            { "src": "/images/hero/ritual1.jpg", "alt": "Ritual 1" },
+            { "src": "/images/hero/ritual2.jpg", "alt": "Ritual 2" }
+          ],
+          "showCase": {
+            "title": "Tria el teu Ritual",
+            "description": "Més que un massatge, un viatge complet de renovació."
+          },
+          "subcategories": [
+            {
+              "slug": "ritual-armonia-total",
+              "title": "Ritual d'Harmonia Total",
+              "emoji": "✨",
+              "tagline": "El reinici definitiu de cos sencer",
+              "image": "/images/subcategories/ritual-armonia.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una immersió completa de 90 minuts que combina un massatge de cos sencer amb relaxació cranial i reflexologia podal.",
+              "longDescription": "Aquest és el nostre ritual més complet per a qui necessita un reinici total.\n\n**Què inclou?**\n• 60 minuts: Massatge de cos sencer (oriental o relaxant)\n• 15 minuts: Massatge craniofacial (alleuja l’estrès mental)\n• 15 minuts: Reflexologia podal (equilibra l’energia interna)\n\nUn viatge de 90 minuts que no deixa cap tensió sense resoldre.",
+              "options": [
+                {
+                  "duration": "90 minuts",
+                  "price": "75€",
+                  "originalPrice": "100€",
+                  "tag": "Best Seller"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-luxury",
+              "title": "Ritual Luxury",
+              "emoji": "👑",
+              "tagline": "2 hores de benestar absolut",
+              "image": "/images/subcategories/ritual-luxury.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "La nostra experiència més exclusiva. 90 minuts de massatge corporal complementats amb tècniques cranials i de reflexologia.",
+              "longDescription": "La joia de la corona de la nostra carta. Dues hores senceres dedicades exclusivament a tu.\n\n**Què inclou?**\n• 90 minuts: Massatge de cos sencer estès\n• 15 minuts: Massatge craniofacial\n• 15 minuts: Reflexologia podal\n\nEl regal definitiu per a algú especial, o el caprici que et mereixes.",
+              "options": [
+                {
+                  "duration": "120 minuts",
+                  "price": "95€",
+                  "originalPrice": "120€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-recuperacion-profunda",
+              "title": "Ritual de Recuperació Profunda",
+              "emoji": "🧱",
+              "tagline": "Alleujament per a tot el cos",
+              "image": "/images/subcategories/ritual-recuperacion.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Alleujament intens per al dolor muscular. 60 minuts de massatge de teixit profund més cranial i reflexologia per desconnectar.",
+              "longDescription": "Ideal per a qui té fatiga acumulada i rigidesa muscular.\n\n**Què inclou?**\n• 60 minuts: Massatge de teixit profund (descontracturant) per alliberar nusos\n• 15 minuts: Massatge craniofacial\n• 15 minuts: Reflexologia podal\n\nUna combinació potent que tracta el dolor físic mentre calma el sistema nerviós.",
+              "options": [
+                {
+                  "duration": "90 minuts",
+                  "price": "85€",
+                  "originalPrice": "105€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-profundo",
+              "title": "Ritual d'Equilibri Profund",
+              "emoji": "🧘",
+              "tagline": "Cura prolongada per al cos i la ment",
+              "image": "/images/subcategories/ritual-profundo.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Combinació ampliada de 60 minuts de massatge més 30 minuts de teràpia específica (reflexologia o cranial).",
+              "longDescription": "Dona’t temps per deixar-te anar de veritat. Aquest ritual allarga l’experiència per garantir una relaxació profunda.\n\n**Què inclou?**\n• 60 minuts: Massatge de cos sencer\n• 30 minuts: A triar entre reflexologia podal o massatge craniofacial\n\nIdeal per tractar molèsties específiques mentre relaxes tot el cos.",
+              "options": [
+                {
+                  "duration": "90 minuts",
+                  "price": "80€",
+                  "originalPrice": "95€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-bienestar-esencial",
+              "title": "Pack de Benestar Essencial",
+              "emoji": "🎁",
+              "tagline": "Personalitza la teva relaxació",
+              "image": "/images/subcategories/pack-bienestar.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Combina un massatge d’una hora amb un tractament específic a triar: cranial, reflexologia o cames cansades.",
+              "longDescription": "Dissenya el teu propi moment de pau. Comença amb una base sòlida de 60 minuts de massatge i afegeix aquell extra que el teu cos necessita avui.\n\n**Què inclou?**\n• 60 minuts: Massatge a triar\n• 15 minuts: Complement GRATIS (tria: craniofacial, reflexologia o cames cansades)\n\nPerfecte per a un tractament complet a un preu excepcional.",
+              "options": [
+                {
+                  "duration": "75 minuts",
+                  "price": "65€",
+                  "originalPrice": "80€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-alivio-express",
+              "title": "Pack d'Alleujament Express",
+              "emoji": "🔋",
+              "tagline": "Alleujament del dolor localitzat en 1 hora",
+              "image": "/images/subcategories/pack-alivio.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Cura focalitzada per al mal d’esquena i l’estrès. 30 minuts de treball profund seguits de relaxació al cap i als peus.",
+              "longDescription": "No tens 90 minuts però necessites un alleujament profund? Aquest pack concentra els beneficis del nostre ritual de recuperació.\n\n**Què inclou?**\n• 30 minuts: Teixit profund (descontracturant) enfocat a l’esquena\n• 15 minuts: Massatge craniofacial\n• 15 minuts: Reflexologia podal\n\nEficient, eficaç i restaurador.",
+              "options": [
+                {
+                  "duration": "60 minuts",
+                  "price": "60€",
+                  "originalPrice": "80€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-express",
+              "title": "Reinici Express",
+              "emoji": "⚡",
+              "tagline": "Màxima relaxació en el mínim temps",
+              "image": "/images/subcategories/ritual-express.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Relaxació intel·ligent: 45 minuts de treball intens més 10 minuts de massatge de regal localitzat.",
+              "longDescription": "No tens gaire temps però necessites alleujament? Aquest pack està dissenyat per a l’eficiència.\n\n**Què inclou?**\n• 45 minuts: Massatge terapèutic o relaxant\n• 10 minuts: Bonus de massatge localitzat\n\nUna hora d’autocura que encaixa en qualsevol agenda.",
+              "options": [
+                {
+                  "duration": "60 minuts",
+                  "price": "55€",
+                  "originalPrice": "70€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-silueta",
+              "title": "Silueta i Maderoteràpia",
+              "emoji": "🌲",
+              "tagline": "Tonifica i relaxa",
+              "image": "/images/subcategories/pack-madero.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "L’equilibri perfecte entre estètica i relaxació. Maderoteràpia per tonificar i massatge manual per relaxar.",
+              "longDescription": "Per què triar entre bellesa i benestar?\n\n**Què inclou?**\n• 30 minuts: Maderoteràpia (reafirmant/anticel·lulítica)\n• 60 minuts: Massatge relaxant o circulatori\n\nUna combinació que et deixa amb sensació de lleugeresa i amb la pell més ferma.",
+              "options": [
+                {
+                  "duration": "90 minuts",
+                  "price": "80€",
+                  "originalPrice": "100€"
+                }
+              ]
+            },
+            {
+              "slug": "pack-madero-express",
+              "title": "Reafirmant Express",
+              "emoji": "🪵",
+              "tagline": "Modela i relaxa en 1 hora",
+              "image": "/images/subcategories/pack-madero-express.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Un combo ràpid de bellesa i benestar. 30 minuts de maderoteràpia vigorosa i 30 minuts de massatge.",
+              "longDescription": "La versió més lleugera del nostre pack Silueta.\n\n**Què inclou?**\n• 30 minuts: Maderoteràpia (enfoc a cames/abdomen)\n• 30 minuts: Massatge manual\n\nAconsegueix els beneficis de tonificació i relaxació en només una hora.",
+              "options": [
+                {
+                  "duration": "60 minuts",
+                  "price": "60€",
+                  "originalPrice": "75€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-nueva-mama",
+              "title": "Ritual Nova Mare",
+              "emoji": "🤱",
+              "tagline": "Cura i mims en el postpart",
+              "image": "/images/subcategories/nueva-mama.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una sessió suau de 75 minuts pensada per a l’etapa postpart. Massatge relaxant més una cura específica per a cames o cap.",
+              "longDescription": "Tu t’has ocupat de tot; ara deixa’ns ocupar-nos de tu. Un ritual dissenyat per a la recuperació física i emocional de les noves mares.\n\n**Què inclou?**\n• 60 minuts: Massatge suau i relaxant\n• 15 minuts: A triar entre cames cansades (drenatge) o craniofacial\n\nUn moment de silenci, pau i reconnexió amb el teu cos.",
+              "options": [
+                {
+                  "duration": "75 minuts",
+                  "price": "60€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-ligereza-total",
+              "title": "Trio de Lleugeresa Total",
+              "emoji": "🪽",
+              "tagline": "Circulació i claredat mental",
+              "image": "/images/subcategories/ligereza.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Una combinació única centrada en les extremitats. Reflexologia, cranial i massatge de cames cansades.",
+              "longDescription": "Perfecte per a qui prefereix no rebre un massatge d’esquena o no el pot rebre (p. ex., embaràs). Aquest ritual se centra en els sistemes perifèrics per induir una relaxació profunda.\n\n**Què inclou?**\n• 15 minuts: Reflexologia podal\n• 15 minuts: Massatge craniofacial\n• 15 minuts: Massatge de cames cansades\n\nViu una sensació de flotar i de lleugeresa total.",
+              "options": [
+                {
+                  "duration": "45 minuts",
+                  "price": "50€",
+                  "originalPrice": "60€"
+                }
+              ]
+            },
+            {
+              "slug": "mini-ritual-cabezapies",
+              "title": "Mini Ritual de Cap a Peus",
+              "emoji": "⚖️",
+              "tagline": "Equilibri ràpid per a ments ocupades",
+              "image": "/images/subcategories/mini-ritual.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Vas just de temps? 30 minuts per reiniciar-te. Massatge cranial per aclarir la ment i reflexologia per arrel ar el cos.",
+              "longDescription": "La pausa perfecta en un dia atrafegat. Treballem els dos pols del cos per equilibrar la teva energia a l’instant.\n\n**Què inclou?**\n• 15 minuts: Massatge craniofacial\n• 15 minuts: Reflexologia podal\n\nMàxim efecte en mínim temps.",
+              "options": [
+                {
+                  "duration": "30 minuts",
+                  "price": "35€",
+                  "originalPrice": "40€"
+                }
+              ]
+            },
+            {
+              "slug": "ritual-duo-independiente",
+              "title": "Ritual Dúo Independent",
+              "emoji": "👥",
+              "tagline": "Temps compartit, espai individual",
+              "image": "/images/subcategories/duo.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "Gaudeix d’un massatge de 90 minuts al mateix temps que el teu acompanyant, però en cabines separades per a una privacitat total.",
+              "longDescription": "Ideal per a parelles o amics que volen anar a l’spa junts però prefereixen gaudir del tractament en el seu propi espai privat.\n\n**Què inclou?**\n• 90 minuts: Massatge a triar per a la persona A (cabina 1)\n• 90 minuts: Massatge a triar per a la persona B (cabina 2)\n\n*Nota: Aquest servei es realitza en sales separades a la mateixa hora.*",
+              "options": [
+                {
+                  "duration": "90 minuts (preu per a dues persones)",
+                  "price": "150€",
+                  "originalPrice": "160€"
+                }
+              ]
+            },
+            {
+              "slug": "antiestres-promo",
+              "title": "Promo Antiestrès",
+              "emoji": "💆",
+              "tagline": "Oferta especial per a una relaxació profunda",
+              "image": "/images/subcategories/antiestres.jpg",
+              "backgroundImage": "/images/treatment-detail.jpg",
+              "shortDescription": "El nostre massatge Antiestrès emblemàtic a un preu promocional especial. Allibera tensió i estalvia.",
+              "longDescription": "El Massatge Antiestrès està especialment dissenyat per relaxar el coll, les espatlles i l’esquena.\n\n**Oferta especial:**\nGaudeix d’aquest tractament amb un descompte especial inclòs en el preu.\n\nIdeal per a qui busca recuperar energia, serenitat i un descans profund.",
+              "options": [
+                {
+                  "duration": "60 minuts",
+                  "price": "54€",
+                  "originalPrice": "60€",
+                  "tag": "Promo -10%"
+                },
+                {
+                  "duration": "90 minuts",
+                  "price": "72€",
+                  "originalPrice": "80€",
+                  "tag": "Promo -10%"
+                }
+              ]
+            }
           ]
         }
       ]

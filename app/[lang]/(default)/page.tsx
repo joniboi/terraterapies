@@ -22,6 +22,8 @@ export default async function Home({ params }: PageProps) {
   const services = await getServicesData(lang);
   const dict = await getDictionary(lang);
 
+  const allCategories = services.navItems.flatMap((item) => item.categories);
+
   return (
     <>
       <Hero dict={dict.home.hero} />
@@ -29,7 +31,7 @@ export default async function Home({ params }: PageProps) {
       {/* 2. Pass props to BusinessCategories */}
       <BusinessCategories
         lang={lang}
-        categories={services.categories}
+        categories={allCategories}
         dict={dict.home.categories}
         ctaLabel={dict.common.seeMore}
       />

@@ -26,11 +26,7 @@ export default async function DefaultLayout({
       <AOSInit />
 
       {/* Header receives Language, Dictionary, and Categories */}
-      <Header
-        lang={lang}
-        dict={dict.header}
-        categories={servicesData.categories}
-      />
+      <Header lang={lang} dict={dict.header} navItems={servicesData.navItems} />
 
       <main className="grow">{children}</main>
 
