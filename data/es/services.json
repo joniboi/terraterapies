@@ -371,8 +371,9 @@
           "isFeatured": true,
           "badge": "✨ Experiencia Exclusiva",
           "heroImages": [
-            { "src": "/images/hero/ritual1.jpg", "alt": "Ritual 1" },
-            { "src": "/images/hero/ritual2.jpg", "alt": "Ritual 2" }
+            { "src": "/images/hero/rituals1.jpg", "alt": "Ritual 1" },
+            { "src": "/images/hero/rituals2.jpg", "alt": "Ritual 2" },
+            { "src": "/images/hero/rituals3.jpg", "alt": "Ritual 3" }
           ],
           "showCase": {
             "title": "Elige tu Ritual",
