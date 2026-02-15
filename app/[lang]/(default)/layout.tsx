@@ -30,7 +30,7 @@ export default async function DefaultLayout({
 
       <main className="grow">{children}</main>
 
-      <Footer border={true} dict={dict.footer} />
+      <Footer border={true} dict={dict.footer} lang={lang} />
     </>
   );
 }

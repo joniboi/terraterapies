@@ -4,11 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "./logo";
 import { ChevronDown } from "lucide-react";
+import { routes, getLocalizedRoute } from "@/app/lib/routes";
+import { config } from "@/app/lib/config";
 
 // Define the shape of the dictionary part this component needs
 interface FooterDict {
   copyright: string;
-  experiences: { title: string; thai: string; bali: string; combos: string };
+  experiences: {
+    title: string;
+    thai: { label: string; categorySlug: string; subcategorySlug: string };
+    bali: { label: string; categorySlug: string; subcategorySlug: string };
+    combos: { label: string; categorySlug: string };
+  };
   collabs: { title: string; mezzanote: string };
   info: { title: string; contact: string; about: string; faq: string };
   social: { title: string; whatsappMsg: string };
@@ -18,9 +25,10 @@ interface FooterDict {
 interface FooterProps {
   border?: boolean;
   dict: FooterDict;
+  lang: string; // ✅ Added lang prop
 }
 
-export default function Footer({ border = false, dict }: FooterProps) {
+export default function Footer({ border = false, dict, lang }: FooterProps) {
   return (
     <footer>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -35,10 +43,10 @@ export default function Footer({ border = false, dict }: FooterProps) {
           {/* 1st block: Branding (Always visible) */}
           <div className="space-y-4 sm:col-span-12 lg:col-span-4 mb-4 lg:mb-0">
             <div>
-              <Logo />
+              <Logo lang={lang} />
             </div>
             <div className="text-sm text-gray-600">
-              &copy; {new Date().getFullYear()} Terraterapies Thai & Bali.{" "}
+              &copy; {new Date().getFullYear()} {config.business.name}.{" "}
               {dict.copyright}
             </div>
           </div>
@@ -52,25 +60,40 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(
+                    routes.subcategory(
+                      dict.experiences.thai.categorySlug,
+                      dict.experiences.thai.subcategorySlug,
+                    ),
+                    lang,
+                  )}
                 >
-                  {dict.experiences.thai}
+                  {dict.experiences.thai.label}
                 </Link>
               </li>
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(
+                    routes.subcategory(
+                      dict.experiences.bali.categorySlug,
+                      dict.experiences.bali.subcategorySlug,
+                    ),
+                    lang,
+                  )}
                 >
-                  {dict.experiences.bali}
+                  {dict.experiences.bali.label}
                 </Link>
               </li>
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(
+                    routes.category(dict.experiences.combos.categorySlug),
+                    lang,
+                  )}
                 >
-                  {dict.experiences.combos}
+                  {dict.experiences.combos.label}
                 </Link>
               </li>
             </ul>
@@ -85,7 +108,9 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={config.partners.mezzanote.getUrl(lang)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {dict.collabs.mezzanote}
                 </Link>
@@ -102,7 +127,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(routes.contact, lang)}
                 >
                   {dict.info.contact}
                 </Link>
@@ -110,7 +135,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(routes.about, lang)}
                 >
                   {dict.info.about}
                 </Link>
@@ -118,7 +143,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="text-gray-600 transition hover:text-gray-900"
-                  href="#0"
+                  href={getLocalizedRoute(routes.faq, lang)}
                 >
                   {dict.info.faq}
                 </Link>
@@ -126,7 +151,7 @@ export default function Footer({ border = false, dict }: FooterProps) {
             </ul>
           </FooterSection>
 
-          {/* 5th block: Social (Always visible as grid/list, rarely accordion) */}
+          {/* 5th block: Social */}
           <div className="space-y-4 sm:col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
               {dict.social.title}
@@ -135,7 +160,9 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
-                  href={`https://wa.me/34603177049?text=${encodeURIComponent(dict.social.whatsappMsg)}`}
+                  href={config.social.whatsapp.getUrl(dict.social.whatsappMsg)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Whatsapp"
                 >
                   <svg
@@ -150,7 +177,9 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
-                  href="https://www.facebook.com/people/Terraterapies-Thai-Y-Bali/61580296106688"
+                  href={config.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Facebook"
                 >
                   <svg
@@ -165,7 +194,9 @@ export default function Footer({ border = false, dict }: FooterProps) {
               <li>
                 <Link
                   className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
-                  href="https://www.instagram.com/terrapiesthaiybali"
+                  href={config.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label="Instagram"
                 >
                   <svg
@@ -220,10 +251,7 @@ function FooterSection({
     <div
       className={`space-y-2 border-b border-gray-100 sm:border-none pb-4 sm:pb-0 ${className}`}
     >
-      {/* 
-         MOBILE HEADER: Clickable
-         DESKTOP HEADER: Static
-      */}
+      {/* MOBILE HEADER: Clickable */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between sm:hidden group"
@@ -232,21 +260,22 @@ function FooterSection({
           {title}
         </h3>
         <ChevronDown
-          className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`w-4 h-4 text-gray-400 transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
         />
       </button>
 
+      {/* DESKTOP HEADER: Static */}
       <h3 className="hidden sm:block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">
         {title}
       </h3>
 
-      {/* 
-         CONTENT: 
-         - Mobile: Hidden unless open
-         - Desktop: Always visible (block)
-      */}
+      {/* CONTENT: Mobile hidden unless open, Desktop always visible */}
       <div
-        className={`${isOpen ? "block" : "hidden"} sm:block animate-in slide-in-from-top-1`}
+        className={`${
+          isOpen ? "block" : "hidden"
+        } sm:block animate-in slide-in-from-top-1`}
       >
         {children}
       </div>

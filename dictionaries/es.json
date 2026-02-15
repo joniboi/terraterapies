@@ -57,9 +57,20 @@
     "copyright": "Todos los derechos reservados.",
     "experiences": {
       "title": "Experiencias",
-      "thai": "Thai",
-      "bali": "Bali",
-      "combos": "Combos"
+      "thai": {
+        "label": "Thai",
+        "categorySlug": "orientales",
+        "subcategorySlug": "tailandes"
+      },
+      "bali": {
+        "label": "Bali",
+        "categorySlug": "orientales",
+        "subcategorySlug": "balines"
+      },
+      "combos": {
+        "label": "Rituales",
+        "categorySlug": "rituales"
+      }
     },
     "collabs": {
       "title": "Colaboraciones",
@@ -74,6 +85,118 @@
     "social": {
       "title": "Social",
       "whatsappMsg": "Hola, quiero información sobre Terraterapies Thai & Bali"
+    }
+  },
+  "faqs": {
+    "hero": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Encuentra respuestas a las dudas más comunes sobre nuestros servicios"
+    },
+    "sections": [
+      {
+        "id": "reservations",
+        "title": "Reservas y Servicios",
+        "questions": [
+          {
+            "question": "¿Cómo puedo reservar un masaje?",
+            "answer": "Puedes reservar tu cita de tres formas:\n\n• A través de nuestro sistema de reservas online\n• Por teléfono al +34 603 177 049\n• Por WhatsApp enviándonos un mensaje"
+          },
+          {
+            "question": "¿Con cuánta antelación debo hacer mi reserva?",
+            "answer": "Recomendamos reservar con al menos 48 horas de antelación para asegurar disponibilidad en el horario que prefieras. Para tratamientos especiales o en fines de semana, te sugerimos reservar con una semana de antelación."
+          },
+          {
+            "question": "¿Puedo cancelar o modificar mi cita?",
+            "answer": "Sí, puedes modificar o cancelar tu reserva sin coste contactándonos con al menos 24 horas de antelación. Las cancelaciones con menos de 24 horas pueden estar sujetas a una penalización."
+          },
+          {
+            "question": "¿Cuál es el horario de apertura?",
+            "answer": "Nuestro centro está abierto de lunes a sábado de 10:00 a 21:00h, y domingos de 11:00 a 19:00h. Cerramos los días 25 de diciembre y 1 de enero."
+          },
+          {
+            "question": "¿Debo llegar con antelación?",
+            "answer": "Te recomendamos llegar 10 minutos antes de tu cita. Esto te permitirá acomodarte, relajarte y aprovechar al máximo tu experiencia desde el primer momento."
+          },
+          {
+            "question": "¿Qué debo llevar el día del tratamiento?",
+            "answer": "No es necesario traer nada especial. Proporcionamos todo lo necesario: toallas, batas y un ambiente preparado para tu comodidad. Solo trae ganas de desconectar."
+          },
+          {
+            "question": "¿Tienen vestuarios y duchas?",
+            "answer": "Sí, disponemos de vestuarios privados y duchas para que puedas prepararte antes del tratamiento y refrescarte después si lo deseas."
+          },
+          {
+            "question": "¿Puedo elegir el tipo de aceite o aroma?",
+            "answer": "Por supuesto. Ofrecemos diferentes opciones de aceites y aromas. Nuestros terapeutas te consultarán tus preferencias antes de comenzar y adaptarán el tratamiento a tus necesidades."
+          }
+        ]
+      },
+      {
+        "id": "gift-cards",
+        "title": "Tarjetas Regalo",
+        "questions": [
+          {
+            "question": "¿Cómo compro una tarjeta regalo?",
+            "answer": "Puedes adquirir una tarjeta regalo directamente desde cualquier página de tratamiento en nuestra web. Selecciona la opción 'Regalar este tratamiento', completa los datos y realiza el pago de forma segura. Recibirás la tarjeta en tu correo en menos de 24 horas."
+          },
+          {
+            "question": "¿Cómo uso una tarjeta regalo para reservar?",
+            "answer": "El beneficiario debe contactarnos para agendar su cita por teléfono (+34 603 177 049) o WhatsApp, indicando el código de localizador de la tarjeta regalo."
+          },
+          {
+            "question": "¿Cuánto tiempo es válida una tarjeta regalo?",
+            "answer": "Las tarjetas regalo tienen una validez de 1 año desde la fecha de compra. Pasado este tiempo, la tarjeta pierde su validez sin posibilidad de reembolso."
+          },
+          {
+            "question": "¿Qué pasa si pierdo mi tarjeta regalo?",
+            "answer": "Conserva siempre el correo de confirmación. En caso de pérdida del PDF, podremos verificar tu compra mediante el código de localizador y el comprobante de pago."
+          },
+          {
+            "question": "¿Puedo cambiar el tratamiento de mi tarjeta regalo?",
+            "answer": "Sí, puedes cambiar a otro tratamiento de igual o mayor valor. Si el nuevo tratamiento tiene un coste superior, deberás abonar la diferencia. No se realizan reembolsos por cambios a tratamientos de menor valor."
+          },
+          {
+            "question": "¿Las tarjetas regalo son transferibles?",
+            "answer": "Sí, las tarjetas regalo pueden ser transferidas a otra persona. El nuevo beneficiario solo necesita el código de localizador para hacer su reserva."
+          },
+          {
+            "question": "¿Puedo devolver una tarjeta regalo?",
+            "answer": "Las tarjetas regalo no son reembolsables una vez procesado el pago, ya que son productos digitales de uso inmediato."
+          }
+        ]
+      },
+      {
+        "id": "legal",
+        "title": "Información Legal y Privacidad",
+        "questions": [
+          {
+            "question": "¿Quién gestiona esta web?",
+            "answer": "Esta página web es gestionada por Terraterapies Thai & Bali, con sede en Sant Cugat del Vallès, Barcelona."
+          },
+          {
+            "question": "¿Es seguro comprar online?",
+            "answer": "Sí, totalmente. Los pagos se procesan a través de Stripe, una plataforma de pago certificada y reconocida internacionalmente. Terraterapies no almacena datos de tarjetas de crédito en ningún momento."
+          },
+          {
+            "question": "¿Qué datos personales se solicitan?",
+            "answer": "Para gestionar reservas y compras solicitamos únicamente nombre, apellidos, correo electrónico y teléfono de contacto. Estos datos se utilizan exclusivamente para la gestión de tu servicio."
+          },
+          {
+            "question": "¿Se comparten mis datos con terceros?",
+            "answer": "No. Tus datos son confidenciales y solo el personal autorizado de Terraterapies tiene acceso a ellos. No vendemos, cedemos ni compartimos información personal con terceros."
+          },
+          {
+            "question": "¿El centro es responsable de objetos personales?",
+            "answer": "Aunque disponemos de espacios seguros para guardar tus pertenencias, te recomendamos no traer objetos de valor. Terraterapies no se hace responsable de pérdidas o daños de objetos personales."
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "title": "¿No encuentras lo que buscas?",
+      "subtitle": "Estamos aquí para ayudarte. Contáctanos y resolveremos tus dudas.",
+      "button": "Contactar por WhatsApp",
+      "whatsappMsg": "Hola, tengo una pregunta sobre los servicios de Terraterapies"
     }
   }
 }

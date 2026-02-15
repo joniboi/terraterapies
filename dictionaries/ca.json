@@ -58,10 +58,21 @@
   "footer": {
     "copyright": "Tots els drets reservats.",
     "experiences": {
-      "title": "Experiències",
-      "thai": "Thai",
-      "bali": "Bali",
-      "combos": "Combos"
+      "title": "Experiencies",
+      "thai": {
+        "label": "Thai",
+        "categorySlug": "orientales",
+        "subcategorySlug": "tailandes"
+      },
+      "bali": {
+        "label": "Bali",
+        "categorySlug": "orientales",
+        "subcategorySlug": "balines"
+      },
+      "combos": {
+        "label": "Rituals",
+        "categorySlug": "rituales"
+      }
     },
     "collabs": {
       "title": "Col·laboracions",
@@ -78,5 +89,109 @@
       "whatsappMsg": "Hola, vull informació sobre Terraterapies Thai & Bali"
     },
     "bigText": "Thai&Bali"
+  },
+  "faqs": {
+    "hero": {
+      "title": "Preguntes freqüents",
+      "subtitle": "Respostes ràpides sobre reserves, targetes regal i la teva visita."
+    },
+    "sections": [
+      {
+        "id": "reservations",
+        "title": "Reserves i la teva visita",
+        "questions": [
+          {
+            "question": "Com puc reservar una cita?",
+            "answer": "Pots reservar en línia, o contactar-nos directament per telèfon o WhatsApp per trobar el millor horari."
+          },
+          {
+            "question": "Amb quanta antelació hauria de reservar?",
+            "answer": "Recomanem reservar com a mínim amb 48 hores d’antelació. Per caps de setmana i franges amb més demanda, és millor reservar abans."
+          },
+          {
+            "question": "Puc modificar o cancel·lar una reserva?",
+            "answer": "Sí. Si necessites canviar la teva cita, avisa’ns tan aviat com puguis. Les cancel·lacions d’última hora poden comportar un càrrec segons l’antelació amb què s’avisi."
+          },
+          {
+            "question": "Quan hauria d’arribar?",
+            "answer": "Arribar 10 minuts abans t’ajuda a instal·lar-te amb calma i començar l’experiència sense presses."
+          },
+          {
+            "question": "He de portar alguna cosa?",
+            "answer": "No cal portar res especial. Nosaltres t’oferim el necessari per a la sessió. Si tens preferències o sensibilitats (pressió, olis, aromes), digues-nos-ho."
+          },
+          {
+            "question": "Teniu espai per canviar-me o dutxa?",
+            "answer": "Disposem d’un espai còmode per preparar-te abans i després del tractament. Si necessites alguna cosa concreta, contacta’ns i t’informarem."
+          },
+          {
+            "question": "Puc escollir l’oli o l’aroma?",
+            "answer": "Sí. Quan el tractament inclou oli, podem adaptar-lo a les teves preferències i sensibilitats. Si tens al·lèrgies, avisa’ns abans de començar."
+          },
+          {
+            "question": "Us feu responsables dels objectes personals?",
+            "answer": "Et recomanem vigilar les teves pertinences i evitar portar objectes de valor. No ens podem fer responsables de pèrdues o objectes oblidats."
+          }
+        ]
+      },
+      {
+        "id": "gift-cards",
+        "title": "Targetes regal",
+        "questions": [
+          {
+            "question": "Com puc comprar una targeta regal?",
+            "answer": "Tria un tractament a la web, selecciona l’opció de regal i completa la compra. Rebràs la targeta per correu electrònic."
+          },
+          {
+            "question": "Com puc bescanviar una targeta regal?",
+            "answer": "Contacta’ns per reservar i facilita’ns el codi/localitzador de la targeta. T’ajudarem a trobar disponibilitat."
+          },
+          {
+            "question": "Quina validesa té una targeta regal?",
+            "answer": "Les targetes regal tenen una validesa d’1 any des de la data de compra."
+          },
+          {
+            "question": "Puc canviar el tractament de la targeta regal?",
+            "answer": "Sí, pots canviar-lo per un tractament d’import igual o superior. Si el nou tractament és més car, es pot abonar la diferència."
+          },
+          {
+            "question": "Les targetes regal són reemborsables o transferibles?",
+            "answer": "Les targetes regal no són reemborsables un cop comprades, però es poden transferir a una altra persona sempre que tingui el codi/localitzador."
+          },
+          {
+            "question": "Què passa si perdo el correu o el PDF de la targeta regal?",
+            "answer": "Si conserves la confirmació de compra, contacta’ns i intentarem ajudar-te a recuperar la informació."
+          }
+        ]
+      },
+      {
+        "id": "legal",
+        "title": "Informació legal i privacitat",
+        "questions": [
+          {
+            "question": "Qui és el responsable d’aquest web?",
+            "answer": "Aquest lloc web és gestionat per Terraterapies Thai & Bali."
+          },
+          {
+            "question": "És segura la compra en línia?",
+            "answer": "Sí. Els pagaments en línia es processen mitjançant proveïdors de pagament segurs. No emmagatzemem dades de targetes."
+          },
+          {
+            "question": "Quines dades personals es demanen?",
+            "answer": "Només les necessàries per gestionar reserves i compres (per exemple, nom i dades de contacte). Les utilitzem exclusivament per a la gestió del servei i comunicacions relacionades."
+          },
+          {
+            "question": "Compartiu les meves dades amb tercers?",
+            "answer": "No venem les teves dades. Només es comparteixen quan és necessari per prestar el servei (per exemple, processament de pagaments) i amb les garanties adequades."
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Encara tens dubtes?",
+      "subtitle": "Escriu-nos i t’ajudarem tan aviat com sigui possible.",
+      "button": "Contactar per WhatsApp",
+      "whatsappMsg": "Hola! Tinc una pregunta sobre Terraterapies Thai & Bali."
+    }
   }
 }

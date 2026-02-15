@@ -10,6 +10,7 @@ export interface Dictionary {
       en: string;
     };
   };
+
   pages: {
     category: {
       notFound: string;
@@ -60,9 +61,9 @@ export interface Dictionary {
     copyright: string;
     experiences: {
       title: string;
-      thai: string;
-      bali: string;
-      combos: string;
+      thai: { label: string; categorySlug: string; subcategorySlug: string }; // ✅ Updated
+      bali: { label: string; categorySlug: string; subcategorySlug: string }; // ✅ Updated
+      combos: { label: string; categorySlug: string }; // ✅ Updated
     };
     collabs: {
       title: string;
@@ -80,22 +81,42 @@ export interface Dictionary {
     };
     bigText: string;
   };
-  // Add giftCard later if needed here
+
+  faqs: {
+    hero: {
+      title: string;
+      subtitle: string;
+    };
+    sections: Array<{
+      id: string;
+      title: string;
+      questions: Array<{
+        question: string;
+        answer: string;
+      }>;
+    }>;
+    cta: {
+      title: string;
+      subtitle: string;
+      button: string;
+      whatsappMsg: string;
+    };
+  };
 }
 
 // 2. Cast the imported JSON to this Interface
 const dictionaries = {
   es: () =>
     import("@/dictionaries/es.json").then(
-      (module) => module.default as Dictionary
+      (module) => module.default as Dictionary,
     ),
   en: () =>
     import("@/dictionaries/en.json").then(
-      (module) => module.default as Dictionary
+      (module) => module.default as Dictionary,
     ),
   ca: () =>
     import("@/dictionaries/ca.json").then(
-      (module) => module.default as Dictionary
+      (module) => module.default as Dictionary,
     ),
 };
 

@@ -57,9 +57,20 @@
     "copyright": "All rights reserved.",
     "experiences": {
       "title": "Experiences",
-      "thai": "Thai",
-      "bali": "Bali",
-      "combos": "Combos"
+      "thai": {
+        "label": "Thai",
+        "categorySlug": "orientales",
+        "subcategorySlug": "tailandes"
+      },
+      "bali": {
+        "label": "Bali",
+        "categorySlug": "orientales",
+        "subcategorySlug": "balines"
+      },
+      "combos": {
+        "label": "Rituals",
+        "categorySlug": "rituales"
+      }
     },
     "collabs": {
       "title": "Collaborations",
@@ -74,6 +85,110 @@
     "social": {
       "title": "Social",
       "whatsappMsg": "Hello, I want information about Terraterapies Thai & Bali"
+    }
+  },
+  "faqs": {
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers about bookings, gift cards, and your visit."
+    },
+    "sections": [
+      {
+        "id": "reservations",
+        "title": "Bookings and your visit",
+        "questions": [
+          {
+            "question": "How do I book an appointment?",
+            "answer": "You can book online, or contact us directly by phone or WhatsApp to find the best time for you."
+          },
+          {
+            "question": "How far in advance should I book?",
+            "answer": "We recommend booking at least 48 hours in advance. For weekends and peak hours, booking earlier helps ensure availability."
+          },
+          {
+            "question": "Can I reschedule or cancel?",
+            "answer": "Yes. Please let us know as soon as possible if you need to change your appointment. Late cancellations may be subject to a fee depending on the notice given."
+          },
+          {
+            "question": "When should I arrive?",
+            "answer": "Arriving 10 minutes early gives you time to settle in and start the experience calmly."
+          },
+          {
+            "question": "What should I bring?",
+            "answer": "Nothing special. We provide what you need for the session. If you have any preferences or sensitivities (pressure, oils, aromas), just tell us."
+          },
+          {
+            "question": "Do you have changing rooms or showers?",
+            "answer": "We have a comfortable space to get ready before and after your treatment. If you need something specific, contact us and we’ll advise you."
+          },
+          {
+            "question": "Can I choose the oil or aroma?",
+            "answer": "Yes. Whenever the treatment uses oil, we can adapt to your preferences and sensitivities. If you have allergies, please tell us before starting."
+          },
+          {
+            "question": "Are you responsible for personal belongings?",
+            "answer": "Please keep an eye on your personal items. We recommend avoiding valuables, as we can’t take responsibility for lost or forgotten belongings."
+          }
+        ]
+      },
+      {
+        "id": "gift-cards",
+        "title": "Gift cards",
+        "questions": [
+          {
+            "question": "How do I buy a gift card?",
+            "answer": "Choose a treatment on our website, select the gift option, and complete the purchase. You’ll receive the gift card by email."
+          },
+          {
+            "question": "How do I redeem a gift card?",
+            "answer": "Contact us to book and share the gift card code/locator. We’ll help you find the best slot."
+          },
+          {
+            "question": "How long is a gift card valid for?",
+            "answer": "Gift cards are valid for 1 year from the purchase date."
+          },
+          {
+            "question": "Can I switch the treatment on my gift card?",
+            "answer": "You can switch to another treatment of equal or higher value. If the new option costs more, you can pay the difference."
+          },
+          {
+            "question": "Are gift cards refundable or transferable?",
+            "answer": "Gift cards are not refundable once purchased, but they can be transferred to another person as long as the code/locator is provided."
+          },
+          {
+            "question": "What if I lose the gift card email/PDF?",
+            "answer": "If you still have the purchase confirmation, contact us and we’ll do our best to help you recover the details."
+          }
+        ]
+      },
+      {
+        "id": "legal",
+        "title": "Legal and privacy",
+        "questions": [
+          {
+            "question": "Who is responsible for this website?",
+            "answer": "This website is operated by Terraterapies Thai & Bali."
+          },
+          {
+            "question": "Is it safe to purchase online?",
+            "answer": "Yes. Online payments are processed through secure payment providers. We do not store your card details."
+          },
+          {
+            "question": "What personal data do you collect?",
+            "answer": "Only what is needed to manage bookings and purchases (for example, name and contact details). We use it exclusively for service management and related communications."
+          },
+          {
+            "question": "Do you share my data with third parties?",
+            "answer": "We do not sell your data. We only share information when it’s required to provide the service (for example, payment processing), and always under appropriate safeguards."
+          }
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Still have questions?",
+      "subtitle": "Message us and we’ll help you as soon as possible.",
+      "button": "Contact via WhatsApp",
+      "whatsappMsg": "Hi! I have a question about Terraterapies Thai & Bali."
     }
   }
 }
