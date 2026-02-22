@@ -198,5 +198,11 @@
       "button": "Contactar por WhatsApp",
       "whatsappMsg": "Hola, tengo una pregunta sobre los servicios de Terraterapies"
     }
+  },
+  "success": {
+    "title": "¡Pago completado con éxito!",
+    "message": "Hemos procesado tu pago correctamente. En breve recibirás un correo electrónico con tu tarjeta de regalo en PDF.",
+    "backHome": "Volver al inicio",
+    "thankYou": "Gracias"
   }
 }

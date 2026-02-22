@@ -193,5 +193,11 @@
       "button": "Contactar per WhatsApp",
       "whatsappMsg": "Hola! Tinc una pregunta sobre Terraterapies Thai & Bali."
     }
+  },
+  "success": {
+    "title": "Pagament completat correctament!",
+    "message": "Hem processat correctament el teu pagament. En breu rebràs un correu electrònic amb la teva targeta de regal en PDF.",
+    "backHome": "Tornar a la pàgina d'inici",
+    "thankYou": "Gràcies"
   }
 }

@@ -102,6 +102,12 @@ export interface Dictionary {
       whatsappMsg: string;
     };
   };
+  success: {
+    title: string;
+    message: string;
+    backHome: string;
+    thankYou: string;
+  };
 }
 
 // 2. Cast the imported JSON to this Interface

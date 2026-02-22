@@ -146,7 +146,8 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
           <li key={l}>
             <button
               onClick={() => switchLang(l)}
-              className={`transition hover:scale-110 ${lang === l ? "opacity-100" : "opacity-50 grayscale"}`}
+              // Added cursor-pointer here 👇
+              className={`cursor-pointer transition hover:scale-110 ${lang === l ? "opacity-100" : "opacity-50 grayscale"}`}
             >
               <Image
                 src={
@@ -159,7 +160,8 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                 alt={l}
                 width={24}
                 height={24}
-                className="rounded-full shadow-sm"
+                className="rounded-full shadow-sm pointer-events-none"
+                // 👆 Optional: pointer-events-none ensures the button always catches the click
               />
             </button>
           </li>
@@ -292,7 +294,8 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                 <button
                   key={l}
                   onClick={() => switchLang(l)}
-                  className={`flex flex-col items-center gap-2 transition active:scale-95 ${lang === l ? "opacity-100" : "opacity-40 grayscale"}`}
+                  // Added cursor-pointer here 👇
+                  className={`cursor-pointer flex flex-col items-center gap-2 transition active:scale-95 ${lang === l ? "opacity-100" : "opacity-40 grayscale"}`}
                 >
                   <div
                     className={`relative w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 ${lang === l ? "border-blue-500 ring-2 ring-blue-200" : "border-transparent"}`}
@@ -307,10 +310,13 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                       }
                       alt={l}
                       fill
-                      className="object-cover"
+                      className="object-cover pointer-events-none"
+                      // 👆 Optional: prevents the image from interfering with the button's hover state
                     />
                   </div>
-                  <span className="text-sm font-medium uppercase">{l}</span>
+                  <span className="text-sm font-medium uppercase pointer-events-none">
+                    {l}
+                  </span>
                 </button>
               ))}
             </div>

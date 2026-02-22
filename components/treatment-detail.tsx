@@ -121,12 +121,8 @@ export default function TreatmentDetail({
         </div>
 
         <div className="mt-12">
-          <Button
-            size="lg"
-            className="px-10 py-4 text-lg rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all"
-            onClick={() => alert("Open Treatwell widget here")}
-          >
-            {dict.bookBtn} {/* <--- Dynamic */}
+          <Button size="lg" onClick={() => alert("Open Treatwell widget here")}>
+            {dict.bookBtn}
           </Button>
         </div>
       </div>

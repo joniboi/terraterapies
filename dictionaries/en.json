@@ -190,5 +190,11 @@
       "button": "Contact via WhatsApp",
       "whatsappMsg": "Hi! I have a question about Terraterapies Thai & Bali."
     }
+  },
+  "success": {
+    "title": "Payment successful!",
+    "message": "We have successfully processed your payment. You will receive an email shortly with your PDF gift card.",
+    "backHome": "Return to Home",
+    "thankYou": "Thank you"
   }
 }
