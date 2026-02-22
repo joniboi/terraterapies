@@ -195,7 +195,7 @@
     }
   },
   "success": {
-    "title": "Pagament completat correctament!",
+    "title": "Pagament acceptat!",
     "message": "Hem processat correctament el teu pagament. En breu rebràs un correu electrònic amb la teva targeta de regal en PDF.",
     "backHome": "Tornar a la pàgina d'inici",
     "thankYou": "Gràcies"
