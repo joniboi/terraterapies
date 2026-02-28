@@ -371,8 +371,9 @@
           "badge": "✨ Experiència Exclusiva",
           "shortDescription": "Experiències completes que combinen el millor de les nostres tècniques. Dissenyades per renovar cos i ment a través d'una seqüència perfecta de tractaments.",
           "heroImages": [
-            { "src": "/images/hero/ritual1.jpg", "alt": "Ritual 1" },
-            { "src": "/images/hero/ritual2.jpg", "alt": "Ritual 2" }
+            { "src": "/images/hero/rituals1.jpg", "alt": "Ritual 1" },
+            { "src": "/images/hero/rituals2.jpg", "alt": "Ritual 2" },
+            { "src": "/images/hero/rituals3.jpg", "alt": "Ritual 3" }
           ],
           "showCase": {
             "title": "Tria el teu Ritual",
@@ -384,7 +385,7 @@
               "title": "Ritual d'Harmonia Total",
               "emoji": "✨",
               "tagline": "El reinici definitiu de cos sencer",
-              "image": "/images/subcategories/ritual-armonia.jpg",
+              "image": "/images/subcategories/ritual-harmony.jpg",
               "backgroundImage": "/images/treatment-detail.jpg",
               "shortDescription": "Una immersió completa de 90 minuts que combina un massatge de cos sencer amb relaxació cranial i reflexologia podal.",
               "longDescription": "Aquest és el nostre ritual més complet per a qui necessita un reinici total.\n\n**Què inclou?**\n• 60 minuts: Massatge de cos sencer (oriental o relaxant)\n• 15 minuts: Massatge craniofacial (alleuja l’estrès mental)\n• 15 minuts: Reflexologia podal (equilibra l’energia interna)\n\nUn viatge de 90 minuts que no deixa cap tensió sense resoldre.",

@@ -371,8 +371,9 @@
           "isFeatured": true,
           "badge": "✨ Exclusive Experience",
           "heroImages": [
-            { "src": "/images/hero/ritual1.jpg", "alt": "Ritual 1" },
-            { "src": "/images/hero/ritual2.jpg", "alt": "Ritual 2" }
+            { "src": "/images/hero/rituals1.jpg", "alt": "Ritual 1" },
+            { "src": "/images/hero/rituals2.jpg", "alt": "Ritual 2" },
+            { "src": "/images/hero/rituals3.jpg", "alt": "Ritual 3" }
           ],
           "showCase": {
             "title": "Choose your Ritual",
@@ -384,7 +385,7 @@
               "title": "Total Harmony Ritual",
               "emoji": "✨",
               "tagline": "The ultimate full-body reset",
-              "image": "/images/subcategories/ritual-armonia.jpg",
+              "image": "/images/subcategories/ritual-harmony.jpg",
               "backgroundImage": "/images/treatment-detail.jpg",
               "shortDescription": "A complete 90-minute immersion combining full body massage with cranial relaxation and foot reflexology.",
               "longDescription": "This is our most complete ritual for those who need a total reset.\n\n**What is included?**\n• 60 Minutes: Full Body Massage (Oriental or Relaxing)\n• 15 Minutes: Craniofacial Massage (relieves mental stress)\n• 15 Minutes: Foot Reflexology (balances internal energy)\n\nA 90-minute journey that leaves no tension unresolved.",
