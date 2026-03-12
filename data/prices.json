@@ -1,0 +1,438 @@
+{
+  "tailandes": [
+    {
+      "val": 15,
+      "unit": "min",
+      "price": 25
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 65
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    }
+  ],
+  "balines": [
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    }
+  ],
+  "shiatsu": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    }
+  ],
+  "piedras-calientes": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    }
+  ],
+  "pindas-herbales": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    }
+  ],
+  "relajante": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 75
+    }
+  ],
+  "aromaterapia": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 30
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 45
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 55
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 75
+    }
+  ],
+  "velas-aromaticas": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 80
+    }
+  ],
+  "craneofacial": [
+    {
+      "val": 15,
+      "unit": "min",
+      "price": 20
+    },
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    }
+  ],
+  "a-cuatro-manos": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 120
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 150
+    }
+  ],
+  "antiestres": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 55
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 75
+    }
+  ],
+  "descontracturante": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 40
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 65
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85
+    }
+  ],
+  "embarazadas": [
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    }
+  ],
+  "embarazadas-piernas-cansadas": [
+    {
+      "val": 15,
+      "unit": "min",
+      "price": 20
+    },
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 45
+    }
+  ],
+  "espalda-cuello-hombros": [
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 80
+    }
+  ],
+  "lomi-lomi": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 80
+    }
+  ],
+  "piernas-cansadas": [
+    {
+      "val": 15,
+      "unit": "min",
+      "price": 20
+    },
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    }
+  ],
+  "reflexologia": [
+    {
+      "val": 15,
+      "unit": "min",
+      "price": 20
+    },
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35
+    },
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50
+    }
+  ],
+  "maderoterapia": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 40
+    },
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 75
+    }
+  ],
+  "ritual-armonia-total": [
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 75,
+      "originalPrice": 100
+    }
+  ],
+  "ritual-luxury": [
+    {
+      "val": 120,
+      "unit": "min",
+      "price": 100,
+      "originalPrice": 120
+    }
+  ],
+  "ritual-recuperacion-profunda": [
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 85,
+      "originalPrice": 105
+    }
+  ],
+  "ritual-profundo": [
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 80,
+      "originalPrice": 95
+    }
+  ],
+  "pack-bienestar-esencial": [
+    {
+      "val": 75,
+      "unit": "min",
+      "price": 65,
+      "originalPrice": 80
+    }
+  ],
+  "pack-alivio-express": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60,
+      "originalPrice": 80
+    }
+  ],
+  "ritual-express": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 55,
+      "originalPrice": 70
+    }
+  ],
+  "pack-silueta": [
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 80,
+      "originalPrice": 100
+    }
+  ],
+  "pack-madero-express": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 60,
+      "originalPrice": 75
+    }
+  ],
+  "ritual-nueva-mama": [
+    {
+      "val": 75,
+      "unit": "min",
+      "price": 60
+    }
+  ],
+  "ritual-ligereza-total": [
+    {
+      "val": 45,
+      "unit": "min",
+      "price": 50,
+      "originalPrice": 60
+    }
+  ],
+  "mini-ritual-cabezapies": [
+    {
+      "val": 30,
+      "unit": "min",
+      "price": 35,
+      "originalPrice": 40
+    }
+  ],
+  "ritual-duo-independiente": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 120
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 170
+    }
+  ],
+  "antiestres-promo": [
+    {
+      "val": 60,
+      "unit": "min",
+      "price": 54,
+      "originalPrice": 60
+    },
+    {
+      "val": 90,
+      "unit": "min",
+      "price": 72,
+      "originalPrice": 80
+    }
+  ],
+  "pack-masaje-gastronomia": [
+    {
+      "val": 1,
+      "unit": "pax",
+      "price": 85
+    },
+    {
+      "val": 2,
+      "unit": "pax",
+      "price": 160
+    }
+  ]
+}
