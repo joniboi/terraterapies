@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET!,
     );
   } catch (err) {
     return NextResponse.json({ error: "Webhook Error" }, { status: 400 });
@@ -46,27 +46,55 @@ export async function POST(req: Request) {
         locator={locator}
         labels={dict.giftCard} // <--- Pass the labels
         lang={lang || "es"} // <--- Pass the language for dates
-      />
+      />,
     );
 
     // 5. Send Email
     await resend.emails.send({
-      from: "Tu Spa <onboarding@resend.dev>",
-      to: [customerEmail!], // Send to buyer
+      // CHANGE THIS: Use your new verified domain
+      from: "Terraterapies <info@terraterapiesthaibali.com>",
+      to: [customerEmail!],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
         <div>
-          <h1>¡Gracias por tu compra, {buyerName}!</h1>
-          <p>Aquí tienes tu tarjeta regalo para {receiverName}.</p>
+          <h1 style={{ color: "#2d3748" }}>
+            ¡Gracias por tu compra, {buyerName}!
+          </h1>
           <p>
-            Localizador: <strong>{locator}</strong>
+            Adjunto encontrarás la tarjeta regalo para{" "}
+            <strong>{receiverName}</strong>.
           </p>
-          <p>Para canjear, contacta por WhatsApp al XXX XXX XXX.</p>
+          <p>
+            Localizador de seguridad:{" "}
+            <span
+              style={{
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                color: "#3182ce",
+              }}
+            >
+              {locator}
+            </span>
+          </p>
+          <hr />
+          <p>
+            <strong>Cómo canjear la tarjeta:</strong>
+          </p>
+          <ul>
+            <li>
+              Reserva tu cita por WhatsApp: <strong>+34 603 17 70 49</strong>
+            </li>
+            <li>Indica el código localizador al realizar la reserva.</li>
+            <li>Presenta el PDF (digital o impreso) el día de tu cita.</li>
+          </ul>
+          <p>
+            <em>¡Te esperamos pronto en Terraterapies!</em>
+          </p>
         </div>
       ),
       attachments: [
         {
-          filename: `Regalo-${locator}.pdf`,
+          filename: `Regalo-Terraterapies-${locator}.pdf`,
           content: pdfBuffer,
         },
       ],
