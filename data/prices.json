@@ -173,12 +173,12 @@
     {
       "val": 60,
       "unit": "min",
-      "price": 55
+      "price": 60
     },
     {
       "val": 90,
       "unit": "min",
-      "price": 75
+      "price": 80
     }
   ],
   "descontracturante": [
@@ -376,7 +376,7 @@
   ],
   "ritual-nueva-mama": [
     {
-      "val": 75,
+      "val": 60,
       "unit": "min",
       "price": 60
     }
