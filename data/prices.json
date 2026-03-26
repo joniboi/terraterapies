@@ -62,18 +62,6 @@
       "price": 85
     }
   ],
-  "pindas-herbales": [
-    {
-      "val": 60,
-      "unit": "min",
-      "price": 60
-    },
-    {
-      "val": 90,
-      "unit": "min",
-      "price": 85
-    }
-  ],
   "relajante": [
     {
       "val": 30,
