@@ -1,5 +1,7 @@
 import "server-only";
+import { config } from "./config";
 
+type PartnerKey = keyof typeof config.partners;
 // 1. Define the structure of your JSON here
 export interface Dictionary {
   header: {
@@ -67,7 +69,7 @@ export interface Dictionary {
     };
     collabs: {
       title: string;
-      mezzanote: string;
+      partners: Record<PartnerKey, string>;
     };
     info: {
       title: string;

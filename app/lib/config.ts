@@ -42,10 +42,32 @@ export const config = {
         const targetLang = langMap[lang] || "en";
         return `https://www.pizzeriamezzanotte.com/?lang=${targetLang}`;
       },
-      // Optional: Check if they support the language
-      supportsLanguage: (lang: string) => ["es", "en"].includes(lang),
     },
+    scens: {
+      name: "Scens",
+      baseUrl: "https://www.scens.com/",
+      getUrl: (lang: string) => {
+        const langMap: Record<string, string> = {
+          es: "es",
+          ca: "es", // fallback to Spanish
+          en: "en",
+          fr: "fr",
+        };
 
+        const targetLang = langMap[lang] || "en";
+
+        switch (targetLang) {
+          case "es":
+            return "https://www.scens.com/";
+          case "en":
+            return "https://www.scens.com/en/home/";
+          case "fr":
+            return "https://www.scens.com/fr/accueil/";
+          default:
+            return "https://www.scens.com/en/home/";
+        }
+      },
+    },
     // Template for future partners
     // anotherPartner: {
     //   name: "Partner Name",

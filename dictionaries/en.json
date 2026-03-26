@@ -74,7 +74,10 @@
     },
     "collabs": {
       "title": "Collaborations",
-      "mezzanote": "Mezzanote"
+      "partners": {
+        "mezzanote": "Mezzanotte",
+        "scens": "Scens"
+      }
     },
     "info": {
       "title": "Information",

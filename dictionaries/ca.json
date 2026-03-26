@@ -75,8 +75,11 @@
       }
     },
     "collabs": {
-      "title": "Col·laboracions",
-      "mezzanote": "Mezzanote"
+      "title": "Colaboracions",
+      "partners": {
+        "mezzanote": "Pizzeria Mezzanotte",
+        "scens": "Scens"
+      }
     },
     "info": {
       "title": "Informació",

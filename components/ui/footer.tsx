@@ -7,6 +7,7 @@ import { ChevronDown } from "lucide-react";
 import { routes, getLocalizedRoute } from "@/app/lib/routes";
 import { config } from "@/app/lib/config";
 
+type PartnerKey = keyof typeof config.partners;
 // Define the shape of the dictionary part this component needs
 interface FooterDict {
   copyright: string;
@@ -16,7 +17,10 @@ interface FooterDict {
     bali: { label: string; categorySlug: string; subcategorySlug: string };
     combos: { label: string; categorySlug: string };
   };
-  collabs: { title: string; mezzanote: string };
+  collabs: {
+    title: string;
+    partners: Record<PartnerKey, string>;
+  };
   info: { title: string; contact: string; about: string; faq: string };
   social: { title: string; whatsappMsg: string };
   bigText: string;
@@ -29,6 +33,7 @@ interface FooterProps {
 }
 
 export default function Footer({ border = false, dict, lang }: FooterProps) {
+  const collabs = dict.collabs;
   return (
     <footer>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -101,20 +106,23 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
 
           {/* 3rd block: Collabs */}
           <FooterSection
-            title={dict.collabs.title}
+            title={collabs.title}
             className="sm:col-span-6 md:col-span-3 lg:col-span-2"
           >
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  className="text-gray-600 transition hover:text-gray-900"
-                  href={config.partners.mezzanote.getUrl(lang)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {dict.collabs.mezzanote}
-                </Link>
-              </li>
+              {Object.entries(config.partners).map(([key, partner]) => (
+                <li key={key}>
+                  <Link
+                    className="text-gray-600 transition hover:text-gray-900"
+                    href={partner.getUrl(lang)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {collabs.partners[key as keyof typeof collabs.partners] ??
+                      partner.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </FooterSection>
 
