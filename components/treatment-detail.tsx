@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import TreatwellModal from "@/components/treatwell/treatwell-modal";
 
 // 1. Define the Dictionary Interface for this component
 interface BookingDict {
@@ -58,6 +59,7 @@ export default function TreatmentDetail({
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [showWidget, setShowWidget] = useState(false);
 
   const handlePayment = async () => {
     if (!selectedOption || !form.from || !form.to) {
@@ -121,7 +123,7 @@ export default function TreatmentDetail({
         </div>
 
         <div className="mt-12">
-          <Button size="lg" onClick={() => alert("Open Treatwell widget here")}>
+          <Button size="lg" onClick={() => setShowWidget(true)}>
             {dict.bookBtn}
           </Button>
         </div>
@@ -199,6 +201,7 @@ export default function TreatmentDetail({
           </Button>
         </div>
       </div>
+      <TreatwellModal open={showWidget} onClose={() => setShowWidget(false)} />
     </section>
   );
 }

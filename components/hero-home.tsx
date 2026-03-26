@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import TreatwellWidget from "@/components/treatwell-widget";
+import TreatwellWidget from "@/components/treatwell/treatwell-widget";
 import PageIllustration from "@/components/page-illustration";
+import TreatwellModal from "@/components/treatwell/treatwell-modal";
 
 // 1. Define the Dictionary Interface
 interface HeroDict {
@@ -102,63 +103,7 @@ export default function HeroHome({ dict }: { dict: HeroDict }) {
           </div>
         </div>
       </div>
-
-      {/* 
-        ================================================================
-        MODAL WRAPPER (UPDATED FOR RESPONSIVENESS)
-        ================================================================
-      */}
-      <div
-        className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ${
-          showWidget
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* 
-          A. DARK OVERLAY
-          - Only visible on Desktop (md:block)
-          - Hidden on Mobile because the modal covers 100% of the screen anyway
-        */}
-        <div
-          className="absolute inset-0 bg-black/70 hidden md:block"
-          onClick={() => setShowWidget(false)}
-        />
-
-        {/* 
-          B. THE CONTAINER
-          - Mobile (default): w-full h-full (Full Screen Takeover)
-          - Desktop (md:): max-w-5xl h-[80vh] rounded-2xl (Centered Card)
-        */}
-        <div className="relative w-full h-full md:w-full md:max-w-5xl md:h-[80vh] bg-white md:rounded-2xl shadow-xl overflow-hidden">
-          {/* Close button - Styled for visibility on both white/dark backgrounds if needed */}
-          <button
-            className="absolute right-4 top-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm text-gray-500 hover:text-black hover:bg-white md:bg-transparent md:shadow-none"
-            onClick={() => setShowWidget(false)}
-          >
-            {/* SVG X Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-
-          {/* Widget Container - Scrolls internally */}
-          <div className="w-full h-full overflow-y-auto">
-            <TreatwellWidget />
-          </div>
-        </div>
-      </div>
+      <TreatwellModal open={showWidget} onClose={() => setShowWidget(false)} />
     </section>
   );
 }
