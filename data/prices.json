@@ -294,7 +294,7 @@
     {
       "val": 90,
       "unit": "min",
-      "price": 75,
+      "price": 80,
       "originalPrice": 100
     }
   ],
@@ -326,7 +326,7 @@
     {
       "val": 75,
       "unit": "min",
-      "price": 65,
+      "price": 70,
       "originalPrice": 80
     }
   ],
