@@ -202,6 +202,28 @@
       "whatsappMsg": "Hola, tengo una pregunta sobre los servicios de Terraterapies"
     }
   },
+  "about": {
+    "title": "Sobre nosotros",
+    "description": "Somos especialistas en masajes orientales, reconocidos a nivel mundial por su excelencia, técnica y profundo conocimiento del bienestar corporal.\n\nNuestro centro está dirigido por Julie Ann Colorado, profesional con más de 10 años de experiencia y trayectoria como formadora, lo que garantiza un servicio de máxima calidad y rigor.\n\nEn Sant Cugat, somos el único espacio que ofrece una experiencia auténtica de masaje oriental. Todo nuestro equipo está formado por terapeutas originarios de Asia, expertos en técnicas tradicionales que combinan sabiduría ancestral con un trato cuidado y profesional.\n\nAquí no solo ofrecemos un masaje, sino una experiencia única de relajación, equilibrio y renovación.",
+    "imageAlt": "Julie Ann Colorado - Fundadora y masajista profesional"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Estamos aquí para ayudarte a encontrar tu momento de paz.",
+    "schedule": {
+      "title": "Horario de apertura",
+      "weekdays": "Lunes a viernes de 10:30 a 21:30",
+      "weekends": "Sábado y domingo de 12:00 a 21:30",
+      "holidays": "Festivos de 12:00 a 21:30"
+    },
+    "info": {
+      "title": "Información",
+      "addressTitle": "Ubicación",
+      "address": "Sant Cugat del Vallès, Barcelona",
+      "phoneTitle": "WhatsApp / Teléfono",
+      "phone": "+34 603 177 049"
+    }
+  },
   "success": {
     "title": "¡Pago completado con éxito!",
     "message": "Hemos procesado tu pago correctamente. En breve recibirás un correo electrónico con tu tarjeta de regalo en PDF.",

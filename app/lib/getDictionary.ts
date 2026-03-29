@@ -104,6 +104,29 @@ export interface Dictionary {
       whatsappMsg: string;
     };
   };
+  // Inside your Dictionary interface
+  about: {
+    title: string;
+    description: string;
+    imageAlt: string;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    schedule: {
+      title: string;
+      weekdays: string;
+      weekends: string;
+      holidays: string;
+    };
+    info: {
+      title: string;
+      addressTitle: string;
+      address: string;
+      phoneTitle: string;
+      phone: string;
+    };
+  };
   success: {
     title: string;
     message: string;

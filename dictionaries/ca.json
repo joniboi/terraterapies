@@ -197,6 +197,28 @@
       "whatsappMsg": "Hola! Tinc una pregunta sobre Terraterapies Thai & Bali."
     }
   },
+  "about": {
+    "title": "Sobre nosaltres",
+    "description": "Som especialistes en massatges orientals, reconeguts a escala mundial per la seva excel·lència, tècnica i profund coneixement del benestar corporal.\n\nEl nostre centre està dirigit per Julie Ann Colorado, professional amb més de 10 anys d'experiència i trajectòria com a formadora, fet que garanteix un servei de màxima qualitat i rigor.\n\nA Sant Cugat, som l'únic espai que ofereix una experiència autèntica de massatge oriental. Tot el nostre equip està format per terapeutes originaris d'Àsia, experts en tècniques tradicionals que combinen saviesa ancestral amb un tracte acurat i professional.\n\nAquí no només oferim un massatge, sinó una experiència única de relaxació, equilibri i renovació.",
+    "imageAlt": "Julie Ann Colorado - Fundadora i massatgista professional"
+  },
+  "contact": {
+    "title": "Contacte",
+    "subtitle": "Estem aquí per ajudar-te a trobar el teu moment de pau.",
+    "schedule": {
+      "title": "Horari d'obertura",
+      "weekdays": "Dilluns a divendres de 10:30 a 21:30",
+      "weekends": "Dissabte i diumenge de 12:00 a 21:30",
+      "holidays": "Festius de 12:00 a 21:30"
+    },
+    "info": {
+      "title": "Informació",
+      "addressTitle": "Ubicació",
+      "address": "Sant Cugat del Vallès, Barcelona",
+      "phoneTitle": "WhatsApp / Telèfon",
+      "phone": "+34 603 177 049"
+    }
+  },
   "success": {
     "title": "Pagament acceptat!",
     "message": "Hem processat correctament el teu pagament. En breu rebràs un correu electrònic amb la teva targeta de regal en PDF.",
