@@ -9,6 +9,8 @@ import { getDictionary } from "@/app/lib/getDictionary";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const ADMIN_EMAIL = "julieanncolorado31@gmail.com";
+
 export async function POST(req: Request) {
   const body = await req.text();
   const sig = req.headers.get("stripe-signature")!;
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
     // 5. Send Email
     await resend.emails.send({
       // CHANGE THIS: Use your new verified domain
-      from: "Terraterapies <info@terraterapiesthaibali.com>",
+      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
       to: [customerEmail!],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
@@ -98,6 +100,31 @@ export async function POST(req: Request) {
           content: pdfBuffer,
         },
       ],
+    });
+
+    // Extract and format the amount safely
+    const formattedAmount = session.amount_total
+      ? (session.amount_total / 100).toFixed(2)
+      : "0.00";
+    // 6. Send the notification email to YOU (The Business)
+    await resend.emails.send({
+      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
+      to: ADMIN_EMAIL,
+      subject: `🎉 NUEVA VENTA: Tarjeta Regalo (${locator})`,
+      html: `
+          <h2>¡Nueva Tarjeta Regalo Vendida!</h2>
+          <p>Se acaba de procesar un nuevo pago mediante Stripe.</p>
+          <hr/>
+          <ul>
+            <li><strong>Código Localizador:</strong> ${locator}</li>
+            <li><strong>Tratamiento:</strong> ${treatmentName}</li>
+            <li><strong>Duración/Opción:</strong> ${duration}</li>
+            <li><strong>Comprador:</strong> ${buyerName} (${customerEmail})</li>
+            <li><strong>Para:</strong> ${receiverName}</li>
+            <li><strong>Importe Total:</strong> ${formattedAmount}€</li>
+          </ul>
+          <p><em>El cliente ya ha recibido su tarjeta regalo en PDF. No es necesario realizar ninguna acción, solo anotar este código en vuestra agenda para cuando el cliente llame.</em></p>
+        `,
     });
   }
 
