@@ -39,3 +39,6 @@ next-env.d.ts
 .contentlayer
 video-frame-extractor/
 image-bench/
+
+public/uploads/*
+!public/uploads/.gitkeep
