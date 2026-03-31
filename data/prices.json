@@ -125,7 +125,7 @@
     {
       "val": 90,
       "unit": "min",
-      "price": 80
+      "price": 85
     }
   ],
   "craneofacial": [
@@ -166,7 +166,7 @@
     {
       "val": 90,
       "unit": "min",
-      "price": 80
+      "price": 85
     }
   ],
   "descontracturante": [
@@ -395,20 +395,6 @@
       "val": 90,
       "unit": "min",
       "price": 170
-    }
-  ],
-  "antiestres-promo": [
-    {
-      "val": 60,
-      "unit": "min",
-      "price": 54,
-      "originalPrice": 60
-    },
-    {
-      "val": 90,
-      "unit": "min",
-      "price": 72,
-      "originalPrice": 80
     }
   ],
   "pack-masaje-gastronomia": [

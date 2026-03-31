@@ -432,24 +432,6 @@
               ]
             },
             {
-              "slug": "antiestres-promo",
-              "title": "Promo Antiestrés",
-              "emoji": "💆",
-              "tagline": "Oferta especial para una relajación profunda",
-              "image": "/images/subcategories/antiestres.jpg",
-              "backgroundImage": "/images/treatment-detail.jpg",
-              "shortDescription": "Nuestro masaje Antiestrés característico a un precio promocional especial. Libera tensión y ahorra.",
-              "longDescription": "El Masaje Antiestrés está especialmente diseñado para relajar el cuello, los hombros y la espalda.\n\n**Oferta especial:**\nDisfruta de este tratamiento con un descuento especial incluido en el precio.\n\nIdeal para quienes buscan recuperar energía, serenidad y un descanso profundo.",
-              "options": [
-                {
-                  "tag": "Promo -10%"
-                },
-                {
-                  "tag": "Promo -10%"
-                }
-              ]
-            },
-            {
               "slug": "pack-masaje-gastronomia",
               "title": "Pack Masaje & Gastronomía",
               "emoji": "🍽️",

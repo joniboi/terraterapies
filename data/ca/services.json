@@ -427,24 +427,6 @@
               ]
             },
             {
-              "slug": "antiestres-promo",
-              "title": "Promo Antiestrès",
-              "emoji": "💆",
-              "tagline": "Oferta especial per a una relaxació profunda",
-              "image": "/images/subcategories/antiestres.jpg",
-              "backgroundImage": "/images/treatment-detail.jpg",
-              "shortDescription": "El nostre massatge Antiestrès emblemàtic a un preu promocional especial. Allibera tensió i estalvia.",
-              "longDescription": "El Massatge Antiestrès està especialment dissenyat per relaxar el coll, les espatlles i l’esquena.\n\n**Oferta especial:**\nGaudeix d’aquest tractament amb un descompte especial inclòs en el preu.\n\nIdeal per a qui busca recuperar energia, serenitat i un descans profund.",
-              "options": [
-                {
-                  "tag": "Promo -10%"
-                },
-                {
-                  "tag": "Promo -10%"
-                }
-              ]
-            },
-            {
               "slug": "pack-masaje-gastronomia",
               "title": "Pack Massatge i Gastronomia",
               "emoji": "🍽️",

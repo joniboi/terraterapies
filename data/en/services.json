@@ -432,24 +432,6 @@
               ]
             },
             {
-              "slug": "antiestres-promo",
-              "title": "Anti-stress Promo",
-              "emoji": "💆",
-              "tagline": "Special offer for deep relaxation",
-              "image": "/images/subcategories/antiestres-promo.jpg",
-              "backgroundImage": "/images/treatment-detail.jpg",
-              "shortDescription": "Our signature Anti-stress massage at a special promotional price. Release tension and save.",
-              "longDescription": "The Anti-stress Massage is specially designed to relax the neck, shoulders, and back.\n\n**Special Offer:**\nEnjoy this treatment with a special discount included in the price.\n\nIdeal for those looking to recover energy, serenity, and deep rest.",
-              "options": [
-                {
-                  "tag": "Promo -10%"
-                },
-                {
-                  "tag": "Promo -10%"
-                }
-              ]
-            },
-            {
               "slug": "pack-masaje-gastronomia",
               "title": "Massage & Gastronomy Pack",
               "emoji": "🍽️",
