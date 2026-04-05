@@ -48,7 +48,8 @@
     "validity": "Valid for one year from the date of purchase.",
     "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
     "addressLine2": "08172 Sant Cugat del Vallès, Barcelona (Spain)",
-    "phone": "Phone: +34603177049"
+    "phone": "Phone: +34603177049",
+    "disclaimer": "* This document is a digital receipt. The details and validity of this gift card are subject exclusively to the verification of the Security Locator in our database. Any alteration automatically voids it."
   },
   "common": {
     "seeMore": "See more"

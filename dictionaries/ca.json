@@ -48,7 +48,8 @@
     "validity": "Vàlid durant un any des de la data de compra.",
     "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
     "addressLine2": "08172 Sant Cugat del Vallès, Barcelona",
-    "phone": "Telèfon: +34603177049"
+    "phone": "Telèfon: +34603177049",
+    "disclaimer": "* Aquest document és un comprovant digital. Els detalls i la validesa d'aquesta targeta regal estan subjectes exclusivament a la verificació del Localitzador de Seguretat a la nostra base de dades. Qualsevol alteració l'invalida automàticament."
   },
   "common": {
     "seeMore": "Veure més",
