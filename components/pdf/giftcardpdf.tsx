@@ -44,7 +44,6 @@ Font.register({
 
 // 2. DEFINE STYLES WITH EXACT COORDINATES
 const styles = StyleSheet.create({
-  // ... Keep your existing styles ...
   // Make sure you keep the styles exactly as you tuned them
   page: { flexDirection: "column", backgroundColor: "#ffffff", padding: 0 },
   backgroundImage: {
@@ -120,6 +119,23 @@ const styles = StyleSheet.create({
     color: "#CCC",
     textDecoration: "underline",
   },
+  qrContainer: {
+    position: "absolute",
+    bottom: 30,
+    left: 30,
+    width: 80,
+    height: 80,
+  },
+  disclaimerText: {
+    position: "absolute",
+    bottom: 15,
+    left: 120, // Leave room for the QR code on the left
+    right: 120, // Leave room for the address on the right
+    textAlign: "center",
+    fontFamily: "Montserrat",
+    fontSize: 9,
+    color: "#666666", // Subtle grey
+  },
 });
 
 // 1. DEFINE THE LABELS INTERFACE
@@ -135,6 +151,7 @@ interface GiftCardLabels {
   addressLine1: string;
   addressLine2: string;
   phone: string;
+  disclaimer: string;
 }
 
 interface GiftCardData {
@@ -150,6 +167,7 @@ interface GiftCardPdfProps {
   locator: string;
   labels: GiftCardLabels; // <--- NEW
   lang: string; // <--- NEW (for date formatting)
+  qrCodeDataUrl: string;
 }
 
 export const GiftCardPdf = ({
@@ -157,12 +175,13 @@ export const GiftCardPdf = ({
   locator,
   labels,
   lang,
+  qrCodeDataUrl,
 }: GiftCardPdfProps) => {
   const backgroundUrl = `${process.env.NEXT_PUBLIC_URL}/images/gift-template.jpg`;
 
   // Dynamic Date Formatting based on Language
   const purchaseDate = new Date().toLocaleDateString(
-    lang === "en" ? "en-GB" : "es-ES" // en-GB gives DD/MM/YYYY, usually preferred over US MM/DD/YYYY in Europe
+    lang === "en" ? "en-GB" : "es-ES", // en-GB gives DD/MM/YYYY, usually preferred over US MM/DD/YYYY in Europe
   );
 
   return (
@@ -222,6 +241,15 @@ export const GiftCardPdf = ({
             {labels.phone}
           </Link>
         </View>
+        {/* 6. QR CODE */}
+        {qrCodeDataUrl && (
+          <View style={styles.qrContainer}>
+            <Image src={qrCodeDataUrl} />
+          </View>
+        )}
+
+        {/* 7. DISCLAIMER */}
+        <Text style={styles.disclaimerText}>{labels.disclaimer}</Text>
       </Page>
     </Document>
   );

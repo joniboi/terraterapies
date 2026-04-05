@@ -5,6 +5,7 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { GiftCardPdf } from "@/components/pdf/giftcardpdf";
 import { generateLocator } from "@/utils/locator";
 import { getDictionary } from "@/app/lib/getDictionary";
+import QRCode from "qrcode";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -39,7 +40,12 @@ export async function POST(req: Request) {
 
     // 3. Generate Secure Locator
     const locator = await generateLocator(buyerName);
-
+    // 1. Generate the QR Code string (Make it point to whatever admin verify page you want)
+    const verificationUrl = `${process.env.NEXT_PUBLIC_URL}/verify?loc=${locator}`;
+    const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, {
+      errorCorrectionLevel: "M", // Standard error correction
+      margin: 1, // Minimal border
+    });
     const dict = await getDictionary(lang || "es");
     // 4. Generate PDF Buffer
     const pdfBuffer = await renderToBuffer(
@@ -48,6 +54,7 @@ export async function POST(req: Request) {
         locator={locator}
         labels={dict.giftCard} // <--- Pass the labels
         lang={lang || "es"} // <--- Pass the language for dates
+        qrCodeDataUrl={qrCodeDataUrl}
       />,
     );
 

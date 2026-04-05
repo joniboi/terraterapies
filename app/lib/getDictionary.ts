@@ -55,6 +55,7 @@ export interface Dictionary {
     addressLine1: string;
     addressLine2: string;
     phone: string;
+    disclaimer: string;
   };
   common: {
     seeMore: string;
