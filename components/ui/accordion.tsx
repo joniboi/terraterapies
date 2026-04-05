@@ -59,7 +59,8 @@ export default function Accordion({
         }`}
       >
         <div className="overflow-hidden">
-          <p className="px-4 pb-3">{children}</p>
+          {/* <p className="px-4 pb-3">{children}</p> */}
+          <div className="px-6 pb-5 pt-2">{children}</div>
         </div>
       </div>
     </div>

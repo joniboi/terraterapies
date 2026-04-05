@@ -1,7 +1,7 @@
 // app/[lang]/faq/page.tsx
 
 import { getDictionary } from "@/app/lib/getDictionary";
-import Accordion from "@/components/accordion"; // Your Cruip component
+import Accordion from "@/components/ui/accordion"; // Your Cruip component
 
 interface PageProps {
   params: Promise<{ lang: string }>;

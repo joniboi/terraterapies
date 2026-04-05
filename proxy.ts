@@ -1,7 +1,9 @@
+// proxy.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { auth } from "./auth"; // <-- Import the Auth.js logic
 
 const locales = ["es", "en", "ca"];
 const defaultLocale = "es";
@@ -14,34 +16,47 @@ function getLocale(request: NextRequest) {
   return match(languages, locales, defaultLocale);
 }
 
-// 1. RENAME FUNCTION TO 'proxy'
-export function proxy(request: NextRequest) {
+// Wrap the entire proxy function with our Auth "Bouncer"
+export const proxy = auth((request) => {
   const { pathname } = request.nextUrl;
+  const isLoggedIn = !!request.auth; // True if your wife is logged in
 
-  // Ignore system files
+  // --- 1. SECURITY LOGIC (Auth) ---
+  const isInsideAdmin = pathname.startsWith("/admin");
+  if (isInsideAdmin && !isLoggedIn) {
+    // If she's not logged in, redirect to the beautiful login page
+    return NextResponse.redirect(new URL("/signin", request.nextUrl));
+  }
+
+  // --- 2. EXCLUSION LOGIC ---
+  // We tell Next.js to ignore system files, uploads, and our admin/auth pages
   if (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/signin") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/images") ||
+    pathname.startsWith("/uploads") || // <-- Ensure uploads are ignored!
     pathname.startsWith("/fonts") ||
     pathname.includes(".")
   ) {
-    return;
+    return; // Pass through untouched
   }
 
-  // Check for existing locale
+  // --- 3. I18N LANGUAGE LOGIC ---
+  // Check for existing locale in the URL
   const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
   if (pathnameHasLocale) return;
 
-  // Redirect if missing
-  const locale = getLocale(request);
+  // Redirect if language is missing
+  const locale = getLocale(request as NextRequest);
   request.nextUrl.pathname = `/${locale}${pathname}`;
 
   return NextResponse.redirect(request.nextUrl);
-}
+});
 
 export const config = {
   matcher: ["/((?!_next).*)"],

@@ -186,6 +186,15 @@
       transform: translateX(-100%);
     }
   }
+  /* ADD THESE COLORS */
+  --color-primary: var(
+    --color-blue-600
+  ); /* Or whatever color you want the line to be */
+
+  --color-muted: var(--color-gray-100);
+  --color-muted-foreground: var(--color-gray-500);
+  --color-foreground: var(--color-gray-950);
+  --color-ring: var(--color-blue-500);
 }
 
 /*

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Logo from "@/components/ui/logo";
 import AuthBg from "@/public/images/auth-bg.svg?url";
 
-export default function AuthLayout({
+export default function SignInLayout({
   children,
 }: {
   children: React.ReactNode;
