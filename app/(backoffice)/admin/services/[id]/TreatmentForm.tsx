@@ -12,6 +12,16 @@ import Accordion from "@/components/ui/accordion";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import LanguageTabs from "@/components/admin/language-tabs";
 
+import {
+  AlertDialog,
+  AlertDialogPopup,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
+
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 const LANGUAGES = [
@@ -26,6 +36,13 @@ export default function TreatmentForm({ initialData, categories }: any) {
   const [variants, setVariants] = useState(initialData.variants || []);
   const [isSaving, setIsSaving] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const [alertConfig, setAlertConfig] = useState({
+    open: false,
+    title: "",
+    description: "",
+    type: "success" as "success" | "error",
+  });
 
   const updateI18n = (lang: string, field: string, value: string) => {
     setFormData((prev: any) => ({
@@ -76,11 +93,24 @@ export default function TreatmentForm({ initialData, categories }: any) {
 
       const result = await updateTreatmentAction(formData.id, cleanData);
       if (result.success) {
-        alert("Saved successfully!");
+        setAlertConfig({
+          open: true,
+          title: "Changes Saved",
+          description: "The treatment has been updated successfully.",
+          type: "success",
+        });
         router.refresh();
+      } else {
+        throw new Error();
       }
     } catch (error) {
-      alert("A system error occurred.");
+      setAlertConfig({
+        open: true,
+        title: "Update Failed",
+        description:
+          "An error occurred while trying to save the treatment. Please try again.",
+        type: "error",
+      });
     } finally {
       setIsSaving(false);
     }
@@ -381,6 +411,46 @@ export default function TreatmentForm({ initialData, categories }: any) {
           {isSaving ? "Saving..." : "Save Changes"}
         </Button>
       </div>
+      {/* 👇 4. ADD THE ALERT DIALOG COMPONENT */}
+      <AlertDialog
+        open={alertConfig.open}
+        onOpenChange={(open) => setAlertConfig((prev) => ({ ...prev, open }))}
+      >
+        <AlertDialogPopup>
+          <AlertDialogHeader>
+            <AlertDialogTitle
+              className={
+                alertConfig.type === "error" ? "text-red-600" : "text-blue-600"
+              }
+            >
+              {alertConfig.title}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              {alertConfig.description}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <AlertDialogFooter>
+            {/* 
+          Base UI Pattern: 
+          1. The 'render' prop takes the component/element
+          2. The children of the component is the text/label
+      */}
+            <AlertDialogClose
+              render={
+                <Button
+                  variant={
+                    alertConfig.type === "error" ? "destructive" : "default"
+                  }
+                  className="w-full sm:w-auto"
+                />
+              }
+            >
+              {alertConfig.type === "error" ? "Try Again" : "Got it"}
+            </AlertDialogClose>
+          </AlertDialogFooter>
+        </AlertDialogPopup>
+      </AlertDialog>
     </div>
   );
 }

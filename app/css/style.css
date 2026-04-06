@@ -197,6 +197,23 @@
   --color-muted-foreground: var(--color-gray-500);
   --color-foreground: var(--color-gray-950);
   --color-ring: var(--color-blue-500);
+
+  /* 1. Main Background: Pure white provides the best contrast */
+  --color-popover: #ffffff;
+
+  /* 2. Main Title: Near black for maximum impact */
+  --color-popover-foreground: var(--color-gray-950);
+
+  /* 3. Description Text: Changed from Gray-500 to Gray-700 
+     This is the most important change for readability. */
+  --color-muted-foreground: var(--color-gray-700);
+
+  /* 4. Footer/Muted Areas: Very light gray to separate from the content 
+     without being distracting */
+  --color-muted: var(--color-gray-50);
+
+  /* 5. Border: Subtle but visible separation */
+  --color-border: var(--color-gray-200);
 }
 
 /*
