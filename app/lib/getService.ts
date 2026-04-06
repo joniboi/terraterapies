@@ -1,7 +1,7 @@
 import "server-only";
 import { db } from "@/db";
 import { ServicesData } from "@/types/definitions";
-
+import { unstable_noStore as noStore } from "next/cache";
 // 1. Languages definition
 const SUPPORTED_LANGS = ["es", "en", "ca"];
 
@@ -52,6 +52,7 @@ function formatDuration(variant: any, lang: string) {
 // Replace ONLY the getServicesData function inside app/lib/getService.ts
 
 export const getServicesData = async (lang: string): Promise<ServicesData> => {
+  noStore();
   // Fetch everything in one go using Drizzle Relational Queries
   const groups = await db.query.serviceGroups.findMany({
     with: {

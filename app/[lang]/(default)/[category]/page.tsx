@@ -4,6 +4,8 @@ import SubcategoryShowcase from "@/components/categories/subcategory-grid"; // C
 import { CategoryHero } from "@/components/categories/categoryHero"; // Check your path matches your project
 import { Category } from "@/types/definitions"; // ✅ Use the global type
 
+export const dynamic = "force-dynamic";
+
 interface PageProps {
   params: Promise<{
     lang: string;

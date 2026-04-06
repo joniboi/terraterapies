@@ -6,6 +6,7 @@ import {
 import { getDictionary } from "@/app/lib/getDictionary";
 import { Category, Subcategory } from "@/types/definitions";
 
+export const dynamic = "force-dynamic";
 interface PageProps {
   // In Next.js 15+, params is a Promise
   params: Promise<{
