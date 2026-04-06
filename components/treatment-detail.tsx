@@ -13,31 +13,11 @@ import {
 import { Button } from "@/components/ui/button";
 import TreatwellModal from "@/components/treatwell/treatwell-modal";
 import ReactMarkdown from "react-markdown";
-
-// 1. Define the Dictionary Interface for this component
-interface BookingDict {
-  bookBtn: string;
-  giftTitle: string;
-  selectDuration: string;
-  fromPlaceholder: string;
-  toPlaceholder: string;
-  msgPlaceholder: string;
-  payBtn: string;
-  processing: string;
-  alerts: {
-    fillAll: string;
-    error: string;
-  };
-}
-
-interface Option {
-  duration: string;
-  price: string;
-}
+import { Option, Dictionary } from "@/types/definitions";
 
 interface TreatmentDetailProps {
   lang: string; // <--- New Prop
-  dict: BookingDict; // <--- New Prop
+  dict: Dictionary["booking"]; // <--- New Prop
 
   categorySlug: string;
   subCategorySlug: string;
@@ -149,10 +129,9 @@ export default function TreatmentDetail({
               <Button
                 variant="outline"
                 color="light"
-                className="w-full justify-between text-gray-700"
+                className="w-full justify-between text-gray-700 font-medium"
               >
-                {selectedOption ? selectedOption.duration : dict.selectDuration}{" "}
-                {/* <--- Dynamic */}
+                {selectedOption ? selectedOption.duration : dict.selectDuration}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-full">
@@ -160,17 +139,56 @@ export default function TreatmentDetail({
                 <DropdownMenuItem
                   key={i}
                   onSelect={() => setSelectedOption(opt)}
+                  className="flex justify-between w-full cursor-pointer"
                 >
-                  {opt.duration} ({opt.price})
+                  <span>{opt.duration}</span>
+
+                  {/* 1. SHOW CROSSED OUT PRICE IN THE DROPDOWN */}
+                  {opt.isPromo ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-400 line-through">
+                        {opt.originalPrice}
+                      </span>
+                      <span className="font-bold text-amber-600">
+                        {opt.price}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="font-semibold text-gray-700">
+                      {opt.price}
+                    </span>
+                  )}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* 2. THE LARGE PRICE DISPLAY */}
           {selectedOption && (
-            <p className="text-lg text-white font-medium text-center">
-              {selectedOption.price}
-            </p>
+            <div className="text-center py-2 animate-in fade-in zoom-in duration-300">
+              {selectedOption.isPromo ? (
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="text-xl text-gray-400 line-through decoration-red-400">
+                      {selectedOption.originalPrice}
+                    </span>
+                    <span className="text-4xl text-amber-400 font-bold drop-shadow-md">
+                      {selectedOption.price}
+                    </span>
+                  </div>
+                  {/* Optional: Add a little urgency! */}
+                  {selectedOption.promoEnds && (
+                    <span className="inline-block mt-2 text-xs text-amber-200 uppercase tracking-widest font-semibold bg-amber-500/20 border border-amber-500/30 px-3 py-1 rounded-full">
+                      Offer ends {selectedOption.promoEnds}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <p className="text-4xl text-white font-bold drop-shadow-md">
+                  {selectedOption.price}
+                </p>
+              )}
+            </div>
           )}
 
           {/* Form fields */}

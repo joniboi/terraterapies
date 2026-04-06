@@ -4,17 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
 import { useEffect } from "react";
+import { Subcategory } from "@/types/definitions";
 
-export interface Subcategory {
-  title: string;
-  image: string;
+export interface ShowcaseItem extends Subcategory {
   link: string;
-  shortDescription?: string;
 }
-
 // 1. Define Props Interface
 interface SubcategoryShowcaseProps {
-  items: Subcategory[];
+  items: ShowcaseItem[];
   title?: string;
   description?: string;
   ctaLabel: string; // <--- New Prop
@@ -64,6 +61,12 @@ export default function SubcategoryShowcase({
                     fill
                     className="object-cover transition-transform duration-700 hover:scale-105"
                   />
+                  {/* 4. FIXED PROMO BADGE (Added the missing closing tag!) */}
+                  {sub.hasPromo && (
+                    <div className="absolute top-4 right-4 bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg animate-pulse z-10">
+                      🎁 {sub.promoBadgeText}
+                    </div>
+                  )}
                 </div>
 
                 {/* Text Section */}

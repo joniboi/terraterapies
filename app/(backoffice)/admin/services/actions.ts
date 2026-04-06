@@ -39,6 +39,10 @@ export async function updateTreatmentAction(
           duration: Number(v.duration),
           unit: v.unit,
           price: v.price.toString(),
+          promotionalPrice: v.promotionalPrice
+            ? v.promotionalPrice.toString()
+            : null,
+          promoEndsAt: v.promoEndsAt ? new Date(v.promoEndsAt) : null,
           prefix: v.prefix,
           suffix: v.suffix,
           orderIndex: index, // Keeps them in the exact order she dragged/arranged them

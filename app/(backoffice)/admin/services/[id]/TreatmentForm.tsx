@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import EmojiPicker from "emoji-picker-react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTab, TabsPanel } from "@/components/ui/tabs";
 import { updateTreatmentAction } from "../actions";
 
 // 👇 IMPORT YOUR ACCORDION (Adjust the path if necessary)
@@ -26,8 +25,6 @@ export default function TreatmentForm({ initialData, categories }: any) {
   const [formData, setFormData] = useState(initialData);
   const [variants, setVariants] = useState(initialData.variants || []);
   const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState<string | null>(null);
-
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const updateI18n = (lang: string, field: string, value: string) => {
@@ -223,7 +220,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   }
                 />
               </div>
-              <div className="w-24">
+              <div className="w-20">
                 <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
                   Unit
                 </label>
@@ -236,13 +233,13 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   <option value="pax">Pax</option>
                 </select>
               </div>
-              <div className="w-32">
+              <div className="w-24">
                 <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
                   Price (€)
                 </label>
                 <input
                   type="number"
-                  step="0.01"
+                  step="1.00"
                   className="w-full rounded border-gray-300 text-sm py-1 font-bold text-blue-700"
                   value={v.price}
                   onChange={(e) =>
@@ -250,6 +247,41 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   }
                 />
               </div>
+              {/* 2. PROMOTION FIELDS (New!) */}
+              <div className="w-28 bg-amber-50 p-2 rounded-lg border border-amber-100">
+                <label className="block text-[10px] uppercase font-bold text-amber-600 mb-1">
+                  Promo €
+                </label>
+                <input
+                  type="number"
+                  step="1.00"
+                  placeholder="None"
+                  className="form-input w-full text-sm py-1.5 bg-white border-amber-200"
+                  value={v.promotionalPrice || ""}
+                  onChange={(e) =>
+                    updateVariant(index, "promotionalPrice", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="w-40 bg-amber-50 p-2 rounded-lg border border-amber-100">
+                <label className="block text-[10px] uppercase font-bold text-amber-600 mb-1">
+                  Expires On
+                </label>
+                <input
+                  type="date"
+                  className="form-input w-full text-sm py-1.5 bg-white border-amber-200"
+                  value={
+                    v.promoEndsAt
+                      ? new Date(v.promoEndsAt).toISOString().split("T")[0]
+                      : ""
+                  }
+                  onChange={(e) =>
+                    updateVariant(index, "promoEndsAt", e.target.value)
+                  }
+                />
+              </div>
+
               <div className="flex-1">
                 <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
                   Tag (Optional)

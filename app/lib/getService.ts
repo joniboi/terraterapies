@@ -49,6 +49,8 @@ function formatDuration(variant: any, lang: string) {
  * REPLACES: getServicesData(lang)
  * Fetches the entire structure from DB and merges it into the ServicesData shape.
  */
+// Replace ONLY the getServicesData function inside app/lib/getService.ts
+
 export const getServicesData = async (lang: string): Promise<ServicesData> => {
   // Fetch everything in one go using Drizzle Relational Queries
   const groups = await db.query.serviceGroups.findMany({
@@ -88,22 +90,65 @@ export const getServicesData = async (lang: string): Promise<ServicesData> => {
               description: getTranslation(cat.showCase.description, lang),
             }
           : undefined,
-        subcategories: cat.treatments.map((t) => ({
-          slug: t.slug,
-          title: getTranslation(t.title, lang),
-          emoji: t.emoji || "🌸",
-          image: t.image,
-          backgroundImage: t.backgroundImage || "/images/treatment-detail.jpg",
-          shortDescription: getTranslation(t.shortDescription, lang),
-          longDescription: getTranslation(t.longDescription, lang),
-          options: t.variants
+        subcategories: cat.treatments.map((t) => {
+          // --- PROMOTIONS LOGIC START ---
+          const now = new Date();
+          let maxDiscountPercentage = 0;
+
+          const mappedOptions = t.variants
             .sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0))
-            .map((v) => ({
-              duration: formatDuration(v, lang),
-              price: `${v.price}€`,
-              // Note: if you have originalPrice in DB, add it here.
-            })),
-        })),
+            .map((v) => {
+              const promoExpiry = v.promoEndsAt
+                ? new Date(v.promoEndsAt)
+                : null;
+              // A promo is active if there's a price AND the expiry is either null or in the future
+              const isPromoActive = !!(
+                v.promotionalPrice &&
+                (!promoExpiry || now < promoExpiry)
+              );
+
+              let discountPercent = 0;
+              if (isPromoActive && v.promotionalPrice) {
+                // Calculate percentage: e.g., 65 to 50 = ~23%
+                discountPercent = Math.round(
+                  100 - (Number(v.promotionalPrice) / Number(v.price)) * 100,
+                );
+                if (discountPercent > maxDiscountPercentage) {
+                  maxDiscountPercentage = discountPercent; // Save the best discount for the badge
+                }
+              }
+
+              return {
+                duration: formatDuration(v, lang),
+                price: isPromoActive ? `${v.promotionalPrice}€` : `${v.price}€`,
+                originalPrice: isPromoActive ? `${v.price}€` : undefined,
+                isPromo: isPromoActive,
+                promoEnds: promoExpiry
+                  ? promoExpiry.toLocaleDateString(lang)
+                  : undefined,
+                discountPercent,
+              };
+            });
+          // --- PROMOTIONS LOGIC END ---
+
+          return {
+            slug: t.slug,
+            title: getTranslation(t.title, lang),
+            emoji: t.emoji || "🌸",
+            image: t.image,
+            backgroundImage:
+              t.backgroundImage || "/images/treatment-detail.jpg",
+            shortDescription: getTranslation(t.shortDescription, lang),
+            longDescription: getTranslation(t.longDescription, lang),
+            options: mappedOptions,
+            // ADD NEW BADGE FIELDS:
+            hasPromo: maxDiscountPercentage > 0,
+            promoBadgeText:
+              maxDiscountPercentage > 0
+                ? `-${maxDiscountPercentage}%`
+                : undefined,
+          };
+        }),
       })),
     })),
   } as ServicesData;

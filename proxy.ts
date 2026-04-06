@@ -33,6 +33,7 @@ export const proxy = auth((request) => {
   if (
     pathname.startsWith("/admin") ||
     pathname.startsWith("/signin") ||
+    pathname.startsWith("/verify") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/images") ||

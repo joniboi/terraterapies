@@ -6,11 +6,14 @@ import { GiftCardPdf } from "@/components/pdf/giftcardpdf";
 import { generateLocator } from "@/utils/locator";
 import { getDictionary } from "@/app/lib/getDictionary";
 import QRCode from "qrcode";
+import { db } from "@/db";
+
+import * as schema from "@/db/schema";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const ADMIN_EMAIL = "julieanncolorado31@gmail.com";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -40,8 +43,27 @@ export async function POST(req: Request) {
 
     // 3. Generate Secure Locator
     const locator = await generateLocator(buyerName);
+
+    // 2. SAVE TO DATABASE
+    const [newCard] = await db
+      .insert(schema.giftCards)
+      .values({
+        locatorCode: locator,
+        stripeSessionId: session.id,
+        treatmentNameSnapshot: treatmentName,
+        durationSnapshot: duration,
+        priceSnapshot: ((session.amount_total || 0) / 100).toFixed(2),
+        buyerName: buyerName,
+        buyerEmail:
+          session.customer_details?.email ?? "sin-email@terraterapies.com",
+        recipientName: receiverName,
+        messageSnapshot: message,
+        status: "valid",
+      })
+      .returning({ id: schema.giftCards.id });
+
     // 1. Generate the QR Code string (Make it point to whatever admin verify page you want)
-    const verificationUrl = `${process.env.NEXT_PUBLIC_URL}/verify?loc=${locator}`;
+    const verificationUrl = `${process.env.NEXT_PUBLIC_URL}/verify?id=${newCard.id}`;
     const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, {
       errorCorrectionLevel: "M", // Standard error correction
       margin: 1, // Minimal border

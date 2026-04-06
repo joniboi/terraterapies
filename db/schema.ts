@@ -80,11 +80,21 @@ export const treatmentVariants = pgTable("treatment_variants", {
   duration: integer("duration").notNull(), // numeric value only
   unit: varchar("unit", { length: 20 }).default("min").notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+
+  promotionalPrice: decimal("promotional_price", { precision: 10, scale: 2 }), // Discounted Price
+  promoEndsAt: timestamp("promo_ends_at"), // When the discount expires
+
   prefix: jsonb("prefix").$type<I18nString>(), // e.g. "Traditional"
   suffix: jsonb("suffix").$type<I18nString>(), // e.g. "(stretching)"
   orderIndex: integer("order_index").default(0),
 });
+// db/schema.ts
 
+// This table replaces Upstash for the Daily Counter logic
+export const dailyCounters = pgTable("daily_counters", {
+  dateKey: varchar("date_key", { length: 6 }).primaryKey(), // e.g. '010424' (DDMMYY)
+  count: integer("count").default(0).notNull(),
+});
 // 5. GIFT CARDS (The Registry)
 export const giftCards = pgTable("gift_cards", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -92,8 +102,19 @@ export const giftCards = pgTable("gift_cards", {
   stripeSessionId: varchar("stripe_session_id", { length: 255 })
     .notNull()
     .unique(),
-  status: varchar("status", { length: 20 }).default("valid").notNull(), // valid, redeemed, expired
+  // Status: 'valid', 'redeemed', 'cancelled'
+  status: varchar("status", { length: 20 }).default("valid").notNull(),
   treatmentNameSnapshot: varchar("treatment_name", { length: 255 }).notNull(),
+  durationSnapshot: varchar("duration_snapshot", { length: 50 }).notNull(),
+  priceSnapshot: decimal("price_snapshot", {
+    precision: 10,
+    scale: 2,
+  }).notNull(),
+  // Who bought it
+  buyerName: varchar("buyer_name", { length: 255 }).notNull(),
+  buyerEmail: varchar("buyer_email", { length: 255 }).notNull(),
+  recipientName: varchar("recipient_name", { length: 255 }).notNull(),
+  messageSnapshot: text("message_snapshot"), // ADD THIS! (The personal note)
   purchasedAt: timestamp("purchased_at").defaultNow(),
   redeemedAt: timestamp("redeemed_at"),
 });

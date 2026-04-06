@@ -7,6 +7,9 @@ export interface Option {
   price: string; // Keep as string "60€" or number, depending on JSON. Usually string in your case.
   originalPrice?: string;
   tag?: string; // "Best Seller"
+  isPromo?: boolean;
+  promoEnds?: string;
+  discountPercent?: number;
 }
 
 export interface HeroImage {
@@ -24,13 +27,15 @@ export interface Subcategory {
   title: string;
   emoji?: string;
   tagline?: string;
-  image?: string; // Made optional just in case, but usually present
+  image: string; // Made optional just in case, but usually present
   backgroundImage?: string;
   shortDescription?: string;
   longDescription?: string;
   options?: Option[]; // Typed strictly now, not "any[]"
   // 'link' is often calculated in components (/${lang}/${cat}/${sub}),
   // but if it comes from JSON, add it here.
+  hasPromo?: boolean;
+  promoBadgeText?: string;
 }
 
 export interface Category {
