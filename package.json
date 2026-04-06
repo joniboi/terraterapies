@@ -16,6 +16,7 @@
     "@react-email/components": "^1.0.3",
     "@react-email/render": "^2.0.1",
     "@react-pdf/renderer": "^4.3.2",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^22.13.0",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",

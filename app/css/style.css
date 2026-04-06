@@ -1,8 +1,10 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
+@plugin '@tailwindcss/typography';
+@plugin "@tailwindcss/forms";
 /* Additional styles */
-@import './additional-styles/utility-patterns.css' layer(components);
-@import './additional-styles/theme.css';
+@import "./additional-styles/utility-patterns.css" layer(components);
+@import "./additional-styles/theme.css";
 
 @plugin "@tailwindcss/forms" {
   strategy: base;

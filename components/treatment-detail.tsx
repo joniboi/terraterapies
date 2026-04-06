@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import TreatwellModal from "@/components/treatwell/treatwell-modal";
+import ReactMarkdown from "react-markdown";
 
 // 1. Define the Dictionary Interface for this component
 interface BookingDict {
@@ -117,9 +118,15 @@ export default function TreatmentDetail({
           <h1 className="text-4xl font-semibold text-white mb-8 drop-shadow-lg">
             {title}
           </h1>
-          <p className="text-lg text-gray-200 leading-relaxed whitespace-pre-line drop-shadow-md">
-            {description}
-          </p>
+          {/* 2. REPLACE THE <p> TAG WITH THIS: */}
+          {/* 
+            'prose' activates the typography plugin 
+            'prose-invert' makes the text white (since your background is dark)
+            'prose-lg' makes it slightly larger and more readable
+          */}
+          <div className="prose prose-invert prose-lg max-w-none drop-shadow-md">
+            <ReactMarkdown>{description}</ReactMarkdown>
+          </div>
         </div>
 
         <div className="mt-12">
