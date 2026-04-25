@@ -5,7 +5,7 @@ import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
 
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
-const MAX_SIZE = 4 * 1024 * 1024; // 4MB
+const MAX_SIZE = 15 * 1024 * 1024; // 4MB
 
 export async function POST(req: NextRequest) {
   try {

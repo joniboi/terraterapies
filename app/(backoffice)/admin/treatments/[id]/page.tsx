@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { eq } from "drizzle-orm";
 import * as schema from "@/db/schema";
 import { notFound } from "next/navigation";
-import TreatmentForm from "./TreatmentForm";
+import TreatmentForm from "../_components/treatment-form";
 
 export default async function EditTreatmentPage(props: {
   params: Promise<{ id: string }>;

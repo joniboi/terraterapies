@@ -18,8 +18,11 @@ export default async function AdminSidebarLayout({
           <Link href="/admin" className="block hover:text-amber-400">
             Dashboard
           </Link>
-          <Link href="/admin/services" className="block hover:text-amber-400">
+          <Link href="/admin/treatments" className="block hover:text-amber-400">
             Treatments
+          </Link>
+          <Link href="/admin/categories" className="block hover:text-amber-400">
+            Categories
           </Link>
           <Link href="/admin/gift-cards" className="block hover:text-amber-400">
             Gift Cards

@@ -5,22 +5,10 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import EmojiPicker from "emoji-picker-react";
 import { Button } from "@/components/ui/button";
-import { updateTreatmentAction } from "../actions";
-
-// 👇 IMPORT YOUR ACCORDION (Adjust the path if necessary)
 import Accordion from "@/components/ui/accordion";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import LanguageTabs from "@/components/admin/language-tabs";
-
-import {
-  AlertDialog,
-  AlertDialogPopup,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogClose,
-} from "@/components/ui/alert-dialog";
+import AdminFormFooter from "@/components/admin/admin-form-footer";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -43,6 +31,8 @@ export default function TreatmentForm({ initialData, categories }: any) {
     description: "",
     type: "success" as "success" | "error",
   });
+
+  const isEdit = !!initialData?.id;
 
   const updateI18n = (lang: string, field: string, value: string) => {
     setFormData((prev: any) => ({
@@ -76,45 +66,48 @@ export default function TreatmentForm({ initialData, categories }: any) {
     setVariants(newVariants);
   };
 
-  const handleSave = async () => {
+  async function handleSave() {
     setIsSaving(true);
     try {
-      const cleanData = {
-        categoryId: formData.categoryId,
-        emoji: formData.emoji,
-        title: formData.title,
-        tagline: formData.tagline,
-        shortDescription: formData.shortDescription,
-        longDescription: formData.longDescription,
-        image: formData.image,
-        backgroundImage: formData.backgroundImage,
-        variants: variants,
-      };
+      const payload = { ...formData, variants };
+      const url = isEdit
+        ? `/api/admin/services/${initialData.id}`
+        : `/api/admin/services`;
 
-      const result = await updateTreatmentAction(formData.id, cleanData);
-      if (result.success) {
-        setAlertConfig({
-          open: true,
-          title: "Changes Saved",
-          description: "The treatment has been updated successfully.",
-          type: "success",
-        });
+      const res = await fetch(url, {
+        method: isEdit ? "PATCH" : "POST",
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        router.push("/admin/services");
         router.refresh();
-      } else {
-        throw new Error();
       }
     } catch (error) {
-      setAlertConfig({
-        open: true,
-        title: "Update Failed",
-        description:
-          "An error occurred while trying to save the treatment. Please try again.",
-        type: "error",
-      });
+      console.error("Update failed");
     } finally {
       setIsSaving(false);
     }
-  };
+  }
+
+  // 👇 COMPLETED DELETE LOGIC 👇
+  async function handleDelete() {
+    if (!isEdit) return;
+    setIsSaving(true);
+    try {
+      const res = await fetch(`/api/admin/services/${initialData.id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        router.push("/admin/services");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Delete failed");
+    } finally {
+      setIsSaving(false);
+    }
+  }
   return (
     <div className="space-y-6 pb-24 max-w-7xl mx-auto">
       {/* ROW 1: SPLIT 1/4 & 3/4 */}
@@ -169,6 +162,26 @@ export default function TreatmentForm({ initialData, categories }: any) {
                 </option>
               ))}
             </select>
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              URL Slug
+            </label>
+            <input
+              type="text"
+              className="w-full rounded-lg border-gray-300 text-sm py-2"
+              placeholder="e.g. thai-massage"
+              value={formData.slug || ""}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  slug: e.target.value.toLowerCase().replace(/\s+/g, "-"),
+                })
+              }
+            />
+            <p className="text-[10px] text-gray-400 mt-1">
+              Unique ID for the link.
+            </p>
           </div>
         </div>
 
@@ -397,60 +410,13 @@ export default function TreatmentForm({ initialData, categories }: any) {
           />
         </div>
       </Accordion>
-      {/* FLOATING SAVE BAR */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 flex justify-end gap-4 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] z-40">
-        <Button variant="ghost" onClick={() => router.back()}>
-          Cancel
-        </Button>
-        <Button
-          variant="default"
-          onClick={handleSave}
-          disabled={isSaving}
-          className="px-12 bg-blue-600 hover:bg-blue-700"
-        >
-          {isSaving ? "Saving..." : "Save Changes"}
-        </Button>
-      </div>
-      {/* 👇 4. ADD THE ALERT DIALOG COMPONENT */}
-      <AlertDialog
-        open={alertConfig.open}
-        onOpenChange={(open) => setAlertConfig((prev) => ({ ...prev, open }))}
-      >
-        <AlertDialogPopup>
-          <AlertDialogHeader>
-            <AlertDialogTitle
-              className={
-                alertConfig.type === "error" ? "text-red-600" : "text-blue-600"
-              }
-            >
-              {alertConfig.title}
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              {alertConfig.description}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-
-          <AlertDialogFooter>
-            {/* 
-          Base UI Pattern: 
-          1. The 'render' prop takes the component/element
-          2. The children of the component is the text/label
-      */}
-            <AlertDialogClose
-              render={
-                <Button
-                  variant={
-                    alertConfig.type === "error" ? "destructive" : "default"
-                  }
-                  className="w-full sm:w-auto"
-                />
-              }
-            >
-              {alertConfig.type === "error" ? "Try Again" : "Got it"}
-            </AlertDialogClose>
-          </AlertDialogFooter>
-        </AlertDialogPopup>
-      </AlertDialog>
+      {/* REUSABLE FLOATING FOOTER */}
+      <AdminFormFooter
+        isLoading={isSaving}
+        onSave={handleSave}
+        onDelete={handleDelete}
+        isEdit={!!initialData} // If initialData exists, it's an edit, so the Delete button will show
+      />
     </div>
   );
 }
