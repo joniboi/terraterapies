@@ -204,9 +204,9 @@
     "subtitle": "Estem aquí per ajudar-te a trobar el teu moment de pau.",
     "schedule": {
       "title": "Horari d'obertura",
-      "weekdays": "Dilluns a divendres de 10:30 a 21:30",
-      "weekends": "Dissabte i diumenge de 12:00 a 21:30",
-      "holidays": "Festius de 12:00 a 21:30"
+      "weekdays": "Dilluns a divendres",
+      "weekends": "Dissabte",
+      "holidays": "Diumenges i festius"
     },
     "info": {
       "title": "Informació",

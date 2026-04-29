@@ -201,9 +201,9 @@
     "subtitle": "We are here to help you find your moment of peace.",
     "schedule": {
       "title": "Opening Hours",
-      "weekdays": "Monday to Friday from 10:30 to 21:30",
-      "weekends": "Saturday and Sunday from 12:00 to 21:30",
-      "holidays": "Holidays from 12:00 to 21:30"
+      "weekdays": "Monday to Friday",
+      "weekends": "Saturday",
+      "holidays": "Sunday and Holidays"
     },
     "info": {
       "title": "Information",

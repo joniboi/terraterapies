@@ -209,9 +209,9 @@
     "subtitle": "Estamos aquí para ayudarte a encontrar tu momento de paz.",
     "schedule": {
       "title": "Horario de apertura",
-      "weekdays": "Lunes a viernes de 10:30 a 21:30",
-      "weekends": "Sábado y domingo de 12:00 a 21:30",
-      "holidays": "Festivos de 12:00 a 21:30"
+      "weekdays": "Lunes a viernes",
+      "weekends": "Sábado",
+      "holidays": "Domingos y festivos"
     },
     "info": {
       "title": "Información",
