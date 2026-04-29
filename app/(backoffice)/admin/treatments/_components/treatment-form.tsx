@@ -37,7 +37,8 @@ export default function TreatmentForm({ initialData, categories }: any) {
   const updateI18n = (lang: string, field: string, value: string) => {
     setFormData((prev: any) => ({
       ...prev,
-      [field]: { ...prev[field], [lang]: value },
+      // Add `|| {}` here to prevent crashes on completely new fields
+      [field]: { ...(prev[field] || {}), [lang]: value },
     }));
   };
 
@@ -71,8 +72,8 @@ export default function TreatmentForm({ initialData, categories }: any) {
     try {
       const payload = { ...formData, variants };
       const url = isEdit
-        ? `/api/admin/services/${initialData.id}`
-        : `/api/admin/services`;
+        ? `/api/admin/treatments/${initialData.id}`
+        : `/api/admin/treatments`;
 
       const res = await fetch(url, {
         method: isEdit ? "PATCH" : "POST",
@@ -80,7 +81,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
       });
 
       if (res.ok) {
-        router.push("/admin/services");
+        router.push("/admin/treatments");
         router.refresh();
       }
     } catch (error) {
@@ -95,11 +96,11 @@ export default function TreatmentForm({ initialData, categories }: any) {
     if (!isEdit) return;
     setIsSaving(true);
     try {
-      const res = await fetch(`/api/admin/services/${initialData.id}`, {
+      const res = await fetch(`/api/admin/treatments/${initialData.id}`, {
         method: "DELETE",
       });
       if (res.ok) {
-        router.push("/admin/services");
+        router.push("/admin/treatments");
         router.refresh();
       }
     } catch (error) {
@@ -218,6 +219,20 @@ export default function TreatmentForm({ initialData, categories }: any) {
                       value={formData.tagline[lang] || ""}
                       onChange={(e) =>
                         updateI18n(lang, "tagline", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">
+                      Short Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      className="form-textarea w-full rounded-lg border-gray-300 focus:ring-blue-500 text-sm"
+                      placeholder="Brief overview used on cards and grid layouts..."
+                      value={formData.shortDescription?.[lang] || ""}
+                      onChange={(e) =>
+                        updateI18n(lang, "shortDescription", e.target.value)
                       }
                     />
                   </div>

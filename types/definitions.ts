@@ -48,6 +48,7 @@ export interface Category {
   subcategories: Subcategory[];
   isFeatured?: boolean; // true for Rituals
   badge?: string; // "✨ Exclusive Experience"
+  orderIndex?: number; // For manual sorting
 }
 
 export interface NavItem {
