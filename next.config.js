@@ -2,7 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
-  // other config options
+
+  async rewrites() {
+    return [
+      {
+        /**
+         * This matches any request starting with /uploads/
+         * and redirects it to your dynamic API handler.
+         */
+        source: "/uploads/:path*",
+        destination: "/api/upload/:path*",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
