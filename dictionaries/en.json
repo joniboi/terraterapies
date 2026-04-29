@@ -114,6 +114,10 @@
             "answer": "Yes. Please let us know as soon as possible if you need to change your appointment. Late cancellations may be subject to a fee depending on the notice given."
           },
           {
+            "question": "What are the opening hours?",
+            "answer": "Our centre is open Monday to Saturday from 9:30 to 21:30, and Sundays from 12:00 to 21:30. We are closed on 25 December and 1 January."
+          },
+          {
             "question": "When should I arrive?",
             "answer": "Arriving 10 minutes early gives you time to settle in and start the experience calmly."
           },

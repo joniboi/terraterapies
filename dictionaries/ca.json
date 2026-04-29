@@ -117,6 +117,10 @@
             "answer": "Sí. Si necessites canviar la teva cita, avisa’ns tan aviat com puguis. Les cancel·lacions d’última hora poden comportar un càrrec segons l’antelació amb què s’avisi."
           },
           {
+            "question": "Quin és l’horari d’obertura?",
+            "answer": "El nostre centre està obert de dilluns a dissabte de 9:30 a 21:30 h, i diumenges de 12:00 a 21:30 h. Tanquem els dies 25 de desembre i 1 de gener."
+          },
+          {
             "question": "Quan hauria d’arribar?",
             "answer": "Arribar 10 minuts abans t’ajuda a instal·lar-te amb calma i començar l’experiència sense presses."
           },
