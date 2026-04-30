@@ -58,7 +58,7 @@ export default async function ContactPage({ params }: PageProps) {
                   {contact.schedule.weekends}
                 </span>
                 <span className="font-medium text-gray-900 whitespace-nowrap">
-                  9:30 - 21:30
+                  12:00 - 21:30
                 </span>
               </li>
               <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
