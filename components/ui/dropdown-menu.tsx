@@ -8,7 +8,7 @@ import { cn } from "@/app/lib/utils";
 
 // 1️⃣ Create a context
 const DropdownColorContext = React.createContext<"light" | "dark" | "muted">(
-  "light"
+  "light",
 );
 
 export function useDropdownColor() {
@@ -53,10 +53,10 @@ function DropdownMenuTrigger({
   const color = useDropdownColor();
   const colorClass =
     color === "dark"
-      ? "data-[state=open]:bg-gray-800/60 text-white"
+      ? "data-[state=open]:bg-foreground/10 text-foreground"
       : color === "muted"
-      ? "data-[state=open]:bg-accent text-popover-foreground"
-      : "data-[state=open]:bg-gray-100 text-gray-900";
+        ? "data-[state=open]:bg-secondary text-secondary-foreground"
+        : "data-[state=open]:bg-accent text-foreground";
 
   return (
     <DropdownMenuPrimitive.Trigger
@@ -76,10 +76,10 @@ function DropdownMenuContent({
   const color = useDropdownColor();
   const colorClass =
     color === "light"
-      ? "bg-white/80 backdrop-blur-md text-gray-900 border-white/30"
+      ? "bg-popover/90 backdrop-blur-md text-popover-foreground border-border"
       : color === "dark"
-      ? "bg-gray-900/80 backdrop-blur-md text-white border-gray-700/40"
-      : "bg-popover text-popover-foreground border";
+        ? "bg-gray-950/90 backdrop-blur-md text-white border-white/10"
+        : "bg-popover text-popover-foreground border border-border";
 
   return (
     <DropdownMenuPrimitive.Portal>
@@ -91,7 +91,7 @@ function DropdownMenuContent({
           "z-50 min-w-40 overflow-hidden rounded-md p-1 shadow-lg",
           "data-[side=bottom]:slide-in-from-top-2 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           colorClass,
-          className
+          className,
         )}
         {...props}
       />
@@ -123,10 +123,10 @@ function DropdownMenuItem({
   const color = useDropdownColor();
   const colorClass =
     color === "light"
-      ? "focus:bg-white/30 text-gray-900"
+      ? "focus:bg-accent text-foreground"
       : color === "dark"
-      ? "focus:bg-gray-800/60 text-white"
-      : "focus:bg-accent text-popover-foreground";
+        ? "focus:bg-white/10 text-white"
+        : "focus:bg-accent text-accent-foreground";
 
   return (
     <DropdownMenuPrimitive.Item
@@ -137,7 +137,7 @@ function DropdownMenuItem({
         "relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm select-none outline-hidden transition-colors",
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8",
         colorClass,
-        className
+        className,
       )}
       {...props}
     />
@@ -155,7 +155,7 @@ function DropdownMenuCheckboxItem({
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
         "relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className
+        className,
       )}
       checked={checked}
       {...props}
@@ -191,7 +191,7 @@ function DropdownMenuRadioItem({
       data-slot="dropdown-menu-radio-item"
       className={cn(
         "relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className
+        className,
       )}
       {...props}
     >
@@ -213,7 +213,7 @@ function DropdownMenuLabel({
   inset?: boolean;
 }) {
   const color = useDropdownColor();
-  const base = color === "dark" ? "text-gray-300" : "text-gray-500";
+  const base = color === "dark" ? "text-white/60" : "text-muted-foreground";
 
   return (
     <DropdownMenuPrimitive.Label
@@ -221,7 +221,7 @@ function DropdownMenuLabel({
         "px-2 py-1.5 text-sm font-semibold",
         inset && "pl-8",
         base,
-        className
+        className,
       )}
       {...props}
     />
@@ -233,12 +233,7 @@ function DropdownMenuSeparator({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Separator>) {
   const color = useDropdownColor();
-  const border =
-    color === "dark"
-      ? "bg-gray-700/60"
-      : color === "light"
-      ? "bg-gray-200/60"
-      : "bg-border";
+  const border = color === "dark" ? "bg-white/10" : "bg-border/60";
 
   return (
     <DropdownMenuPrimitive.Separator
@@ -257,7 +252,7 @@ function DropdownMenuShortcut({
       data-slot="dropdown-menu-shortcut"
       className={cn(
         "ms-auto -me-1 inline-flex h-5 max-h-full items-center rounded border bg-background px-1 font-[inherit] text-[0.625rem] font-medium text-muted-foreground/70",
-        className
+        className,
       )}
       {...props}
     />
@@ -284,7 +279,7 @@ function DropdownMenuSubTrigger({
       data-inset={inset}
       className={cn(
         "flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-[inset]:pl-8 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        className
+        className,
       )}
       {...props}
     >
@@ -306,7 +301,7 @@ function DropdownMenuSubContent({
       data-slot="dropdown-menu-sub-content"
       className={cn(
         "z-50 min-w-40 overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
-        className
+        className,
       )}
       {...props}
     />

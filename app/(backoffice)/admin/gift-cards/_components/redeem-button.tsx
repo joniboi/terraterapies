@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { redeemGiftCardAction } from "@/app/(backoffice)/admin/gift-cards/actions";
+
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -13,6 +13,7 @@ import {
   AlertDialogFooter,
   AlertDialogClose,
 } from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 export default function RedeemButton({
   id,
@@ -21,18 +22,26 @@ export default function RedeemButton({
   id: string;
   code: string;
 }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleRedeem = async () => {
     setLoading(true);
-    const res = await redeemGiftCardAction(id);
-    if (!res.success) {
-      alert("Error updating card");
-      setLoading(false);
-    } else {
-      // revalidatePath in the action will handle the UI update
-      setOpen(false);
+    try {
+      const res = await fetch(`/api/admin/gift-cards/${id}`, {
+        method: "PATCH",
+      });
+
+      if (res.ok) {
+        setOpen(false);
+        router.refresh(); // This replaces revalidatePath
+      } else {
+        alert("Error updating card");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
       setLoading(false);
     }
   };

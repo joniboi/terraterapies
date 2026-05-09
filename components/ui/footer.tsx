@@ -41,7 +41,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
         <div
           className={`grid gap-8 py-8 sm:grid-cols-12 md:py-12 ${
             border
-              ? "border-t [border-image:linear-gradient(to_right,transparent,var(--color-slate-200),transparent)1]"
+              ? "border-t [border-image:linear-gradient(to_right,transparent,var(--color-border),transparent)1]"
               : ""
           }`}
         >
@@ -50,7 +50,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
             <div>
               <Logo lang={lang} />
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-muted-foreground">
               &copy; {new Date().getFullYear()} {config.business.name}.{" "}
               {dict.copyright}
             </div>
@@ -64,7 +64,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(
                     routes.subcategory(
                       dict.experiences.thai.categorySlug,
@@ -78,7 +78,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(
                     routes.subcategory(
                       dict.experiences.bali.categorySlug,
@@ -92,7 +92,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(
                     routes.category(dict.experiences.combos.categorySlug),
                     lang,
@@ -113,7 +113,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               {Object.entries(config.partners).map(([key, partner]) => (
                 <li key={key}>
                   <Link
-                    className="text-gray-600 transition hover:text-gray-900"
+                    className="text-muted-foreground transition hover:text-foreground"
                     href={partner.getUrl(lang)}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -134,7 +134,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(routes.contact, lang)}
                 >
                   {dict.info.contact}
@@ -142,7 +142,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(routes.about, lang)}
                 >
                   {dict.info.about}
@@ -150,7 +150,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="text-gray-600 transition hover:text-gray-900"
+                  className="text-muted-foreground transition hover:text-foreground"
                   href={getLocalizedRoute(routes.faq, lang)}
                 >
                   {dict.info.faq}
@@ -167,7 +167,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
             <ul className="flex gap-4">
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
+                  className="flex items-center justify-center text-primary transition hover:opacity-80 hover:scale-110"
                   href={config.social.whatsapp.getUrl(dict.social.whatsappMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -184,7 +184,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
+                  className="flex items-center justify-center text-primary transition hover:opacity-80 hover:scale-110"
                   href={config.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -201,7 +201,7 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
               </li>
               <li>
                 <Link
-                  className="flex items-center justify-center text-blue-500 transition hover:text-blue-600 hover:scale-110"
+                  className="flex items-center justify-center text-primary transition hover:opacity-80 hover:scale-110"
                   href={config.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -226,13 +226,13 @@ export default function Footer({ border = false, dict, lang }: FooterProps) {
         className="pointer-events-none relative -mt-16 h-60 w-full overflow-hidden"
         aria-hidden="true"
       >
-        <div className="absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[120px] md:text-[348px] font-bold leading-none before:bg-linear-to-b before:from-gray-200 before:to-gray-100/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Thai&Bali'] after:absolute after:inset-0 after:bg-gray-300/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Thai&Bali'] after:[text-shadow:0_1px_0_white]"></div>
+        <div className="absolute left-1/2 -z-10 -translate-x-1/2 text-center text-[120px] md:text-[348px] font-bold leading-none before:bg-linear-to-b before:from-border before:to-muted/30 before:to-80% before:bg-clip-text before:text-transparent before:content-['Thai&Bali'] after:absolute after:inset-0 after:bg-border/70 after:bg-clip-text after:text-transparent after:mix-blend-darken after:content-['Thai&Bali'] after:[text-shadow:0_1px_0_var(--color-background)]"></div>
         {/* Glow */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2/3"
           aria-hidden="true"
         >
-          <div className="h-40 w-40 md:h-56 md:w-56 rounded-full border-[20px] border-blue-700 blur-[60px] md:blur-[80px]"></div>
+          <div className="h-40 w-40 md:h-56 md:w-56 rounded-full border-[20px] border-primary blur-[60px] md:blur-[80px]"></div>
         </div>
       </div>
     </footer>
@@ -257,25 +257,25 @@ function FooterSection({
 
   return (
     <div
-      className={`space-y-2 border-b border-gray-100 sm:border-none pb-4 sm:pb-0 ${className}`}
+      className={`space-y-2 border-b border-border sm:border-none pb-4 sm:pb-0 ${className}`}
     >
       {/* MOBILE HEADER: Clickable */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between sm:hidden group"
       >
-        <h3 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
+        <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">
           {title}
         </h3>
         <ChevronDown
-          className={`w-4 h-4 text-gray-400 transition-transform ${
+          className={`w-4 h-4 text-muted-foreground transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
 
       {/* DESKTOP HEADER: Static */}
-      <h3 className="hidden sm:block text-sm font-bold text-gray-800 uppercase tracking-wider mb-2">
+      <h3 className="hidden sm:block text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">
         {title}
       </h3>
 

@@ -7,6 +7,7 @@ interface AdminHeaderProps {
   actionLabel?: string;
   actionHref?: string;
   actionDisabled?: boolean;
+  children?: React.ReactNode;
 }
 
 export function AdminHeader({
@@ -15,23 +16,24 @@ export function AdminHeader({
   actionLabel,
   actionHref,
   actionDisabled,
+  children,
 }: AdminHeaderProps) {
   return (
-    <div className="flex justify-between items-center mb-8">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-        {subtitle && <p className="text-gray-500 mt-1">{subtitle}</p>}
-      </div>
-      {actionLabel &&
-        (actionDisabled ? (
-          <Button disabled className="opacity-50 cursor-not-allowed">
-            {actionLabel}
-          </Button>
-        ) : (
-          <Button asChild>
+    <div className="mb-8">
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">{title}</h1>
+          {subtitle && <p className="text-gray-500 mt-1">{subtitle}</p>}
+        </div>
+        {actionLabel && (
+          <Button asChild disabled={actionDisabled}>
             <Link href={actionHref || "#"}>{actionLabel}</Link>
           </Button>
-        ))}
+        )}
+      </div>
+
+      {/* 👈 Render filters/tabs here if provided */}
+      {children && <div className="mt-6">{children}</div>}
     </div>
   );
 }

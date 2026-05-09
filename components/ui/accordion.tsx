@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/app/lib/utils";
 import { useState } from "react";
 
 type AccordionpProps = {
@@ -18,10 +19,10 @@ export default function Accordion({
   const [accordionOpen, setAccordionOpen] = useState<boolean>(active);
 
   return (
-    <div className="relative rounded-lg bg-white/70 shadow-sm shadow-black/[0.03] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-gray-100),var(--color-gray-200))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]">
+    <div className="relative rounded-lg bg-background/70 shadow-sm shadow-black/[0.03] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-muted),var(--color-border))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]">
       <h2>
         <button
-          className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold"
+          className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-foreground"
           onClick={(e) => {
             e.preventDefault();
             setAccordionOpen((prevState) => !prevState);
@@ -30,11 +31,12 @@ export default function Accordion({
           aria-controls={`accordion-text-${id}`}
         >
           <span>{title}</span>
-          <span className="ml-8 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white shadow-xs">
+          <span className="ml-8 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-background shadow-xs">
             <svg
-              className={`origin-center transform fill-gray-400 transition duration-200 ease-out ${
-                accordionOpen && "rotate-180!"
-              }`}
+              className={cn(
+                "origin-center transform transition duration-200 ease-out fill-muted-foreground",
+                accordionOpen && "rotate-180!",
+              )}
               xmlns="http://www.w3.org/2000/svg"
               width={10}
               height={6}
@@ -52,11 +54,12 @@ export default function Accordion({
         id={`accordion-text-${id}`}
         role="region"
         aria-labelledby={`accordion-title-${id}`}
-        className={`grid overflow-hidden text-sm text-gray-600 transition-all duration-300 ease-in-out ${
+        className={cn(
+          "grid overflow-hidden text-sm text-muted-foreground transition-all duration-300 ease-in-out",
           accordionOpen
             ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
-        }`}
+            : "grid-rows-[0fr] opacity-0",
+        )}
       >
         <div className="overflow-hidden">
           {/* <p className="px-4 pb-3">{children}</p> */}

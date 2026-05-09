@@ -10,7 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // UPDATED: Now uses your specific dark gray colors and hover transitions
-        default: "bg-gray-900 text-white shadow-sm hover:bg-gray-800",
+        default:
+          "bg-primary text-primary-foreground shadow-sm hover:opacity-90",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         outline:

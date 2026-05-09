@@ -57,8 +57,8 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
               <NavigationMenuTrigger
                 className={`transition-colors duration-200 ${
                   item.highlight
-                    ? "text-amber-700 hover:text-amber-800 font-bold"
-                    : "text-gray-700 hover:text-gray-900 font-medium"
+                    ? "text-highlight hover:opacity-80 font-bold"
+                    : "text-muted-foreground hover:text-foreground font-medium"
                 }`}
               >
                 {item.emoji && <span className="mr-1">{item.emoji}</span>}
@@ -68,20 +68,20 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
               <NavigationMenuContent className="absolute top-full mt-3 left-1/2 -translate-x-1/2 z-50">
                 {/* Reuse your existing layouts (A & B) here unchanged */}
                 {item.layout === "mega-menu" && (
-                  <div className="flex flex-col w-[600px] bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
-                    <div className="px-6 py-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                  <div className="flex flex-col w-[600px] bg-popover rounded-2xl shadow-2xl overflow-hidden ring-1 ring-border">
+                    <div className="px-6 py-3 border-b border-border bg-muted/50 flex justify-between items-center">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
                         {item.label}
                       </span>
                     </div>
-                    <div className="grid grid-cols-2 gap-3 p-4 bg-gray-50/30">
+                    <div className="grid grid-cols-2 gap-3 p-4 bg-muted/20">
                       {item.categories.map((cat) => (
                         <NavigationMenuLink asChild key={cat.slug}>
                           <Link
                             href={`/${lang}/${cat.slug}`}
-                            className="group relative flex items-start gap-3 p-3 rounded-xl border border-gray-200 bg-white hover:border-blue-200 hover:shadow-lg hover:-translate-y-1"
+                            className="group relative flex items-start gap-3 p-3 rounded-xl border border-border bg-background hover:border-primary/50 hover:shadow-lg hover:-translate-y-1"
                           >
-                            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-gray-100 group-hover:border-blue-100">
+                            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border group-hover:border-primary/20">
                               <Image
                                 src={cat.image}
                                 alt={cat.title}
@@ -90,10 +90,10 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                               />
                             </div>
                             <div className="flex flex-col min-w-0">
-                              <span className="text-sm font-bold text-gray-800 group-hover:text-blue-900">
+                              <span className="text-sm font-bold text-foreground group-hover:text-primary">
                                 {cat.title}
                               </span>
-                              <p className="text-xs text-gray-500 line-clamp-2 mt-1">
+                              <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
                                 {cat.subcategories
                                   .map((s) => s.title)
                                   .join(", ")}
@@ -106,24 +106,24 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                   </div>
                 )}
                 {item.layout === "rich-dropdown" && (
-                  <div className="flex flex-col w-[900px] bg-white rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
+                  <div className="flex flex-col w-[900px] bg-background rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5">
                     {/* ... Your existing Layout B code ... */}
-                    <div className="grid grid-cols-3 gap-3 p-4 bg-gray-50/30">
+                    <div className="grid grid-cols-3 gap-3 p-4 bg-muted/20">
                       {item.categories[0]?.subcategories.map((sub) => (
                         <NavigationMenuLink asChild key={sub.slug}>
                           <Link
                             href={`/${lang}/${item.categories[0].slug}/${sub.slug}`}
-                            className="group relative flex items-start gap-3 p-3 rounded-xl border border-gray-200 bg-white hover:border-amber-300 hover:shadow-lg hover:-translate-y-1"
+                            className="group relative flex items-start gap-3 p-3 rounded-xl border border-border bg-background hover:border-highlight/50 hover:shadow-lg hover:-translate-y-1"
                           >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-xl border border-amber-100 group-hover:bg-amber-100">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-highlight-background text-xl border border-highlight-border group-hover:bg-highlight-border/50">
                               {sub.emoji}
                             </div>
                             <div className="flex flex-col min-w-0">
-                              <span className="text-sm font-bold text-gray-800 group-hover:text-amber-900">
+                              <span className="text-sm font-bold text-foreground group-hover:text-highlight">
                                 {sub.title}
                               </span>
                               {sub.tagline && (
-                                <span className="text-xs text-gray-500 line-clamp-2 mt-0.5">
+                                <span className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                                   {sub.tagline}
                                 </span>
                               )}
@@ -174,7 +174,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
     <>
       <header className="fixed top-2 z-30 w-full md:top-6">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/90 px-3 shadow-lg shadow-black/[0.03] backdrop-blur-xs">
+          <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-background/90 px-3 shadow-lg border border-border/50 backdrop-blur-xs">
             {/* 1. Desktop View (Hidden on mobile) */}
             <DesktopNav />
 
@@ -196,13 +196,13 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
 
       {/* --- MOBILE FULL SCREEN MENU (DRAWER) --- */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white flex flex-col animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col animate-in slide-in-from-right duration-300">
           {/* Mobile Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <div className="flex items-center justify-between p-4 border-b border-border">
             <Logo lang={lang} />
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 text-gray-500 hover:bg-gray-100 rounded-full"
+              className="p-2 text-muted-foreground hover:bg-gray-100 rounded-full"
             >
               <X className="w-8 h-8" />
             </button>
@@ -214,20 +214,20 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
               {navItems.map((item) => (
                 <div
                   key={item.id}
-                  className="border-b border-gray-50 last:border-0"
+                  className="border-b border-border/50 last:border-0"
                 >
                   {/* Mobile Accordion Trigger */}
                   <button
                     onClick={() => toggleAccordion(item.id)}
-                    className="flex w-full items-center justify-between py-4 text-lg font-medium text-gray-900"
+                    className="flex w-full items-center justify-between py-4 text-lg font-medium text-foreground"
                   >
                     <span className="flex items-center gap-2">
                       {item.emoji} {item.label}
                     </span>
                     {openAccordion === item.id ? (
-                      <ChevronUp className="w-5 h-5 text-gray-400" />
+                      <ChevronUp className="w-5 h-5 text-muted-foreground" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-400" />
+                      <ChevronDown className="w-5 h-5 text-muted-foreground" />
                     )}
                   </button>
 
@@ -241,7 +241,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                             key={cat.slug}
                             href={`/${lang}/${cat.slug}`}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-3 p-2 rounded-lg active:bg-gray-50"
+                            className="flex items-center gap-3 p-2 rounded-lg active:bg-muted/50"
                           >
                             <div className="relative w-10 h-10 rounded-md overflow-hidden shrink-0">
                               <Image
@@ -269,7 +269,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                             key={sub.slug}
                             href={`/${lang}/${item.categories[0].slug}/${sub.slug}`}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-3 p-2 rounded-lg active:bg-amber-50"
+                            className="flex items-center gap-3 p-2 rounded-lg active:bg-highlight-background"
                           >
                             <span className="text-2xl">{sub.emoji}</span>
                             <div className="font-semibold text-gray-800">
@@ -285,8 +285,8 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
           </div>
 
           {/* Mobile Footer: BIG Language Buttons */}
-          <div className="p-6 border-t border-gray-100 bg-gray-50">
-            <p className="text-center text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
+          <div className="p-6 border-t border-border bg-muted/50">
+            <p className="text-center text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
               Select Language
             </p>
             <div className="flex justify-center gap-6">
@@ -298,7 +298,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
                   className={`cursor-pointer flex flex-col items-center gap-2 transition active:scale-95 ${lang === l ? "opacity-100" : "opacity-40 grayscale"}`}
                 >
                   <div
-                    className={`relative w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 ${lang === l ? "border-blue-500 ring-2 ring-blue-200" : "border-transparent"}`}
+                    className={`relative w-12 h-12 rounded-full overflow-hidden shadow-sm border-2 ${lang === l ? "border-primary ring-2 ring-primary/20" : "border-transparent"}`}
                   >
                     <Image
                       src={

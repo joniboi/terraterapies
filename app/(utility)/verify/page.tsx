@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import * as schema from "@/db/schema";
 import Logo from "@/components/ui/logo";
 import { auth } from "@/auth";
-import RedeemButton from "@/components/admin/redeem-button";
+import RedeemButton from "@/app/(backoffice)/admin/gift-cards/_components/redeem-button";
 import { CheckCircle2, XCircle, AlertCircle, ShieldAlert } from "lucide-react";
 
 export default async function VerifyPage(props: {
