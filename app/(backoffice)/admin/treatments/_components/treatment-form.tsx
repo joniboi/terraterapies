@@ -9,6 +9,13 @@ import Accordion from "@/components/ui/accordion";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import LanguageTabs from "@/components/admin/language-tabs";
 import AdminFormFooter from "@/components/admin/admin-form-footer";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -150,19 +157,23 @@ export default function TreatmentForm({ initialData, categories }: any) {
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
               Category
             </label>
-            <select
-              className="w-full rounded-lg border-gray-300 text-sm py-2"
+            <Select
               value={formData.categoryId}
-              onChange={(e) =>
-                setFormData({ ...formData, categoryId: e.target.value })
+              onValueChange={(value) =>
+                setFormData({ ...formData, categoryId: value })
               }
             >
-              {categories.map((c: any) => (
-                <option key={c.id} value={c.id}>
-                  {c.title.es}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((c: any) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.title.es}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div>
             <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
