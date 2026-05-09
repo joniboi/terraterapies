@@ -25,7 +25,7 @@ export default async function AdminDashboard() {
             rituals.
           </p>
           <Link
-            href="/admin/services"
+            href="/admin/treatments"
             className="text-blue-600 hover:text-blue-800 hover:underline font-medium inline-flex items-center"
           >
             Go to Treatments &rarr;
