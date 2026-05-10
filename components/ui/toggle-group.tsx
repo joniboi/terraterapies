@@ -83,18 +83,21 @@ export function ToggleGroupItem({
 
 export function ToggleGroupSeparator({
   className,
-  orientation = "vertical",
+  orientation = "vertical", // 👈 Keep this, it's the standard for horizontal groups
   ...props
-}: {
-  className?: string;
-} & React.ComponentProps<typeof Separator>): React.ReactElement {
+}: React.ComponentProps<typeof Separator>): React.ReactElement {
   return (
     <Separator
+      orientation={orientation}
       className={cn(
-        "pointer-events-none relative bg-input before:absolute before:inset-0 dark:before:bg-input/32",
+        "pointer-events-none",
+        // We use bg-border (your theme token)
+        // We use opacity-50 because separators inside groups
+        // usually look better if they are slightly softer.
+        "bg-border/50",
         className,
       )}
-      orientation={orientation}
+      data-slot="separator"
       {...props}
     />
   );
