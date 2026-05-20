@@ -40,6 +40,9 @@
   --color-primary: var(--color-blue-600);
   --color-primary-foreground: white;
 
+  --color-destructive: var(--color-red-600);
+  --color-destructive-foreground: white;
+
   /* --- SEMANTIC THEME (Homogenization Source) --- */
   --color-background: white;
   --color-foreground: var(--color-gray-950);
@@ -85,6 +88,11 @@
   /* Standardizing the Radius for Dialogs */
   --radius-2xl: 1rem;
   --radius-xl: 0.75rem;
+  --radius-lg: 0.5rem;
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-sm: calc(var(--radius-lg) - 4px);
+  --radius-xl: calc(var(--radius-lg) + 4px);
+  --radius-2xl: calc(var(--radius-lg) + 8px);
   /* --- KEYFRAMES --- */
   @keyframes code-1 {
     0% {

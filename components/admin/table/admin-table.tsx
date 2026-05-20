@@ -17,10 +17,10 @@ export function AdminTable<T extends { id: string | number }>({
   columns,
 }: AdminTableProps<T>) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-background rounded-xl border border-border shadow-sm overflow-hidden">
       <table className="w-full text-left border-collapse">
         <thead>
-          <tr className="bg-gray-50 border-b border-gray-200 text-sm text-gray-500 uppercase tracking-wider">
+          <tr className="bg-muted/50 border-b border-border text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             {columns.map((col, idx) => (
               <th
                 key={idx}
@@ -31,22 +31,19 @@ export function AdminTable<T extends { id: string | number }>({
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-100">
+        <tbody className="divide-y divide-border/50">
           {data.length === 0 ? (
             <tr>
               <td
                 colSpan={columns.length}
-                className="p-8 text-center text-gray-500"
+                className="p-8 text-center text-muted-foreground"
               >
                 No records found.
               </td>
             </tr>
           ) : (
             data.map((row) => (
-              <tr
-                key={row.id}
-                className="hover:bg-blue-50/50 transition-colors"
-              >
+              <tr key={row.id} className="hover:bg-accent/50 transition-colors">
                 {columns.map((col, idx) => (
                   <td key={idx} className={`p-4 ${col.className || ""}`}>
                     {col.render(row)}

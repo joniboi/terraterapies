@@ -8,19 +8,20 @@ interface TextareaProps extends React.ComponentProps<"textarea"> {
 function Textarea({ className, color = "muted", ...props }: TextareaProps) {
   const colorClass =
     color === "light"
-      ? "text-white placeholder:text-white/70 border-white/60 focus-visible:border-white focus-visible:ring-white/40"
+      ? "text-background placeholder:text-background/60 border-background/40 focus-visible:border-background focus-visible:ring-background/20"
       : color === "dark"
-      ? "text-gray-900 placeholder:text-gray-700/70 border-gray-800 focus-visible:border-gray-800 focus-visible:ring-gray-700/40"
-      : "text-gray-700 placeholder:text-muted-foreground/70 border-input focus-visible:border-ring focus-visible:ring-ring/50";
+        ? "text-foreground placeholder:text-muted-foreground border-foreground/20 focus-visible:border-foreground focus-visible:ring-foreground/10"
+        : "text-foreground placeholder:text-muted-foreground/70 border-input focus-visible:border-ring focus-visible:ring-ring/50";
 
   return (
     <textarea
       data-slot="textarea"
       className={cn(
-        "flex min-h-[78px] w-full rounded-md bg-transparent px-3 py-2 text-sm shadow-xs transition-[color,box-shadow,border-color] outline-none",
-        "disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
+        "flex min-h-[80px] w-full rounded-md bg-transparent px-3 py-2 text-sm shadow-xs transition-all outline-none",
+        "focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
         colorClass,
-        className
+        className,
       )}
       {...props}
     />

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button"; // Or standard HTML button if not using a UI lib
 import { Pencil, Trash, Eye } from "lucide-react"; // Optional: icons make tables look super professional
+import { cn } from "@/app/lib/utils";
 
 interface AdminActionProps {
   href?: string;
@@ -19,54 +20,46 @@ export function AdminAction({
   // Define standard designs based on action type
   const config = {
     edit: {
-      icon: <Pencil className="w-4 h-4 mr-2" />,
+      icon: <Pencil className="w-4 h-4" />,
       text: label || "Edit",
-      variant: "secondary" as const,
-      className: "text-blue-600 bg-blue-50 hover:bg-blue-600 hover:text-white",
+      variant: "secondary" as const, // Uses your --color-secondary
+      className: "text-primary", // Uses your --color-primary for the text
     },
     view: {
       icon: <Eye className="w-4 h-4 mr-2" />,
       text: label || "View",
       variant: "outline" as const,
-      className: "text-gray-700",
+      className: "text-primary",
     },
     delete: {
-      icon: <Trash className="w-4 h-4 mr-2" />,
+      icon: <Trash className="w-4 h-4" />,
       text: label || "Delete",
-      variant: "destructive" as const,
-      className: "text-red-600 bg-red-50 hover:bg-red-600 hover:text-white",
+      variant: "destructive" as const, // We should define --color-destructive in theme.css
+      className: "",
     },
   };
 
   const activeConfig = config[type];
 
-  // If it's a link
-  if (href) {
-    return (
-      <Button
-        variant={activeConfig.variant}
-        size="sm"
-        className={activeConfig.className}
-        asChild
-      >
-        <Link href={href}>
-          {activeConfig.icon}
-          {activeConfig.text}
-        </Link>
-      </Button>
-    );
-  }
-
-  // If it's an onClick action (like a delete modal)
   return (
     <Button
       variant={activeConfig.variant}
       size="sm"
-      className={activeConfig.className}
+      className={cn("gap-2", activeConfig.className)}
+      asChild={!!href} // Automatically use asChild if there is an href
       onClick={onClick}
     >
-      {activeConfig.icon}
-      {activeConfig.text}
+      {href ? (
+        <Link href={href}>
+          {activeConfig.icon}
+          {activeConfig.text}
+        </Link>
+      ) : (
+        <>
+          {activeConfig.icon}
+          {activeConfig.text}
+        </>
+      )}
     </Button>
   );
 }
