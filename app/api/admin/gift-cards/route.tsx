@@ -8,7 +8,6 @@ import { GiftCardPdf } from "@/components/pdf/giftcardpdf";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { Resend } from "resend";
 import QRCode from "qrcode";
-import React from "react"; // Required for JSX in API routes
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
@@ -36,7 +35,7 @@ export async function POST(req: Request) {
       .insert(schema.giftCards)
       .values({
         locatorCode: locator,
-        stripeSessionId: "MANUAL_ENTRY",
+        stripeSessionId: `MANUAL-${locator}-${Date.now()}`,
         treatmentNameSnapshot: treatmentName,
         durationSnapshot: duration,
         priceSnapshot: price.toString(),
