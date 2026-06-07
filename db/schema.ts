@@ -8,6 +8,7 @@ import {
   jsonb,
   varchar,
   boolean,
+  serial,
 } from "drizzle-orm/pg-core";
 
 import { relations } from "drizzle-orm";
@@ -117,6 +118,20 @@ export const giftCards = pgTable("gift_cards", {
   messageSnapshot: text("message_snapshot"), // ADD THIS! (The personal note)
   purchasedAt: timestamp("purchased_at").defaultNow(),
   redeemedAt: timestamp("redeemed_at"),
+});
+
+// Add this to your db/schema.ts
+
+export const reviews = pgTable("reviews", {
+  id: serial("id").primaryKey(),
+  authorName: text("author_name").notNull(),
+  // The actual review text, translatable
+  text: jsonb("text").$type<I18nString>().notNull(),
+  rating: integer("rating").default(5).notNull(),
+  // E.g., { es: "Hace 2 semanas", en: "2 weeks ago" }
+  relativeDate: jsonb("relative_date").$type<I18nString>().notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  orderIndex: integer("order_index").default(0).notNull(),
 });
 
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({
