@@ -30,7 +30,11 @@ export default async function Home({ params }: PageProps) {
         dict={dict.home.categories}
         ctaLabel={dict.common.seeMore}
       />
-
+      <ReviewsMarquee
+        title={dict.home.reviews.title} // E.g., "Lo que dicen nuestros clientes"
+        subtitle={dict.home.reviews.subtitle}
+        reviews={services.reviews} // Pulled from your JSON
+      />
       {/* <FeaturesPlanet />
       <LargeTestimonial /> 
       <Cta />*/}

@@ -64,6 +64,23 @@ export default async function AdminDashboard() {
             Manage Gift Cards &rarr;
           </Link>
         </div>
+
+        {/* Quick Stats Card 4: Reviews */}
+        <div className="bg-background p-6 rounded-2xl shadow-sm border border-border flex flex-col h-full">
+          <h3 className="text-lg font-semibold text-foreground mb-2">
+            Customer Reviews
+          </h3>
+          <p className="text-sm text-muted-foreground mb-6 flex-grow">
+            Manage curated testimonials. Anonymize names and translate feedback
+            for the homepage slider.
+          </p>
+          <Link
+            href="/admin/reviews"
+            className="text-primary hover:text-primary/80 hover:underline font-medium inline-flex items-center"
+          >
+            Manage Reviews &rarr;
+          </Link>
+        </div>
       </div>
     </div>
   );

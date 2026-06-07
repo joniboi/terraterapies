@@ -43,6 +43,26 @@
   --color-destructive: var(--color-red-600);
   --color-destructive-foreground: white;
 
+  /* --- STATE COLORS --- */
+
+  /* Success: Used for Active statuses, confirmations, and positive actions */
+  --color-success: var(--color-emerald-600);
+  --color-success-foreground: white;
+  --color-success-background: var(--color-emerald-50);
+  --color-success-border: var(--color-emerald-200);
+
+  /* Warning: Used for pending states, alerts, or things needing attention */
+  --color-warning: var(--color-amber-600);
+  --color-warning-foreground: white;
+  --color-warning-background: var(--color-amber-50);
+  --color-warning-border: var(--color-amber-200);
+
+  /* Info: Used for neutral informational alerts */
+  --color-info: var(--color-blue-600);
+  --color-info-foreground: white;
+  --color-info-background: var(--color-blue-50);
+  --color-info-border: var(--color-blue-200);
+
   /* --- SEMANTIC THEME (Homogenization Source) --- */
   --color-background: white;
   --color-foreground: var(--color-gray-950);
