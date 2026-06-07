@@ -6,7 +6,7 @@ import { getDictionary } from "@/app/lib/getDictionary";
 import { db } from "@/db";
 import { reviews } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
-import ReviewsMarquee from "@/components/reviews-marquee";
+import ReviewsSlider from "@/components/reviews-slider";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -42,12 +42,11 @@ export default async function Home({ params }: PageProps) {
       />
 
       {activeReviews.length > 0 && (
-        <ReviewsMarquee
+        <ReviewsSlider
           lang={lang}
           title={dict.home.reviews.title}
           subtitle={dict.home.reviews.subtitle}
           reviews={activeReviews}
-          speed="50s"
         />
       )}
     </>
