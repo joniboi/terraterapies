@@ -2,9 +2,11 @@ import Hero from "@/components/hero-home";
 import BusinessCategories from "@/components/business-categories";
 import { getServicesData } from "@/app/lib/getService";
 import { getDictionary } from "@/app/lib/getDictionary";
-/* import FeaturesPlanet from "@/components/features-planet";
-import LargeTestimonial from "@/components/large-testimonial";
-import Cta from "@/components/cta"; */
+
+import { db } from "@/db";
+import { reviews } from "@/db/schema";
+import { eq, asc } from "drizzle-orm";
+import ReviewsMarquee from "@/components/reviews-marquee";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -14,8 +16,16 @@ export default async function Home({ params }: PageProps) {
   const { lang } = await params;
 
   // 1. Fetch Data & Dictionary
-  const services = await getServicesData(lang);
-  const dict = await getDictionary(lang);
+  // Run DB Queries in parallel for maximum speed
+  const [services, dict, activeReviews] = await Promise.all([
+    getServicesData(lang),
+    getDictionary(lang),
+    db
+      .select()
+      .from(reviews)
+      .where(eq(reviews.isActive, true))
+      .orderBy(asc(reviews.orderIndex)),
+  ]);
 
   const allCategories = services.navItems.flatMap((item) => item.categories);
 
@@ -30,14 +40,16 @@ export default async function Home({ params }: PageProps) {
         dict={dict.home.categories}
         ctaLabel={dict.common.seeMore}
       />
-      <ReviewsMarquee
-        title={dict.home.reviews.title} // E.g., "Lo que dicen nuestros clientes"
-        subtitle={dict.home.reviews.subtitle}
-        reviews={services.reviews} // Pulled from your JSON
-      />
-      {/* <FeaturesPlanet />
-      <LargeTestimonial /> 
-      <Cta />*/}
+
+      {activeReviews.length > 0 && (
+        <ReviewsMarquee
+          lang={lang}
+          title={dict.home.reviews.title}
+          subtitle={dict.home.reviews.subtitle}
+          reviews={activeReviews}
+          speed="50s"
+        />
+      )}
     </>
   );
 }

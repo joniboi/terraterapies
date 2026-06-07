@@ -1,5 +1,7 @@
 // types/definitions.ts
 
+import { config } from "next/dist/build/templates/pages";
+
 // --- 1. CORE DATA TYPES (From your JSON) ---
 
 export interface Option {
@@ -66,7 +68,7 @@ export interface ServicesData {
 }
 
 // --- 2. DICTIONARY TYPES (For Multi-language text) ---
-
+type PartnerKey = keyof typeof config.partners;
 export interface Dictionary {
   header: {
     seeAll: string;
@@ -76,6 +78,7 @@ export interface Dictionary {
       en: string;
     };
   };
+
   pages: {
     category: {
       notFound: string;
@@ -88,6 +91,11 @@ export interface Dictionary {
       cta: string;
     };
     categories: {
+      title: string;
+      subtitle: string;
+    };
+    // 2. Add reviews section
+    reviews: {
       title: string;
       subtitle: string;
     };
@@ -118,6 +126,7 @@ export interface Dictionary {
     addressLine1: string;
     addressLine2: string;
     phone: string;
+    disclaimer: string;
   };
   common: {
     seeMore: string;
@@ -126,13 +135,13 @@ export interface Dictionary {
     copyright: string;
     experiences: {
       title: string;
-      thai: string;
-      bali: string;
-      combos: string;
+      thai: { label: string; categorySlug: string; subcategorySlug: string }; // ✅ Updated
+      bali: { label: string; categorySlug: string; subcategorySlug: string }; // ✅ Updated
+      combos: { label: string; categorySlug: string }; // ✅ Updated
     };
     collabs: {
       title: string;
-      mezzanote: string;
+      partners: Record<PartnerKey, string>;
     };
     info: {
       title: string;
@@ -145,6 +154,56 @@ export interface Dictionary {
       whatsappMsg: string;
     };
     bigText: string;
+  };
+
+  faqs: {
+    hero: {
+      title: string;
+      subtitle: string;
+    };
+    sections: Array<{
+      id: string;
+      title: string;
+      questions: Array<{
+        question: string;
+        answer: string;
+      }>;
+    }>;
+    cta: {
+      title: string;
+      subtitle: string;
+      button: string;
+      whatsappMsg: string;
+    };
+  };
+  // Inside your Dictionary interface
+  about: {
+    title: string;
+    description: string;
+    imageAlt: string;
+  };
+  contact: {
+    title: string;
+    subtitle: string;
+    schedule: {
+      title: string;
+      weekdays: string;
+      weekends: string;
+      holidays: string;
+    };
+    info: {
+      title: string;
+      addressTitle: string;
+      address: string;
+      phoneTitle: string;
+      phone: string;
+    };
+  };
+  success: {
+    title: string;
+    message: string;
+    backHome: string;
+    thankYou: string;
   };
 }
 

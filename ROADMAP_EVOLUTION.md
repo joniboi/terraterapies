@@ -60,31 +60,9 @@ Here is our updated plan. I recommend copying this into your `EVOLUTION_ROADMAP.
 - [ ] **4.3. Redemption System**: Add the "Mark as Used" button (only visible to logged-in Admin).
 - [ ] **4.4. Admin Log**: Build the `/admin/gift-cards` page so she can see a history of all sold and redeemed cards.
 
----
+#### 🔵 Phase 5: Social Proof (The Reviews Engine)
 
-### Shall we start with Phase 2.1 (Fixing the Markdown on the public site)?
-
-To fix those ugly `**` marks on the public site right now, open your public treatment detail component (likely `components/treatment-detail.tsx` or similar), import the parser:
-
-```tsx
-import ReactMarkdown from "react-markdown";
-```
-
-And replace the paragraph rendering the long description:
-
-```tsx
-{
-  /* OLD: <p>{subcategory.longDescription}</p> */
-}
-
-{
-  /* NEW: */
-}
-<div className="prose prose-blue max-w-none text-gray-600">
-  <ReactMarkdown>{subcategory.longDescription}</ReactMarkdown>
-</div>;
-```
-
-_(You might need to run `pnpm install @tailwindcss/typography` and add `require('@tailwindcss/typography')` to your `tailwind.config.ts` plugins to make the markdown look beautiful)._
-
-Let me know if you want to fix the Markdown first, or dive straight into updating the Database for the **Discounts & Promotions**!
+- [ ] **5.1. Database Schema**: Add `reviews` table to Drizzle (`I18nString` for translations).
+- [ ] **5.2. The Marquee Component**: Build the CSS-only infinite scrolling slider for the public Homepage.
+- [ ] **5.3. Public Data Fetching**: Query active reviews from the DB and pass them to the component.
+- [ ] **5.4. Backoffice Editor**: Create `/admin/reviews` so she can paste and translate the best Google reviews.

@@ -21,6 +21,10 @@
     "categories": {
       "title": "Els nostres massatges",
       "subtitle": "Descobreix les nostres diferents categories de massatges, cadascuna dissenyada per oferir-te benestar, equilibri i harmonia."
+    },
+    "reviews": {
+      "title": "El que diuen els nostres clients",
+      "subtitle": "Experiències reals a Terrateràpies Thai & Bali"
     }
   },
   "booking": {

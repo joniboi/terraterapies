@@ -21,6 +21,10 @@
     "categories": {
       "title": "Nuestros Masajes",
       "subtitle": "Descubre nuestras diferentes categorías de masajes, cada una diseñada para ofrecerte bienestar, equilibrio y armonía."
+    },
+    "reviews": {
+      "title": "Lo que dicen nuestros clientes",
+      "subtitle": "Experiencias reales en Terrateràpies Thai & Bali"
     }
   },
   "booking": {
@@ -89,7 +93,8 @@
     "social": {
       "title": "Social",
       "whatsappMsg": "Hola, quiero información sobre Terraterapies Thai & Bali"
-    }
+    },
+    "bigText": "Thai&Bali"
   },
   "faqs": {
     "hero": {
