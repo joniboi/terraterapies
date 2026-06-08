@@ -6,13 +6,14 @@ import { cn } from "@/app/lib/utils";
 import { StarIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { I18nString } from "@/db/schema";
+import { getRelativeTimeString } from "@/app/lib/automaticDateUtility";
 
 interface Review {
   id: number;
   authorName: string;
   text: I18nString | string;
   rating: number;
-  relativeDate: I18nString | string;
+  date: Date;
 }
 
 interface ReviewsSliderProps {
@@ -121,7 +122,8 @@ export default function ReviewsSlider({
                     </p>
                   </div>
                   <span className="text-xs text-muted-foreground italic">
-                    {getLabel(review.relativeDate)}
+                    {/* Calculate the translation on the fly! */}
+                    {getRelativeTimeString(review.date, lang)}
                   </span>
                 </div>
               </div>

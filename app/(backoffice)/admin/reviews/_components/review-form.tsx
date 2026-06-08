@@ -27,11 +27,9 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
     isActive: initialData?.isActive ?? true,
     orderIndex: initialData?.orderIndex || 0,
     text: initialData?.text || { es: "", en: "", ca: "" },
-    relativeDate: initialData?.relativeDate || {
-      es: "Hace unos días",
-      en: "A few days ago",
-      ca: "Fa uns dies",
-    },
+    date: initialData?.date
+      ? new Date(initialData.date).toISOString().split("T")[0]
+      : new Date().toISOString().split("T")[0],
   });
 
   async function handleSave() {
@@ -181,19 +179,13 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
                 />
               </div>
 
-              <div className="space-y-2 max-w-sm">
-                <Label>Relative Date ({lang.toUpperCase()})</Label>
+              <div className="space-y-2">
+                <Label>Date of Review</Label>
                 <Input
-                  placeholder="e.g. Hace 2 semanas"
-                  value={formData.relativeDate[lang] || ""}
+                  type="date"
+                  value={formData.date}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      relativeDate: {
-                        ...formData.relativeDate,
-                        [lang]: e.target.value,
-                      },
-                    })
+                    setFormData({ ...formData, date: e.target.value })
                   }
                 />
               </div>

@@ -15,7 +15,7 @@ export async function POST(req: Request) {
         authorName: body.authorName,
         text: body.text,
         rating: body.rating,
-        relativeDate: body.relativeDate,
+        date: new Date(body.date),
         isActive: body.isActive,
         orderIndex: body.orderIndex || 0,
       })

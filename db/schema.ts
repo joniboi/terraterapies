@@ -129,7 +129,7 @@ export const reviews = pgTable("reviews", {
   text: jsonb("text").$type<I18nString>().notNull(),
   rating: integer("rating").default(5).notNull(),
   // E.g., { es: "Hace 2 semanas", en: "2 weeks ago" }
-  relativeDate: jsonb("relative_date").$type<I18nString>().notNull(),
+  date: timestamp("date", { mode: "date" }).defaultNow().notNull(),
   isActive: boolean("is_active").default(true).notNull(),
   orderIndex: integer("order_index").default(0).notNull(),
 });
