@@ -49,6 +49,8 @@ export async function POST(req: Request) {
 
     if (!selectedOption) throw new Error(`Opción inválida: ${optionIndex}`);
 
+    const sessionsCount = selectedOption.sessionsCount?.toString() || "1";
+
     // 4. Clean Price
     const priceString = selectedOption.price.replace("€", "").trim();
     const priceAmount = parseInt(priceString, 10) * 100;
@@ -85,6 +87,7 @@ export async function POST(req: Request) {
         categorySlug,
         subCategorySlug,
         lang,
+        sessionsCount: sessionsCount,
       },
     });
 

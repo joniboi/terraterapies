@@ -34,6 +34,32 @@ export default async function AdminGiftCardsPage(props: {
       ),
     },
     {
+      header: "Usage",
+      render: (card) => {
+        const isBono = card.totalSessions > 1;
+        return (
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <span
+                className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                  card.status === "redeemed"
+                    ? "bg-destructive/10 text-destructive"
+                    : "bg-success-background text-success"
+                }`}
+              >
+                {card.usedSessions} / {card.totalSessions}
+              </span>
+            </div>
+            {isBono && (
+              <p className="text-[10px] text-muted-foreground mt-1 uppercase font-bold">
+                {card.totalSessions - card.usedSessions} sessions left
+              </p>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       header: "Locator",
       render: (card) => (
         <span className="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded text-xs">
@@ -65,16 +91,22 @@ export default async function AdminGiftCardsPage(props: {
         </>
       ),
     },
+
     {
       header: "Action",
       className: "text-right",
       render: (card) => (
         <div className="flex justify-end">
           {card.status === "valid" ? (
-            <RedeemButton id={card.id} code={card.locatorCode} />
+            <RedeemButton
+              id={card.id}
+              code={card.locatorCode}
+              isBono={card.totalSessions > 1}
+              remaining={card.totalSessions - card.usedSessions}
+            />
           ) : (
-            <div className="text-[10px] text-green-600 font-bold uppercase">
-              Used {card.redeemedAt?.toLocaleDateString()}
+            <div className="text-[10px] text-success font-black uppercase tracking-widest">
+              Completed {card.redeemedAt?.toLocaleDateString("en-GB")}
             </div>
           )}
         </div>

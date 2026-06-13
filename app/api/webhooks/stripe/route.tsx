@@ -37,10 +37,17 @@ export async function POST(req: Request) {
     const session = event.data.object as Stripe.Checkout.Session;
 
     // Retrieve metadata we sent in Step 2
-    const { buyerName, receiverName, message, treatmentName, duration, lang } =
-      session.metadata!;
+    const {
+      buyerName,
+      receiverName,
+      message,
+      treatmentName,
+      duration,
+      lang,
+      sessionsCount,
+    } = session.metadata!;
     const customerEmail = session.customer_details?.email;
-
+    const totalSessions = parseInt(sessionsCount || "1");
     // 3. Generate Secure Locator
     const locator = await generateLocator(buyerName);
 
@@ -59,6 +66,8 @@ export async function POST(req: Request) {
         recipientName: receiverName,
         messageSnapshot: message,
         status: "valid",
+        totalSessions: totalSessions,
+        usedSessions: 0,
       })
       .returning({ id: schema.giftCards.id });
 
@@ -139,7 +148,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
       to: ADMIN_EMAIL,
-      subject: `🎉 NUEVA VENTA: Tarjeta Regalo (${locator})`,
+      subject: `🎉 NUEVA VENTA: ${totalSessions > 1 ? "BONO" : "Tarjeta Regalo"} (${locator})`,
       html: `
           <h2>¡Nueva Tarjeta Regalo Vendida!</h2>
           <p>Se acaba de procesar un nuevo pago mediante Stripe.</p>
@@ -147,6 +156,7 @@ export async function POST(req: Request) {
           <ul>
             <li><strong>Código Localizador:</strong> ${locator}</li>
             <li><strong>Tratamiento:</strong> ${treatmentName}</li>
+            <li><strong>Sesiones:</strong> ${totalSessions}</li>
             <li><strong>Duración/Opción:</strong> ${duration}</li>
             <li><strong>Comprador:</strong> ${buyerName} (${customerEmail})</li>
             <li><strong>Para:</strong> ${receiverName}</li>

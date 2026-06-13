@@ -43,6 +43,7 @@ export async function PATCH(
         duration: Number(v.duration),
         unit: v.unit,
         price: v.price.toString(),
+        sessionsCount: Number(v.sessionsCount || 1),
         promotionalPrice: v.promotionalPrice
           ? v.promotionalPrice.toString()
           : null,

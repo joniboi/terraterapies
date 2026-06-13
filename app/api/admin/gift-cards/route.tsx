@@ -27,6 +27,7 @@ export async function POST(req: Request) {
       duration,
       price,
       lang,
+      sessionsCount,
     } = body;
 
     const locator = await generateLocator(buyerName);
@@ -44,6 +45,8 @@ export async function POST(req: Request) {
         recipientName,
         messageSnapshot: message,
         status: "valid",
+        totalSessions: sessionsCount || 1, // 👈 Save the count here
+        usedSessions: 0,
       })
       .returning({ id: schema.giftCards.id });
 
@@ -132,6 +135,7 @@ export async function POST(req: Request) {
         <ul>
           <li><strong>Localizador:</strong> ${locator}</li>
           <li><strong>Tratamiento:</strong> ${treatmentName}</li>
+          <li><strong>Sesiones Totales:</strong> ${sessionsCount || 1}</li>
           <li><strong>Para:</strong> ${recipientName}</li>
           <li><strong>Precio:</strong> ${price}€</li>
         </ul>

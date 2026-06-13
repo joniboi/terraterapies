@@ -82,6 +82,8 @@ export const treatmentVariants = pgTable("treatment_variants", {
   unit: varchar("unit", { length: 20 }).default("min").notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
 
+  sessionsCount: integer("sessions_count").default(1).notNull(),
+
   promotionalPrice: decimal("promotional_price", { precision: 10, scale: 2 }), // Discounted Price
   promoEndsAt: timestamp("promo_ends_at"), // When the discount expires
 
@@ -111,6 +113,9 @@ export const giftCards = pgTable("gift_cards", {
     precision: 10,
     scale: 2,
   }).notNull(),
+
+  totalSessions: integer("total_sessions").default(1).notNull(),
+  usedSessions: integer("used_sessions").default(0).notNull(),
   // Who bought it
   buyerName: varchar("buyer_name", { length: 255 }).notNull(),
   buyerEmail: varchar("buyer_email", { length: 255 }).notNull(),
@@ -120,7 +125,27 @@ export const giftCards = pgTable("gift_cards", {
   redeemedAt: timestamp("redeemed_at"),
 });
 
-// Add this to your db/schema.ts
+export const giftCardRedemptions = pgTable("gift_card_redemptions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  giftCardId: uuid("gift_card_id")
+    .references(() => giftCards.id)
+    .notNull(),
+  redeemedAt: timestamp("redeemed_at").defaultNow().notNull(),
+});
+
+export const giftCardsRelations = relations(giftCards, ({ many }) => ({
+  redemptions: many(giftCardRedemptions),
+}));
+
+export const giftCardRedemptionsRelations = relations(
+  giftCardRedemptions,
+  ({ one }) => ({
+    giftCard: one(giftCards, {
+      fields: [giftCardRedemptions.giftCardId],
+      references: [giftCards.id],
+    }),
+  }),
+);
 
 export const reviews = pgTable("reviews", {
   id: serial("id").primaryKey(),

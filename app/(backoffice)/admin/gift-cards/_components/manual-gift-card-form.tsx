@@ -68,6 +68,7 @@ export default function ManualGiftCardForm({
         treatmentName: activeT.title.es,
         duration: `${activeV.duration} ${activeV.unit}`,
         price: activeV.price,
+        sessionsCount: activeV.sessionsCount,
       };
 
       const res = await fetch("/api/admin/gift-cards", {

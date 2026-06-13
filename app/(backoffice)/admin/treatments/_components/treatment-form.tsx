@@ -56,6 +56,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
         duration: 60,
         unit: "min",
         price: "60.00",
+        sessionsCount: 1,
         prefix: { es: "", ca: "", en: "" },
         suffix: { es: "", ca: "", en: "" },
       },
@@ -302,6 +303,24 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   <option value="pax">Pax</option>
                 </select>
               </div>
+              <div className="w-20 bg-info-background p-2 rounded-lg border border-info-border">
+                <label className="block text-[10px] uppercase font-bold text-info mb-1">
+                  Sessions
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  className="w-full rounded border-info-border text-sm py-1 font-bold text-center bg-white"
+                  value={v.sessionsCount || 1}
+                  onChange={(e) =>
+                    updateVariant(
+                      index,
+                      "sessionsCount",
+                      parseInt(e.target.value) || 1,
+                    )
+                  }
+                />
+              </div>
               <div className="w-24">
                 <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
                   Price (€)
@@ -317,15 +336,15 @@ export default function TreatmentForm({ initialData, categories }: any) {
                 />
               </div>
               {/* 2. PROMOTION FIELDS (New!) */}
-              <div className="w-28 bg-amber-50 p-2 rounded-lg border border-amber-100">
-                <label className="block text-[10px] uppercase font-bold text-amber-600 mb-1">
+              <div className="w-28 bg-warning-background p-2 rounded-lg border border-warning-border">
+                <label className="block text-[10px] uppercase font-bold text-warning mb-1">
                   Promo €
                 </label>
                 <input
                   type="number"
                   step="1.00"
                   placeholder="None"
-                  className="form-input w-full text-sm py-1.5 bg-white border-amber-200"
+                  className="form-input w-full text-sm py-1.5 bg-white border-warning-border"
                   value={v.promotionalPrice || ""}
                   onChange={(e) =>
                     updateVariant(index, "promotionalPrice", e.target.value)

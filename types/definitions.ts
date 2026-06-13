@@ -12,6 +12,7 @@ export interface Option {
   isPromo?: boolean;
   promoEnds?: string;
   discountPercent?: number;
+  sessionsCount?: number;
 }
 
 export interface HeroImage {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-
+import { useRouter } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -13,14 +13,17 @@ import {
   AlertDialogFooter,
   AlertDialogClose,
 } from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
 
 export default function RedeemButton({
   id,
   code,
+  remaining,
+  isBono,
 }: {
   id: string;
   code: string;
+  remaining?: number;
+  isBono?: boolean;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -32,10 +35,9 @@ export default function RedeemButton({
       const res = await fetch(`/api/admin/gift-cards/${id}`, {
         method: "PATCH",
       });
-
       if (res.ok) {
         setOpen(false);
-        router.refresh(); // This replaces revalidatePath
+        router.refresh();
       } else {
         alert("Error updating card");
       }
@@ -46,46 +48,43 @@ export default function RedeemButton({
     }
   };
 
+  const btnText = isBono
+    ? `Consume 1 Session (${remaining} left)`
+    : "Mark as Redeemed";
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      {/* 1. Use 'render' instead of 'asChild' */}
       <AlertDialogTrigger
         render={
           <Button
             variant="outline"
-            size="sm"
-            className="text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700 cursor-pointer"
+            className="w-full text-success border-success-border hover:bg-success-background hover:text-success font-bold"
           />
         }
       >
-        Mark Used
+        {btnText}
       </AlertDialogTrigger>
 
       <AlertDialogPopup>
         <AlertDialogHeader>
-          <AlertDialogTitle>Redeem Gift Card</AlertDialogTitle>
+          <AlertDialogTitle>¿Registrar Visita?</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to mark locator{" "}
-            <span className="font-mono font-bold text-gray-900">{code}</span> as
-            **REDEEMED**? This will record the current time and cannot be
-            reversed.
+            {isBono
+              ? `You are about to deduct 1 session from pack ${code}. There will be ${remaining! - 1} sessions remaining.`
+              : `You are about to mark gift card ${code} as REDEEMED. This action is final.`}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          {/* 2. Cancel Button with 'render' */}
           <AlertDialogClose render={<Button variant="ghost" />}>
             Cancel
           </AlertDialogClose>
-
-          {/* 3. Confirm Button - We manually handle click to show loading state */}
           <Button
-            variant="default"
-            className="bg-green-600 hover:bg-green-700 text-white px-6"
+            className="bg-success hover:opacity-90 text-success-foreground"
             onClick={handleRedeem}
             disabled={loading}
           >
-            {loading ? "Processing..." : "Confirm Redemption"}
+            {loading ? "Processing..." : "Confirm Visit"}
           </Button>
         </AlertDialogFooter>
       </AlertDialogPopup>
