@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 import { Option, Dictionary } from "@/types/definitions";
-import { config } from "next/dist/build/templates/pages";
+import { config } from "@/app/lib/config";
 
 interface TreatmentDetailProps {
   lang: string; // <--- New Prop
@@ -40,7 +40,6 @@ export default function TreatmentDetail({
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
   const [loading, setLoading] = useState(false);
-  const [showWidget, setShowWidget] = useState(false);
 
   const handlePayment = async () => {
     if (!selectedOption || !form.from || !form.to) {
