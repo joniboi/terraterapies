@@ -39,6 +39,7 @@
   /* --- BRAND COLORS --- */
   --color-primary: var(--color-blue-600);
   --color-primary-foreground: white;
+  --color-primary-hover: var(--color-blue-700);
 
   --color-destructive: var(--color-red-600);
   --color-destructive-foreground: white;

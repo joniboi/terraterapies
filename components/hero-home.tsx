@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import TreatwellWidget from "@/components/treatwell/treatwell-widget";
 import PageIllustration from "@/components/page-illustration";
-import TreatwellModal from "@/components/treatwell/treatwell-modal";
+import { config } from "@/app/lib/config";
+import { Button } from "./ui/button";
 
 // 1. Define the Dictionary Interface
 interface HeroDict {
@@ -13,8 +12,6 @@ interface HeroDict {
 }
 
 export default function HeroHome({ dict }: { dict: HeroDict }) {
-  const [showWidget, setShowWidget] = useState(false);
-
   return (
     <section className="relative">
       <PageIllustration />
@@ -50,14 +47,19 @@ export default function HeroHome({ dict }: { dict: HeroDict }) {
                   data-aos="zoom-y-out"
                   data-aos-delay={450}
                 >
-                  <a
-                    className="btn group mb-4 w-full bg-blue-600 text-white shadow-sm hover:bg-blue-700 sm:mb-0 sm:w-auto cursor-pointer"
-                    onClick={() => setShowWidget(true)}
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full sm:w-auto mb-4 sm:mb-0 shadow-sm"
                   >
-                    <span className="relative inline-flex items-center">
+                    <a
+                      href={config.integrations.fresha.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {dict.cta}
-                    </span>
-                  </a>
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -103,7 +105,6 @@ export default function HeroHome({ dict }: { dict: HeroDict }) {
           </div>
         </div>
       </div>
-      <TreatwellModal open={showWidget} onClose={() => setShowWidget(false)} />
     </section>
   );
 }

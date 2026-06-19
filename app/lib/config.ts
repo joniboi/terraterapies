@@ -78,9 +78,9 @@ export const config = {
 
   // External integrations
   integrations: {
-    treatwell: {
-      enabled: false, // Toggle features
-      widgetUrl: "", // When ready
+    fresha: {
+      enabled: true,
+      url: "https://www.fresha.com/es/a/terraterapies-thai-y-bali-sant-cugat-del-valles-carrer-de-josep-puig-i-cadafalch-42-44-bq7uy4mq/all-offer?menu=true&share=true&pId=2820417",
     },
   },
 } as const;

@@ -11,9 +11,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import TreatwellModal from "@/components/treatwell/treatwell-modal";
 import ReactMarkdown from "react-markdown";
 import { Option, Dictionary } from "@/types/definitions";
+import { config } from "next/dist/build/templates/pages";
 
 interface TreatmentDetailProps {
   lang: string; // <--- New Prop
@@ -110,8 +110,14 @@ export default function TreatmentDetail({
         </div>
 
         <div className="mt-12">
-          <Button size="lg" onClick={() => setShowWidget(true)}>
-            {dict.bookBtn}
+          <Button asChild size="lg">
+            <a
+              href={config.integrations.fresha.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {dict.bookBtn}
+            </a>
           </Button>
         </div>
       </div>
@@ -226,7 +232,6 @@ export default function TreatmentDetail({
           </Button>
         </div>
       </div>
-      <TreatwellModal open={showWidget} onClose={() => setShowWidget(false)} />
     </section>
   );
 }
