@@ -159,6 +159,34 @@ export const reviews = pgTable("reviews", {
   orderIndex: integer("order_index").default(0).notNull(),
 });
 
+export const siteSettings = pgTable("site_settings", {
+  // We use a fixed string 'singleton' as the ID so there is only ever ONE row.
+  id: varchar("id", { length: 20 }).primaryKey().default("singleton"),
+
+  // Translatable Marketing Copy
+  businessName: varchar("business_name", { length: 255 }).notNull(),
+  heroTagline: jsonb("hero_tagline").$type<I18nString>().notNull(),
+  aboutUsText: jsonb("about_us_text").$type<I18nString>().notNull(),
+  aboutImage: text("about_image"),
+  logoUrl: text("logo_url"),
+  faviconUrl: text("favicon_url"),
+  pdfBackgroundUrl: text("pdf_background_url"),
+  // Contact & Location Data
+  contactEmail: varchar("contact_email", { length: 255 }).notNull(),
+  contactPhone: varchar("contact_phone", { length: 50 }).notNull(),
+  addressLine1: varchar("address_line1", { length: 255 }).notNull(),
+  addressLine2: varchar("address_line2", { length: 255 }).notNull(),
+  mapsLink: text("maps_link").notNull(),
+
+  facebookUrl: text("facebook_url"),
+  instagramUrl: text("instagram_url"),
+  freshaUrl: text("fresha_url"),
+
+  partners: jsonb("partners")
+    .$type<{ name: string; url: string }[]>()
+    .default([]),
+});
+
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({
   categories: many(categories),
 }));
