@@ -1,9 +1,7 @@
 @theme {
-  /* --- TYPOGRAPHY --- */
+  /* --- TYPOGRAPHY & SIZING (Kept exactly as you had it) --- */
   --font-inter: Inter, sans-serif;
   --font-mono: Roboto Mono, monospace;
-
-  /* Typography Scale */
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
   --text-sm: 0.875rem;
@@ -36,63 +34,50 @@
   --text-7xl--line-height: 1;
   --text-7xl--letter-spacing: -0.037em;
 
-  /* --- BRAND COLORS --- */
-  --color-primary: var(--color-blue-600);
-  --color-primary-foreground: white;
-  --color-primary-hover: var(--color-blue-700);
+  /* Standardizing the Radius */
+  --radius-lg: 0.5rem;
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-sm: calc(var(--radius-lg) - 4px);
+  --radius-xl: calc(var(--radius-lg) + 4px);
+  --radius-2xl: calc(var(--radius-lg) + 8px);
 
+  /* --- DYNAMIC BRAND COLORS (Mapped to our CSS variables) --- */
+  --color-primary: var(--brand-primary);
+  --color-primary-foreground: var(--brand-primary-foreground);
+  --color-primary-hover: var(--brand-primary-hover);
+  --color-background: var(--brand-background);
+  --color-foreground: var(--brand-foreground);
+  --color-muted: var(--brand-muted);
+  --color-muted-foreground: var(--brand-muted-foreground);
+  --color-secondary: var(--brand-secondary);
+  --color-secondary-foreground: var(--brand-secondary-foreground);
+  --color-accent: var(--brand-accent);
+  --color-accent-foreground: var(--brand-accent-foreground);
+  --color-border: var(--brand-border);
+  --color-input: var(--brand-input);
+  --color-ring: var(--brand-ring);
+  --color-popover: var(--brand-popover);
+  --color-popover-foreground: var(--brand-popover-foreground);
+
+  /* --- STATE COLORS (Shared across both brands) --- */
   --color-destructive: var(--color-red-600);
   --color-destructive-foreground: white;
-
-  /* --- STATE COLORS --- */
-
-  /* Success: Used for Active statuses, confirmations, and positive actions */
   --color-success: var(--color-emerald-600);
   --color-success-foreground: white;
   --color-success-background: var(--color-emerald-50);
   --color-success-border: var(--color-emerald-200);
-
-  /* Warning: Used for pending states, alerts, or things needing attention */
   --color-warning: var(--color-amber-600);
   --color-warning-foreground: white;
   --color-warning-background: var(--color-amber-50);
   --color-warning-border: var(--color-amber-200);
-
-  /* Info: Used for neutral informational alerts */
   --color-info: var(--color-blue-600);
   --color-info-foreground: white;
   --color-info-background: var(--color-blue-50);
   --color-info-border: var(--color-blue-200);
-
-  /* --- SEMANTIC THEME (Homogenization Source) --- */
-  --color-background: white;
-  --color-foreground: var(--color-gray-950);
-
-  /* Secondary: Used for "Active/Selected" toggle buttons and secondary buttons */
-  --color-secondary: var(--color-gray-100);
-  --color-secondary-foreground: var(--color-gray-900);
-
-  /* Accent: Used for "Hover" states across all components */
-  --color-accent: var(--color-gray-50);
-  --color-accent-foreground: var(--color-gray-950);
-
-  /* Muted: Used for backgrounds of footers or sidebar areas */
-  --color-muted: var(--color-gray-50);
-  --color-muted-foreground: var(--color-gray-600);
-
-  /* Form and UI Elements */
-  --color-border: var(--color-gray-200);
-  --color-input: var(--color-gray-200);
-  --color-ring: var(--color-blue-500);
-
   --color-highlight: var(--color-amber-600);
   --color-highlight-foreground: var(--color-amber-950);
   --color-highlight-background: var(--color-amber-50);
   --color-highlight-border: var(--color-amber-200);
-
-  /* Popovers and Modals */
-  --color-popover: #ffffff;
-  --color-popover-foreground: var(--color-gray-950);
 
   /* --- ANIMATION TOKENS --- */
   --animate-code-1: code-1;
@@ -106,15 +91,7 @@
   --animate-line: line;
   --animate-infinite-scroll: infinite-scroll;
 
-  /* Standardizing the Radius for Dialogs */
-  --radius-2xl: 1rem;
-  --radius-xl: 0.75rem;
-  --radius-lg: 0.5rem;
-  --radius-md: calc(var(--radius-lg) - 2px);
-  --radius-sm: calc(var(--radius-lg) - 4px);
-  --radius-xl: calc(var(--radius-lg) + 4px);
-  --radius-2xl: calc(var(--radius-lg) + 8px);
-  /* --- KEYFRAMES --- */
+  /* KEYFRAMES */
   @keyframes code-1 {
     0% {
       opacity: 0;
@@ -245,5 +222,63 @@
     to {
       transform: translateX(-100%);
     }
+  }
+}
+
+/* ========================================= */
+/* THE THEME ENGINE (Where the magic happens) */
+/* ========================================= */
+
+@layer base {
+  /* 1. DEFAULT / TERRATERAPIES (Matches your original CSS exactly) */
+  :root,
+  .theme-terraterapies {
+    --brand-primary: var(--color-blue-600);
+    --brand-primary-foreground: white;
+    --brand-primary-hover: var(--color-blue-700);
+    --brand-background: white;
+    --brand-foreground: var(--color-gray-950);
+    --brand-muted: var(--color-gray-50);
+    --brand-muted-foreground: var(--color-gray-600);
+    --brand-secondary: var(--color-gray-100);
+    --brand-secondary-foreground: var(--color-gray-900);
+    --brand-accent: var(--color-gray-50);
+    --brand-accent-foreground: var(--color-gray-950);
+    --brand-border: var(--color-gray-200);
+    --brand-input: var(--color-gray-200);
+    --brand-ring: var(--color-blue-500);
+    --brand-popover: #ffffff;
+    --brand-popover-foreground: var(--color-gray-950);
+  }
+
+  /* 2. LOTUS DE BALI & THAI (Using your new elegant logo palette) */
+  .theme-lotus {
+    /* Primary buttons become Pitch Black */
+    --brand-primary: #100f0c;
+    --brand-primary-foreground: #f6f6f6; /* Bright Snow text */
+    --brand-primary-hover: #040404; /* Pure Black on hover */
+
+    /* Backgrounds and Text */
+    --brand-background: #f6f6f6; /* Premium off-white background */
+    --brand-foreground: #101010; /* Onyx text */
+
+    /* Soft Linen used for subtle background blocks (footers, cards) */
+    --brand-muted: #e6e3db;
+    --brand-muted-foreground: #100f0c;
+
+    --brand-secondary: #e6e3db;
+    --brand-secondary-foreground: #101010;
+
+    --brand-accent: #e6e3db;
+    --brand-accent-foreground: #101010;
+
+    /* Borders and inputs use the Soft Linen to stay elegant */
+    --brand-border: #e6e3db;
+    --brand-input: #e6e3db;
+    --brand-ring: #100f0c;
+
+    /* Modals/Popovers */
+    --brand-popover: #f6f6f6;
+    --brand-popover-foreground: #101010;
   }
 }

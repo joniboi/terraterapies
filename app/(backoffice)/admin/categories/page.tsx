@@ -1,6 +1,4 @@
 import { db } from "@/db";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { AdminTable, ColumnDef } from "@/components/admin/table/admin-table";
 import { AdminHeader } from "@/components/admin/table/admin-header";
 import { AdminAction } from "@/components/admin/admin-action";

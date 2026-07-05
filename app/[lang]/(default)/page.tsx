@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { reviews } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import ReviewsSlider from "@/components/reviews-slider";
+import { config } from "@/app/lib/config";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -17,7 +18,7 @@ export default async function Home({ params }: PageProps) {
 
   // 1. Fetch Data & Dictionary
   // Run DB Queries in parallel for maximum speed
-  const [services, dict, activeReviews] = await Promise.all([
+  const [services, dict, activeReviews, settings] = await Promise.all([
     getServicesData(lang),
     getDictionary(lang),
     db
@@ -25,13 +26,14 @@ export default async function Home({ params }: PageProps) {
       .from(reviews)
       .where(eq(reviews.isActive, true))
       .orderBy(asc(reviews.orderIndex)),
+    db.query.siteSettings.findFirst(),
   ]);
 
   const allCategories = services.navItems.flatMap((item) => item.categories);
 
   return (
     <>
-      <Hero dict={dict.home.hero} />
+      <Hero dict={dict.home.hero} settings={settings} lang={lang} />
 
       {/* 2. Pass props to BusinessCategories */}
       <BusinessCategories

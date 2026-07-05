@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth, signOut } from "@/auth";
+import { db } from "@/db";
 
 export default async function AdminSidebarLayout({
   children,
@@ -7,18 +8,25 @@ export default async function AdminSidebarLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-
+  const settings = await db.query.siteSettings.findFirst();
+  const businessName = settings?.businessName || "Admin Panel";
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar - Strictly using semantic inverse colors */}
       <aside className="w-64 bg-foreground text-background p-6 hidden md:block">
-        <h2 className="text-xl font-bold mb-8">Terraterapies Thai & Bali</h2>
+        <h2 className="text-xl font-bold mb-8">{businessName}</h2>
         <nav className="space-y-4">
           <Link
             href="/admin"
             className="block hover:text-highlight transition-colors"
           >
             Dashboard
+          </Link>
+          <Link
+            href="/admin/settings"
+            className="block hover:text-highlight transition-colors"
+          >
+            Global Settings
           </Link>
           <Link
             href="/admin/treatments"

@@ -1,4 +1,3 @@
-// components/pdf/GiftCardPdf.tsx
 import {
   Document,
   Page,
@@ -9,6 +8,8 @@ import {
   Link,
   Image,
 } from "@react-pdf/renderer";
+import { config } from "@/app/lib/config";
+import { SiteSettings } from "@/types/definitions";
 
 // 1. REGISTER CUSTOM FONTS
 // Make sure these files are in public/fonts/
@@ -42,102 +43,6 @@ Font.register({
   ],
 });
 
-// 2. DEFINE STYLES WITH EXACT COORDINATES
-const styles = StyleSheet.create({
-  // Make sure you keep the styles exactly as you tuned them
-  page: { flexDirection: "column", backgroundColor: "#ffffff", padding: 0 },
-  backgroundImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    zIndex: -1,
-  },
-  labelsContainer: {
-    position: "absolute",
-    top: 70,
-    left: 100,
-    display: "flex",
-    flexDirection: "column",
-    gap: 30,
-  },
-  labelText: {
-    fontFamily: "Intro Rust",
-    lineHeight: 1.4,
-    fontSize: 24,
-    color: "#000",
-  },
-  valuesContainer: {
-    position: "absolute",
-    top: 70,
-    left: 350,
-    display: "flex",
-    flexDirection: "column",
-    gap: 30,
-    width: 800,
-  },
-  valueText: {
-    fontFamily: "Intro Rust",
-    textAlign: "justify",
-    lineHeight: 1.4,
-    fontSize: 24,
-    color: "#000",
-  },
-  titleText: {
-    position: "absolute",
-    top: 70,
-    right: 70,
-    fontFamily: "Brittany",
-    fontSize: 84,
-  },
-  bottomCenterContainer: {
-    position: "absolute",
-    top: 850,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-  },
-  locatorText: { fontFamily: "Montserrat", fontSize: 20, marginBottom: 5 },
-  validityText: {
-    fontFamily: "Montserrat",
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#444",
-  },
-  addressContainer: {
-    position: "absolute",
-    bottom: 30,
-    right: 30,
-    textAlign: "right",
-    width: 400,
-  },
-  addressLink: {
-    fontFamily: "Montserrat",
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#CCC",
-    textDecoration: "underline",
-  },
-  qrContainer: {
-    position: "absolute",
-    bottom: 30,
-    left: 30,
-    width: 80,
-    height: 80,
-  },
-  disclaimerText: {
-    position: "absolute",
-    bottom: 15,
-    left: 120, // Leave room for the QR code on the left
-    right: 120, // Leave room for the address on the right
-    textAlign: "center",
-    fontFamily: "Montserrat",
-    fontSize: 9,
-    color: "#666666", // Subtle grey
-  },
-});
-
 // 1. DEFINE THE LABELS INTERFACE
 interface GiftCardLabels {
   title: string;
@@ -148,9 +53,6 @@ interface GiftCardLabels {
   labelNote: string;
   labelCode: string;
   validity: string;
-  addressLine1: string;
-  addressLine2: string;
-  phone: string;
   disclaimer: string;
 }
 
@@ -165,9 +67,10 @@ interface GiftCardData {
 interface GiftCardPdfProps {
   data: GiftCardData;
   locator: string;
-  labels: GiftCardLabels; // <--- NEW
-  lang: string; // <--- NEW (for date formatting)
+  labels: GiftCardLabels;
+  lang: string;
   qrCodeDataUrl: string;
+  settings: SiteSettings;
 }
 
 export const GiftCardPdf = ({
@@ -176,13 +79,116 @@ export const GiftCardPdf = ({
   labels,
   lang,
   qrCodeDataUrl,
+  settings,
 }: GiftCardPdfProps) => {
-  const backgroundUrl = `${process.env.NEXT_PUBLIC_URL}/images/gift-template.jpg`;
+  const backgroundUrl =
+    settings.pdfBackgroundUrl ||
+    `${process.env.NEXT_PUBLIC_URL}/images/${config.pdf.templateImage}`;
 
   // Dynamic Date Formatting based on Language
   const purchaseDate = new Date().toLocaleDateString(
     lang === "en" ? "en-GB" : "es-ES", // en-GB gives DD/MM/YYYY, usually preferred over US MM/DD/YYYY in Europe
   );
+
+  const styles = StyleSheet.create({
+    page: { flexDirection: "column", backgroundColor: "#ffffff", padding: 0 },
+    backgroundImage: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      zIndex: -1,
+    },
+    labelsContainer: {
+      position: "absolute",
+      top: 70,
+      left: 100,
+      display: "flex",
+      flexDirection: "column",
+      gap: 30,
+    },
+    labelText: {
+      fontFamily: "Intro Rust",
+      lineHeight: 1.4,
+      fontSize: 24,
+      color: config.pdf.textColor,
+    }, // <--- Dynamic Color
+    valuesContainer: {
+      position: "absolute",
+      top: 70,
+      left: 350,
+      display: "flex",
+      flexDirection: "column",
+      gap: 30,
+      width: 800,
+    },
+    valueText: {
+      fontFamily: "Intro Rust",
+      textAlign: "justify",
+      lineHeight: 1.4,
+      fontSize: 24,
+      color: config.pdf.textColor,
+    }, // <--- Dynamic Color
+    titleText: {
+      position: "absolute",
+      top: 70,
+      right: 70,
+      fontFamily: "Brittany",
+      fontSize: 84,
+      color: config.pdf.textColor,
+    }, // <--- Dynamic Color
+    bottomCenterContainer: {
+      position: "absolute",
+      top: 850,
+      left: 0,
+      right: 0,
+      textAlign: "center",
+    },
+    locatorText: {
+      fontFamily: "Montserrat",
+      fontSize: 20,
+      marginBottom: 5,
+      color: config.pdf.textColor,
+    },
+    validityText: {
+      fontFamily: "Montserrat",
+      fontSize: 18,
+      fontWeight: "bold",
+      color: config.pdf.secondaryColor,
+    },
+    addressContainer: {
+      position: "absolute",
+      bottom: 30,
+      right: 30,
+      textAlign: "right",
+      width: 400,
+    },
+    addressLink: {
+      fontFamily: "Montserrat",
+      fontSize: 14,
+      fontWeight: "bold",
+      color: "#CCC",
+      textDecoration: "underline",
+    },
+    qrContainer: {
+      position: "absolute",
+      bottom: 30,
+      left: 30,
+      width: 80,
+      height: 80,
+    },
+    disclaimerText: {
+      position: "absolute",
+      bottom: 15,
+      left: 120,
+      right: 120,
+      textAlign: "center",
+      fontFamily: "Montserrat",
+      fontSize: 9,
+      color: config.pdf.secondaryColor,
+    },
+  });
 
   return (
     <Document>
@@ -230,15 +236,12 @@ export const GiftCardPdf = ({
 
         {/* 5. Address Link */}
         <View style={styles.addressContainer}>
-          <Link
-            src="https://maps.app.goo.gl/iKQzo2bKECesL75r8"
-            style={styles.addressLink}
-          >
-            {labels.addressLine1}
+          <Link src={settings.mapsLink} style={styles.addressLink}>
+            {settings.addressLine1}
             {"\n"}
-            {labels.addressLine2}
+            {settings.addressLine2}
             {"\n"}
-            {labels.phone}
+            {settings.contactPhone}
           </Link>
         </View>
         {/* 6. QR CODE */}

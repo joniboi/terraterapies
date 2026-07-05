@@ -20,6 +20,8 @@ export async function POST(req: Request) {
   const sig = req.headers.get("stripe-signature")!;
 
   let event: Stripe.Event;
+  const settings = await db.query.siteSettings.findFirst();
+  if (!settings) throw new Error("Critical: Database settings not found");
 
   try {
     // 1. Verify the event came from Stripe
@@ -86,6 +88,7 @@ export async function POST(req: Request) {
         labels={dict.giftCard} // <--- Pass the labels
         lang={lang || "es"} // <--- Pass the language for dates
         qrCodeDataUrl={qrCodeDataUrl}
+        settings={settings}
       />,
     );
 

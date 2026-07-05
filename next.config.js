@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
-
+  distDir:
+    process.env.NEXT_PUBLIC_BRAND === "lotus" ? ".next-lotus" : ".next-terra",
   async rewrites() {
     return [
       {

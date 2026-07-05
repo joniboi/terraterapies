@@ -1,6 +1,7 @@
 import "../css/style.css";
-
 import { Inter } from "next/font/google";
+import { config, BRAND } from "@/app/lib/config";
+import { db } from "@/db";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -8,10 +9,20 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata = {
-  title: "Terraterapies Thai & Bali",
-  description: "Masajes y bienestar",
-};
+export async function generateMetadata() {
+  const settings = await db.query.siteSettings.findFirst();
+
+  return {
+    title: settings?.businessName || "Spa Management",
+    icons: {
+      // 1. Point to the database URL if it exists
+      // 2. Add a version (?v=...) to force the browser to ignore its cache
+      icon: settings?.faviconUrl
+        ? `${settings.faviconUrl}?v=${Date.now()}`
+        : "/favicon.ico",
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -23,9 +34,10 @@ export default async function RootLayout({
   const { lang } = await params;
 
   return (
-    <html lang={lang} className="scroll-smooth">
+    <html lang={lang} className={`scroll-smooth theme-${BRAND}`}>
       <body
-        className={`${inter.variable} bg-gray-50 font-inter tracking-tight text-gray-900 antialiased`}
+        /* 4. Use bg-background and text-foreground to activate the Theme Engine */
+        className={`${inter.variable} bg-background font-inter tracking-tight text-foreground antialiased`}
       >
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}

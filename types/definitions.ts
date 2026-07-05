@@ -90,8 +90,6 @@ export interface Dictionary {
   };
   home: {
     hero: {
-      title: string;
-      tagline: string;
       cta: string;
     };
     categories: {
@@ -183,7 +181,6 @@ export interface Dictionary {
   // Inside your Dictionary interface
   about: {
     title: string;
-    description: string;
     imageAlt: string;
   };
   contact: {
@@ -198,9 +195,7 @@ export interface Dictionary {
     info: {
       title: string;
       addressTitle: string;
-      address: string;
       phoneTitle: string;
-      phone: string;
     };
   };
   success: {

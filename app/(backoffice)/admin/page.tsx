@@ -1,19 +1,29 @@
 import { auth } from "@/auth";
+import { db } from "@/db";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Dashboard | Terraterapies Thai & Bali",
-};
+export async function generateMetadata() {
+  const settings = await db.query.siteSettings.findFirst();
+  return {
+    title: `Dashboard | ${settings?.businessName || "Admin"}`,
+  };
+}
 
 export default async function AdminDashboard() {
   const session = await auth();
+  const settings = await db.query.siteSettings.findFirst();
 
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8 text-gray-900">
         Welcome back, {session?.user?.name || "Admin"}!
       </h1>
-
+      {!settings?.businessName && (
+        <div className="mb-8 p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-lg">
+          ⚠️ You haven't set your Business Name yet. Go to{" "}
+          <strong>Global Settings</strong> to set it up.
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Quick Stats Card 1: Treatments */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">

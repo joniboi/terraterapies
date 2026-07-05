@@ -3,6 +3,7 @@ import Footer from "@/components/ui/footer";
 import AOSInit from "@/components/aos-init";
 import { getDictionary } from "@/app/lib/getDictionary";
 import { getServicesData } from "@/app/lib/getService"; // Import the data fetcher
+import { db } from "@/db";
 
 export default async function DefaultLayout({
   children,
@@ -14,11 +15,11 @@ export default async function DefaultLayout({
   // 1. Await params (Best practice for Next.js 15+)
   const { lang } = await params;
 
-  // 2. Fetch Dictionary (for labels like "Contact", "Book Now")
-  const dict = await getDictionary(lang);
-
-  // 3. Fetch Service Data (to populate the Header Menu dynamically)
-  const servicesData = await getServicesData(lang);
+  const [dict, servicesData, settings] = await Promise.all([
+    getDictionary(lang),
+    getServicesData(lang),
+    db.query.siteSettings.findFirst(), // <--- 3. Fetch from DB
+  ]);
 
   return (
     <>
@@ -26,11 +27,22 @@ export default async function DefaultLayout({
       <AOSInit />
 
       {/* Header receives Language, Dictionary, and Categories */}
-      <Header lang={lang} dict={dict.header} navItems={servicesData.navItems} />
+      <Header
+        lang={lang}
+        dict={dict.header}
+        navItems={servicesData.navItems}
+        logoUrl={settings?.logoUrl}
+        businessName={settings?.businessName}
+      />
 
       <main className="grow">{children}</main>
 
-      <Footer border={true} dict={dict.footer} lang={lang} />
+      <Footer
+        border={true}
+        dict={dict.footer}
+        lang={lang}
+        settings={settings}
+      />
     </>
   );
 }

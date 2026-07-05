@@ -20,9 +20,17 @@ interface HeaderProps {
   lang: string;
   dict: Dictionary["header"];
   navItems: NavItem[];
+  logoUrl?: string | null;
+  businessName?: string;
 }
 
-export default function Header({ lang, dict, navItems }: HeaderProps) {
+export default function Header({
+  lang,
+  dict,
+  navItems,
+  logoUrl,
+  businessName,
+}: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,7 +55,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
   const DesktopNav = () => (
     <div className="hidden md:flex flex-1 items-center justify-between">
       <div className="flex items-center">
-        <Logo lang={lang} />
+        <Logo lang={lang} logoUrl={logoUrl} businessName={businessName} />
       </div>
 
       <NavigationMenu viewport={false}>
@@ -180,7 +188,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
 
             {/* 2. Mobile View (Visible only on mobile) */}
             <div className="flex md:hidden w-full items-center justify-between">
-              <Logo lang={lang} />
+              <Logo lang={lang} logoUrl={logoUrl} businessName={businessName} />
 
               {/* Hamburger Button */}
               <button
@@ -199,7 +207,7 @@ export default function Header({ lang, dict, navItems }: HeaderProps) {
         <div className="fixed inset-0 z-50 bg-background flex flex-col animate-in slide-in-from-right duration-300">
           {/* Mobile Header */}
           <div className="flex items-center justify-between p-4 border-b border-border">
-            <Logo lang={lang} />
+            <Logo lang={lang} logoUrl={logoUrl} businessName={businessName} />
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 text-muted-foreground hover:bg-gray-100 rounded-full"
