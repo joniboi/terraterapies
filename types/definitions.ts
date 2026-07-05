@@ -1,7 +1,6 @@
 // types/definitions.ts
 
 import { I18nString, siteSettings } from "@/db/schema";
-import { config } from "next/dist/build/templates/pages";
 
 // --- 1. CORE DATA TYPES (From your JSON) ---
 
@@ -72,7 +71,7 @@ export interface ServicesData {
 export type SiteSettings = typeof siteSettings.$inferSelect;
 
 // --- 2. DICTIONARY TYPES (For Multi-language text) ---
-type PartnerKey = keyof typeof config.partners;
+
 export interface Dictionary {
   header: {
     seeAll: string;
@@ -143,7 +142,7 @@ export interface Dictionary {
     };
     collabs: {
       title: string;
-      partners: Record<PartnerKey, string>;
+      partners: Record<string, string>;
     };
     info: {
       title: string;

@@ -9,12 +9,16 @@ import { renderToBuffer } from "@react-pdf/renderer";
 import { Resend } from "resend";
 import QRCode from "qrcode";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
+// 1. Force dynamic to be safe
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const session = await auth();
   if (!session) return new NextResponse("Unauthorized", { status: 401 });
+
+  // 2. INITIALIZE INSIDE THE FUNCTION
+  const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_for_build");
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
 
   try {
     const body = await req.json();
@@ -31,6 +35,7 @@ export async function POST(req: Request) {
     } = body;
 
     const settings = await db.query.siteSettings.findFirst();
+    if (!settings) throw new Error("Settings not found");
 
     const locator = await generateLocator(buyerName);
 
@@ -47,7 +52,7 @@ export async function POST(req: Request) {
         recipientName,
         messageSnapshot: message,
         status: "valid",
-        totalSessions: sessionsCount || 1, // 👈 Save the count here
+        totalSessions: sessionsCount || 1,
         usedSessions: 0,
       })
       .returning({ id: schema.giftCards.id });
@@ -74,14 +79,15 @@ export async function POST(req: Request) {
           labels={dict.giftCard}
           lang={lang || "es"}
           qrCodeDataUrl={qrCodeDataUrl}
-          settings={settings!}
+          settings={settings}
         />
-      ) as any, // Essential for build stability
+      ) as any,
     );
 
-    // 1. SEND TO CUSTOMER (Branded Email)
+    // 3. BRANDED EMAIL TO CUSTOMER
     await resend.emails.send({
-      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
+      // ✅ DYNAMIC FROM NAME
+      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
       to: [buyerEmail],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
@@ -89,7 +95,8 @@ export async function POST(req: Request) {
           <h1 style={{ color: "#2d3748" }}>¡Hola {buyerName}!</h1>
           <p>
             Adjunto encontrarás la tarjeta regalo para{" "}
-            <strong>{recipientName}</strong> generada en nuestro centro.
+            <strong>{recipientName}</strong> generada en {settings.businessName}
+            .
           </p>
           <p>
             Localizador de seguridad:
@@ -115,30 +122,34 @@ export async function POST(req: Request) {
             <strong>Cómo canjear la tarjeta:</strong>
           </p>
           <ul>
+            {/* ✅ DYNAMIC PHONE */}
             <li>
-              Reserva tu cita por WhatsApp: <strong>+34 603 17 70 49</strong>
+              Reserva tu cita por WhatsApp:{" "}
+              <strong>{settings.contactPhone}</strong>
             </li>
             <li>Presenta el PDF el día de tu cita.</li>
           </ul>
         </div>
       ),
       attachments: [
-        { filename: `Regalo-Terraterapies-${locator}.pdf`, content: pdfBuffer },
+        // ✅ DYNAMIC FILENAME
+        {
+          filename: `Regalo-${settings.businessName.replace(/\s+/g, "-")}-${locator}.pdf`,
+          content: pdfBuffer,
+        },
       ],
     });
 
-    // 2. SEND NOTIFICATION TO ADMIN
+    // 4. BRANDED NOTIFICATION TO ADMIN
     await resend.emails.send({
-      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
+      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
       to: [ADMIN_EMAIL],
       subject: `✅ Tarjeta Manual Generada: ${locator}`,
       html: `
-        <h2>Nueva Tarjeta Manual</h2>
-        <p>Se ha generado una tarjeta en el backoffice:</p>
+        <h2>Nueva Tarjeta Manual en ${settings.businessName}</h2>
         <ul>
           <li><strong>Localizador:</strong> ${locator}</li>
           <li><strong>Tratamiento:</strong> ${treatmentName}</li>
-          <li><strong>Sesiones Totales:</strong> ${sessionsCount || 1}</li>
           <li><strong>Para:</strong> ${recipientName}</li>
           <li><strong>Precio:</strong> ${price}€</li>
         </ul>
