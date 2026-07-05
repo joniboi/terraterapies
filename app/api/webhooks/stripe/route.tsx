@@ -10,12 +10,14 @@ import { db } from "@/db";
 
 import * as schema from "@/db/schema";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_for_build");
+
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
+
   const body = await req.text();
   const sig = req.headers.get("stripe-signature")!;
 
@@ -95,7 +97,7 @@ export async function POST(req: Request) {
     // 5. Send Email
     await resend.emails.send({
       // CHANGE THIS: Use your new verified domain
-      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
+      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
       to: [customerEmail!],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
@@ -125,19 +127,20 @@ export async function POST(req: Request) {
           </p>
           <ul>
             <li>
-              Reserva tu cita por WhatsApp: <strong>+34 603 17 70 49</strong>
+              Reserva tu cita por WhatsApp:{" "}
+              <strong>{settings.contactPhone}</strong>
             </li>
             <li>Indica el código localizador al realizar la reserva.</li>
             <li>Presenta el PDF (digital o impreso) el día de tu cita.</li>
           </ul>
           <p>
-            <em>¡Te esperamos pronto en Terraterapies!</em>
+            <em>¡Te esperamos pronto en {settings.businessName}!</em>
           </p>
         </div>
       ),
       attachments: [
         {
-          filename: `Regalo-Terraterapies-${locator}.pdf`,
+          filename: `Regalo-${settings.businessName.replace(/\s+/g, "-")}-${locator}.pdf`,
           content: pdfBuffer,
         },
       ],
@@ -149,7 +152,7 @@ export async function POST(req: Request) {
       : "0.00";
     // 6. Send the notification email to YOU (The Business)
     await resend.emails.send({
-      from: "Terraterapies Thai & Bali <info@terraterapiesthaibali.com>",
+      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
       to: ADMIN_EMAIL,
       subject: `🎉 NUEVA VENTA: ${totalSessions > 1 ? "BONO" : "Tarjeta Regalo"} (${locator})`,
       html: `
