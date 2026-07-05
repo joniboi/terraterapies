@@ -1,86 +1,49 @@
 // app/lib/config.ts
 
-/**
- * Application configuration
- * External URLs, contact info, business data
- */
-export const config = {
-  business: {
-    name: "Terraterapies Thai & Bali",
-    phone: "+34603177049",
-    email: "info@terraterapies.com", // Add if you have one
-    address: {
-      line1: "Carrer de Josep Puig i Cadafalch, 42-44",
-      line2: "08172 Sant Cugat del Vallès, Barcelona (Spain)",
-    },
+export const BRAND = process.env.NEXT_PUBLIC_BRAND || "terraterapies";
+
+// 1. Define strict types so TypeScript provides autocomplete across your app
+export interface PartnerConfig {
+  name: string;
+  baseUrl: string;
+  getUrl: (lang: string) => string;
+}
+
+export interface AppConfig {
+  theme: {
+    shortName: string; // Used for that giant background text "Thai&Bali" vs "Lotus"
+  };
+  pdf: {
+    templateImage: string;
+    textColor: string;
+    secondaryColor: string;
+  };
+  system: {
+    giftCardPrefix: string;
+  };
+}
+
+// 2. The original Terraterapies Configuration
+const terraterapiesConfig: AppConfig = {
+  theme: { shortName: "Thai&Bali" },
+  pdf: {
+    templateImage: "gift-template.jpg",
+    textColor: "#000000",
+    secondaryColor: "#444444",
   },
+  system: { giftCardPrefix: "TT" },
+};
 
-  social: {
-    facebook:
-      "https://www.facebook.com/people/Terraterapies-Thai-Y-Bali/61580296106688",
-    instagram: "https://www.instagram.com/terrapiesthaiybali",
-    whatsapp: {
-      number: "+34603177049",
-      // Helper to generate WhatsApp URL
-      getUrl: (message: string) =>
-        `https://wa.me/34603177049?text=${encodeURIComponent(message)}`,
-    },
+// 3. The New Lotus Configuration
+const lotusConfig: AppConfig = {
+  theme: { shortName: "Lotus" },
+  pdf: {
+    templateImage: "lotus-gift-template.jpg",
+    textColor: "#101010",
+    secondaryColor: "#666666",
   },
+  system: { giftCardPrefix: "LB" },
+};
 
-  partners: {
-    mezzanote: {
-      name: "Pizzería Mezzanotte",
-      baseUrl: "https://www.pizzeriamezzanotte.com",
-      // Function to generate URL with language parameter
-      getUrl: (lang: string) => {
-        // Map your language codes to their language codes if different
-        const langMap: Record<string, string> = {
-          es: "es",
-          ca: "es", // They might not have Catalan, fallback to Spanish
-          en: "en",
-        };
-        const targetLang = langMap[lang] || "en";
-        return `https://www.pizzeriamezzanotte.com/?lang=${targetLang}`;
-      },
-    },
-    scens: {
-      name: "Scens",
-      baseUrl: "https://www.scens.com/",
-      getUrl: (lang: string) => {
-        const langMap: Record<string, string> = {
-          es: "es",
-          ca: "es", // fallback to Spanish
-          en: "en",
-          fr: "fr",
-        };
-
-        const targetLang = langMap[lang] || "en";
-
-        switch (targetLang) {
-          case "es":
-            return "https://www.scens.com/";
-          case "en":
-            return "https://www.scens.com/en/home/";
-          case "fr":
-            return "https://www.scens.com/fr/accueil/";
-          default:
-            return "https://www.scens.com/en/home/";
-        }
-      },
-    },
-    // Template for future partners
-    // anotherPartner: {
-    //   name: "Partner Name",
-    //   baseUrl: "https://example.com",
-    //   getUrl: (lang: string) => `https://example.com/${lang}`,
-    // }
-  },
-
-  // External integrations
-  integrations: {
-    fresha: {
-      enabled: true,
-      url: "https://www.fresha.com/es/a/terraterapies-thai-y-bali-sant-cugat-del-valles-carrer-de-josep-puig-i-cadafalch-42-44-bq7uy4mq/all-offer?menu=true&share=true&pId=2820417",
-    },
-  },
-} as const;
+// 4. Export the correct config based on the environment!
+export const config = BRAND === "lotus" ? lotusConfig : terraterapiesConfig;
