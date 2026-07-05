@@ -30,6 +30,8 @@ export async function POST(req: Request) {
       sessionsCount,
     } = body;
 
+    const settings = await db.query.siteSettings.findFirst();
+
     const locator = await generateLocator(buyerName);
 
     const [newCard] = await db
@@ -72,6 +74,7 @@ export async function POST(req: Request) {
           labels={dict.giftCard}
           lang={lang || "es"}
           qrCodeDataUrl={qrCodeDataUrl}
+          settings={settings!}
         />
       ) as any, // Essential for build stability
     );

@@ -1,3 +1,4 @@
+import { db } from "@/db";
 import TreatmentDetail from "@/components/treatment-detail";
 import {
   getServicesData,
@@ -25,8 +26,9 @@ export default async function SubcategoryPage({ params }: PageProps) {
   const { lang, category, subcategory } = await params;
 
   // 2. Load Data & Dictionary in parallel (Single fetch strategy)
-  const [allData, dict] = await Promise.all([
+  const [allData, settings, dict] = await Promise.all([
     getServicesData(lang),
+    db.query.siteSettings.findFirst(),
     getDictionary(lang),
   ]);
 
@@ -84,6 +86,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
         options={foundSubcategory.options ?? []}
         lang={lang}
         dict={dict.booking}
+        bookingUrl={settings?.freshaUrl}
       />
     </main>
   );

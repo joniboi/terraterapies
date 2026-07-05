@@ -1,6 +1,8 @@
 // app/[lang]/contact/page.tsx
 
 import { getDictionary } from "@/app/lib/getDictionary";
+import { db } from "@/db"; // 1. Import db
+import { siteSettings } from "@/db/schema"; // 2. Import schema
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -8,9 +10,17 @@ interface PageProps {
 
 export default async function ContactPage({ params }: PageProps) {
   const { lang } = await params;
-  const dict = await getDictionary(lang);
+  const [dict, settings] = await Promise.all([
+    getDictionary(lang),
+    db.query.siteSettings.findFirst(),
+  ]);
   const contact = dict.contact;
+  // 4. Prepare dynamic values from DB (with fallbacks just in case)
+  const phone = settings?.contactPhone || "";
+  const address = settings?.addressLine1 || "";
 
+  // Create a "clean" phone number for the WhatsApp link (remove spaces)
+  const cleanPhone = phone.replace(/\s+/g, "");
   return (
     <main className="relative py-20 bg-gray-50 min-h-[70vh] flex flex-col items-center">
       {/* 1. INCREASED WIDTH: Changed max-w-5xl to max-w-6xl to match About page */}
@@ -92,12 +102,12 @@ export default async function ContactPage({ params }: PageProps) {
                   {contact.info.phoneTitle}
                 </h3>
                 <a
-                  href="https://wa.me/34603177049"
+                  href={`https://wa.me/${cleanPhone}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xl font-medium text-gray-900 hover:text-[#25D366] transition-colors flex items-center gap-2"
                 >
-                  {contact.info.phone}
+                  {phone}
                 </a>
               </div>
 
@@ -124,7 +134,7 @@ export default async function ContactPage({ params }: PageProps) {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span>{contact.info.address}</span>
+                  <span>{address}</span>
                 </a>
               </div>
             </div>

@@ -21,6 +21,10 @@ export default async function SettingsPage() {
       instagramUrl: "",
       freshaUrl: "",
       partners: [],
+      aboutImage: null,
+      logoUrl: null,
+      faviconUrl: null,
+      pdfBackgroundUrl: null,
     };
   }
 

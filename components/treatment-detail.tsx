@@ -25,6 +25,7 @@ interface TreatmentDetailProps {
   description: string;
   backgroundImage: string;
   options: Option[];
+  bookingUrl: string | null | undefined; // <--- New Prop
 }
 
 export default function TreatmentDetail({
@@ -36,6 +37,7 @@ export default function TreatmentDetail({
   description,
   backgroundImage,
   options,
+  bookingUrl,
 }: TreatmentDetailProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
@@ -111,7 +113,7 @@ export default function TreatmentDetail({
         <div className="mt-12">
           <Button asChild size="lg">
             <a
-              href={config.integrations.fresha.url}
+              href={bookingUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
             >
