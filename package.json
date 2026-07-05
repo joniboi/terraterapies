@@ -5,7 +5,7 @@
   "scripts": {
     "// --- Original Scripts (Hoarded) ---": "",
     "dev": "next dev",
-    "build": "drizzle-kit push && next build",
+    "build": "echo \"DEBUG: Resend Key exists: ${RESEND_API_KEY:+yes}\" && drizzle-kit push && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push",
