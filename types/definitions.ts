@@ -1,6 +1,6 @@
 // types/definitions.ts
 
-import { I18nString, siteSettings } from "@/db/schema";
+import { siteSettings } from "@/db/schema";
 
 // --- 1. CORE DATA TYPES (From your JSON) ---
 
