@@ -15,8 +15,10 @@ import {
 import LanguageTabs from "@/components/admin/language-tabs";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import AdminFormFooter from "@/components/admin/admin-form-footer";
-import Accordion from "@/components/ui/accordion";
 import { Plus, Trash2 } from "lucide-react";
+import { AdminGrid } from "@/components/admin/layout/admin-grid";
+import { AdminSection } from "@/components/admin/layout/admin-section";
+import { Button } from "@/components/ui/button";
 
 export default function CategoryForm({
   initialData,
@@ -104,13 +106,12 @@ export default function CategoryForm({
   }
 
   return (
-    <div className="space-y-6 pb-24 max-w-7xl mx-auto">
+    <AdminGrid columns={1} className="max-w-7xl mx-auto">
       {/* SECTION 1: CONFIGURATION (Non-collapsible Card) */}
-      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
-        <h2 className="text-lg font-bold text-gray-800 border-b border-gray-100 pb-2">
-          Primary Configuration
-        </h2>
-
+      <AdminSection
+        title="Primary Configuration"
+        description="Configure the basic settings for this category"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-2">
             <Label>Service Group</Label>
@@ -147,25 +148,29 @@ export default function CategoryForm({
             />
           </div>
 
-          <div className="flex items-center gap-3 pt-8">
-            <input
-              type="checkbox"
-              className="size-4 rounded border-gray-300 text-blue-600"
-              id="featured"
-              checked={formData.isFeatured}
-              onChange={(e) =>
-                setFormData({ ...formData, isFeatured: e.target.checked })
-              }
-            />
-            <Label htmlFor="featured" className="text-gray-600 cursor-pointer">
-              Feature on Homepage
-            </Label>
+          <div className="space-y-2">
+            <Label htmlFor="featured">Homepage</Label>
+
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                className="size-4 rounded border-gray-300 text-blue-600"
+                id="featured"
+                checked={formData.isFeatured}
+                onChange={(e) =>
+                  setFormData({ ...formData, isFeatured: e.target.checked })
+                }
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </AdminSection>
 
       {/* SECTION 2: TRANSLATED CONTENT (Accordion) */}
-      <Accordion id="content" title="Content & Translations" active={true}>
+      <AdminSection
+        title="Content"
+        description="Manage language specific fields"
+      >
         <LanguageTabs headerText="Manage language specific fields">
           {(lang) => (
             <div className="space-y-6">
@@ -216,10 +221,13 @@ export default function CategoryForm({
             </div>
           )}
         </LanguageTabs>
-      </Accordion>
+      </AdminSection>
 
       {/* SECTION 3: MEDIA (Accordion) */}
-      <Accordion id="media" title="Images & Media" active={false}>
+      <AdminSection
+        title="Images & Media"
+        description="Manage category images and media assets"
+      >
         <div className="space-y-8">
           <ImageUploadField
             label="Main Category Image"
@@ -229,37 +237,28 @@ export default function CategoryForm({
             onUploadSuccess={(url) => setFormData({ ...formData, image: url })}
           />
 
-          <hr className="border-gray-100" />
-
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <Label className="text-base">Hero Gallery</Label>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-foreground">
                   Wide images used for the category header background.
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={addHeroImage}
-                className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full font-bold hover:bg-blue-100 flex items-center gap-1"
-              >
-                <Plus className="size-3" /> Add Hero
-              </button>
+              <Button onClick={addHeroImage} variant="secondary">
+                <Plus className="size-4" /> Add Hero
+              </Button>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {formData.heroImages.map((hero: any, index: number) => (
-                <div
-                  key={index}
-                  className="relative p-4 border border-dashed border-gray-200 rounded-xl bg-gray-50"
-                >
-                  <button
+                <AdminSection title={`Hero Image ${index + 1}`} key={index}>
+                  <Button
                     onClick={() => removeHeroImage(index)}
-                    className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1 rounded-full hover:bg-red-200 shadow-sm z-10"
+                    variant="destructive"
                   >
-                    <Trash2 className="size-3" />
-                  </button>
+                    <Trash2 className="size-4" />
+                  </Button>
                   <ImageUploadField
                     label={`Hero #${index + 1}`}
                     currentImage={hero.src}
@@ -270,12 +269,12 @@ export default function CategoryForm({
                       setFormData({ ...formData, heroImages: newHeros });
                     }}
                   />
-                </div>
+                </AdminSection>
               ))}
             </div>
           </div>
         </div>
-      </Accordion>
+      </AdminSection>
 
       {/* FOOTER */}
       <AdminFormFooter
@@ -284,6 +283,6 @@ export default function CategoryForm({
         onDelete={handleDelete}
         isEdit={!!initialData}
       />
-    </div>
+    </AdminGrid>
   );
 }

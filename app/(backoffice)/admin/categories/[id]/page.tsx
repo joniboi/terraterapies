@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { categories, serviceGroups } from "@/db/schema";
 import { notFound } from "next/navigation";
 import CategoryForm from "../_components/category-form";
+import { AdminPage } from "@/components/admin/layout/admin-page";
 
 export default async function EditCategoryPage(props: {
   params: Promise<{ id: string }>;
@@ -18,11 +19,11 @@ export default async function EditCategoryPage(props: {
   if (!category) notFound();
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">
-        Edit Category: {category.title?.es}
-      </h1>
+    <AdminPage
+      title={`Edit Category: ${category.title?.es}`}
+      subtitle="Update translations, images and homepage visibility."
+    >
       <CategoryForm initialData={category} groups={groups} />
-    </div>
+    </AdminPage>
   );
 }

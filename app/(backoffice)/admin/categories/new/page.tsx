@@ -1,13 +1,16 @@
 import { db } from "@/db";
 import CategoryForm from "../_components/category-form";
+import { AdminPage } from "@/components/admin/layout/admin-page";
 
 export default async function NewCategoryPage() {
   const groups = await db.query.serviceGroups.findMany();
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Create New Category</h1>
+    <AdminPage
+      title="Create Category"
+      subtitle="Create a new category for your treatments."
+    >
       <CategoryForm groups={groups} />
-    </div>
+    </AdminPage>
   );
 }

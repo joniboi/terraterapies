@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Card } from "../display/card";
 
 // The magic interface that allows different types of data
 export interface ColumnDef<T> {
@@ -17,7 +18,7 @@ export function AdminTable<T extends { id: string | number }>({
   columns,
 }: AdminTableProps<T>) {
   return (
-    <div className="bg-background rounded-xl border border-border shadow-sm overflow-hidden">
+    <Card className="overflow-hidden">
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-muted/50 border-b border-border text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -54,6 +55,6 @@ export function AdminTable<T extends { id: string | number }>({
           )}
         </tbody>
       </table>
-    </div>
+    </Card>
   );
 }
