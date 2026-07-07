@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
 
     if (type === "pdf-bg") {
       // PDF Background: Use PNG for compatibility + transparency support
-      fileName = `${uuidv4()}.png`;
+      fileName = `${uuidv4()}.jpg`;
       filePath = path.join(UPLOAD_DIR, fileName);
 
       await sharp(buffer)
