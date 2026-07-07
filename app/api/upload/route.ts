@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
+    const type = formData.get("type") as string | null;
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -36,18 +37,29 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 3. Witness Protection & Processing (The Secure Renaming)
-    const fileName = `${uuidv4()}.webp`;
-    const filePath = path.join(UPLOAD_DIR, fileName);
+    // 3. Process based on type
+    let fileName: string;
+    let filePath: string;
 
-    // Ensure directory exists
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
+    if (type === "pdf-bg") {
+      // PDF Background: Use PNG for compatibility + transparency support
+      fileName = `${uuidv4()}.png`;
+      filePath = path.join(UPLOAD_DIR, fileName);
 
-    // 4. Sharp: Resize, Convert to WebP, and Save
-    await sharp(buffer)
-      .resize(1200, null, { withoutEnlargement: true }) // Shrink if too big, but don't stretch small ones
-      .webp({ quality: 80 }) // High quality WebP
-      .toFile(filePath);
+      await sharp(buffer)
+        .resize(1724, 947, { fit: "fill" }) // Exact PDF dimensions
+        .jpeg({ quality: 90 }) // High quality lossless
+        .toFile(filePath);
+    } else {
+      // Normal images: Use WebP for speed
+      fileName = `${uuidv4()}.webp`;
+      filePath = path.join(UPLOAD_DIR, fileName);
+
+      await sharp(buffer)
+        .resize(1200, null, { withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toFile(filePath);
+    }
 
     // 5. Return the clean public URL
     const publicUrl = `/uploads/${fileName}`;
