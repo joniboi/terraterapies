@@ -191,7 +191,9 @@ export const GiftCardPdf = ({
   return (
     <Document>
       <Page size={[1724, 947]} style={styles.page}>
-        <Image src={backgroundUrl} style={styles.backgroundImage} />
+        {backgroundUrl && (
+          <Image src={backgroundUrl} style={styles.backgroundImage} />
+        )}
 
         {/* 1. Labels */}
         <View style={styles.labelsContainer}>
