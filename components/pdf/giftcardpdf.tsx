@@ -81,9 +81,7 @@ export const GiftCardPdf = ({
   qrCodeDataUrl,
   settings,
 }: GiftCardPdfProps) => {
-  const backgroundUrl =
-    settings.pdfBackgroundUrl ||
-    `${process.env.NEXT_PUBLIC_URL}/images/${config.pdf.templateImage}`;
+  const backgroundUrl = settings.pdfBackgroundUrl;
 
   // Dynamic Date Formatting based on Language
   const purchaseDate = new Date().toLocaleDateString(
