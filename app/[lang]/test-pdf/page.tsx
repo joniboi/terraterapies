@@ -38,7 +38,7 @@ export default function TestPdfPage() {
     aboutImage: null,
     logoUrl: null, // You can put a real URL here to test the logo in the PDF
     faviconUrl: null,
-    pdfBackgroundUrl: null,
+    pdfBackgroundUrl: "/uploads/056a2964-7d44-40f5-8c11-13960861e2ec.webp",
     heroTagline: { es: "", ca: "", en: "" },
     aboutUsText: { es: "", ca: "", en: "" },
     partners: [],
