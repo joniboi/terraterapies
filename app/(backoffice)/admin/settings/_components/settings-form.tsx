@@ -341,9 +341,10 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
                 Must be exactly 1724x947 pixels.
               </p>
               <ImageUploadField
-                label=""
+                label="Gift Card PDF Background"
                 currentImage={formData.pdfBackgroundUrl}
                 aspectRatioClass="aspect-[1724/947] max-w-[400px]"
+                uploadType="pdf-bg"
                 onUploadSuccess={(url) =>
                   setFormData({ ...formData, pdfBackgroundUrl: url })
                 }

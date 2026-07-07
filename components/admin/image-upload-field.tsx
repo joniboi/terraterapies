@@ -7,6 +7,7 @@ interface ImageUploadFieldProps {
   label: string;
   description?: string;
   currentImage?: string;
+  uploadType?: string;
   aspectRatioClass?: string; // e.g., "aspect-[3/4]", "aspect-video", "aspect-square"
   onUploadSuccess: (newUrl: string) => void;
 }
@@ -15,6 +16,7 @@ export default function ImageUploadField({
   label,
   description,
   currentImage,
+  uploadType,
   aspectRatioClass = "aspect-video",
   onUploadSuccess,
 }: ImageUploadFieldProps) {
@@ -29,6 +31,10 @@ export default function ImageUploadField({
     try {
       const form = new FormData();
       form.append("file", file);
+
+      if (uploadType) {
+        form.append("type", uploadType);
+      }
 
       // Call the Secure API we built in Milestone 3
       const res = await fetch("/api/upload", {
