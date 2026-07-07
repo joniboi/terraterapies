@@ -14,7 +14,6 @@ export interface AppConfig {
     shortName: string; // Used for that giant background text "Thai&Bali" vs "Lotus"
   };
   pdf: {
-    templateImage: string;
     textColor: string;
     secondaryColor: string;
   };
@@ -27,7 +26,6 @@ export interface AppConfig {
 const terraterapiesConfig: AppConfig = {
   theme: { shortName: "Thai&Bali" },
   pdf: {
-    templateImage: "gift-template.jpg",
     textColor: "#000000",
     secondaryColor: "#444444",
   },
@@ -38,7 +36,6 @@ const terraterapiesConfig: AppConfig = {
 const lotusConfig: AppConfig = {
   theme: { shortName: "Lotus" },
   pdf: {
-    templateImage: "lotus-gift-template.jpg",
     textColor: "#101010",
     secondaryColor: "#666666",
   },
