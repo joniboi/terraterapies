@@ -19,10 +19,12 @@ export default function Accordion({
   const [accordionOpen, setAccordionOpen] = useState<boolean>(active);
 
   return (
-    <div className="relative rounded-lg bg-background/70 shadow-sm shadow-black/[0.03] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-transparent before:[background:linear-gradient(var(--color-muted),var(--color-border))_border-box] before:[mask-composite:exclude_!important] before:[mask:linear-gradient(white_0_0)_padding-box,_linear-gradient(white_0_0)]">
+    // ✅ 100% Semantic Theme Classes: bg-background and border-border
+    <div className="relative rounded-xl border border-border bg-background shadow-sm overflow-hidden transition-colors duration-300">
       <h2>
         <button
-          className="flex w-full items-center justify-between px-4 py-3 text-left font-semibold text-foreground"
+          // hover:bg-muted/50 dynamically uses the muted color of the active brand
+          className="flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-foreground hover:bg-muted/50 transition-colors"
           onClick={(e) => {
             e.preventDefault();
             setAccordionOpen((prevState) => !prevState);
@@ -31,11 +33,12 @@ export default function Accordion({
           aria-controls={`accordion-text-${id}`}
         >
           <span>{title}</span>
-          <span className="ml-8 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-background shadow-xs">
+          {/* bg-muted for the circle behind the arrow */}
+          <span className="ml-8 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted shadow-sm transition-colors">
             <svg
               className={cn(
                 "origin-center transform transition duration-200 ease-out fill-muted-foreground",
-                accordionOpen && "rotate-180!",
+                accordionOpen && "rotate-180",
               )}
               xmlns="http://www.w3.org/2000/svg"
               width={10}
@@ -62,7 +65,6 @@ export default function Accordion({
         )}
       >
         <div className="overflow-hidden">
-          {/* <p className="px-4 pb-3">{children}</p> */}
           <div className="px-6 pb-5 pt-2">{children}</div>
         </div>
       </div>
