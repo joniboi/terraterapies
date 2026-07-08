@@ -15,12 +15,17 @@ export default async function ContactPage({ params }: PageProps) {
     db.query.siteSettings.findFirst(),
   ]);
   const contact = dict.contact;
-  // 4. Prepare dynamic values from DB (with fallbacks just in case)
+
   const phone = settings?.contactPhone || "";
   const address = settings?.addressLine1 || "";
+  const mapsLink = settings?.mapsLink || "";
+  const businessName = settings?.businessName || "Terraterapies";
 
-  // Create a "clean" phone number for the WhatsApp link (remove spaces)
   const cleanPhone = phone.replace(/\s+/g, "");
+
+  const mapSearchQuery = encodeURIComponent(`${businessName}, ${address}`);
+  const dynamicMapSrc = `https://maps.google.com/maps?q=${mapSearchQuery}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <main className="relative py-20 bg-gray-50 min-h-[70vh] flex flex-col items-center">
       {/* 1. INCREASED WIDTH: Changed max-w-5xl to max-w-6xl to match About page */}
@@ -117,7 +122,7 @@ export default async function ContactPage({ params }: PageProps) {
                   {contact.info.addressTitle}
                 </h3>
                 <a
-                  href="https://maps.app.goo.gl/w2wpi4x6ZJ6FogrS8"
+                  href={mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-start gap-2 text-xl font-medium text-gray-900 hover:text-blue-600 transition-colors"
@@ -148,8 +153,8 @@ export default async function ContactPage({ params }: PageProps) {
           data-aos-delay="300"
         >
           <iframe
-            title="Terraterapies Thai & Bali Location Map"
-            src="https://maps.google.com/maps?q=Terraterapies%20Thai%20&%20Bali,%20Sant%20Cugat&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            title={`${businessName} Location Map`}
+            src={dynamicMapSrc}
             width="100%"
             height="100%"
             style={{ border: 0 }}
