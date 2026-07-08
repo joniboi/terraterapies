@@ -6,6 +6,7 @@
     "// --- Original Scripts (Hoarded) ---": "",
     "scan": "tsc --noEmit",
     "dev": "next dev",
+    "build": "drizzle-kit push && next build",
     "build:terra": "dotenv -e .env.terra -- drizzle-kit push && dotenv -e .env.terra -- next build",
     "build:lotus": "dotenv -e .env.lotus -- drizzle-kit push && dotenv -e .env.lotus -- next build",
     "start": "next start",
