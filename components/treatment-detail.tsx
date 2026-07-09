@@ -28,7 +28,10 @@ interface TreatmentDetailProps {
 }
 
 export default function TreatmentDetail({
+  lang,
   dict,
+  categorySlug,
+  subCategorySlug,
   title,
   description,
   backgroundImage,
@@ -37,7 +40,7 @@ export default function TreatmentDetail({
 }: TreatmentDetailProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -54,7 +57,39 @@ export default function TreatmentDetail({
   }, [options]);
 
   const handlePayment = async () => {
-    /* ... (Keep your existing handlePayment logic here) ... */
+    if (!selectedOption || !form.from || !form.to) {
+      alert(dict.alerts.fillAll); // <--- Dynamic Alert
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lang, // <--- Send language to API
+          categorySlug,
+          subCategorySlug,
+          optionIndex: options.indexOf(selectedOption),
+          from: form.from,
+          to: form.to,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error");
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error(error);
+      alert(dict.alerts.error); // <--- Dynamic Alert
+      setLoading(false);
+    }
   };
 
   return (
