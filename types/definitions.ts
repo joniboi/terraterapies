@@ -142,7 +142,6 @@ export interface Dictionary {
     };
     collabs: {
       title: string;
-      partners: Record<string, string>;
     };
     info: {
       title: string;
@@ -154,7 +153,6 @@ export interface Dictionary {
       title: string;
       whatsappMsg: string;
     };
-    bigText: string;
   };
 
   faqs: {
@@ -186,10 +184,7 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     schedule: {
-      title: string;
-      weekdays: string;
-      weekends: string;
-      holidays: string;
+      title: string; // Keep the card title
     };
     info: {
       title: string;

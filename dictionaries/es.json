@@ -22,7 +22,7 @@
     },
     "reviews": {
       "title": "Lo que dicen nuestros clientes",
-      "subtitle": "Experiencias reales en Terrateràpies Thai & Bali"
+      "subtitle": "Experiencias reales en {businessName}"
     }
   },
   "booking": {
@@ -76,11 +76,7 @@
       }
     },
     "collabs": {
-      "title": "Colaboraciones",
-      "partners": {
-        "mezzanote": "Pizzería Mezzanotte",
-        "scens": "Scens"
-      }
+      "title": "Colaboraciones"
     },
     "info": {
       "title": "Información",
@@ -90,9 +86,8 @@
     },
     "social": {
       "title": "Social",
-      "whatsappMsg": "Hola, quiero información sobre Terraterapies Thai & Bali"
-    },
-    "bigText": "Thai&Bali"
+      "whatsappMsg": "Hola, quiero información sobre {businessName}"
+    }
   },
   "faqs": {
     "hero": {
@@ -210,10 +205,7 @@
     "title": "Contacto",
     "subtitle": "Estamos aquí para ayudarte a encontrar tu momento de paz.",
     "schedule": {
-      "title": "Horario de apertura",
-      "weekdays": "Lunes a viernes",
-      "weekends": "Sábado",
-      "holidays": "Domingos y festivos"
+      "title": "Horario de apertura"
     },
     "info": {
       "title": "Información",
