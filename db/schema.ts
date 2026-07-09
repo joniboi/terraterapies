@@ -178,6 +178,16 @@ export const siteSettings = pgTable("site_settings", {
   addressLine2: varchar("address_line2", { length: 255 }).notNull(),
   mapsLink: text("maps_link").notNull(),
 
+  schedules: jsonb("schedules")
+    .$type<
+      {
+        startDay: number;
+        endDay: number | null;
+        hours: string;
+      }[]
+    >()
+    .default([]),
+
   facebookUrl: text("facebook_url"),
   instagramUrl: text("instagram_url"),
   freshaUrl: text("fresha_url"),

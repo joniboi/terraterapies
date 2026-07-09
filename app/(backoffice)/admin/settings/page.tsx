@@ -21,6 +21,7 @@ export default async function SettingsPage() {
       instagramUrl: "",
       freshaUrl: "",
       partners: [],
+      schedules: [],
       aboutImage: null,
       logoUrl: null,
       faviconUrl: null,

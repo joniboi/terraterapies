@@ -1,8 +1,8 @@
 // app/[lang]/contact/page.tsx
 
+import { formatScheduleDays } from "@/app/lib/automaticDateUtility";
 import { getDictionary } from "@/app/lib/getDictionary";
 import { db } from "@/db"; // 1. Import db
-import { siteSettings } from "@/db/schema"; // 2. Import schema
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -20,6 +20,8 @@ export default async function ContactPage({ params }: PageProps) {
   const address = settings?.addressLine1 || "";
   const mapsLink = settings?.mapsLink || "";
   const businessName = settings?.businessName || "Terraterapies";
+
+  const schedules = settings?.schedules || [];
 
   const cleanPhone = phone.replace(/\s+/g, "");
 
@@ -54,36 +56,25 @@ export default async function ContactPage({ params }: PageProps) {
             </div>
 
             <ul className="space-y-5 text-lg flex-grow">
-              {/* 
-                2. FIXED BREAKLINES: 
-                - Stacks cleanly on medium screens (flex-col)
-                - Spreads side-by-side on large screens (lg:flex-row)
-                - "whitespace-nowrap" completely forbids the hours from breaking 
-              */}
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-gray-50 pb-4">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.weekdays}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  9:30 - 21:30
-                </span>
-              </li>
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-gray-50 pb-4">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.weekends}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  12:00 - 21:30
-                </span>
-              </li>
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.holidays}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  12:00 - 21:30
-                </span>
-              </li>
+              {schedules.map((item: any, i: number) => (
+                <li
+                  key={i}
+                  className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-border/50 pb-4 last:border-0 last:pb-0"
+                >
+                  <span className="text-muted-foreground mb-1 lg:mb-0 block">
+                    {/* The Magic Translation Happens Here! */}
+                    {formatScheduleDays(item.startDay, item.endDay, lang)}
+                  </span>
+                  <span className="font-medium text-foreground whitespace-nowrap">
+                    {item.hours}
+                  </span>
+                </li>
+              ))}
+              {schedules.length === 0 && (
+                <p className="text-muted-foreground text-sm italic">
+                  Schedules not configured yet.
+                </p>
+              )}
             </ul>
           </div>
 
