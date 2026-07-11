@@ -195,6 +195,25 @@ export const siteSettings = pgTable("site_settings", {
   partners: jsonb("partners")
     .$type<{ name: string; url: string }[]>()
     .default([]),
+  faqHero: jsonb("faq_hero").$type<{
+    title: I18nString;
+    subtitle: I18nString;
+  }>(),
+  faqCta: jsonb("faq_cta").$type<{
+    title: I18nString;
+    subtitle: I18nString;
+    button: I18nString;
+    whatsappMsg: I18nString;
+  }>(),
+  faqSections: jsonb("faq_sections")
+    .$type<
+      {
+        id: string;
+        title: I18nString;
+        questions: { question: I18nString; answer: I18nString }[];
+      }[]
+    >()
+    .default([]),
 });
 
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({

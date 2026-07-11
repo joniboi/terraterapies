@@ -52,6 +52,12 @@ export default async function AdminSidebarLayout({
           >
             Gift Cards
           </Link>
+          <Link
+            href="/admin/faqs"
+            className="block hover:text-highlight transition-colors"
+          >
+            FAQs
+          </Link>
           <div className="pt-8">
             <form
               action={async () => {

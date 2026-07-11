@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { siteSettings } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { eq } from "drizzle-orm";
 
 // GET: Fetch the current settings (useful for client-side fetches)
 export async function GET() {
@@ -75,6 +76,26 @@ export async function POST(req: Request) {
     return NextResponse.json(result[0]);
   } catch (error) {
     console.error("Settings save error:", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  const session = await auth();
+  if (!session) return new NextResponse("Unauthorized", { status: 401 });
+
+  try {
+    const body = await req.json();
+
+    const result = await db
+      .update(siteSettings)
+      .set(body)
+      .where(eq(siteSettings.id, "singleton"))
+      .returning();
+
+    return NextResponse.json(result[0]);
+  } catch (error) {
+    console.error("Settings patch error:", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
