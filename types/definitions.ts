@@ -124,9 +124,6 @@ export interface Dictionary {
     labelNote: string;
     labelCode: string;
     validity: string;
-    addressLine1: string;
-    addressLine2: string;
-    phone: string;
     disclaimer: string;
   };
   common: {
