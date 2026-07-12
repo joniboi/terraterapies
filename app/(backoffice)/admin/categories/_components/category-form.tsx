@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectTrigger,
@@ -12,11 +11,15 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import LanguageTabs from "@/components/admin/language-tabs";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import AdminFormFooter from "@/components/admin/admin-form-footer";
 import Accordion from "@/components/ui/accordion";
 import { Plus, Trash2 } from "lucide-react";
+import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import { Button } from "@/components/ui/button";
+import { FormSection } from "@/components/admin/form-logic/form-section";
+import { I18nField } from "@/components/admin/form-logic/i18-field";
+import { FormField } from "@/components/admin/form-logic/form-field";
 
 export default function CategoryForm({
   initialData,
@@ -41,10 +44,17 @@ export default function CategoryForm({
     showCase: initialData?.showCase || { items: [] },
   });
 
-  const selectedGroup = groups.find((g) => g.id === formData.groupId);
-  const displayValue = selectedGroup
-    ? selectedGroup.label.es
-    : "Select a Group";
+  // HELPER: Updates standard fields
+  const updateField = (field: string, value: any) =>
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+  // HELPER: Updates translation objects
+  const updateI18n = (field: string, lang: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: { ...((prev as any)[field] || {}), [lang]: value },
+    }));
+  };
 
   const addHeroImage = () => {
     setFormData({
@@ -105,23 +115,18 @@ export default function CategoryForm({
 
   return (
     <div className="space-y-6 pb-24 max-w-7xl mx-auto">
-      {/* SECTION 1: CONFIGURATION (Non-collapsible Card) */}
-      <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
-        <h2 className="text-lg font-bold text-gray-800 border-b border-gray-100 pb-2">
-          Primary Configuration
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="space-y-2">
-            <Label>Service Group</Label>
+      {/* SECTION 1: CONFIGURATION */}
+      <FormSection title="Primary Configuration">
+        <FormGrid cols={3}>
+          <FormField label="Service Group">
             <Select
               value={formData.groupId}
-              onValueChange={(val) =>
-                setFormData({ ...formData, groupId: val })
-              }
+              onValueChange={(v) => updateField("groupId", v)}
             >
               <SelectTrigger>
-                <SelectValue>{displayValue}</SelectValue>
+                <SelectValue placeholder="Select Group">
+                  {groups.find((g) => g.id === formData.groupId)?.label.es}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {groups.map((g) => (
@@ -131,158 +136,126 @@ export default function CategoryForm({
                 ))}
               </SelectContent>
             </Select>
-          </div>
+          </FormField>
 
-          <div className="space-y-2">
-            <Label>URL Slug</Label>
+          <FormField
+            label="URL Slug"
+            description="Used for the browser address."
+          >
             <Input
               value={formData.slug}
               onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  slug: e.target.value.toLowerCase().replace(/\s+/g, "-"),
-                })
+                updateField(
+                  "slug",
+                  e.target.value.toLowerCase().replace(/\s+/g, "-"),
+                )
               }
-              placeholder="e.g. facials-special"
             />
-          </div>
+          </FormField>
 
-          <div className="flex items-center gap-3 pt-8">
-            <input
-              type="checkbox"
-              className="size-4 rounded border-gray-300 text-blue-600"
+          <div className="flex items-center gap-3 pt-6">
+            <Checkbox
               id="featured"
               checked={formData.isFeatured}
-              onChange={(e) =>
-                setFormData({ ...formData, isFeatured: e.target.checked })
-              }
+              onCheckedChange={(v) => updateField("isFeatured", !!v)}
             />
-            <Label htmlFor="featured" className="text-gray-600 cursor-pointer">
+            <label
+              htmlFor="featured"
+              className="text-sm font-medium cursor-pointer"
+            >
               Feature on Homepage
-            </Label>
+            </label>
           </div>
-        </div>
-      </div>
+        </FormGrid>
+      </FormSection>
 
-      {/* SECTION 2: TRANSLATED CONTENT (Accordion) */}
-      <Accordion id="content" title="Content & Translations" active={true}>
-        <LanguageTabs headerText="Manage language specific fields">
-          {(lang) => (
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label>Category Title ({lang.toUpperCase()})</Label>
-                  <Input
-                    value={formData.title[lang] || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        title: { ...formData.title, [lang]: e.target.value },
-                      })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Badge / Mini Promo ({lang.toUpperCase()})</Label>
-                  <Input
-                    placeholder="e.g. 10% Off or New"
-                    value={formData.badge[lang] || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        badge: { ...formData.badge, [lang]: e.target.value },
-                      })
-                    }
-                  />
-                </div>
-              </div>
+      {/* SECTION 2: TRANSLATED CONTENT (No more manual Accordion/Tabs nesting!) */}
+      <FormSection title="Content & Messaging">
+        <FormGrid cols={2}>
+          <I18nField
+            label="Category Title"
+            value={formData.title}
+            onChange={(l, v) => updateI18n("title", l, v)}
+          />
+          <I18nField
+            label="Badge / Mini Promo"
+            placeholder="e.g. 10% Off"
+            value={formData.badge}
+            onChange={(l, v) => updateI18n("badge", l, v)}
+          />
+        </FormGrid>
+        <I18nField
+          label="Description"
+          type="textarea"
+          value={formData.description}
+          onChange={(l, v) => updateI18n("description", l, v)}
+        />
+      </FormSection>
 
-              <div className="space-y-2">
-                <Label>Description ({lang.toUpperCase()})</Label>
-                <Textarea
-                  rows={3}
-                  value={formData.description[lang] || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      description: {
-                        ...formData.description,
-                        [lang]: e.target.value,
-                      },
-                    })
-                  }
-                />
-              </div>
-            </div>
-          )}
-        </LanguageTabs>
-      </Accordion>
-
-      {/* SECTION 3: MEDIA (Accordion) */}
-      <Accordion id="media" title="Images & Media" active={false}>
+      {/* SECTION 3: MEDIA (Using Accordion for less visual clutter) */}
+      <Accordion title="Images & Gallery" active={false}>
         <div className="space-y-8">
           <ImageUploadField
             label="Main Category Image"
             description="The thumbnail used in listings and menus."
             currentImage={formData.image}
             aspectRatioClass="aspect-square max-w-[200px]"
-            onUploadSuccess={(url) => setFormData({ ...formData, image: url })}
+            onUploadSuccess={(url) => updateField("image", url)}
           />
 
-          <hr className="border-gray-100" />
+          <hr className="border-border" />
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <div>
-                <Label className="text-base">Hero Gallery</Label>
-                <p className="text-xs text-gray-500">
-                  Wide images used for the category header background.
-                </p>
-              </div>
-              <button
+              <label className="text-sm font-bold uppercase text-muted-foreground tracking-widest">
+                Hero Gallery
+              </label>
+              <Button
                 type="button"
                 onClick={addHeroImage}
-                className="text-xs bg-blue-50 text-blue-600 px-3 py-1 rounded-full font-bold hover:bg-blue-100 flex items-center gap-1"
+                variant="soft"
+                size="sm-pill"
               >
                 <Plus className="size-3" /> Add Hero
-              </button>
+              </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormGrid cols={2}>
               {formData.heroImages.map((hero: any, index: number) => (
                 <div
                   key={index}
-                  className="relative p-4 border border-dashed border-gray-200 rounded-xl bg-gray-50"
+                  className="relative p-4 border border-dashed border-border rounded-xl bg-muted/20"
                 >
-                  <button
+                  <Button
                     onClick={() => removeHeroImage(index)}
-                    className="absolute -top-2 -right-2 bg-red-100 text-red-600 p-1 rounded-full hover:bg-red-200 shadow-sm z-10"
+                    variant="destructive-soft"
+                    size="icon-sm"
+                    className="absolute -top-2 -right-2 z-10"
                   >
-                    <Trash2 className="size-3" />
-                  </button>
+                    <Trash2 />
+                  </Button>
                   <ImageUploadField
-                    label={`Hero #${index + 1}`}
+                    label={`Hero Image #${index + 1}`}
                     currentImage={hero.src}
                     aspectRatioClass="aspect-video"
                     onUploadSuccess={(url) => {
                       const newHeros = [...formData.heroImages];
                       newHeros[index].src = url;
-                      setFormData({ ...formData, heroImages: newHeros });
+                      updateField("heroImages", newHeros);
                     }}
                   />
                 </div>
               ))}
-            </div>
+            </FormGrid>
           </div>
         </div>
       </Accordion>
 
-      {/* FOOTER */}
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
         onDelete={handleDelete}
-        isEdit={!!initialData}
+        isEdit={isEdit}
       />
     </div>
   );

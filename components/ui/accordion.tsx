@@ -1,13 +1,15 @@
 "use client";
 
 import { cn } from "@/app/lib/utils";
-import { useState } from "react";
+import { useState, useId } from "react";
 
-type AccordionpProps = {
+type AccordionProps = {
   children: React.ReactNode;
   title: string;
-  id: string;
+  id?: string; // 1. Now optional
   active?: boolean;
+  variant?: "card" | "ghost"; // 2. Added variants
+  className?: string;
 };
 
 export default function Accordion({
@@ -15,26 +17,55 @@ export default function Accordion({
   title,
   id,
   active = false,
-}: AccordionpProps) {
+  variant = "card",
+  className,
+}: AccordionProps) {
   const [accordionOpen, setAccordionOpen] = useState<boolean>(active);
+  const generatedId = useId();
+  const instanceId = id || generatedId; // Use provided ID or the generated one
 
   return (
-    // ✅ 100% Semantic Theme Classes: bg-background and border-border
-    <div className="relative rounded-xl border border-border bg-background shadow-sm overflow-hidden transition-colors duration-300">
+    <div
+      className={cn(
+        "relative transition-all duration-300",
+        // CARD VARIANT: Looks like a standalone section
+        variant === "card" &&
+          "rounded-xl border border-border bg-background shadow-sm overflow-hidden",
+        // GHOST VARIANT: Minimal, looks like a line-item toggle
+        variant === "ghost" && "border-t border-border first:border-t-0",
+        className,
+      )}
+    >
       <h2>
         <button
-          // hover:bg-muted/50 dynamically uses the muted color of the active brand
-          className="flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-foreground hover:bg-muted/50 transition-colors"
+          className={cn(
+            "flex w-full items-center justify-between text-left font-semibold text-foreground transition-colors",
+            variant === "card"
+              ? "px-6 py-4 hover:bg-muted/50"
+              : "py-4 hover:opacity-70",
+          )}
           onClick={(e) => {
             e.preventDefault();
             setAccordionOpen((prevState) => !prevState);
           }}
           aria-expanded={accordionOpen}
-          aria-controls={`accordion-text-${id}`}
+          aria-controls={`accordion-text-${instanceId}`}
         >
-          <span>{title}</span>
-          {/* bg-muted for the circle behind the arrow */}
-          <span className="ml-8 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted shadow-sm transition-colors">
+          <span
+            className={cn(
+              variant === "ghost" &&
+                "text-sm font-bold uppercase tracking-widest text-muted-foreground",
+            )}
+          >
+            {title}
+          </span>
+
+          <span
+            className={cn(
+              "ml-8 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors",
+              variant === "card" ? "bg-muted shadow-sm" : "bg-transparent",
+            )}
+          >
             <svg
               className={cn(
                 "origin-center transform transition duration-200 ease-out fill-muted-foreground",
@@ -54,18 +85,22 @@ export default function Accordion({
         </button>
       </h2>
       <div
-        id={`accordion-text-${id}`}
+        id={`accordion-text-${instanceId}`}
         role="region"
-        aria-labelledby={`accordion-title-${id}`}
+        aria-labelledby={`accordion-title-${instanceId}`}
         className={cn(
-          "grid overflow-hidden text-sm text-muted-foreground transition-all duration-300 ease-in-out",
+          "grid overflow-hidden transition-all duration-300 ease-in-out",
           accordionOpen
             ? "grid-rows-[1fr] opacity-100"
             : "grid-rows-[0fr] opacity-0",
         )}
       >
         <div className="overflow-hidden">
-          <div className="px-6 pb-5 pt-2">{children}</div>
+          <div
+            className={cn(variant === "card" ? "px-6 pb-5 pt-2" : "pb-6 pt-0")}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>

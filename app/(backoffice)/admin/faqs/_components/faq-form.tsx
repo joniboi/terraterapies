@@ -11,6 +11,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { I18nString } from "@/db/schema";
+import { FormSection } from "@/components/admin/form-logic/form-section";
+import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import { I18nField } from "@/components/admin/form-logic/i18-field";
+import Accordion from "@/components/ui/accordion";
 
 // Empty boilerplate for new items
 const emptyI18n: I18nString = { es: "", ca: "", en: "" };
@@ -119,138 +123,99 @@ export default function FAQForm({ initialData }: { initialData: any }) {
   return (
     <div className="pb-24 space-y-8">
       {/* 1. HERO & CTA (Global FAQ text) */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Page Header & CTA</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <LanguageTabs headerText="Translate the main headers">
-            {(lang) => (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="font-bold border-b border-border pb-2">
-                    Hero Section
-                  </h3>
-                  <div className="space-y-2">
-                    <Label>Title</Label>
-                    <Input
-                      value={hero.title[lang] || ""}
-                      onChange={(e) =>
-                        setHero({
-                          ...hero,
-                          title: { ...hero.title, [lang]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Subtitle</Label>
-                    <Textarea
-                      value={hero.subtitle[lang] || ""}
-                      onChange={(e) =>
-                        setHero({
-                          ...hero,
-                          subtitle: {
-                            ...hero.subtitle,
-                            [lang]: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <h3 className="font-bold border-b border-border pb-2">
-                    Contact CTA (Bottom)
-                  </h3>
-                  <div className="space-y-2">
-                    <Label>Title</Label>
-                    <Input
-                      value={cta.title[lang] || ""}
-                      onChange={(e) =>
-                        setCta({
-                          ...cta,
-                          title: { ...cta.title, [lang]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Subtitle</Label>
-                    <Input
-                      value={cta.subtitle[lang] || ""}
-                      onChange={(e) =>
-                        setCta({
-                          ...cta,
-                          subtitle: { ...cta.subtitle, [lang]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Button Text</Label>
-                    <Input
-                      value={cta.button[lang] || ""}
-                      onChange={(e) =>
-                        setCta({
-                          ...cta,
-                          button: { ...cta.button, [lang]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>WhatsApp Pre-filled Message</Label>
-                    <Input
-                      value={cta.whatsappMsg[lang] || ""}
-                      onChange={(e) =>
-                        setCta({
-                          ...cta,
-                          whatsappMsg: {
-                            ...cta.whatsappMsg,
-                            [lang]: e.target.value,
-                          },
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </LanguageTabs>
-        </CardContent>
-      </Card>
+      <FormSection
+        title="Page Header & CTA"
+        description="Translate the main marketing headers for the FAQ page."
+      >
+        <FormGrid cols={2}>
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold uppercase text-muted-foreground border-b pb-1">
+              Hero Section
+            </h3>
+            <I18nField
+              label="Title"
+              value={hero.title}
+              onChange={(l, v) =>
+                setHero({ ...hero, title: { ...hero.title, [l]: v } })
+              }
+            />
+            <I18nField
+              label="Subtitle"
+              type="textarea"
+              value={hero.subtitle}
+              onChange={(l, v) =>
+                setHero({ ...hero, subtitle: { ...hero.subtitle, [l]: v } })
+              }
+            />
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold uppercase text-muted-foreground border-b pb-1">
+              Contact CTA
+            </h3>
+            <I18nField
+              label="Title"
+              value={cta.title}
+              onChange={(l, v) =>
+                setCta({ ...cta, title: { ...cta.title, [l]: v } })
+              }
+            />
+            <I18nField
+              label="Button"
+              value={cta.button}
+              onChange={(l, v) =>
+                setCta({ ...cta, button: { ...cta.button, [l]: v } })
+              }
+            />
+          </div>
+        </FormGrid>
+      </FormSection>
 
       {/* 2. THE SECTIONS (Table of Contents via Vertical Tabs) */}
-      <h2 className="text-xl font-bold mt-12 mb-4">FAQ Sections</h2>
+      <div className="flex justify-between items-center mt-12 mb-6">
+        <h2 className="text-xl font-bold tracking-tight">
+          FAQ Content Sections
+        </h2>
+        {sections.length === 0 && (
+          <Button
+            type="button"
+            onClick={addSection}
+            variant="soft"
+            size="sm-pill"
+          >
+            <Plus /> Create First Section
+          </Button>
+        )}
+      </div>
 
-      {sections.length > 0 ? (
+      {sections.length > 0 && (
         <Tabs
           orientation="vertical"
           defaultValue={sections[0]?.id}
           className="items-start gap-8"
         >
-          {/* SIDEBAR (Table of contents) */}
+          {/* SIDEBAR: Table of Contents */}
           <TabsList
             variant="underline"
-            className="w-full md:w-64 shrink-0 flex flex-col items-stretch space-y-2 border-r-0"
+            className="w-full md:w-64 shrink-0 flex flex-col items-stretch space-y-1 bg-muted/10 p-2 rounded-xl border border-border"
           >
             {sections.map((sec, i) => (
               <TabsTrigger
                 key={sec.id}
                 value={sec.id}
-                className="justify-start text-left px-4"
+                className="justify-start text-left px-4 py-2 text-sm font-medium"
               >
-                {sec.title.es || `Section ${i + 1}`}
+                <span className="truncate">
+                  {sec.title.es || `Section ${i + 1}`}
+                </span>
               </TabsTrigger>
             ))}
             <Button
               type="button"
               onClick={addSection}
-              variant="soft"
-              className="mt-4 w-full"
+              variant="ghost"
+              className="mt-4 w-full justify-start text-primary hover:bg-primary/5"
             >
-              <Plus /> Add Section
+              <Plus className="size-4 mr-2" /> Add Section
             </Button>
           </TabsList>
 
@@ -261,129 +226,99 @@ export default function FAQForm({ initialData }: { initialData: any }) {
               value={sec.id}
               className="flex-1 w-full mt-0"
             >
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle>Edit Section</CardTitle>
+              <FormSection
+                title="Edit Section Content"
+                action={
                   <Button
                     type="button"
                     onClick={() => removeSection(sIdx)}
                     variant="destructive-soft"
                     size="sm-pill"
                   >
-                    <Trash2 /> Delete Section
+                    <Trash2 className="size-3 mr-1" /> Delete Section
                   </Button>
-                </CardHeader>
-                <CardContent className="space-y-8">
-                  {/* Section Title */}
-                  <div className="space-y-2">
-                    <Label className="text-muted-foreground uppercase font-bold text-xs tracking-wider">
-                      Section Title
-                    </Label>
-                    <LanguageTabs headerText="">
-                      {(lang) => (
-                        <Input
-                          value={sec.title[lang] || ""}
-                          onChange={(e) =>
-                            updateSectionTitle(
-                              sIdx,
-                              lang as keyof I18nString,
-                              e.target.value,
-                            )
-                          }
-                        />
-                      )}
-                    </LanguageTabs>
-                  </div>
+                }
+              >
+                {/* Section Title field */}
+                <I18nField
+                  label="Section Title"
+                  description="The header that appears above this group of questions."
+                  value={sec.title}
+                  onChange={(l, v) => updateSectionTitle(sIdx, l as any, v)}
+                />
 
-                  <hr className="border-border" />
-
-                  {/* Questions inside this Section */}
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-bold">Questions</h3>
+                <div className="pt-8 border-t border-border mt-8">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                      Questions ({sec.questions.length})
+                    </h3>
                     <Button
                       type="button"
                       onClick={() => addQuestion(sIdx)}
                       variant="soft"
                       size="sm-pill"
                     >
-                      <Plus /> Add Question
+                      <Plus className="size-3 mr-1" /> Add Question
                     </Button>
                   </div>
 
-                  <div className="space-y-6">
+                  <div className="space-y-3">
                     {sec.questions.map((q: any, qIdx: number) => (
-                      <div
+                      <Accordion
                         key={qIdx}
-                        className="bg-muted/30 border border-border rounded-lg p-5 relative"
+                        title={q.question.es || `Question #${qIdx + 1}`}
+                        className="bg-muted/10 border-dashed"
                       >
-                        <Button
-                          type="button"
-                          onClick={() => removeQuestion(sIdx, qIdx)}
-                          variant="destructive-soft"
-                          size="icon-sm"
-                          className="absolute top-4 right-4"
-                        >
-                          <Trash2 />
-                        </Button>
-                        <LanguageTabs headerText={`Question ${qIdx + 1}`}>
-                          {(lang) => (
-                            <div className="space-y-4 pr-8">
-                              <div className="space-y-2">
-                                <Label>Question</Label>
-                                <Input
-                                  value={q.question[lang] || ""}
-                                  onChange={(e) =>
-                                    updateQuestion(
-                                      sIdx,
-                                      qIdx,
-                                      "question",
-                                      lang as keyof I18nString,
-                                      e.target.value,
-                                    )
-                                  }
-                                />
-                              </div>
-                              <div className="space-y-2">
-                                <Label>Answer</Label>
-                                <Textarea
-                                  rows={4}
-                                  value={q.answer[lang] || ""}
-                                  onChange={(e) =>
-                                    updateQuestion(
-                                      sIdx,
-                                      qIdx,
-                                      "answer",
-                                      lang as keyof I18nString,
-                                      e.target.value,
-                                    )
-                                  }
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </LanguageTabs>
-                      </div>
+                        <div className="space-y-6">
+                          <I18nField
+                            label="The Question"
+                            value={q.question}
+                            onChange={(l, v) =>
+                              updateQuestion(
+                                sIdx,
+                                qIdx,
+                                "question",
+                                l as any,
+                                v,
+                              )
+                            }
+                          />
+                          <I18nField
+                            label="The Answer"
+                            type="textarea"
+                            rows={4}
+                            value={q.answer}
+                            onChange={(l, v) =>
+                              updateQuestion(sIdx, qIdx, "answer", l as any, v)
+                            }
+                          />
+                          <div className="flex justify-end pt-2">
+                            <Button
+                              type="button"
+                              onClick={() => removeQuestion(sIdx, qIdx)}
+                              variant="destructive-soft"
+                              size="sm-pill"
+                            >
+                              <Trash2 className="size-3 mr-1" /> Remove Question
+                            </Button>
+                          </div>
+                        </div>
+                      </Accordion>
                     ))}
+
                     {sec.questions.length === 0 && (
-                      <p className="text-muted-foreground text-sm italic">
-                        No questions in this section.
-                      </p>
+                      <div className="text-center py-12 border-2 border-dashed border-border rounded-xl">
+                        <p className="text-sm text-muted-foreground italic">
+                          No questions in this section yet.
+                        </p>
+                      </div>
                     )}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </FormSection>
             </TabsContent>
           ))}
         </Tabs>
-      ) : (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <p className="text-muted-foreground mb-4">No sections exist yet.</p>
-            <Button type="button" onClick={addSection}>
-              <Plus /> Create First Section
-            </Button>
-          </CardContent>
-        </Card>
       )}
 
       {/* FIXED FOOTER */}

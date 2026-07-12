@@ -3,15 +3,21 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import LanguageTabs from "@/components/admin/language-tabs";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import { Plus, Trash2 } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button"; // <-- IMPORTED BUTTON
-import { I18nString } from "@/db/schema";
+import { FormSection } from "@/components/admin/form-logic/form-section";
+import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import { FormField } from "@/components/admin/form-logic/form-field";
+import { I18nField } from "@/components/admin/form-logic/i18-field";
 
 const DAY_OPTIONS = [
   { value: 1, label: "Monday / Lunes" },
@@ -27,74 +33,31 @@ const DAY_OPTIONS = [
 export default function SettingsForm({ initialData }: { initialData: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState(initialData);
 
-  const [formData, setFormData] = useState({
-    businessName: initialData?.businessName || "",
-    contactEmail: initialData?.contactEmail || "",
-    contactPhone: initialData?.contactPhone || "",
-    addressLine1: initialData?.addressLine1 || "",
-    addressLine2: initialData?.addressLine2 || "",
-    mapsLink: initialData?.mapsLink || "",
-    facebookUrl: initialData?.facebookUrl || "",
-    instagramUrl: initialData?.instagramUrl || "",
-    freshaUrl: initialData?.freshaUrl || "",
-    partners: initialData?.partners || [],
-    schedules: initialData?.schedules || [],
-    heroTagline: initialData?.heroTagline || { es: "", en: "", ca: "" },
-    aboutUsText: initialData?.aboutUsText || { es: "", en: "", ca: "" },
-    aboutImage: initialData?.aboutImage || "",
-    logoUrl: initialData?.logoUrl || "",
-    faviconUrl: initialData?.faviconUrl || "",
-    pdfBackgroundUrl: initialData?.pdfBackgroundUrl || "",
-  });
+  // HELPERS
+  const updateField = (f: string, v: any) =>
+    setFormData((p: any) => ({ ...p, [f]: v }));
+  const updateI18n = (f: string, l: string, v: string) =>
+    setFormData((p: any) => ({ ...p, [f]: { ...p[f], [l]: v } }));
 
-  // --- Helpers for Arrays ---
-  const addPartner = () => {
-    setFormData({
-      ...formData,
-      partners: [...formData.partners, { name: "", url: "" }],
-    });
+  // ARRAY HELPERS (Partners & Schedules)
+  const addItem = (field: string, template: any) =>
+    updateField(field, [...formData[field], template]);
+  const removeItem = (field: string, index: number) => {
+    const list = [...formData[field]];
+    list.splice(index, 1);
+    updateField(field, list);
   };
-  const updatePartner = (
+  const updateItem = (
+    field: string,
     index: number,
-    field: "name" | "url",
-    value: string,
-  ) => {
-    const newPartners = [...formData.partners];
-    newPartners[index][field] = value;
-    setFormData({ ...formData, partners: newPartners });
-  };
-  const removePartner = (index: number) => {
-    const newPartners = [...formData.partners];
-    newPartners.splice(index, 1);
-    setFormData({ ...formData, partners: newPartners });
-  };
-
-  const addSchedule = () => {
-    setFormData({
-      ...formData,
-      // Default to Monday (1) to Friday (5)
-      schedules: [...formData.schedules, { startDay: 1, endDay: 5, hours: "" }],
-    });
-  };
-  const updateSchedule = (
-    index: number,
-    field: "startDay" | "endDay" | "hours",
+    subField: string,
     value: any,
   ) => {
-    const newSchedules = [...formData.schedules];
-    newSchedules[index][field] = value;
-    setFormData({ ...formData, schedules: newSchedules });
-  };
-  const updateScheduleHours = (index: number, value: string) => {
-    const newSchedules = [...formData.schedules];
-    newSchedules[index].hours = value;
-    setFormData({ ...formData, schedules: newSchedules });
-  };
-  const removeSchedule = (index: number) => {
-    const newSchedules = [...formData.schedules];
-    newSchedules.splice(index, 1);
-    setFormData({ ...formData, schedules: newSchedules });
+    const list = [...formData[field]];
+    list[index][subField] = value;
+    updateField(field, list);
   };
 
   async function handleSave() {
@@ -106,11 +69,9 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Settings saved successfully!");
+        alert("Settings saved!");
         router.refresh();
-      } else alert("Failed to save settings.");
-    } catch (error) {
-      console.error("Save failed", error);
+      }
     } finally {
       setLoading(false);
     }
@@ -119,400 +80,300 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
   return (
     <div className="pb-24 max-w-7xl mx-auto">
       <Tabs defaultValue="location" className="w-full">
-        {/* TAB NAVIGATION */}
         <TabsList
           variant="underline"
-          className="mb-6 w-full justify-start overflow-x-auto"
+          className="mb-8 w-full justify-start border-b border-border"
         >
           <TabsTrigger value="location">Business & Location</TabsTrigger>
-          <TabsTrigger value="schedule">Schedule / Horarios</TabsTrigger>
+          <TabsTrigger value="schedule">Schedule</TabsTrigger>
           <TabsTrigger value="links">Links & Partners</TabsTrigger>
           <TabsTrigger value="content">Content & Media</TabsTrigger>
         </TabsList>
 
         {/* TAB 1: LOCATION */}
         <TabsContent value="location">
-          <Card>
-            <CardHeader>
-              <CardTitle>Business & Location Details</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label>Business Name</Label>
+          <FormSection title="Core Contact Information">
+            <FormGrid cols={2}>
+              <FormField label="Business Name">
                 <Input
                   value={formData.businessName}
-                  onChange={(e) =>
-                    setFormData({ ...formData, businessName: e.target.value })
-                  }
+                  onChange={(e) => updateField("businessName", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Contact Email</Label>
+              </FormField>
+              <FormField label="Contact Email">
                 <Input
                   value={formData.contactEmail}
-                  onChange={(e) =>
-                    setFormData({ ...formData, contactEmail: e.target.value })
-                  }
+                  onChange={(e) => updateField("contactEmail", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Phone / WhatsApp</Label>
+              </FormField>
+              <FormField label="Phone / WhatsApp">
                 <Input
                   value={formData.contactPhone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, contactPhone: e.target.value })
-                  }
+                  onChange={(e) => updateField("contactPhone", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Google Maps Link</Label>
+              </FormField>
+              <FormField label="Google Maps URL">
                 <Input
                   value={formData.mapsLink}
-                  onChange={(e) =>
-                    setFormData({ ...formData, mapsLink: e.target.value })
-                  }
+                  onChange={(e) => updateField("mapsLink", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Address Line 1 (Street)</Label>
+              </FormField>
+              <FormField label="Address Line 1">
                 <Input
                   value={formData.addressLine1}
-                  onChange={(e) =>
-                    setFormData({ ...formData, addressLine1: e.target.value })
-                  }
+                  onChange={(e) => updateField("addressLine1", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Address Line 2 (City & Zip)</Label>
+              </FormField>
+              <FormField label="City, Province, Zip">
                 <Input
                   value={formData.addressLine2}
-                  onChange={(e) =>
-                    setFormData({ ...formData, addressLine2: e.target.value })
-                  }
+                  onChange={(e) => updateField("addressLine2", e.target.value)}
                 />
-              </div>
-            </CardContent>
-          </Card>
+              </FormField>
+            </FormGrid>
+          </FormSection>
         </TabsContent>
 
         {/* TAB 2: SCHEDULE */}
         <TabsContent value="schedule">
-          <Card>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <CardTitle>Opening Hours</CardTitle>
-                <Button
-                  type="button"
-                  onClick={addSchedule}
-                  variant="soft"
-                  size="sm-pill"
-                >
-                  <Plus /> Add Schedule Line
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          <FormSection
+            title="Opening Hours"
+            action={
+              <Button
+                variant="soft"
+                size="sm-pill"
+                onClick={() =>
+                  addItem("schedules", { startDay: 1, endDay: 5, hours: "" })
+                }
+              >
+                <Plus className="size-3 mr-1" /> Add Line
+              </Button>
+            }
+          >
+            <div className="space-y-4">
               {formData.schedules.map((item: any, index: number) => (
                 <div
                   key={index}
-                  className="bg-muted/30 p-5 rounded-lg border border-border relative"
+                  className="bg-muted/20 p-4 rounded-xl border border-border grid grid-cols-1 md:grid-cols-[180px_180px_1fr_auto] items-end gap-4 relative group"
                 >
+                  <FormField label="From">
+                    <Select
+                      value={String(item.startDay)}
+                      onValueChange={(v) =>
+                        updateItem(
+                          "schedules",
+                          index,
+                          "startDay",
+                          parseInt(v || "0"),
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue>
+                          {
+                            DAY_OPTIONS.find((d) => d.value === item.startDay)
+                              ?.label
+                          }
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {DAY_OPTIONS.map((d) => (
+                          <SelectItem key={d.value} value={String(d.value)}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                  <FormField label="To (Optional)">
+                    <Select
+                      value={String(item.endDay || 0)}
+                      onValueChange={(v) =>
+                        updateItem(
+                          "schedules",
+                          index,
+                          "endDay",
+                          parseInt(v || "0"),
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue>
+                          {DAY_OPTIONS.find((d) => d.value === item.endDay)
+                            ?.label || "None"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0">-- Single Day --</SelectItem>
+                        {DAY_OPTIONS.map((d) => (
+                          <SelectItem key={d.value} value={String(d.value)}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                  <div className="flex-1">
+                    <FormField label="Hours">
+                      <Input
+                        placeholder="09:00 - 21:00"
+                        value={item.hours}
+                        onChange={(e) =>
+                          updateItem(
+                            "schedules",
+                            index,
+                            "hours",
+                            e.target.value,
+                          )
+                        }
+                      />
+                    </FormField>
+                  </div>
                   <Button
-                    type="button"
-                    onClick={() => removeSchedule(index)}
                     variant="destructive-soft"
                     size="icon-sm"
-                    className="absolute top-3 right-3"
+                    onClick={() => removeItem("schedules", index)}
                   >
                     <Trash2 />
                   </Button>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2 pr-8">
-                    <div className="space-y-2">
-                      <Label className="text-xs uppercase text-muted-foreground font-bold">
-                        From Day
-                      </Label>
-                      <select
-                        className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:ring-ring"
-                        value={item.startDay || 1}
-                        onChange={(e) =>
-                          updateSchedule(
-                            index,
-                            "startDay",
-                            parseInt(e.target.value),
-                          )
-                        }
-                      >
-                        {DAY_OPTIONS.map((d) => (
-                          <option key={d.value} value={d.value}>
-                            {d.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label className="text-xs uppercase text-muted-foreground font-bold">
-                        To Day (Optional)
-                      </Label>
-                      <select
-                        className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:ring-1 focus-visible:ring-ring"
-                        value={item.endDay || 0}
-                        onChange={(e) =>
-                          updateSchedule(
-                            index,
-                            "endDay",
-                            parseInt(e.target.value),
-                          )
-                        }
-                      >
-                        <option value={0}>-- None (Single Day) --</option>
-                        {DAY_OPTIONS.map((d) => (
-                          <option key={d.value} value={d.value}>
-                            {d.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label className="text-xs uppercase text-muted-foreground font-bold">
-                        Hours
-                      </Label>
-                      <Input
-                        placeholder="09:30 - 21:30"
-                        value={item.hours}
-                        onChange={(e) =>
-                          updateSchedule(index, "hours", e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
                 </div>
               ))}
-              {formData.schedules.length === 0 && (
-                <p className="text-sm text-muted-foreground italic">
-                  No schedules added yet.
-                </p>
-              )}
-            </CardContent>
-          </Card>
+            </div>
+          </FormSection>
         </TabsContent>
 
         {/* TAB 3: LINKS & PARTNERS */}
         <TabsContent value="links" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Social Media & Booking</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label>Booking Link</Label>
+          <FormSection title="Social Media">
+            <FormGrid cols={3}>
+              <FormField label="Booking Link (Fresha)">
                 <Input
                   value={formData.freshaUrl}
-                  onChange={(e) =>
-                    setFormData({ ...formData, freshaUrl: e.target.value })
-                  }
-                  placeholder="https://..."
+                  onChange={(e) => updateField("freshaUrl", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Facebook URL</Label>
+              </FormField>
+              <FormField label="Facebook">
                 <Input
                   value={formData.facebookUrl}
-                  onChange={(e) =>
-                    setFormData({ ...formData, facebookUrl: e.target.value })
-                  }
-                  placeholder="https://..."
+                  onChange={(e) => updateField("facebookUrl", e.target.value)}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label>Instagram URL</Label>
+              </FormField>
+              <FormField label="Instagram">
                 <Input
                   value={formData.instagramUrl}
-                  onChange={(e) =>
-                    setFormData({ ...formData, instagramUrl: e.target.value })
-                  }
-                  placeholder="https://..."
+                  onChange={(e) => updateField("instagramUrl", e.target.value)}
                 />
-              </div>
-            </CardContent>
-          </Card>
+              </FormField>
+            </FormGrid>
+          </FormSection>
 
-          <Card>
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <CardTitle>Collaborations & Partners</CardTitle>
-                <Button
-                  type="button"
-                  onClick={addPartner}
-                  variant="soft"
-                  size="sm-pill"
-                >
-                  <Plus /> Add Partner
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <FormSection
+            title="Collaborations"
+            action={
+              <Button
+                variant="soft"
+                size="sm-pill"
+                onClick={() => addItem("partners", { name: "", url: "" })}
+              >
+                <Plus className="size-3 mr-1" /> Add Partner
+              </Button>
+            }
+          >
+            <FormGrid cols={2}>
               {formData.partners.map((partner: any, index: number) => (
                 <div
                   key={index}
-                  className="flex gap-4 items-center bg-muted/30 p-4 rounded-lg border border-border"
+                  className="flex gap-4 items-end bg-muted/20 p-4 rounded-xl border border-border"
                 >
-                  <div className="flex-1 space-y-2">
-                    <Label>Brand Name</Label>
-                    <Input
-                      value={partner.name}
-                      onChange={(e) =>
-                        updatePartner(index, "name", e.target.value)
-                      }
-                    />
+                  <div className="flex-1">
+                    <FormField label="Brand Name">
+                      <Input
+                        value={partner.name}
+                        onChange={(e) =>
+                          updateItem("partners", index, "name", e.target.value)
+                        }
+                      />
+                    </FormField>
                   </div>
-                  <div className="flex-1 space-y-2">
-                    <Label>Website URL</Label>
-                    <Input
-                      value={partner.url}
-                      onChange={(e) =>
-                        updatePartner(index, "url", e.target.value)
-                      }
-                    />
+                  <div className="flex-1">
+                    <FormField label="URL">
+                      <Input
+                        value={partner.url}
+                        onChange={(e) =>
+                          updateItem("partners", index, "url", e.target.value)
+                        }
+                      />
+                    </FormField>
                   </div>
-
-                  {/* CLEAN TRASH BUTTON HERE */}
                   <Button
-                    type="button"
-                    onClick={() => removePartner(index)}
                     variant="destructive-soft"
                     size="icon-sm"
-                    className="mt-6"
+                    onClick={() => removeItem("partners", index)}
                   >
                     <Trash2 />
                   </Button>
                 </div>
               ))}
-              {formData.partners.length === 0 && (
-                <p className="text-sm text-muted-foreground italic">
-                  No partners added yet.
-                </p>
-              )}
-            </CardContent>
-          </Card>
+            </FormGrid>
+          </FormSection>
         </TabsContent>
 
         {/* TAB 4: CONTENT & MEDIA */}
         <TabsContent value="content" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Marketing Text</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <LanguageTabs headerText="Manage translatable marketing text">
-                {(lang) => (
-                  <div className="space-y-6">
-                    <div className="space-y-2">
-                      <Label>Hero Tagline ({lang.toUpperCase()})</Label>
-                      <Input
-                        value={formData.heroTagline[lang] || ""}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            heroTagline: {
-                              ...formData.heroTagline,
-                              [lang]: e.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>About Us Text ({lang.toUpperCase()})</Label>
-                      <Textarea
-                        rows={6}
-                        value={formData.aboutUsText[lang] || ""}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            aboutUsText: {
-                              ...formData.aboutUsText,
-                              [lang]: e.target.value,
-                            },
-                          })
-                        }
-                      />
-                    </div>
-                  </div>
-                )}
-              </LanguageTabs>
-            </CardContent>
-          </Card>
+          <FormSection title="Marketing Copy">
+            <I18nField
+              label="Hero Tagline"
+              value={formData.heroTagline}
+              onChange={(l, v) => updateI18n("heroTagline", l, v)}
+            />
+            <I18nField
+              label="About Us Text"
+              type="textarea"
+              rows={6}
+              value={formData.aboutUsText}
+              onChange={(l, v) => updateI18n("aboutUsText", l, v)}
+            />
+          </FormSection>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Visual Assets</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-                <Label className="text-base font-semibold">Brand Logo</Label>
+          <FormSection title="Visual Assets">
+            <FormGrid cols={4}>
+              <FormField label="Brand Logo">
                 <ImageUploadField
-                  label=""
                   currentImage={formData.logoUrl}
-                  aspectRatioClass="aspect-video max-w-[200px]"
-                  onUploadSuccess={(url) =>
-                    setFormData({ ...formData, logoUrl: url })
-                  }
+                  aspectRatioClass="aspect-video"
+                  onUploadSuccess={(url) => updateField("logoUrl", url)}
                 />
-              </div>
-              <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-                <Label className="text-base font-semibold">Favicon</Label>
+              </FormField>
+              <FormField label="Favicon">
                 <ImageUploadField
-                  label=""
                   currentImage={formData.faviconUrl}
                   aspectRatioClass="aspect-square max-w-[80px]"
-                  onUploadSuccess={(url) =>
-                    setFormData({ ...formData, faviconUrl: url })
-                  }
+                  onUploadSuccess={(url) => updateField("faviconUrl", url)}
                 />
-              </div>
-              <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-                <Label className="text-base font-semibold">
-                  About Us Image
-                </Label>
+              </FormField>
+              <FormField label="About Image">
                 <ImageUploadField
-                  label=""
                   currentImage={formData.aboutImage}
-                  aspectRatioClass="aspect-[3/4] max-w-[200px]"
-                  onUploadSuccess={(url) =>
-                    setFormData({ ...formData, aboutImage: url })
-                  }
+                  aspectRatioClass="aspect-[3/4]"
+                  onUploadSuccess={(url) => updateField("aboutImage", url)}
                 />
-              </div>
-              <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border md:col-span-2">
-                <Label className="text-base font-semibold">
-                  Gift Card PDF Background
-                </Label>
+              </FormField>
+              <FormField label="Gift Card Background">
                 <ImageUploadField
-                  label=""
                   currentImage={formData.pdfBackgroundUrl}
-                  aspectRatioClass="aspect-[1724/947]"
-                  uploadType="pdf-bg"
+                  aspectRatioClass="aspect-video"
                   onUploadSuccess={(url) =>
-                    setFormData({ ...formData, pdfBackgroundUrl: url })
+                    updateField("pdfBackgroundUrl", url)
                   }
                 />
-              </div>
-            </CardContent>
-          </Card>
+              </FormField>
+            </FormGrid>
+          </FormSection>
         </TabsContent>
       </Tabs>
 
-      {/* FIXED FOOTER */}
       <div className="fixed bottom-0 left-0 right-0 md:left-64 p-4 bg-background border-t border-border z-50 flex justify-end">
-        <Button
-          type="button"
-          onClick={handleSave}
-          disabled={loading}
-          className="px-6" // Adds a bit more padding if you want it wider
-        >
+        <Button onClick={handleSave} disabled={loading} className="px-8">
           {loading ? "Saving..." : "Save Settings"}
         </Button>
       </div>

@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Tabs, TabsList, TabsTab, TabsPanel } from "@/components/ui/tabs";
+import { cn } from "@/app/lib/utils";
 
 const LANGUAGES = [
   { code: "es", label: "Español 🇪🇸", short: "ES" },
@@ -9,33 +10,76 @@ const LANGUAGES = [
   { code: "ca", label: "Català 🟦", short: "CA" },
 ] as const;
 
-// Define the exact literal type so TypeScript can help us in the form
 export type LangCode = "es" | "en" | "ca";
 
 interface LanguageTabsProps {
-  headerText: string;
+  headerText?: string; // 1. NOW OPTIONAL!
   className?: string;
   useShortLabels?: boolean;
-  // This is the magic "Render Prop". It passes the current language code down to whatever is inside!
+  variant?: "card" | "inline"; // 2. SUPPORT FOR COMPACT OR CARD LAYOUTS
   children: (lang: LangCode) => React.ReactNode;
 }
 
 export default function LanguageTabs({
   headerText,
-  className = "",
+  className,
   useShortLabels = false,
+  variant = "card",
   children,
 }: LanguageTabsProps) {
+  // --- INLINE MODE (For small fields like Input / Textarea inside forms) ---
+  if (variant === "inline") {
+    return (
+      <Tabs defaultValue="es" className={cn("w-full space-y-1.5", className)}>
+        <div className="flex justify-between items-center">
+          {headerText && (
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              {headerText}
+            </span>
+          )}
+          <TabsList
+            variant="underline"
+            className="h-7 border-none bg-transparent p-0"
+          >
+            {LANGUAGES.map((lang) => (
+              <TabsTab
+                key={lang.code}
+                value={lang.code}
+                className="px-2 py-0.5 text-xs"
+              >
+                {useShortLabels ? lang.short : lang.label}
+              </TabsTab>
+            ))}
+          </TabsList>
+        </div>
+
+        {LANGUAGES.map((lang) => (
+          <TabsPanel key={lang.code} value={lang.code} className="outline-none">
+            {children(lang.code)}
+          </TabsPanel>
+        ))}
+      </Tabs>
+    );
+  }
+
+  // --- CARD MODE (For wrapping entire form sections) ---
   return (
     <Tabs
       defaultValue="es"
-      className={`border border-gray-200 rounded-xl overflow-hidden bg-white ${className}`}
+      className={cn(
+        "border border-border rounded-xl overflow-hidden bg-background shadow-sm",
+        className,
+      )}
     >
-      {/* HEADER */}
-      <div className="px-4 py-2 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-        <span className="text-xs font-bold text-gray-400 uppercase">
-          {headerText}
-        </span>
+      {/* HEADER BAR */}
+      <div className="px-4 py-2 border-b border-border bg-muted/40 flex justify-between items-center min-h-[42px]">
+        {headerText ? (
+          <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+            {headerText}
+          </span>
+        ) : (
+          <span />
+        )}
         <TabsList variant="underline">
           {LANGUAGES.map((lang) => (
             <TabsTab key={lang.code} value={lang.code}>
@@ -45,10 +89,9 @@ export default function LanguageTabs({
         </TabsList>
       </div>
 
-      {/* CONTENT PANELS */}
+      {/* PANELS */}
       {LANGUAGES.map((lang) => (
         <TabsPanel key={lang.code} value={lang.code} className="outline-none">
-          {/* We execute the children function and pass it the current language! */}
           {children(lang.code)}
         </TabsPanel>
       ))}

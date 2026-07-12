@@ -16,6 +16,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import { FormSection } from "@/components/admin/form-logic/form-section";
+import { Plus, Trash2 } from "lucide-react";
+import { FormField } from "@/components/admin/form-logic/form-field";
+import { Input } from "@/components/ui/input";
+import { I18nField } from "@/components/admin/form-logic/i18-field";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -29,27 +35,17 @@ export default function TreatmentForm({ initialData, categories }: any) {
   const router = useRouter();
   const [formData, setFormData] = useState(initialData);
   const [variants, setVariants] = useState(initialData.variants || []);
-  const [isSaving, setIsSaving] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
 
-  const [alertConfig, setAlertConfig] = useState({
-    open: false,
-    title: "",
-    description: "",
-    type: "success" as "success" | "error",
-  });
+  const updateField = (f: string, v: any) =>
+    setFormData((p: any) => ({ ...p, [f]: v }));
+  const updateI18n = (f: string, l: string, v: string) =>
+    setFormData((p: any) => ({ ...p, [f]: { ...p[f], [l]: v } }));
 
   const isEdit = !!initialData?.id;
 
-  const updateI18n = (lang: string, field: string, value: string) => {
-    setFormData((prev: any) => ({
-      ...prev,
-      // Add `|| {}` here to prevent crashes on completely new fields
-      [field]: { ...(prev[field] || {}), [lang]: value },
-    }));
-  };
-
-  const addVariant = () => {
+  const addVariant = () =>
     setVariants([
       ...variants,
       {
@@ -58,15 +54,12 @@ export default function TreatmentForm({ initialData, categories }: any) {
         price: "60.00",
         sessionsCount: 1,
         prefix: { es: "", ca: "", en: "" },
-        suffix: { es: "", ca: "", en: "" },
       },
     ]);
-  };
-
-  const updateVariant = (index: number, field: string, value: any) => {
-    const newVariants = [...variants];
-    newVariants[index] = { ...newVariants[index], [field]: value };
-    setVariants(newVariants);
+  const updateVariant = (i: number, f: string, v: any) => {
+    const newV = [...variants];
+    newV[i] = { ...newV[i], [f]: v };
+    setVariants(newV);
   };
 
   const removeVariant = (index: number) => {
@@ -76,7 +69,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
   };
 
   async function handleSave() {
-    setIsSaving(true);
+    setLoading(true);
     try {
       const payload = { ...formData, variants };
       const url = isEdit
@@ -95,14 +88,14 @@ export default function TreatmentForm({ initialData, categories }: any) {
     } catch (error) {
       console.error("Update failed");
     } finally {
-      setIsSaving(false);
+      setLoading(false);
     }
   }
 
   // 👇 COMPLETED DELETE LOGIC 👇
   async function handleDelete() {
     if (!isEdit) return;
-    setIsSaving(true);
+    setLoading(true);
     try {
       const res = await fetch(`/api/admin/treatments/${initialData.id}`, {
         method: "DELETE",
@@ -114,58 +107,48 @@ export default function TreatmentForm({ initialData, categories }: any) {
     } catch (error) {
       console.error("Delete failed");
     } finally {
-      setIsSaving(false);
+      setLoading(false);
     }
   }
   return (
     <div className="space-y-6 pb-24 max-w-7xl mx-auto">
-      {/* ROW 1: SPLIT 1/4 & 3/4 */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
-        {/* 1/4 COLUMN: Emoji & Category */}
-        <div className="md:col-span-1 bg-white p-5 rounded-xl shadow-sm border border-gray-200 space-y-5">
-          <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              Icon
-            </label>
+      {/* SECTION 1: PRIMARY CONFIG */}
+      <FormSection title="Identity & Placement">
+        <FormGrid cols={4}>
+          <FormField label="Icon">
             <div className="relative">
               <button
                 type="button"
-                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                className="flex h-16 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 text-3xl hover:bg-gray-100 transition-colors cursor-pointer"
+                onClick={() => setShowEmoji(!showEmoji)}
+                className="h-10 w-full rounded-md border border-input bg-background text-xl hover:bg-muted/50 transition-colors"
               >
                 {formData.emoji || "🌸"}
               </button>
-              {showEmojiPicker && (
-                <div className="absolute left-0 top-18 z-50 shadow-2xl">
-                  <div
-                    className="fixed inset-0"
-                    onClick={() => setShowEmojiPicker(false)}
+              {showEmoji && (
+                <div className="absolute z-50 mt-2">
+                  <EmojiPicker
+                    onEmojiClick={(e) => {
+                      updateField("emoji", e.emoji);
+                      setShowEmoji(false);
+                    }}
                   />
-                  <div className="relative z-50">
-                    <EmojiPicker
-                      onEmojiClick={(e) => {
-                        setFormData({ ...formData, emoji: e.emoji });
-                        setShowEmojiPicker(false);
-                      }}
-                    />
-                  </div>
                 </div>
               )}
             </div>
-          </div>
+          </FormField>
 
-          <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              Category
-            </label>
+          <FormField label="Category">
             <Select
               value={formData.categoryId}
-              onValueChange={(value) =>
-                setFormData({ ...formData, categoryId: value })
-              }
+              onValueChange={(v) => updateField("categoryId", v)}
             >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select a category" />
+              <SelectTrigger>
+                <SelectValue placeholder="Select Category">
+                  {
+                    categories.find((c: any) => c.id === formData.categoryId)
+                      ?.title.es
+                  }
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {categories.map((c: any) => (
@@ -175,292 +158,177 @@ export default function TreatmentForm({ initialData, categories }: any) {
                 ))}
               </SelectContent>
             </Select>
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              URL Slug
-            </label>
-            <input
-              type="text"
-              className="w-full rounded-lg border-gray-300 text-sm py-2"
-              placeholder="e.g. thai-massage"
-              value={formData.slug || ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  slug: e.target.value.toLowerCase().replace(/\s+/g, "-"),
-                })
-              }
-            />
-            <p className="text-[10px] text-gray-400 mt-1">
-              Unique ID for the link.
-            </p>
-          </div>
-        </div>
+          </FormField>
 
-        {/* 3/4 COLUMN: Multilingual Title/Tagline */}
-        <div className="md:col-span-3">
-          {/* IDENTITY & TRANSLATIONS */}
-          <LanguageTabs
-            headerText="Identity & Translations"
-            className="shadow-sm"
-          >
-            {(lang) => (
-              <div className="p-5 space-y-4">
-                <div className="grid grid-cols-1 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">
-                      Title
-                    </label>
-                    <input
-                      className="form-input w-full rounded-lg border-gray-300 focus:ring-blue-500 font-semibold"
-                      placeholder="Treatment name..."
-                      value={formData.title[lang] || ""}
-                      onChange={(e) =>
-                        updateI18n(lang, "title", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">
-                      Tagline (Short Summary)
-                    </label>
-                    <input
-                      className="form-input w-full rounded-lg border-gray-300 focus:ring-blue-500"
-                      placeholder="A brief catchphrase..."
-                      value={formData.tagline[lang] || ""}
-                      onChange={(e) =>
-                        updateI18n(lang, "tagline", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">
-                      Short Description
-                    </label>
-                    <textarea
-                      rows={3}
-                      className="form-textarea w-full rounded-lg border-gray-300 focus:ring-blue-500 text-sm"
-                      placeholder="Brief overview used on cards and grid layouts..."
-                      value={formData.shortDescription?.[lang] || ""}
-                      onChange={(e) =>
-                        updateI18n(lang, "shortDescription", e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </LanguageTabs>
-        </div>
-      </div>
-
-      {/* ROW 2: PRICES (COLLAPSIBLE - Active by default) */}
-      <Accordion id="prices-accordion" title="Prices & Durations" active={true}>
-        <div className="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
-          <p className="text-xs text-gray-500">
-            Configure time and pricing variants for this treatment.
-          </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={addVariant}
-            className="text-blue-600 border-blue-200 hover:bg-blue-50"
-          >
-            + Add Option
-          </Button>
-        </div>
-
-        <div className="space-y-3">
-          {variants.map((v: any, index: number) => (
-            <div
-              key={index}
-              className="flex flex-wrap md:flex-nowrap items-center gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200"
+          <div className="md:col-span-2">
+            <FormField
+              label="URL Slug"
+              description="e.g. 'thai-massage-classic'"
             >
-              <div className="w-24">
-                <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
-                  Time
-                </label>
-                <input
-                  type="number"
-                  className="w-full rounded border-gray-300 text-sm py-1"
-                  value={v.duration}
-                  onChange={(e) =>
-                    updateVariant(index, "duration", e.target.value)
-                  }
-                />
-              </div>
+              <Input
+                value={formData.slug}
+                onChange={(e) =>
+                  updateField(
+                    "slug",
+                    e.target.value.toLowerCase().replace(/\s+/g, "-"),
+                  )
+                }
+              />
+            </FormField>
+          </div>
+        </FormGrid>
+
+        <FormGrid cols={2}>
+          <I18nField
+            label="Treatment Title"
+            value={formData.title}
+            onChange={(l, v) => updateI18n("title", l, v)}
+          />
+          <I18nField
+            label="Tagline (Catchphrase)"
+            value={formData.tagline}
+            onChange={(l, v) => updateI18n("tagline", l, v)}
+          />
+        </FormGrid>
+        <I18nField
+          label="Short Description"
+          type="textarea"
+          value={formData.shortDescription}
+          onChange={(l, v) => updateI18n("shortDescription", l, v)}
+        />
+      </FormSection>
+
+      {/* SECTION 2: PRICES & PROMOS */}
+      <FormSection
+        title="Pricing & Availability"
+        action={
+          <Button variant="soft" size="sm-pill" onClick={addVariant}>
+            <Plus className="mr-1 size-3" /> Add Option
+          </Button>
+        }
+      >
+        <div className="space-y-3">
+          {variants.map((v: any, i: number) => (
+            <div
+              key={i}
+              className="flex flex-wrap items-end gap-3 p-4 bg-muted/20 border border-border rounded-xl relative group"
+            >
               <div className="w-20">
-                <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
-                  Unit
-                </label>
-                <select
-                  className="w-full rounded border-gray-300 text-sm py-1"
-                  value={v.unit}
-                  onChange={(e) => updateVariant(index, "unit", e.target.value)}
-                >
-                  <option value="min">Mins</option>
-                  <option value="pax">Pax</option>
-                </select>
-              </div>
-              <div className="w-20 bg-info-background p-2 rounded-lg border border-info-border">
-                <label className="block text-[10px] uppercase font-bold text-info mb-1">
-                  Sessions
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  className="w-full rounded border-info-border text-sm py-1 font-bold text-center bg-white"
-                  value={v.sessionsCount || 1}
-                  onChange={(e) =>
-                    updateVariant(
-                      index,
-                      "sessionsCount",
-                      parseInt(e.target.value) || 1,
-                    )
-                  }
-                />
+                <FormField label="Mins">
+                  <Input
+                    type="number"
+                    value={v.duration}
+                    onChange={(e) =>
+                      updateVariant(i, "duration", e.target.value)
+                    }
+                  />
+                </FormField>
               </div>
               <div className="w-24">
-                <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
-                  Price (€)
-                </label>
-                <input
-                  type="number"
-                  step="1.00"
-                  className="w-full rounded border-gray-300 text-sm py-1 font-bold text-blue-700"
-                  value={v.price}
-                  onChange={(e) =>
-                    updateVariant(index, "price", e.target.value)
-                  }
-                />
+                <FormField label="Price €">
+                  <Input
+                    type="number"
+                    className="font-bold text-primary"
+                    value={v.price}
+                    onChange={(e) => updateVariant(i, "price", e.target.value)}
+                  />
+                </FormField>
               </div>
-              {/* 2. PROMOTION FIELDS (New!) */}
-              <div className="w-28 bg-warning-background p-2 rounded-lg border border-warning-border">
-                <label className="block text-[10px] uppercase font-bold text-warning mb-1">
-                  Promo €
-                </label>
-                <input
-                  type="number"
-                  step="1.00"
-                  placeholder="None"
-                  className="form-input w-full text-sm py-1.5 bg-white border-warning-border"
-                  value={v.promotionalPrice || ""}
-                  onChange={(e) =>
-                    updateVariant(index, "promotionalPrice", e.target.value)
-                  }
-                />
+              <div className="w-24 p-2 bg-warning-background rounded-lg border border-warning-border">
+                <FormField label="Promo €">
+                  <Input
+                    type="number"
+                    value={v.promotionalPrice || ""}
+                    onChange={(e) =>
+                      updateVariant(i, "promotionalPrice", e.target.value)
+                    }
+                  />
+                </FormField>
               </div>
-
-              <div className="w-40 bg-amber-50 p-2 rounded-lg border border-amber-100">
-                <label className="block text-[10px] uppercase font-bold text-amber-600 mb-1">
-                  Expires On
-                </label>
-                <input
-                  type="date"
-                  className="form-input w-full text-sm py-1.5 bg-white border-amber-200"
-                  value={
-                    v.promoEndsAt
-                      ? new Date(v.promoEndsAt).toISOString().split("T")[0]
-                      : ""
-                  }
-                  onChange={(e) =>
-                    updateVariant(index, "promoEndsAt", e.target.value)
-                  }
-                />
+              <div className="w-40 p-2 bg-highlight-background rounded-lg border border-highlight-border">
+                <FormField label="Expires">
+                  <Input
+                    type="date"
+                    value={
+                      v.promoEndsAt
+                        ? new Date(v.promoEndsAt).toISOString().split("T")[0]
+                        : ""
+                    }
+                    onChange={(e) =>
+                      updateVariant(i, "promoEndsAt", e.target.value)
+                    }
+                  />
+                </FormField>
               </div>
-
               <div className="flex-1">
-                <label className="block text-[10px] uppercase font-bold text-gray-400 mb-1">
-                  Tag (Optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Traditional"
-                  className="w-full rounded border-gray-300 text-sm py-1"
-                  value={v.prefix?.es || ""}
-                  onChange={(e) =>
-                    updateVariant(index, "prefix", {
-                      es: e.target.value,
-                      ca: e.target.value,
-                      en: e.target.value,
-                    })
-                  }
-                />
+                <FormField label="Tag (Optional)">
+                  <Input
+                    placeholder="e.g. Traditional"
+                    value={v.prefix?.es || ""}
+                    onChange={(e) =>
+                      updateVariant(i, "prefix", {
+                        es: e.target.value,
+                        ca: e.target.value,
+                        en: e.target.value,
+                      })
+                    }
+                  />
+                </FormField>
               </div>
-              <div className="pt-4">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-400 hover:text-red-500"
-                  onClick={() => removeVariant(index)}
-                >
-                  🗑️
-                </Button>
-              </div>
+              <Button
+                variant="destructive-soft"
+                size="icon-sm"
+                onClick={() => removeVariant(i)}
+              >
+                <Trash2 />
+              </Button>
             </div>
           ))}
-          {variants.length === 0 && (
-            <p className="text-sm text-gray-400 italic text-center py-4">
-              No prices added yet. Click "+ Add Option".
-            </p>
-          )}
         </div>
-      </Accordion>
+      </FormSection>
 
-      {/* ROW 3: LONG DESCRIPTION (COLLAPSIBLE) */}
-      <Accordion
-        id="description-accordion"
-        title="Long Description (Markdown)"
-        active={false}
-      >
-        <LanguageTabs
-          headerText="Edit content detailing the experience."
-          useShortLabels
-        >
+      {/* SECTION 3: MARKDOWN CONTENT */}
+      <FormSection title="Detailed Experience (Markdown content)">
+        <LanguageTabs variant="inline" useShortLabels>
           {(lang) => (
-            <div data-color-mode="light" className="p-0">
+            <div
+              data-color-mode="light"
+              className="mt-2 border rounded-md overflow-hidden"
+            >
               <MDEditor
                 value={formData.longDescription[lang] || ""}
                 onChange={(val) =>
-                  updateI18n(lang, "longDescription", val || "")
+                  updateI18n("longDescription", lang, val || "")
                 }
                 preview="edit"
-                height={350}
-                className="rounded-none border-0"
+                height={300}
               />
             </div>
           )}
         </LanguageTabs>
-      </Accordion>
-      {/* ROW 4: IMAGES & MEDIA (COLLAPSIBLE) */}
-      <Accordion id="images-accordion" title="Images & Media" active={false}>
-        <div className="p-4 bg-white grid grid-cols-1 md:grid-cols-2 gap-8">
-          <ImageUploadField
-            label="Card Image"
-            description="Used in the grid on the category pages (Portrait)."
-            currentImage={formData.image}
-            aspectRatioClass="aspect-[3/4] max-w-[250px]"
-            onUploadSuccess={(url) => setFormData({ ...formData, image: url })}
-          />
+      </FormSection>
 
+      {/* SECTION 4: MEDIA */}
+      <Accordion title="Images & Banners" active={false}>
+        <FormGrid cols={2}>
           <ImageUploadField
-            label="Detail Page Background"
-            description="Used as the wide hero banner when reading about the treatment."
-            currentImage={formData.backgroundImage}
-            aspectRatioClass="aspect-video"
-            onUploadSuccess={(url) =>
-              setFormData({ ...formData, backgroundImage: url })
-            }
+            label="Card Image (3:4)"
+            currentImage={formData.image}
+            onUploadSuccess={(url) => updateField("image", url)}
           />
-        </div>
+          <ImageUploadField
+            label="Wide Background Banner"
+            currentImage={formData.backgroundImage}
+            onUploadSuccess={(url) => updateField("backgroundImage", url)}
+          />
+        </FormGrid>
       </Accordion>
-      {/* REUSABLE FLOATING FOOTER */}
+
       <AdminFormFooter
-        isLoading={isSaving}
+        isLoading={loading}
         onSave={handleSave}
         onDelete={handleDelete}
-        isEdit={!!initialData} // If initialData exists, it's an edit, so the Delete button will show
+        isEdit={!!initialData.id}
       />
     </div>
   );
