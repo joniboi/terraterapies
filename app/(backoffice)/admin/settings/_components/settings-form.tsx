@@ -362,6 +362,7 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
                 <ImageUploadField
                   currentImage={formData.pdfBackgroundUrl}
                   aspectRatioClass="aspect-video"
+                  uploadType="pdf-bg"
                   onUploadSuccess={(url) =>
                     updateField("pdfBackgroundUrl", url)
                   }
