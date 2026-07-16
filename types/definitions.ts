@@ -90,6 +90,7 @@ export interface Dictionary {
   home: {
     hero: {
       cta: string;
+      ctaGift?: string; // Optional, in case not present in some languages
     };
     categories: {
       title: string;
@@ -100,6 +101,16 @@ export interface Dictionary {
       title: string;
       subtitle: string;
     };
+  };
+  giftStore: {
+    title: string;
+    subtitle: string;
+    searchPlaceholder: string;
+    allTreatments: string;
+    noResults: string;
+    bookDirect: string;
+    giftButton: string;
+    viewDetails: string;
   };
   booking: {
     bookBtn: string;

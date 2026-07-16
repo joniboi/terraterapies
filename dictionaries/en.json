@@ -14,7 +14,8 @@
   },
   "home": {
     "hero": {
-      "cta": "Book now"
+      "cta": "Book now",
+      "ctaGift": "Gift a Treatment"
     },
     "categories": {
       "title": "Our Massages",
@@ -38,6 +39,16 @@
       "fillAll": "Please fill in all fields",
       "error": "Error processing payment. Please try again."
     }
+  },
+  "giftStore": {
+    "title": "Gift an Experience",
+    "subtitle": "Browse and choose the perfect treatment for someone special.",
+    "searchPlaceholder": "Search massages, benefits, conditions...",
+    "allTreatments": "All treatments",
+    "noResults": "We couldn't find any treatments.",
+    "bookDirect": "Just want to book an appointment for yourself? Do it here",
+    "giftButton": "Gift this treatment",
+    "viewDetails": "View details"
   },
   "giftCard": {
     "title": "Gift Card",

@@ -11,6 +11,7 @@ export const routes = {
   about: "/about",
   faq: "/faq",
   success: "/success", // After payment
+  gift: "/gift",
 
   // Dynamic pages from services
   category: (categorySlug: string) => `/${categorySlug}`,

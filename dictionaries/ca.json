@@ -14,7 +14,8 @@
   },
   "home": {
     "hero": {
-      "cta": "Reserva ara"
+      "cta": "Reserva ara",
+      "ctaGift": "Regala un tractament"
     },
     "categories": {
       "title": "Els nostres massatges",
@@ -38,6 +39,16 @@
       "fillAll": "Si us plau, omple totes les dades",
       "error": "Error en processar el pagament. Torna-ho a provar."
     }
+  },
+  "giftStore": {
+    "title": "Regala una Experiència",
+    "subtitle": "Busca i tria el tractament perfecte per a aquella persona especial.",
+    "searchPlaceholder": "Busca massatges, beneficis, molèsties...",
+    "allTreatments": "Tots els tractaments",
+    "noResults": "No hem trobat cap tractament.",
+    "bookDirect": "Només vols reservar una cita per a tu? Fes-ho aquí",
+    "giftButton": "Regala aquest tractament",
+    "viewDetails": "Veure detalls"
   },
   "giftCard": {
     "title": "Targeta Regal",
