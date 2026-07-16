@@ -48,7 +48,8 @@
     "noResults": "No hem trobat cap tractament.",
     "bookDirect": "Només vols reservar una cita per a tu? Fes-ho aquí",
     "giftButton": "Regala aquest tractament",
-    "viewDetails": "Veure detalls"
+    "viewDetails": "Veure detalls",
+    "fromPrice": "Des de"
   },
   "giftCard": {
     "title": "Targeta Regal",

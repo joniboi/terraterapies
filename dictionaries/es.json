@@ -48,7 +48,8 @@
     "noResults": "No hemos encontrado ningún tratamiento.",
     "bookDirect": "¿Solo quieres reservar cita para ti? Hazlo aquí",
     "giftButton": "Regalar este tratamiento",
-    "viewDetails": "Ver detalles"
+    "viewDetails": "Ver detalles",
+    "fromPrice": "Desde"
   },
   "giftCard": {
     "title": "Tarjeta de regalo",

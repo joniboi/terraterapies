@@ -111,6 +111,7 @@ export interface Dictionary {
     bookDirect: string;
     giftButton: string;
     viewDetails: string;
+    fromPrice: string;
   };
   booking: {
     bookBtn: string;

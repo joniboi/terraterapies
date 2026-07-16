@@ -48,7 +48,8 @@
     "noResults": "We couldn't find any treatments.",
     "bookDirect": "Just want to book an appointment for yourself? Do it here",
     "giftButton": "Gift this treatment",
-    "viewDetails": "View details"
+    "viewDetails": "View details",
+    "fromPrice": "From"
   },
   "giftCard": {
     "title": "Gift Card",

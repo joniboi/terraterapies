@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, Info, Gift } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { PricingPills } from "@/components/treatment/pricing-pills";
+import { Button } from "@/components/ui/button"; // 🚀 Import your Button
+import { PriceFrom } from "@/components/treatment/price-from"; // 🚀 Import the new component
 import { PromoBadge } from "@/components/ui/promo-badge";
 import { ServicesData } from "@/types/definitions";
 
@@ -19,8 +20,8 @@ export default function GiftCatalogClient({
   dict: any;
 }) {
   const [search, setSearch] = useState("");
+  const storeDict = dict.giftStore;
 
-  // Flatten all treatments for the search, but keep them grouped for the UI
   const filteredNavItems = useMemo(() => {
     const query = search.toLowerCase();
     if (!query) return servicesData.navItems;
@@ -45,15 +46,13 @@ export default function GiftCatalogClient({
 
   return (
     <div className="flex flex-col gap-10">
-      {/* 🔍 SEARCH BAR - Sticky on Mobile */}
+      {/* 🔍 SEARCH BAR */}
       <div className="sticky top-20 z-20 bg-background/95 backdrop-blur-sm py-4">
         <div className="max-w-md mx-auto relative group">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
           <Input
             className="pl-10 h-12 rounded-2xl border-border shadow-lg focus:ring-primary/20"
-            placeholder={
-              dict.giftStore?.searchPlaceholder || "Busca un masaje..."
-            }
+            placeholder={storeDict?.searchPlaceholder || "Busca un masaje..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -68,17 +67,19 @@ export default function GiftCatalogClient({
             className="animate-in fade-in slide-in-from-bottom-4 duration-500"
           >
             <h2 className="text-2xl font-bold flex items-center gap-2 mb-8 text-foreground border-b pb-4">
-              <span>{navItem.emoji}</span> {navItem.label}
+              <span>{navItem.emoji}</span>{" "}
+              {search ? storeDict?.allTreatments : navItem.label}
             </h2>
 
             <div className="space-y-12">
               {navItem.categories.map((cat) => (
                 <div key={cat.slug} className="space-y-6">
-                  <h3 className="text-muted-foreground font-semibold uppercase tracking-widest text-xs">
+                  <h3 className="text-muted-foreground font-semibold uppercase tracking-widest text-xs flex items-center gap-2">
+                    <div className="h-px w-6 bg-border" />
                     {cat.title}
                   </h3>
 
-                  {/* ADAPTIVE GRID: 1 col on mobile, 2 col on tablet, 3 col on desktop */}
+                  {/* ADAPTIVE GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {cat.subcategories.map((sub) => (
                       <div
@@ -86,7 +87,7 @@ export default function GiftCatalogClient({
                         className="flex flex-col bg-card rounded-3xl border border-border overflow-hidden hover:shadow-2xl hover:border-primary/30 transition-all duration-300 group"
                       >
                         {/* Image Section */}
-                        <div className="relative aspect-video overflow-hidden">
+                        <div className="relative aspect-video overflow-hidden bg-muted">
                           <Image
                             src={sub.image}
                             alt={sub.title}
@@ -112,20 +113,23 @@ export default function GiftCatalogClient({
                             {sub.shortDescription}
                           </p>
 
-                          {/* REUSABLE PRICING PILLS */}
-                          <div className="mt-auto space-y-4">
-                            <PricingPills
+                          {/* 🚀 THE NEW CLEAN FOOTER SECTION */}
+                          <div className="mt-auto pt-4 border-t border-border/50 space-y-4">
+                            <PriceFrom
                               options={sub.options || []}
-                              baseLink={`/${lang}/${cat.slug}/${sub.slug}`}
+                              label={storeDict?.fromPrice || "Desde"}
                             />
 
-                            <Link
-                              href={`/${lang}/${cat.slug}/${sub.slug}`}
-                              className="flex items-center justify-center gap-2 w-full py-3 bg-primary text-primary-foreground rounded-2xl font-bold hover:bg-primary-hover transition-colors shadow-sm"
+                            <Button
+                              asChild
+                              size="lg"
+                              className="w-full rounded-2xl shadow-sm text-base"
                             >
-                              <Gift className="w-4 h-4" />
-                              {dict.giftStore?.giftButton || "Gift Treatment"}
-                            </Link>
+                              <Link href={`/${lang}/${cat.slug}/${sub.slug}`}>
+                                <Gift className="w-5 h-5 mr-2" />
+                                {storeDict?.giftButton || "Regalar"}
+                              </Link>
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -140,8 +144,7 @@ export default function GiftCatalogClient({
         {filteredNavItems.length === 0 && (
           <div className="text-center py-20 bg-muted/20 rounded-3xl border-2 border-dashed border-border">
             <p className="text-muted-foreground italic">
-              {dict.giftStore?.noResults ||
-                "No se han encontrado tratamientos."}
+              {storeDict?.noResults || "No se han encontrado tratamientos."}
             </p>
           </div>
         )}
