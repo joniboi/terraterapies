@@ -20,6 +20,9 @@ export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_for_build");
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
 
+  const SENDER_EMAIL =
+    process.env.SENDER_EMAIL || "info@terraterapiesthaibali.com";
+
   try {
     const body = await req.json();
     const {
@@ -87,7 +90,7 @@ export async function POST(req: Request) {
     // 3. BRANDED EMAIL TO CUSTOMER
     await resend.emails.send({
       // ✅ DYNAMIC FROM NAME
-      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
+      from: `${settings.businessName} <${SENDER_EMAIL}>`,
       to: [buyerEmail],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
@@ -142,7 +145,7 @@ export async function POST(req: Request) {
 
     // 4. BRANDED NOTIFICATION TO ADMIN
     await resend.emails.send({
-      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
+      from: `${settings.businessName} <${SENDER_EMAIL}>`,
       to: [ADMIN_EMAIL],
       subject: `✅ Tarjeta Manual Generada: ${locator}`,
       html: `
