@@ -14,7 +14,8 @@
   },
   "home": {
     "hero": {
-      "cta": "Reserva ahora"
+      "cta": "Reserva ahora",
+      "ctaGift": "Regala un tratamiento"
     },
     "categories": {
       "title": "Nuestros Masajes",
@@ -38,6 +39,16 @@
       "fillAll": "Por favor rellena todos los datos",
       "error": "Error al procesar el pago. Inténtalo de nuevo."
     }
+  },
+  "giftStore": {
+    "title": "Regala una Experiencia",
+    "subtitle": "Busca y elige el tratamiento perfecto para esa persona especial.",
+    "searchPlaceholder": "Busca masajes, beneficios, dolencias...",
+    "allTreatments": "Todos los tratamientos",
+    "noResults": "No hemos encontrado ningún tratamiento.",
+    "bookDirect": "¿Solo quieres reservar cita para ti? Hazlo aquí",
+    "giftButton": "Regalar este tratamiento",
+    "viewDetails": "Ver detalles"
   },
   "giftCard": {
     "title": "Tarjeta de regalo",

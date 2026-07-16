@@ -2,6 +2,9 @@
 
 import PageIllustration from "@/components/page-illustration";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import { getLocalizedRoute, routes } from "@/app/lib/routes";
+import { Calendar, Gift } from "lucide-react";
 
 // 1. Define the Dictionary Interface
 
@@ -39,23 +42,42 @@ export default function HeroHome({
                 {tagline}
               </p>
               <div
-                className="flex justify-center"
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 max-w-xs sm:max-w-none mx-auto"
                 data-aos="zoom-y-out"
                 data-aos-delay={450}
               >
-                <Button asChild size="lg">
+                {/* ACTION 1: BOOKING */}
+                <Button
+                  asChild
+                  variant="default" // <-- Solid primary
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[220px] shadow-lg"
+                >
                   <a
                     href={bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {dict.cta}
+                    <Calendar className="w-5 h-5 mr-2" />
+                    {dict.cta} {/* "Book Appointment" */}
                   </a>
+                </Button>
+
+                {/* ACTION 2: GIFTING */}
+                <Button
+                  asChild
+                  variant="default" // <-- Exactly the same solid primary
+                  size="lg"
+                  className="w-full sm:w-auto min-w-[220px] shadow-lg"
+                >
+                  <Link href={getLocalizedRoute(routes.gift, lang)}>
+                    <Gift className="w-5 h-5 mr-2" />
+                    {dict.ctaGift || "Gift a Treatment"}
+                  </Link>
                 </Button>
               </div>
             </div>
           </div>
-          {/* ... Hero images stay the same ... */}
         </div>
       </div>
     </section>
