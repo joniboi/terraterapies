@@ -28,9 +28,12 @@ export default async function Home({ params }: PageProps) {
       .orderBy(asc(reviews.orderIndex)),
     db.query.siteSettings.findFirst(),
   ]);
-
+  const businessName = settings?.businessName || "";
   const allCategories = services.navItems.flatMap((item) => item.categories);
-
+  const personalizedSubtitle = dict.home.reviews.subtitle.replace(
+    "{businessName}",
+    businessName,
+  );
   return (
     <>
       <Hero dict={dict.home.hero} settings={settings} lang={lang} />
@@ -47,7 +50,7 @@ export default async function Home({ params }: PageProps) {
         <ReviewsSlider
           lang={lang}
           title={dict.home.reviews.title}
-          subtitle={dict.home.reviews.subtitle}
+          subtitle={personalizedSubtitle}
           reviews={activeReviews}
         />
       )}

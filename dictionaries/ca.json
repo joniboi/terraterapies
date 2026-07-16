@@ -22,7 +22,7 @@
     },
     "reviews": {
       "title": "El que diuen els nostres clients",
-      "subtitle": "Experiències reals a Terrateràpies Thai & Bali"
+      "subtitle": "Experiències reals a {businessName}"
     }
   },
   "booking": {
@@ -48,9 +48,6 @@
     "labelNote": "NOTA ESPECIAL:",
     "labelCode": "CODI:",
     "validity": "Vàlid durant un any des de la data de compra.",
-    "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
-    "addressLine2": "08172 Sant Cugat del Vallès, Barcelona",
-    "phone": "Telèfon: +34603177049",
     "disclaimer": "* Aquest document és un comprovant digital. Els detalls i la validesa d'aquesta targeta regal estan subjectes exclusivament a la verificació del Localitzador de Seguretat a la nostra base de dades. Qualsevol alteració l'invalida automàticament."
   },
   "common": {
@@ -78,11 +75,7 @@
       }
     },
     "collabs": {
-      "title": "Colaboracions",
-      "partners": {
-        "mezzanote": "Pizzeria Mezzanotte",
-        "scens": "Scens"
-      }
+      "title": "Colaboracions"
     },
     "info": {
       "title": "Informació",
@@ -92,9 +85,8 @@
     },
     "social": {
       "title": "Social",
-      "whatsappMsg": "Hola, vull informació sobre Terraterapies Thai & Bali"
-    },
-    "bigText": "Thai&Bali"
+      "whatsappMsg": "Hola, vull informació sobre {businessName}"
+    }
   },
   "faqs": {
     "hero": {
@@ -197,7 +189,7 @@
       "title": "Encara tens dubtes?",
       "subtitle": "Escriu-nos i t’ajudarem tan aviat com sigui possible.",
       "button": "Contactar per WhatsApp",
-      "whatsappMsg": "Hola! Tinc una pregunta sobre Terraterapies Thai & Bali."
+      "whatsappMsg": "Hola! Tinc una pregunta sobre aquest centre."
     }
   },
   "about": {
@@ -208,10 +200,7 @@
     "title": "Contacte",
     "subtitle": "Estem aquí per ajudar-te a trobar el teu moment de pau.",
     "schedule": {
-      "title": "Horari d'obertura",
-      "weekdays": "Dilluns a divendres",
-      "weekends": "Dissabte",
-      "holidays": "Diumenges i festius"
+      "title": "Horari d'obertura"
     },
     "info": {
       "title": "Informació",

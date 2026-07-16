@@ -22,7 +22,7 @@
     },
     "reviews": {
       "title": "What our clients say",
-      "subtitle": "Real experiences at Terrateràpies Thai & Bali"
+      "subtitle": "Real experiences at {businessName}"
     }
   },
   "booking": {
@@ -48,9 +48,6 @@
     "labelNote": "SPECIAL NOTE:",
     "labelCode": "CODE:",
     "validity": "Valid for one year from the date of purchase.",
-    "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
-    "addressLine2": "08172 Sant Cugat del Vallès, Barcelona (Spain)",
-    "phone": "Phone: +34603177049",
     "disclaimer": "* This document is a digital receipt. The details and validity of this gift card are subject exclusively to the verification of the Security Locator in our database. Any alteration automatically voids it."
   },
   "common": {
@@ -76,11 +73,7 @@
       }
     },
     "collabs": {
-      "title": "Collaborations",
-      "partners": {
-        "mezzanote": "Mezzanotte",
-        "scens": "Scens"
-      }
+      "title": "Collaborations"
     },
     "info": {
       "title": "Information",
@@ -90,9 +83,8 @@
     },
     "social": {
       "title": "Social",
-      "whatsappMsg": "Hello, I want information about Terraterapies Thai & Bali"
-    },
-    "bigText": "Thai&Bali"
+      "whatsappMsg": "Hello, I want information about {businessName}"
+    }
   },
   "faqs": {
     "hero": {
@@ -195,7 +187,7 @@
       "title": "Still have questions?",
       "subtitle": "Message us and we’ll help you as soon as possible.",
       "button": "Contact via WhatsApp",
-      "whatsappMsg": "Hi! I have a question about Terraterapies Thai & Bali."
+      "whatsappMsg": "Hi! I have a question about this center."
     }
   },
   "about": {
@@ -206,10 +198,7 @@
     "title": "Contact",
     "subtitle": "We are here to help you find your moment of peace.",
     "schedule": {
-      "title": "Opening Hours",
-      "weekdays": "Monday to Friday",
-      "weekends": "Saturday",
-      "holidays": "Sunday and Holidays"
+      "title": "Opening Hours"
     },
     "info": {
       "title": "Information",

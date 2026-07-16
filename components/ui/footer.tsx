@@ -22,13 +22,16 @@ export default function Footer({
   lang,
   settings,
 }: FooterProps) {
-  const collabs = dict.collabs;
   // Use DB data with fallbacks
   const businessName = settings?.businessName || "";
   const facebookUrl = settings?.facebookUrl || "#";
   const instagramUrl = settings?.instagramUrl || "#";
+  const personalizedMsg = dict.social.whatsappMsg.replace(
+    "{businessName}",
+    businessName,
+  );
   const whatsappUrl = settings?.contactPhone
-    ? formatWhatsAppLink(settings.contactPhone, dict.social.whatsappMsg)
+    ? formatWhatsAppLink(settings.contactPhone, personalizedMsg)
     : "#";
   const partners = settings?.partners || [];
 

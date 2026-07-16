@@ -21,10 +21,22 @@ export default async function SettingsPage() {
       instagramUrl: "",
       freshaUrl: "",
       partners: [],
+      schedules: [],
       aboutImage: null,
       logoUrl: null,
       faviconUrl: null,
       pdfBackgroundUrl: null,
+      faqHero: {
+        title: { es: "", ca: "", en: "" },
+        subtitle: { es: "", ca: "", en: "" },
+      },
+      faqCta: {
+        title: { es: "", ca: "", en: "" },
+        subtitle: { es: "", ca: "", en: "" },
+        button: { es: "", ca: "", en: "" },
+        whatsappMsg: { es: "", ca: "", en: "" },
+      },
+      faqSections: [],
     };
   }
 

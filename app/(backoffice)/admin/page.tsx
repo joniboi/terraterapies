@@ -91,6 +91,20 @@ export default async function AdminDashboard() {
             Manage Reviews &rarr;
           </Link>
         </div>
+
+        <div className="bg-background p-6 rounded-2xl shadow-sm border border-border flex flex-col h-full">
+          <h3 className="text-lg font-semibold text-foreground mb-2">FAQs</h3>
+          <p className="text-sm text-muted-foreground mb-6 flex-grow">
+            Manage the Frequently Asked Questions and contact texts. Supports
+            wildcards.
+          </p>
+          <Link
+            href="/admin/faqs"
+            className="text-primary hover:text-primary-hover hover:underline font-medium inline-flex items-center"
+          >
+            Manage FAQs &rarr;
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@
     },
     "reviews": {
       "title": "Lo que dicen nuestros clientes",
-      "subtitle": "Experiencias reales en Terrateràpies Thai & Bali"
+      "subtitle": "Experiencias reales en {businessName}"
     }
   },
   "booking": {
@@ -48,9 +48,6 @@
     "labelNote": "NOTA ESPECIAL:",
     "labelCode": "CÓDIGO:",
     "validity": "Válido durante un año desde la fecha de compra.",
-    "addressLine1": "Carrer de Josep Puig i Cadafalch, 42-44,",
-    "addressLine2": "08172 Sant Cugat del Vallès, Barcelona",
-    "phone": "Teléfono: +34603177049",
     "disclaimer": "* Este documento es un comprobante digital. Los detalles y la validez de esta tarjeta regalo están sujetos exclusivamente a la verificación del Localizador de Seguridad en nuestra base de datos. Cualquier alteración lo invalida automáticamente."
   },
   "common": {
@@ -76,11 +73,7 @@
       }
     },
     "collabs": {
-      "title": "Colaboraciones",
-      "partners": {
-        "mezzanote": "Pizzería Mezzanotte",
-        "scens": "Scens"
-      }
+      "title": "Colaboraciones"
     },
     "info": {
       "title": "Información",
@@ -90,9 +83,8 @@
     },
     "social": {
       "title": "Social",
-      "whatsappMsg": "Hola, quiero información sobre Terraterapies Thai & Bali"
-    },
-    "bigText": "Thai&Bali"
+      "whatsappMsg": "Hola, quiero información sobre {businessName}"
+    }
   },
   "faqs": {
     "hero": {
@@ -199,7 +191,7 @@
       "title": "¿No encuentras lo que buscas?",
       "subtitle": "Estamos aquí para ayudarte. Contáctanos y resolveremos tus dudas.",
       "button": "Contactar por WhatsApp",
-      "whatsappMsg": "Hola, tengo una pregunta sobre los servicios de Terraterapies"
+      "whatsappMsg": "Hola, tengo una pregunta sobre los servicios de este centro"
     }
   },
   "about": {
@@ -210,10 +202,7 @@
     "title": "Contacto",
     "subtitle": "Estamos aquí para ayudarte a encontrar tu momento de paz.",
     "schedule": {
-      "title": "Horario de apertura",
-      "weekdays": "Lunes a viernes",
-      "weekends": "Sábado",
-      "holidays": "Domingos y festivos"
+      "title": "Horario de apertura"
     },
     "info": {
       "title": "Información",

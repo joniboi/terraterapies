@@ -3,58 +3,61 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import LanguageTabs from "@/components/admin/language-tabs";
-import Accordion from "@/components/ui/accordion";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import ImageUploadField from "@/components/admin/image-upload-field";
 import { Plus, Trash2 } from "lucide-react";
+import { FormSection } from "@/components/admin/form-logic/form-section";
+import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import { FormField } from "@/components/admin/form-logic/form-field";
+import { I18nField } from "@/components/admin/form-logic/i18-field";
+
+const DAY_OPTIONS = [
+  { value: 1, label: "Monday / Lunes" },
+  { value: 2, label: "Tuesday / Martes" },
+  { value: 3, label: "Wednesday / Miércoles" },
+  { value: 4, label: "Thursday / Jueves" },
+  { value: 5, label: "Friday / Viernes" },
+  { value: 6, label: "Saturday / Sábado" },
+  { value: 7, label: "Sunday / Domingo" },
+  { value: 8, label: "Holidays / Festivos" },
+];
 
 export default function SettingsForm({ initialData }: { initialData: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState(initialData);
 
-  const [formData, setFormData] = useState({
-    businessName: initialData?.businessName || "",
-    contactEmail: initialData?.contactEmail || "",
-    contactPhone: initialData?.contactPhone || "",
-    addressLine1: initialData?.addressLine1 || "",
-    addressLine2: initialData?.addressLine2 || "",
-    mapsLink: initialData?.mapsLink || "",
-    facebookUrl: initialData?.facebookUrl || "",
-    instagramUrl: initialData?.instagramUrl || "",
-    freshaUrl: initialData?.freshaUrl || "",
-    partners: initialData?.partners || [],
-    heroTagline: initialData?.heroTagline || { es: "", en: "", ca: "" },
-    aboutUsText: initialData?.aboutUsText || { es: "", en: "", ca: "" },
-    aboutImage: initialData?.aboutImage || "",
-    logoUrl: initialData?.logoUrl || "",
-    faviconUrl: initialData?.faviconUrl || "",
-    pdfBackgroundUrl: initialData?.pdfBackgroundUrl || "",
-  });
+  // HELPERS
+  const updateField = (f: string, v: any) =>
+    setFormData((p: any) => ({ ...p, [f]: v }));
+  const updateI18n = (f: string, l: string, v: string) =>
+    setFormData((p: any) => ({ ...p, [f]: { ...p[f], [l]: v } }));
 
-  // Partner array helpers
-  const addPartner = () => {
-    setFormData({
-      ...formData,
-      partners: [...formData.partners, { name: "", url: "" }],
-    });
+  // ARRAY HELPERS (Partners & Schedules)
+  const addItem = (field: string, template: any) =>
+    updateField(field, [...formData[field], template]);
+  const removeItem = (field: string, index: number) => {
+    const list = [...formData[field]];
+    list.splice(index, 1);
+    updateField(field, list);
   };
-
-  const updatePartner = (
+  const updateItem = (
+    field: string,
     index: number,
-    field: "name" | "url",
-    value: string,
+    subField: string,
+    value: any,
   ) => {
-    const newPartners = [...formData.partners];
-    newPartners[index][field] = value;
-    setFormData({ ...formData, partners: newPartners });
-  };
-
-  const removePartner = (index: number) => {
-    const newPartners = [...formData.partners];
-    newPartners.splice(index, 1);
-    setFormData({ ...formData, partners: newPartners });
+    const list = [...formData[field]];
+    list[index][subField] = value;
+    updateField(field, list);
   };
 
   async function handleSave() {
@@ -65,304 +68,315 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       if (res.ok) {
-        alert("Settings saved successfully!");
+        alert("Settings saved!");
         router.refresh();
-      } else {
-        alert("Failed to save settings.");
       }
-    } catch (error) {
-      console.error("Save failed", error);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="space-y-6 pb-24 max-w-7xl mx-auto">
-      {/* 1. BRAND & CONTACT */}
-      <div className="bg-background p-6 rounded-xl border border-border shadow-sm space-y-6">
-        <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">
-          Business & Location
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label>Business Name</Label>
-            <Input
-              value={formData.businessName}
-              onChange={(e) =>
-                setFormData({ ...formData, businessName: e.target.value })
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Contact Email</Label>
-            <Input
-              value={formData.contactEmail}
-              onChange={(e) =>
-                setFormData({ ...formData, contactEmail: e.target.value })
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Phone / WhatsApp</Label>
-            <Input
-              value={formData.contactPhone}
-              onChange={(e) =>
-                setFormData({ ...formData, contactPhone: e.target.value })
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Google Maps Link</Label>
-            <Input
-              value={formData.mapsLink}
-              onChange={(e) =>
-                setFormData({ ...formData, mapsLink: e.target.value })
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Address Line 1 (Street)</Label>
-            <Input
-              value={formData.addressLine1}
-              onChange={(e) =>
-                setFormData({ ...formData, addressLine1: e.target.value })
-              }
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Address Line 2 (City & Zip)</Label>
-            <Input
-              value={formData.addressLine2}
-              onChange={(e) =>
-                setFormData({ ...formData, addressLine2: e.target.value })
-              }
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* 2. EXTERNAL LINKS */}
-      <Accordion id="external" title="Social Media & Booking" active={true}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label>Booking Link (Fresha / Treatwell)</Label>
-            <Input
-              value={formData.freshaUrl}
-              onChange={(e) =>
-                setFormData({ ...formData, freshaUrl: e.target.value })
-              }
-              placeholder="https://..."
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Facebook URL</Label>
-            <Input
-              value={formData.facebookUrl}
-              onChange={(e) =>
-                setFormData({ ...formData, facebookUrl: e.target.value })
-              }
-              placeholder="https://..."
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Instagram URL</Label>
-            <Input
-              value={formData.instagramUrl}
-              onChange={(e) =>
-                setFormData({ ...formData, instagramUrl: e.target.value })
-              }
-              placeholder="https://..."
-            />
-          </div>
-        </div>
-      </Accordion>
-
-      {/* 3. PARTNERS */}
-      <Accordion id="partners" title="Collaborations & Partners" active={true}>
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <Label>Partner Websites</Label>
-            <button
-              onClick={addPartner}
-              className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-bold hover:bg-primary/20 flex items-center gap-1 transition-colors"
-            >
-              <Plus className="size-3" /> Add Partner
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4">
-            {formData.partners.map((partner: any, index: number) => (
-              <div
-                key={index}
-                className="flex gap-4 items-center bg-muted/30 p-4 rounded-lg border border-border"
-              >
-                <div className="flex-1 space-y-2">
-                  <Label>Brand Name</Label>
-                  <Input
-                    value={partner.name}
-                    onChange={(e) =>
-                      updatePartner(index, "name", e.target.value)
-                    }
-                    placeholder="e.g. Scens"
-                  />
-                </div>
-                <div className="flex-1 space-y-2">
-                  <Label>Website URL</Label>
-                  <Input
-                    value={partner.url}
-                    onChange={(e) =>
-                      updatePartner(index, "url", e.target.value)
-                    }
-                    placeholder="https://..."
-                  />
-                </div>
-                <button
-                  onClick={() => removePartner(index)}
-                  className="mt-6 p-2 bg-destructive/10 text-destructive rounded-md hover:bg-destructive/20 transition-colors"
-                >
-                  <Trash2 className="size-4" />
-                </button>
-              </div>
-            ))}
-            {formData.partners.length === 0 && (
-              <p className="text-sm text-muted-foreground italic">
-                No partners added yet.
-              </p>
-            )}
-          </div>
-        </div>
-      </Accordion>
-
-      {/* 4. MARKETING TEXT & MEDIA */}
-      <Accordion id="content" title="Marketing Text & Media" active={true}>
-        <div className="space-y-8">
-          <LanguageTabs headerText="Manage translatable marketing text">
-            {(lang) => (
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label>Hero Tagline ({lang.toUpperCase()})</Label>
-                  <Input
-                    value={formData.heroTagline[lang] || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        heroTagline: {
-                          ...formData.heroTagline,
-                          [lang]: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>About Us Text ({lang.toUpperCase()})</Label>
-                  <Textarea
-                    rows={6}
-                    value={formData.aboutUsText[lang] || ""}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        aboutUsText: {
-                          ...formData.aboutUsText,
-                          [lang]: e.target.value,
-                        },
-                      })
-                    }
-                  />
-                </div>
-              </div>
-            )}
-          </LanguageTabs>
-
-          <hr className="border-border" />
-
-          <h3 className="text-lg font-bold text-foreground">
-            Visual Assets (SaaS Templates)
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* LOGO UPLOADER */}
-            <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-              <Label className="text-base font-semibold">Brand Logo</Label>
-              <p className="text-sm text-muted-foreground mb-4">
-                Used in the Header, Footer, and Admin Panel. (Use a PNG/SVG with
-                a transparent background).
-              </p>
-              <ImageUploadField
-                label=""
-                currentImage={formData.logoUrl}
-                aspectRatioClass="aspect-video max-w-[200px]"
-                onUploadSuccess={(url) =>
-                  setFormData({ ...formData, logoUrl: url })
-                }
-              />
-            </div>
-            <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-              <Label className="text-base font-semibold">
-                Favicon (Tab Icon)
-              </Label>
-              <p className="text-sm text-muted-foreground mb-4">
-                The tiny icon shown in the browser tab. Use a square PNG (32x32
-                or 64x64).
-              </p>
-              <ImageUploadField
-                label=""
-                currentImage={formData.faviconUrl}
-                aspectRatioClass="aspect-square max-w-[80px]"
-                onUploadSuccess={(url) =>
-                  setFormData({ ...formData, faviconUrl: url })
-                }
-              />
-            </div>
-            {/* ABOUT IMAGE UPLOADER */}
-            <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border">
-              <Label className="text-base font-semibold">About Us Image</Label>
-              <p className="text-sm text-muted-foreground mb-4">
-                Appears on the About page. (Recommended: Portrait/Vertical).
-              </p>
-              <ImageUploadField
-                label=""
-                currentImage={formData.aboutImage}
-                aspectRatioClass="aspect-[3/4] max-w-[200px]"
-                onUploadSuccess={(url) =>
-                  setFormData({ ...formData, aboutImage: url })
-                }
-              />
-            </div>
-            {/* PDF BACKGROUND UPLOADER */}
-            <div className="space-y-2 bg-muted/30 p-4 rounded-lg border border-border md:col-span-2">
-              <Label className="text-base font-semibold">
-                Gift Card PDF Background
-              </Label>
-              <p className="text-sm text-muted-foreground mb-4">
-                The exact background image used when generating PDF Gift Cards.
-                Must be exactly 1724x947 pixels.
-              </p>
-              <ImageUploadField
-                label="Gift Card PDF Background"
-                currentImage={formData.pdfBackgroundUrl}
-                aspectRatioClass="aspect-[1724/947] max-w-[400px]"
-                uploadType="pdf-bg"
-                onUploadSuccess={(url) =>
-                  setFormData({ ...formData, pdfBackgroundUrl: url })
-                }
-              />
-            </div>
-          </div>
-        </div>
-      </Accordion>
-
-      {/* FOOTER */}
-      <div className="fixed bottom-0 left-0 right-0 md:left-64 p-4 bg-background border-t border-border z-50 flex justify-end">
-        <button
-          onClick={handleSave}
-          disabled={loading}
-          className="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-medium hover:bg-primary-hover disabled:opacity-50 transition-colors"
+    <div className="pb-24 max-w-7xl mx-auto">
+      <Tabs defaultValue="location" className="w-full">
+        <TabsList
+          variant="underline"
+          className="mb-8 w-full justify-start border-b border-border"
         >
+          <TabsTrigger value="location">Business & Location</TabsTrigger>
+          <TabsTrigger value="schedule">Schedule</TabsTrigger>
+          <TabsTrigger value="links">Links & Partners</TabsTrigger>
+          <TabsTrigger value="content">Content & Media</TabsTrigger>
+        </TabsList>
+
+        {/* TAB 1: LOCATION */}
+        <TabsContent value="location">
+          <FormSection title="Core Contact Information">
+            <FormGrid cols={2}>
+              <FormField label="Business Name">
+                <Input
+                  value={formData.businessName}
+                  onChange={(e) => updateField("businessName", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Contact Email">
+                <Input
+                  value={formData.contactEmail}
+                  onChange={(e) => updateField("contactEmail", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Phone / WhatsApp">
+                <Input
+                  value={formData.contactPhone}
+                  onChange={(e) => updateField("contactPhone", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Google Maps URL">
+                <Input
+                  value={formData.mapsLink}
+                  onChange={(e) => updateField("mapsLink", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Address Line 1">
+                <Input
+                  value={formData.addressLine1}
+                  onChange={(e) => updateField("addressLine1", e.target.value)}
+                />
+              </FormField>
+              <FormField label="City, Province, Zip">
+                <Input
+                  value={formData.addressLine2}
+                  onChange={(e) => updateField("addressLine2", e.target.value)}
+                />
+              </FormField>
+            </FormGrid>
+          </FormSection>
+        </TabsContent>
+
+        {/* TAB 2: SCHEDULE */}
+        <TabsContent value="schedule">
+          <FormSection
+            title="Opening Hours"
+            action={
+              <Button
+                variant="soft"
+                size="sm-pill"
+                onClick={() =>
+                  addItem("schedules", { startDay: 1, endDay: 5, hours: "" })
+                }
+              >
+                <Plus className="size-3 mr-1" /> Add Line
+              </Button>
+            }
+          >
+            <div className="space-y-4">
+              {formData.schedules.map((item: any, index: number) => (
+                <div
+                  key={index}
+                  className="bg-muted/20 p-4 rounded-xl border border-border grid grid-cols-1 md:grid-cols-[180px_180px_1fr_auto] items-end gap-4 relative group"
+                >
+                  <FormField label="From">
+                    <Select
+                      value={String(item.startDay)}
+                      onValueChange={(v) =>
+                        updateItem(
+                          "schedules",
+                          index,
+                          "startDay",
+                          parseInt(v || "0"),
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue>
+                          {
+                            DAY_OPTIONS.find((d) => d.value === item.startDay)
+                              ?.label
+                          }
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {DAY_OPTIONS.map((d) => (
+                          <SelectItem key={d.value} value={String(d.value)}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                  <FormField label="To (Optional)">
+                    <Select
+                      value={String(item.endDay || 0)}
+                      onValueChange={(v) =>
+                        updateItem(
+                          "schedules",
+                          index,
+                          "endDay",
+                          parseInt(v || "0"),
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue>
+                          {DAY_OPTIONS.find((d) => d.value === item.endDay)
+                            ?.label || "None"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0">-- Single Day --</SelectItem>
+                        {DAY_OPTIONS.map((d) => (
+                          <SelectItem key={d.value} value={String(d.value)}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormField>
+                  <div className="flex-1">
+                    <FormField label="Hours">
+                      <Input
+                        placeholder="09:00 - 21:00"
+                        value={item.hours}
+                        onChange={(e) =>
+                          updateItem(
+                            "schedules",
+                            index,
+                            "hours",
+                            e.target.value,
+                          )
+                        }
+                      />
+                    </FormField>
+                  </div>
+                  <Button
+                    variant="destructive-soft"
+                    size="icon-sm"
+                    onClick={() => removeItem("schedules", index)}
+                  >
+                    <Trash2 />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </FormSection>
+        </TabsContent>
+
+        {/* TAB 3: LINKS & PARTNERS */}
+        <TabsContent value="links" className="space-y-6">
+          <FormSection title="Social Media">
+            <FormGrid cols={3}>
+              <FormField label="Booking Link (Fresha)">
+                <Input
+                  value={formData.freshaUrl}
+                  onChange={(e) => updateField("freshaUrl", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Facebook">
+                <Input
+                  value={formData.facebookUrl}
+                  onChange={(e) => updateField("facebookUrl", e.target.value)}
+                />
+              </FormField>
+              <FormField label="Instagram">
+                <Input
+                  value={formData.instagramUrl}
+                  onChange={(e) => updateField("instagramUrl", e.target.value)}
+                />
+              </FormField>
+            </FormGrid>
+          </FormSection>
+
+          <FormSection
+            title="Collaborations"
+            action={
+              <Button
+                variant="soft"
+                size="sm-pill"
+                onClick={() => addItem("partners", { name: "", url: "" })}
+              >
+                <Plus className="size-3 mr-1" /> Add Partner
+              </Button>
+            }
+          >
+            <FormGrid cols={2}>
+              {formData.partners.map((partner: any, index: number) => (
+                <div
+                  key={index}
+                  className="flex gap-4 items-end bg-muted/20 p-4 rounded-xl border border-border"
+                >
+                  <div className="flex-1">
+                    <FormField label="Brand Name">
+                      <Input
+                        value={partner.name}
+                        onChange={(e) =>
+                          updateItem("partners", index, "name", e.target.value)
+                        }
+                      />
+                    </FormField>
+                  </div>
+                  <div className="flex-1">
+                    <FormField label="URL">
+                      <Input
+                        value={partner.url}
+                        onChange={(e) =>
+                          updateItem("partners", index, "url", e.target.value)
+                        }
+                      />
+                    </FormField>
+                  </div>
+                  <Button
+                    variant="destructive-soft"
+                    size="icon-sm"
+                    onClick={() => removeItem("partners", index)}
+                  >
+                    <Trash2 />
+                  </Button>
+                </div>
+              ))}
+            </FormGrid>
+          </FormSection>
+        </TabsContent>
+
+        {/* TAB 4: CONTENT & MEDIA */}
+        <TabsContent value="content" className="space-y-6">
+          <FormSection title="Marketing Copy">
+            <I18nField
+              label="Hero Tagline"
+              value={formData.heroTagline}
+              onChange={(l, v) => updateI18n("heroTagline", l, v)}
+            />
+            <I18nField
+              label="About Us Text"
+              type="textarea"
+              rows={6}
+              value={formData.aboutUsText}
+              onChange={(l, v) => updateI18n("aboutUsText", l, v)}
+            />
+          </FormSection>
+
+          <FormSection title="Visual Assets">
+            <FormGrid cols={4}>
+              <FormField label="Brand Logo">
+                <ImageUploadField
+                  currentImage={formData.logoUrl}
+                  aspectRatioClass="aspect-video"
+                  onUploadSuccess={(url) => updateField("logoUrl", url)}
+                />
+              </FormField>
+              <FormField label="Favicon">
+                <ImageUploadField
+                  currentImage={formData.faviconUrl}
+                  aspectRatioClass="aspect-square max-w-[80px]"
+                  onUploadSuccess={(url) => updateField("faviconUrl", url)}
+                />
+              </FormField>
+              <FormField label="About Image">
+                <ImageUploadField
+                  currentImage={formData.aboutImage}
+                  aspectRatioClass="aspect-[3/4]"
+                  onUploadSuccess={(url) => updateField("aboutImage", url)}
+                />
+              </FormField>
+              <FormField label="Gift Card Background">
+                <ImageUploadField
+                  currentImage={formData.pdfBackgroundUrl}
+                  aspectRatioClass="aspect-video"
+                  uploadType="pdf-bg"
+                  onUploadSuccess={(url) =>
+                    updateField("pdfBackgroundUrl", url)
+                  }
+                />
+              </FormField>
+            </FormGrid>
+          </FormSection>
+        </TabsContent>
+      </Tabs>
+
+      <div className="fixed bottom-0 left-0 right-0 md:left-64 p-4 bg-background border-t border-border z-50 flex justify-end">
+        <Button onClick={handleSave} disabled={loading} className="px-8">
           {loading ? "Saving..." : "Save Settings"}
-        </button>
+        </Button>
       </div>
     </div>
   );

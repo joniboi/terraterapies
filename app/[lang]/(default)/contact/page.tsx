@@ -1,8 +1,8 @@
 // app/[lang]/contact/page.tsx
 
+import { formatScheduleDays } from "@/app/lib/automaticDateUtility";
 import { getDictionary } from "@/app/lib/getDictionary";
 import { db } from "@/db"; // 1. Import db
-import { siteSettings } from "@/db/schema"; // 2. Import schema
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -15,12 +15,19 @@ export default async function ContactPage({ params }: PageProps) {
     db.query.siteSettings.findFirst(),
   ]);
   const contact = dict.contact;
-  // 4. Prepare dynamic values from DB (with fallbacks just in case)
+
   const phone = settings?.contactPhone || "";
   const address = settings?.addressLine1 || "";
+  const mapsLink = settings?.mapsLink || "";
+  const businessName = settings?.businessName || "Terraterapies";
 
-  // Create a "clean" phone number for the WhatsApp link (remove spaces)
+  const schedules = settings?.schedules || [];
+
   const cleanPhone = phone.replace(/\s+/g, "");
+
+  const mapSearchQuery = encodeURIComponent(`${businessName}, ${address}`);
+  const dynamicMapSrc = `https://maps.google.com/maps?q=${mapSearchQuery}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <main className="relative py-20 bg-gray-50 min-h-[70vh] flex flex-col items-center">
       {/* 1. INCREASED WIDTH: Changed max-w-5xl to max-w-6xl to match About page */}
@@ -49,36 +56,25 @@ export default async function ContactPage({ params }: PageProps) {
             </div>
 
             <ul className="space-y-5 text-lg flex-grow">
-              {/* 
-                2. FIXED BREAKLINES: 
-                - Stacks cleanly on medium screens (flex-col)
-                - Spreads side-by-side on large screens (lg:flex-row)
-                - "whitespace-nowrap" completely forbids the hours from breaking 
-              */}
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-gray-50 pb-4">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.weekdays}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  9:30 - 21:30
-                </span>
-              </li>
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-gray-50 pb-4">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.weekends}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  12:00 - 21:30
-                </span>
-              </li>
-              <li className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
-                <span className="text-gray-600 mb-1 lg:mb-0 block">
-                  {contact.schedule.holidays}
-                </span>
-                <span className="font-medium text-gray-900 whitespace-nowrap">
-                  12:00 - 21:30
-                </span>
-              </li>
+              {schedules.map((item: any, i: number) => (
+                <li
+                  key={i}
+                  className="flex flex-col lg:flex-row lg:justify-between lg:items-center border-b border-border/50 pb-4 last:border-0 last:pb-0"
+                >
+                  <span className="text-muted-foreground mb-1 lg:mb-0 block">
+                    {/* The Magic Translation Happens Here! */}
+                    {formatScheduleDays(item.startDay, item.endDay, lang)}
+                  </span>
+                  <span className="font-medium text-foreground whitespace-nowrap">
+                    {item.hours}
+                  </span>
+                </li>
+              ))}
+              {schedules.length === 0 && (
+                <p className="text-muted-foreground text-sm italic">
+                  Schedules not configured yet.
+                </p>
+              )}
             </ul>
           </div>
 
@@ -117,7 +113,7 @@ export default async function ContactPage({ params }: PageProps) {
                   {contact.info.addressTitle}
                 </h3>
                 <a
-                  href="https://maps.app.goo.gl/w2wpi4x6ZJ6FogrS8"
+                  href={mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-start gap-2 text-xl font-medium text-gray-900 hover:text-blue-600 transition-colors"
@@ -148,8 +144,8 @@ export default async function ContactPage({ params }: PageProps) {
           data-aos-delay="300"
         >
           <iframe
-            title="Terraterapies Thai & Bali Location Map"
-            src="https://maps.google.com/maps?q=Terraterapies%20Thai%20&%20Bali,%20Sant%20Cugat&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            title={`${businessName} Location Map`}
+            src={dynamicMapSrc}
             width="100%"
             height="100%"
             style={{ border: 0 }}

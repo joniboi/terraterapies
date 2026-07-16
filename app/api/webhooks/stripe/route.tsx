@@ -16,6 +16,9 @@ export async function POST(req: Request) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_for_build");
 
+  const SENDER_EMAIL =
+    process.env.SENDER_EMAIL || "info@terraterapiesthaibali.com";
+
   const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "julieanncolorado31@gmail.com";
 
   const body = await req.text();
@@ -97,7 +100,7 @@ export async function POST(req: Request) {
     // 5. Send Email
     await resend.emails.send({
       // CHANGE THIS: Use your new verified domain
-      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
+      from: `${settings.businessName} <${SENDER_EMAIL}>`,
       to: [customerEmail!],
       subject: `Tu Tarjeta Regalo: ${treatmentName}`,
       react: (
@@ -152,7 +155,7 @@ export async function POST(req: Request) {
       : "0.00";
     // 6. Send the notification email to YOU (The Business)
     await resend.emails.send({
-      from: `${settings.businessName} <info@terraterapiesthaibali.com>`,
+      from: `${settings.businessName} <${SENDER_EMAIL}>`,
       to: ADMIN_EMAIL,
       subject: `🎉 NUEVA VENTA: ${totalSessions > 1 ? "BONO" : "Tarjeta Regalo"} (${locator})`,
       html: `
