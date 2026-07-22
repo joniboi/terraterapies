@@ -125,7 +125,13 @@ export const getServicesData = async (lang: string): Promise<ServicesData> => {
                 originalPrice: isPromoActive ? `${v.price}€` : undefined,
                 isPromo: isPromoActive,
                 promoEnds: promoExpiry
-                  ? promoExpiry.toLocaleDateString(lang)
+                  ? promoExpiry.toLocaleDateString(
+                      ["es", "en", "ca"].includes(lang)
+                        ? lang === "en"
+                          ? "en-GB"
+                          : "es-ES"
+                        : "es-ES",
+                    )
                   : undefined,
                 discountPercent,
               };

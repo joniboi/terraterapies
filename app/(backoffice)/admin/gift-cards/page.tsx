@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { desc, eq } from "drizzle-orm";
 import * as schema from "@/db/schema";
 import RedeemButton from "@/app/(backoffice)/admin/gift-cards/_components/redeem-button";
+import { GiftCardActions } from "@/app/(backoffice)/admin/gift-cards/_components/gift-card-actions";
 import { AdminHeader } from "@/components/admin/table/admin-header";
 import { AdminTable, ColumnDef } from "@/components/admin/table/admin-table";
 
@@ -81,12 +82,21 @@ export default async function AdminGiftCardsPage(props: {
       ),
     },
     {
-      header: "Recipient",
+      header: "Recipient / Buyer",
       render: (card) => (
         <>
-          <div className="text-sm text-gray-800">{card.recipientName}</div>
-          <div className="text-[10px] text-gray-400 uppercase">
+          <div className="text-sm font-medium text-foreground">
+            {card.recipientName}
+          </div>
+          <div className="text-[10px] text-muted-foreground uppercase mt-0.5">
             From: {card.buyerName}
+          </div>
+          {/* Added the email so your wife can spot the typo easily */}
+          <div
+            className="text-[10px] text-muted-foreground lowercase truncate max-w-[150px]"
+            title={card.buyerEmail}
+          >
+            {card.buyerEmail}
           </div>
         </>
       ),
@@ -95,22 +105,7 @@ export default async function AdminGiftCardsPage(props: {
     {
       header: "Action",
       className: "text-right",
-      render: (card) => (
-        <div className="flex justify-end">
-          {card.status === "valid" ? (
-            <RedeemButton
-              id={card.id}
-              code={card.locatorCode}
-              isBono={card.totalSessions > 1}
-              remaining={card.totalSessions - card.usedSessions}
-            />
-          ) : (
-            <div className="text-[10px] text-success font-black uppercase tracking-widest">
-              Completed {card.redeemedAt?.toLocaleDateString("en-GB")}
-            </div>
-          )}
-        </div>
-      ),
+      render: (card) => <GiftCardActions card={card} />, // Look how clean this is now!
     },
   ];
 
