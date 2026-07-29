@@ -57,9 +57,18 @@ export async function TrafficWidget() {
   // Insight B: The Golden Hour (Peak traffic hour)
   const hourCounts = Array(24).fill(0);
   visits30d.forEach((v) => {
-    const hour = new Date(v.visitedAt).getHours();
+    // Force JavaScript to read the hour as if it were in Spain
+    const spainHourString = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      hour12: false,
+      timeZone: "Europe/Madrid", // <-- Locks calculation to Spain Timezone
+    }).format(new Date(v.visitedAt));
+
+    // Normalize "24" to "0" (some systems return 24 for midnight)
+    const hour = parseInt(spainHourString, 10) % 24;
     hourCounts[hour]++;
   });
+
   const peakHour = hourCounts.indexOf(Math.max(...hourCounts));
   const peakHourFormatted =
     totalViews > 0 ? `${peakHour}:00 - ${peakHour + 1}:00` : "---";
