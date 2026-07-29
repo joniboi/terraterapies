@@ -216,6 +216,15 @@ export const siteSettings = pgTable("site_settings", {
     .default([]),
 });
 
+export const visits = pgTable("visits", {
+  id: serial("id").primaryKey(),
+  path: text("path").notNull(),
+  visitedAt: timestamp("visited_at").defaultNow().notNull(),
+  visitorHash: text("visitor_hash").notNull(),
+  device: text("device").default("desktop"),
+  source: text("source").default("direct"),
+});
+
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({
   categories: many(categories),
 }));

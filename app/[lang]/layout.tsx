@@ -2,6 +2,8 @@ import "../css/style.css";
 import { Inter } from "next/font/google";
 import { config, BRAND } from "@/app/lib/config";
 import { db } from "@/db";
+import { Suspense } from "react";
+import { VisitTracker } from "@/components/visit-tracker";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,6 +41,9 @@ export default async function RootLayout({
         /* 4. Use bg-background and text-foreground to activate the Theme Engine */
         className={`${inter.variable} bg-background font-inter tracking-tight text-foreground antialiased`}
       >
+        <Suspense fallback={null}>
+          <VisitTracker />
+        </Suspense>
         <div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
           {children}
         </div>
