@@ -26,11 +26,15 @@ export async function TrafficWidget() {
   const mobilePercent =
     totalViews > 0 ? Math.round((mobileCount / totalViews) * 100) : 0;
 
-  const instagramCount = visits24h.filter(
-    (v) => v.source === "instagram",
-  ).length;
-  const facebookCount = visits24h.filter((v) => v.source === "facebook").length;
-  const googleCount = visits24h.filter((v) => v.source === "google").length;
+  // Helper function: Counts how many UNIQUE people came from a specific source
+  const getUniqueCountBySource = (sourceName: string) => {
+    const visitsFromSource = visits24h.filter((v) => v.source === sourceName);
+    return new Set(visitsFromSource.map((v) => v.visitorHash)).size;
+  };
+
+  const instagramCount = getUniqueCountBySource("instagram");
+  const facebookCount = getUniqueCountBySource("facebook");
+  const googleCount = getUniqueCountBySource("google");
 
   // --- 30-DAY INSIGHTS ENGINE ---
   const visits30d = rawVisits.filter((v) => v.visitedAt >= thirtyDaysAgo);
@@ -52,7 +56,7 @@ export async function TrafficWidget() {
     dayCounts[day]++;
   });
   const busiestDayIndex = dayCounts.indexOf(Math.max(...dayCounts));
-  const busiestDay = totalViews > 0 ? dayNames[busiestDayIndex] : "---";
+  const busiestDay = visits30d.length > 0 ? dayNames[busiestDayIndex] : "---";
 
   // Insight B: The Golden Hour (Peak traffic hour)
   const hourCounts = Array(24).fill(0);
@@ -71,7 +75,7 @@ export async function TrafficWidget() {
 
   const peakHour = hourCounts.indexOf(Math.max(...hourCounts));
   const peakHourFormatted =
-    totalViews > 0 ? `${peakHour}:00 - ${peakHour + 1}:00` : "---";
+    visits30d.length > 0 ? `${peakHour}:00 - ${peakHour + 1}:00` : "---";
 
   // Insight C: Month-over-Month Momentum
   const thisMonthCount = visits30d.length;
@@ -158,7 +162,7 @@ export async function TrafficWidget() {
                   Peak Day of Week
                 </p>
                 <p className="text-base font-bold text-foreground mt-1">
-                  {totalViews > 0 ? (
+                  {visits30d.length > 0 ? (
                     <span>
                       <span className="text-primary">{busiestDay}s</span> are
                       your peak traffic days.

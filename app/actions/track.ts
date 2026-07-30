@@ -12,12 +12,12 @@ export async function logVisit(path: string, queryParams: string = "") {
   const userAgent = headersList.get("user-agent") || "";
   const referer = headersList.get("referer") || "";
 
-  // 1. Ignore bots and crawlers so they don't inflate her numbers
-  if (
-    userAgent.toLowerCase().includes("bot") ||
-    userAgent.toLowerCase().includes("crawler")
-  )
-    return;
+  // 1. THE TITANIUM BOT FILTER
+  const isBot =
+    /bot|crawler|spider|crawling|facebookexternalhit|whatsapp|telegram|slurp|preview|lighthouse/i.test(
+      userAgent,
+    );
+  if (isBot) return; // Ignore completely
 
   // 2. Detect Device
   const isMobile = /mobile|android|iphone|ipad|phone/i.test(userAgent);
@@ -30,12 +30,15 @@ export async function logVisit(path: string, queryParams: string = "") {
 
   if (
     paramsLower.includes("utm_source=instagram") ||
-    paramsLower.includes("ig")
+    paramsLower.includes("igsh=")
   ) {
     source = "instagram";
   } else if (paramsLower.includes("utm_source=google")) {
     source = "google";
-  } else if (refLower.includes("instagram.com") || refLower.includes("ig.me")) {
+  } else if (
+    refLower.includes("instagram.com") ||
+    refLower.includes("l.instagram.com")
+  ) {
     source = "instagram";
   } else if (refLower.includes("facebook.com") || refLower.includes("fb.com")) {
     source = "facebook";
