@@ -197,7 +197,6 @@ export default function TreatmentForm({ initialData, categories }: any) {
           onChange={(l, v) => updateI18n("shortDescription", l, v)}
         />
       </FormSection>
-
       {/* SECTION 2: PRICES & PROMOS */}
       <FormSection
         title="Pricing & Availability"
@@ -213,8 +212,9 @@ export default function TreatmentForm({ initialData, categories }: any) {
               key={i}
               className="flex flex-wrap items-end gap-3 p-4 bg-muted/20 border border-border rounded-xl relative group"
             >
-              <div className="w-20">
-                <FormField label="Mins">
+              {/* 1. TIME / DURATION */}
+              <div className="w-20 shrink-0">
+                <FormField label="Time">
                   <Input
                     type="number"
                     value={v.duration}
@@ -224,7 +224,49 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   />
                 </FormField>
               </div>
-              <div className="w-24">
+
+              {/* 2. UNIT (Native select prevents Radix trigger overflow) */}
+              <div className="w-20 shrink-0">
+                <FormField label="Unit">
+                  <Select
+                    value={v.unit || "min"}
+                    onValueChange={(val) => updateVariant(i, "unit", val)}
+                  >
+                    <SelectTrigger
+                      size="sm"
+                      className="!min-w-0 w-full h-10 px-2 text-xs"
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="min">min</SelectItem>
+                      <SelectItem value="pax">pax</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormField>
+              </div>
+
+              {/* 3. SESSIONS COUNT (Bono logic) */}
+              <div className="w-24 shrink-0 p-1.5 bg-info-background rounded-lg border border-info-border">
+                <FormField label="Sessions">
+                  <Input
+                    type="number"
+                    min="1"
+                    className="bg-background text-center font-bold text-info h-9 px-1"
+                    value={v.sessionsCount || 1}
+                    onChange={(e) =>
+                      updateVariant(
+                        i,
+                        "sessionsCount",
+                        parseInt(e.target.value) || 1,
+                      )
+                    }
+                  />
+                </FormField>
+              </div>
+
+              {/* 4. PRICE */}
+              <div className="w-24 shrink-0">
                 <FormField label="Price €">
                   <Input
                     type="number"
@@ -234,10 +276,13 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   />
                 </FormField>
               </div>
-              <div className="w-24 p-2 bg-warning-background rounded-lg border border-warning-border">
+
+              {/* 5. PROMO € */}
+              <div className="w-24 shrink-0 p-1.5 bg-warning-background rounded-lg border border-warning-border">
                 <FormField label="Promo €">
                   <Input
                     type="number"
+                    className="h-9 bg-background"
                     value={v.promotionalPrice || ""}
                     onChange={(e) =>
                       updateVariant(i, "promotionalPrice", e.target.value)
@@ -245,10 +290,13 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   />
                 </FormField>
               </div>
-              <div className="w-40 p-2 bg-highlight-background rounded-lg border border-highlight-border">
+
+              {/* 6. PROMO EXPIRED DATE */}
+              <div className="w-36 shrink-0 p-1.5 bg-highlight-background rounded-lg border border-highlight-border">
                 <FormField label="Expires">
                   <Input
                     type="date"
+                    className="h-9 bg-background px-1 text-xs"
                     value={
                       v.promoEndsAt
                         ? new Date(v.promoEndsAt).toISOString().split("T")[0]
@@ -260,7 +308,9 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   />
                 </FormField>
               </div>
-              <div className="flex-1">
+
+              {/* 7. TAG / PREFIX */}
+              <div className="flex-1 min-w-[140px]">
                 <FormField label="Tag (Optional)">
                   <Input
                     placeholder="e.g. Traditional"
@@ -275,18 +325,26 @@ export default function TreatmentForm({ initialData, categories }: any) {
                   />
                 </FormField>
               </div>
+
+              {/* 8. DELETE */}
               <Button
                 variant="destructive-soft"
                 size="icon-sm"
+                className="mb-1 shrink-0"
                 onClick={() => removeVariant(i)}
               >
-                <Trash2 />
+                <Trash2 className="size-4" />
               </Button>
             </div>
           ))}
+
+          {variants.length === 0 && (
+            <p className="text-sm text-muted-foreground italic text-center py-4">
+              No price variants added yet. Click "+ Add Option".
+            </p>
+          )}
         </div>
       </FormSection>
-
       {/* SECTION 3: MARKDOWN CONTENT */}
       <FormSection title="Detailed Experience (Markdown content)">
         <LanguageTabs variant="inline" useShortLabels>
@@ -307,7 +365,6 @@ export default function TreatmentForm({ initialData, categories }: any) {
           )}
         </LanguageTabs>
       </FormSection>
-
       {/* SECTION 4: MEDIA */}
       <Accordion title="Images & Banners" active={false}>
         <FormGrid cols={2}>
@@ -323,7 +380,6 @@ export default function TreatmentForm({ initialData, categories }: any) {
           />
         </FormGrid>
       </Accordion>
-
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
