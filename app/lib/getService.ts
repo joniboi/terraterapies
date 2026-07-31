@@ -134,6 +134,7 @@ export const getServicesData = async (lang: string): Promise<ServicesData> => {
                     )
                   : undefined,
                 discountPercent,
+                sessionsCount: v.sessionsCount || 1,
               };
             });
           // --- PROMOTIONS LOGIC END ---
