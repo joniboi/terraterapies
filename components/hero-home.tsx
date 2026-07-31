@@ -27,11 +27,13 @@ export default function HeroHome({
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="pb-12 pt-32 md:pb-20 md:pt-40">
           <div className="pb-12 text-center md:pb-16">
-            <h1
-              className="mb-6 text-5xl font-bold md:text-6xl"
-              data-aos="zoom-y-out"
-            >
-              {businessName}
+            <h1 className="mb-8 mx-auto max-w-3xl" data-aos="zoom-y-out">
+              <span className="block mb-6 text-5xl font-bold md:text-6xl text-foreground">
+                {businessName}
+              </span>
+              <span className="block text-lg font-normal text-muted-foreground">
+                {tagline}
+              </span>
             </h1>
             <div className="mx-auto max-w-3xl">
               <p

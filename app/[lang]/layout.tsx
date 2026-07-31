@@ -4,6 +4,7 @@ import { config, BRAND } from "@/app/lib/config";
 import { db } from "@/db";
 import { Suspense } from "react";
 import { VisitTracker } from "@/components/visit-tracker";
+import LocalBusinessSchema from "@/components/seo/local-business-schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,6 +42,8 @@ export default async function RootLayout({
         /* 4. Use bg-background and text-foreground to activate the Theme Engine */
         className={`${inter.variable} bg-background font-inter tracking-tight text-foreground antialiased`}
       >
+        <LocalBusinessSchema />
+
         <Suspense fallback={null}>
           <VisitTracker />
         </Suspense>

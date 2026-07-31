@@ -25,6 +25,7 @@ interface TreatmentDetailProps {
   backgroundImage: string;
   options: Option[];
   bookingUrl: string | null | undefined;
+  businessName: string;
 }
 
 export default function TreatmentDetail({
@@ -37,11 +38,20 @@ export default function TreatmentDetail({
   backgroundImage,
   options,
   bookingUrl,
+  businessName,
 }: TreatmentDetailProps) {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const cleanTitle = title
+    .replace(
+      /[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g,
+      "",
+    )
+    .replace("—", "")
+    .trim();
 
+  const seoAltText = `${cleanTitle} - ${businessName}`;
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const durationParam = params.get("duration");
@@ -98,7 +108,7 @@ export default function TreatmentDetail({
       <div className="absolute inset-0 -z-10">
         <Image
           src={backgroundImage}
-          alt={title}
+          alt={seoAltText}
           fill
           className="object-cover brightness-95 opacity-90"
           priority

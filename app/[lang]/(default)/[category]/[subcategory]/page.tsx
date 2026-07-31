@@ -87,6 +87,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
         lang={lang}
         dict={dict.booking}
         bookingUrl={settings?.freshaUrl}
+        businessName={settings?.businessName || ""}
       />
     </main>
   );
