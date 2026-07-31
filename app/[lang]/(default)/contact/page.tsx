@@ -17,7 +17,7 @@ export default async function ContactPage({ params }: PageProps) {
   const contact = dict.contact;
 
   const phone = settings?.contactPhone || "";
-  const address = settings?.addressLine1 || "";
+  const address = `${settings?.streetAddress || ""}, ${settings?.postalCode || ""} ${settings?.addressLocality || ""}`;
   const mapsLink = settings?.mapsLink || "";
   const businessName = settings?.businessName || "Terraterapies";
 
