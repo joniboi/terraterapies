@@ -21,8 +21,6 @@ async function seed() {
     },
     contactEmail: "info@terraterapies.com",
     contactPhone: "+34 603 17 70 49",
-    addressLine1: "Carrer de Josep Puig i Cadafalch, 42-44",
-    addressLine2: "08172 Sant Cugat del Vallès",
     streetAddress: "Carrer de Josep Puig i Cadafalch, 42-44",
     addressLocality: "Sant Cugat del Vallès",
     addressRegion: "Barcelona",
@@ -53,8 +51,6 @@ async function seed() {
     },
     contactEmail: "info@lotusdebali.com",
     contactPhone: "+34 603 17 70 49", // Use current for now
-    addressLine1: "Carrer de Sant Gervasi de Cassoles, 92",
-    addressLine2: "08022 Barcelona",
     streetAddress: "Carrer de Sant Gervasi de Cassoles, 92",
     addressLocality: "Barcelona",
     addressRegion: "Barcelona",

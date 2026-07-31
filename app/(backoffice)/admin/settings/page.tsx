@@ -14,8 +14,6 @@ export default async function SettingsPage() {
       aboutUsText: { es: "", ca: "", en: "" },
       contactEmail: "",
       contactPhone: "",
-      addressLine1: "",
-      addressLine2: "",
       streetAddress: "",
       addressLocality: "",
       addressRegion: "",
