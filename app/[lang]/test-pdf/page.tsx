@@ -34,7 +34,10 @@ export default function TestPdfPage() {
     businessName: "Terraterapies Thai & Bali",
     contactEmail: "info@terraterapies.com",
     contactPhone: "+34 600 000 000",
-    addressLine1: "Calle Ejemplo 123, Sant Cugat",
+    streetAddress: "Calle Ejemplo 123",
+    addressLocality: "Sant Cugat",
+    postalCode: "08172",
+    addressCountry: "ES",
     aboutImage: null,
     logoUrl: null, // You can put a real URL here to test the logo in the PDF
     faviconUrl: null,

@@ -176,6 +176,13 @@ export const siteSettings = pgTable("site_settings", {
   contactPhone: varchar("contact_phone", { length: 50 }).notNull(),
   addressLine1: varchar("address_line1", { length: 255 }).notNull(),
   addressLine2: varchar("address_line2", { length: 255 }).notNull(),
+  streetAddress: varchar("street_address", { length: 255 }).notNull(),
+  addressLocality: varchar("address_locality", { length: 100 }).notNull(), // City
+  addressRegion: varchar("address_region", { length: 100 }), // Province/State
+  postalCode: varchar("postal_code", { length: 20 }).notNull(),
+  addressCountry: varchar("address_country", { length: 2 })
+    .default("ES")
+    .notNull(),
   mapsLink: text("maps_link").notNull(),
 
   schedules: jsonb("schedules")

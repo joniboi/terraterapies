@@ -237,10 +237,11 @@ export const GiftCardPdf = ({
 
         {/* 5. Address Link */}
         <View style={styles.addressContainer}>
+          {/* Replace the content inside <Link src={settings.mapsLink} style={styles.addressLink}> */}
           <Link src={settings.mapsLink} style={styles.addressLink}>
-            {settings.addressLine1}
+            {settings.streetAddress}
             {"\n"}
-            {settings.addressLine2}
+            {settings.postalCode} {settings.addressLocality}
             {"\n"}
             {settings.contactPhone}
           </Link>

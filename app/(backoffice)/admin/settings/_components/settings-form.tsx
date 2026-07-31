@@ -118,16 +118,43 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
                   onChange={(e) => updateField("mapsLink", e.target.value)}
                 />
               </FormField>
-              <FormField label="Address Line 1">
+              <FormField label="Street Address">
                 <Input
-                  value={formData.addressLine1}
-                  onChange={(e) => updateField("addressLine1", e.target.value)}
+                  value={formData.streetAddress}
+                  onChange={(e) => updateField("streetAddress", e.target.value)}
+                  placeholder="Carrer de Sant Gervasi de Cassoles, 92"
                 />
               </FormField>
-              <FormField label="City, Province, Zip">
+              <FormField label="City (Locality)">
                 <Input
-                  value={formData.addressLine2}
-                  onChange={(e) => updateField("addressLine2", e.target.value)}
+                  value={formData.addressLocality}
+                  onChange={(e) =>
+                    updateField("addressLocality", e.target.value)
+                  }
+                  placeholder="Barcelona"
+                />
+              </FormField>
+              <FormField label="Province (Region)">
+                <Input
+                  value={formData.addressRegion}
+                  onChange={(e) => updateField("addressRegion", e.target.value)}
+                  placeholder="Catalunya"
+                />
+              </FormField>
+              <FormField label="Postal Code">
+                <Input
+                  value={formData.postalCode}
+                  onChange={(e) => updateField("postalCode", e.target.value)}
+                  placeholder="08022"
+                />
+              </FormField>
+              <FormField label="Country Code">
+                <Input
+                  value={formData.addressCountry}
+                  onChange={(e) =>
+                    updateField("addressCountry", e.target.value)
+                  }
+                  placeholder="ES"
                 />
               </FormField>
             </FormGrid>
