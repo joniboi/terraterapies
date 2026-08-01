@@ -7,7 +7,6 @@ import { db } from "@/db";
 import { reviews } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import ReviewsSlider from "@/components/reviews-slider";
-import { config } from "@/app/lib/config";
 
 interface PageProps {
   params: Promise<{ lang: string }>;

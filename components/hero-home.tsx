@@ -36,13 +36,6 @@ export default function HeroHome({
               </span>
             </h1>
             <div className="mx-auto max-w-3xl">
-              <p
-                className="mb-8 text-lg text-muted-foreground"
-                data-aos="zoom-y-out"
-                data-aos-delay={300}
-              >
-                {tagline}
-              </p>
               <div
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 max-w-xs sm:max-w-none mx-auto"
                 data-aos="zoom-y-out"
