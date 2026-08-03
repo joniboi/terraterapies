@@ -42,6 +42,23 @@ export default async function RootLayout({
         /* 4. Use bg-background and text-foreground to activate the Theme Engine */
         className={`${inter.variable} bg-background font-inter tracking-tight text-foreground antialiased`}
       >
+        {/* INJECT GOOGLE TAG DYNAMICALLY FOR SEO/ADS OPTIMIZATION */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
         <LocalBusinessSchema />
 
         <Suspense fallback={null}>
