@@ -35,7 +35,7 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang={lang} className={`scroll-smooth theme-${BRAND}`}>
       <body
