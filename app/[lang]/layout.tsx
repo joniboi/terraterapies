@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { Suspense } from "react";
 import { VisitTracker } from "@/components/visit-tracker";
 import LocalBusinessSchema from "@/components/seo/local-business-schema";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
