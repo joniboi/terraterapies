@@ -18,6 +18,7 @@ import { FormSection } from "@/components/admin/form-logic/form-section";
 import { FormGrid } from "@/components/admin/form-logic/form-grid";
 import { FormField } from "@/components/admin/form-logic/form-field";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
+import HeroGalleryManager from "./hero-gallery-manager";
 
 const DAY_OPTIONS = [
   { value: 1, label: "Monday / Lunes" },
@@ -30,7 +31,13 @@ const DAY_OPTIONS = [
   { value: 8, label: "Holidays / Festivos" },
 ];
 
-export default function SettingsForm({ initialData }: { initialData: any }) {
+export default function SettingsForm({
+  initialData,
+  availableTreatments,
+}: {
+  initialData: any;
+  availableTreatments: any[];
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
@@ -88,6 +95,7 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
           <TabsTrigger value="schedule">Schedule</TabsTrigger>
           <TabsTrigger value="links">Links & Partners</TabsTrigger>
           <TabsTrigger value="content">Content & Media</TabsTrigger>
+          <TabsTrigger value="homepage">Homepage Gallery</TabsTrigger>
         </TabsList>
 
         {/* TAB 1: LOCATION */}
@@ -397,6 +405,15 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
               </FormField>
             </FormGrid>
           </FormSection>
+        </TabsContent>
+
+        {/* TAB 5: HOMEPAGE GALLERY */}
+        <TabsContent value="homepage" className="space-y-6">
+          <HeroGalleryManager
+            slides={formData.heroGallery || []}
+            onChange={(newSlides) => updateField("heroGallery", newSlides)}
+            availableTreatments={availableTreatments}
+          />
         </TabsContent>
       </Tabs>
 

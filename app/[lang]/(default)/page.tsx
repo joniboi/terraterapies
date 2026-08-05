@@ -17,25 +17,97 @@ export default async function Home({ params }: PageProps) {
 
   // 1. Fetch Data & Dictionary
   // Run DB Queries in parallel for maximum speed
-  const [services, dict, activeReviews, settings] = await Promise.all([
-    getServicesData(lang),
-    getDictionary(lang),
-    db
-      .select()
-      .from(reviews)
-      .where(eq(reviews.isActive, true))
-      .orderBy(asc(reviews.orderIndex)),
-    db.query.siteSettings.findFirst(),
-  ]);
+  const [services, dict, activeReviews, settings, dbTreatments] =
+    await Promise.all([
+      getServicesData(lang),
+      getDictionary(lang),
+      db
+        .select()
+        .from(reviews)
+        .where(eq(reviews.isActive, true))
+        .orderBy(asc(reviews.orderIndex)),
+      db.query.siteSettings.findFirst(),
+      db.query.treatments.findMany({
+        with: {
+          category: true,
+          variants: true,
+        },
+      }),
+    ]);
   const businessName = settings?.businessName || "";
   const allCategories = services.navItems.flatMap((item) => item.categories);
   const personalizedSubtitle = dict.home.reviews.subtitle.replace(
     "{businessName}",
     businessName,
   );
+
+  // 🚀 NEW: Hydrate the Gallery Slides (FIXED PROMO LOGIC)
+  const hydratedGallery = (settings?.heroGallery || [])
+    .filter((s) => s.isActive && s.treatmentId) // Only active slides linked to a treatment
+    .map((slide) => {
+      let fallbackTitle = "";
+      let fallbackSubtitle = "";
+      let finalLink = "#";
+      let maxDiscount = 0;
+
+      const treatment = dbTreatments.find((t) => t.id === slide.treatmentId);
+
+      if (treatment) {
+        // Grab default texts from the database treatment
+        fallbackTitle = (treatment.title as any)?.[lang] || "";
+        fallbackSubtitle = (treatment.shortDescription as any)?.[lang] || "";
+        finalLink = `/${lang}/${treatment.category.slug}/${treatment.slug}`;
+
+        // 🚀 FIXED: Calculate max discount exactly like getService.ts
+        const now = new Date();
+        treatment.variants.forEach((v) => {
+          const promoExpiry = v.promoEndsAt ? new Date(v.promoEndsAt) : null;
+
+          // A promo is active if there is a promo price, AND it either has no expiry, or expires in the future.
+          const isPromoActive = !!(
+            v.promotionalPrice &&
+            (!promoExpiry || now < promoExpiry)
+          );
+
+          if (isPromoActive && v.promotionalPrice) {
+            const original = Number(v.price);
+            const promo = Number(v.promotionalPrice);
+            // Math: 100 - (50 / 65) * 100
+            const discountPercent = Math.round(100 - (promo / original) * 100);
+
+            if (discountPercent > maxDiscount) {
+              maxDiscount = discountPercent;
+            }
+          }
+        });
+      }
+
+      // If the admin typed custom text, use it. Otherwise, use the fallback.
+      const resolvedTitle =
+        (slide.title as any)?.[lang]?.trim() || fallbackTitle;
+      const resolvedSubtitle =
+        (slide.subtitle as any)?.[lang]?.trim() || fallbackSubtitle;
+      const resolvedButtonText =
+        (slide.buttonText as any)?.[lang]?.trim() || "Ver Tratamiento";
+
+      return {
+        ...slide,
+        resolvedTitle,
+        resolvedSubtitle,
+        resolvedLink: finalLink,
+        resolvedButtonText,
+        promoBadgeText: maxDiscount > 0 ? `-${maxDiscount}%` : null, // 🚀 Will now work!
+      };
+    });
+
   return (
     <>
-      <Hero dict={dict.home.hero} settings={settings} lang={lang} />
+      <Hero
+        dict={dict.home.hero}
+        settings={settings}
+        hydratedGallery={hydratedGallery}
+        lang={lang}
+      />
 
       {/* 2. Pass props to BusinessCategories */}
       <BusinessCategories

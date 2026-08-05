@@ -219,6 +219,20 @@ export const siteSettings = pgTable("site_settings", {
       }[]
     >()
     .default([]),
+  heroGallery: jsonb("hero_gallery")
+    .$type<
+      {
+        id: string;
+        desktopUrl: string;
+        mobileUrl: string;
+        treatmentId?: string;
+        title: I18nString;
+        subtitle: I18nString;
+        buttonText: I18nString;
+        isActive: boolean;
+      }[]
+    >()
+    .default([]),
 });
 
 export const visits = pgTable("visits", {

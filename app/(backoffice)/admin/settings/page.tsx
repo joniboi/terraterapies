@@ -40,8 +40,13 @@ export default async function SettingsPage() {
         whatsappMsg: { es: "", ca: "", en: "" },
       },
       faqSections: [],
+      heroGallery: [],
     };
   }
+
+  const treatments = await db.query.treatments.findMany({
+    columns: { id: true, title: true },
+  });
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -50,7 +55,7 @@ export default async function SettingsPage() {
         Manage the core text, taglines, and contact info for this center.
       </p>
 
-      <SettingsForm initialData={settings} />
+      <SettingsForm initialData={settings} availableTreatments={treatments} />
     </div>
   );
 }

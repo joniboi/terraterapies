@@ -51,6 +51,7 @@ export async function POST(req: Request) {
         aboutImage: body.aboutImage,
         logoUrl: body.logoUrl,
         pdfBackgroundUrl: body.pdfBackgroundUrl,
+        heroGallery: body.heroGallery,
       })
       .onConflictDoUpdate({
         target: siteSettings.id,
@@ -75,6 +76,7 @@ export async function POST(req: Request) {
           logoUrl: body.logoUrl,
           faviconUrl: body.faviconUrl,
           pdfBackgroundUrl: body.pdfBackgroundUrl,
+          heroGallery: body.heroGallery,
         },
       })
       .returning();
