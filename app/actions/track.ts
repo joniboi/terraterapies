@@ -63,6 +63,8 @@ export async function logVisit(path: string, queryParams: string = "") {
       visitorHash,
       device,
       source,
+      userAgent: userAgent.slice(0, 500),
+      referer: referer ? referer.slice(0, 500) : "direct",
     });
   } catch (error) {
     console.error("Failed to log visit", error);

@@ -242,6 +242,8 @@ export const visits = pgTable("visits", {
   visitorHash: text("visitor_hash").notNull(),
   device: text("device").default("desktop"),
   source: text("source").default("direct"),
+  userAgent: text("user_agent"),
+  referer: text("referer"),
 });
 
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({
