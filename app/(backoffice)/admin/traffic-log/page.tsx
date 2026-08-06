@@ -80,14 +80,15 @@ export default async function TrafficLogPage() {
                         {visit.path}
                       </td>
 
-                      {/* Source - Theme-Aware State Badge */}
+                      {/* Source - Safely handles string | null */}
                       <td className="px-3 py-3 whitespace-nowrap">
                         <span
                           className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getSourceBadgeStyle(
                             visit.source,
                           )}`}
                         >
-                          {visit.source} ({visit.device})
+                          {visit.source || "direct"} (
+                          {visit.device || "desktop"})
                         </span>
                       </td>
 
