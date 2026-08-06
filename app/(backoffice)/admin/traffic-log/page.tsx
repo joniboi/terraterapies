@@ -12,8 +12,8 @@ export default async function TrafficLogPage() {
     .orderBy(desc(visits.visitedAt))
     .limit(200);
 
-  // Helper function to map traffic sources to theme.css state tokens
-  const getSourceBadgeStyle = (source: string) => {
+  // FIXED: Now strictly accepts 'string | null'
+  const getSourceBadgeStyle = (source: string | null) => {
     switch (source) {
       case "google":
         return "bg-success-background text-success border-success-border";
