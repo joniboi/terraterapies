@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Hero from "@/components/hero-home";
 import BusinessCategories from "@/components/business-categories";
 import { getServicesData } from "@/app/lib/getService";
@@ -11,7 +12,37 @@ import ReviewsSlider from "@/components/reviews-slider";
 interface PageProps {
   params: Promise<{ lang: string }>;
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
 
+  // Fetch settings from DB
+  const settings = await db.query.siteSettings.findFirst();
+  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://lotusdebaliythai.com";
+
+  const businessName = settings?.businessName || "Spa Management";
+  const taglineObj = settings?.heroTagline as Record<string, string>;
+  const tagline =
+    taglineObj?.[lang] || taglineObj?.["es"] || "Centro de masajes y bienestar";
+
+  return {
+    title: `${businessName} | ${tagline}`,
+    description: tagline,
+    alternates: {
+      canonical: `${baseUrl}/${lang}`, // <-- CREATES THE OFFICIAL CANONICAL TAG!
+      languages: {
+        es: `${baseUrl}/es`,
+        ca: `${baseUrl}/ca`,
+        en: `${baseUrl}/en`,
+      },
+    },
+  };
+}
+
+// ... your existing export default async function Home
 export default async function Home({ params }: PageProps) {
   const { lang } = await params;
 
