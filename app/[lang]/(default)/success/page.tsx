@@ -43,13 +43,23 @@ export default async function SuccessPage({
       {gaId && session_id && googleConversionLabel && (
         <Script id="google-purchase-conversion" strategy="afterInteractive">
           {`
-      gtag('event', 'conversion', {
-        'send_to': '${googleConversionLabel}',
-        'value': ${purchaseValue},
-        'currency': 'EUR',
-        'transaction_id': '${session_id}'
-      });
-    `}
+            console.log("🚀 Attempting to fire Google Ads conversion...");
+            console.log("gaId:", "${gaId}");
+            console.log("googleConversionLabel:", "${googleConversionLabel}");
+            console.log("session_id:", "${session_id}");
+
+            if (typeof gtag === 'function') {
+              gtag('event', 'conversion', {
+                'send_to': '${googleConversionLabel}',
+                'value': ${purchaseValue},
+                'currency': 'EUR',
+                'transaction_id': '${session_id}'
+              });
+              console.log("✅ gtag function executed successfully!");
+            } else {
+              console.error("❌ gtag function is NOT defined in this scope!");
+            }
+          `}
         </Script>
       )}
       <div className="max-w-2xl w-full space-y-8">
