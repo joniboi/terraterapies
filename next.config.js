@@ -16,6 +16,30 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/:lang/facials/:slug*",
+        destination: "/:lang/faciales/:slug*",
+        permanent: true,
+      },
+      {
+        source: "/:lang/bono-sesion/:slug*",
+        destination: "/:lang/bonos/:slug*",
+        permanent: true,
+      },
+      {
+        source: "/:lang/pareja-01/:slug*",
+        destination: "/:lang/rituales-en-pareja/:slug*",
+        permanent: true,
+      },
+      {
+        source: "/:lang/terapeutico-relajante/:slug*",
+        destination: "/:lang/terapeuticos/:slug*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

@@ -22,6 +22,13 @@ const QUICK_LINKS = [
     linkText: "Go to Treatments",
   },
   {
+    title: "Service Groups",
+    description:
+      "Manage the main service families displayed throughout the website.",
+    href: "/admin/service-groups",
+    linkText: "Manage Service Groups",
+  },
+  {
     title: "Categories",
     description:
       "Manage families of treatments, assign parent groups, and control what is featured.",

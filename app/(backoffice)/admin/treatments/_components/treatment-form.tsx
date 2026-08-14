@@ -31,9 +31,20 @@ const LANGUAGES = [
   { code: "ca", label: "CA 🟦" },
 ] as const;
 
-export default function TreatmentForm({ initialData, categories }: any) {
+export default function TreatmentForm({
+  initialData,
+  categories,
+  groups,
+}: any) {
   const router = useRouter();
-  const [formData, setFormData] = useState(initialData);
+
+  // 1. Initialize State with serviceGroupId and isActive
+  const [formData, setFormData] = useState({
+    ...initialData,
+    serviceGroupId: initialData?.serviceGroupId || "",
+    categoryId: initialData?.categoryId || null,
+    isActive: initialData?.isActive ?? true, // Default to true if not defined
+  });
   const [variants, setVariants] = useState(initialData.variants || []);
   const [loading, setLoading] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
@@ -42,6 +53,20 @@ export default function TreatmentForm({ initialData, categories }: any) {
     setFormData((p: any) => ({ ...p, [f]: v }));
   const updateI18n = (f: string, l: string, v: string) =>
     setFormData((p: any) => ({ ...p, [f]: { ...p[f], [l]: v } }));
+
+  // 2. Handle group change: automatically resets the category selection
+  const handleGroupChange = (groupId: string) => {
+    setFormData((p: any) => ({
+      ...p,
+      serviceGroupId: groupId,
+      categoryId: null, // Reset category since we changed groups
+    }));
+  };
+
+  // 3. Dynamically filter categories belonging to the selected Service Group
+  const filteredCategories = categories.filter(
+    (c: any) => c.groupId === formData.serviceGroupId,
+  );
 
   const isEdit = !!initialData?.id;
 
@@ -56,6 +81,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
         prefix: { es: "", ca: "", en: "" },
       },
     ]);
+
   const updateVariant = (i: number, f: string, v: any) => {
     const newV = [...variants];
     newV[i] = { ...newV[i], [f]: v };
@@ -92,7 +118,6 @@ export default function TreatmentForm({ initialData, categories }: any) {
     }
   }
 
-  // 👇 COMPLETED DELETE LOGIC 👇
   async function handleDelete() {
     if (!isEdit) return;
     setLoading(true);
@@ -110,48 +135,64 @@ export default function TreatmentForm({ initialData, categories }: any) {
       setLoading(false);
     }
   }
+
   return (
     <div className="space-y-6 pb-24 max-w-7xl mx-auto">
       {/* SECTION 1: PRIMARY CONFIG */}
       <FormSection title="Identity & Placement">
         <FormGrid cols={4}>
-          <FormField label="Icon">
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setShowEmoji(!showEmoji)}
-                className="h-10 w-full rounded-md border border-input bg-background text-xl hover:bg-muted/50 transition-colors"
-              >
-                {formData.emoji || "🌸"}
-              </button>
-              {showEmoji && (
-                <div className="absolute z-50 mt-2">
-                  <EmojiPicker
-                    onEmojiClick={(e) => {
-                      updateField("emoji", e.emoji);
-                      setShowEmoji(false);
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          </FormField>
-
-          <FormField label="Category">
+          {/* Service Group Selector */}
+          <FormField label="Service Group (Required)">
             <Select
-              value={formData.categoryId}
-              onValueChange={(v) => updateField("categoryId", v)}
+              value={formData.serviceGroupId}
+              onValueChange={handleGroupChange}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Category">
+                <SelectValue placeholder="Select Group">
                   {
-                    categories.find((c: any) => c.id === formData.categoryId)
-                      ?.title.es
+                    groups.find((g: any) => g.id === formData.serviceGroupId)
+                      ?.label.es
                   }
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                {categories.map((c: any) => (
+                {groups.map((g: any) => (
+                  <SelectItem key={g.id} value={g.id}>
+                    {g.label.es}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormField>
+
+          {/* Dynamic Category Selector */}
+          <FormField label="Category (Optional)">
+            <Select
+              value={formData.categoryId || "none"}
+              onValueChange={(v) =>
+                updateField("categoryId", v === "none" ? null : v)
+              }
+              disabled={filteredCategories.length === 0}
+            >
+              <SelectTrigger>
+                <SelectValue
+                  placeholder={
+                    filteredCategories.length === 0
+                      ? "Direct (No Categories)"
+                      : "Select Category"
+                  }
+                >
+                  {formData.categoryId
+                    ? categories.find((c: any) => c.id === formData.categoryId)
+                        ?.title.es
+                    : "No Category (Direct)"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">
+                  -- No Category (Direct to Group) --
+                </SelectItem>
+                {filteredCategories.map((c: any) => (
                   <SelectItem key={c.id} value={c.id}>
                     {c.title.es}
                   </SelectItem>
@@ -176,6 +217,48 @@ export default function TreatmentForm({ initialData, categories }: any) {
               />
             </FormField>
           </div>
+
+          {/* Emoji/Icon Picker */}
+          <FormField label="Icon">
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowEmoji(!showEmoji)}
+                className="h-10 w-full rounded-md border border-input bg-background text-xl hover:bg-muted/50 transition-colors"
+              >
+                {formData.emoji || "🌸"}
+              </button>
+              {showEmoji && (
+                <div className="absolute z-50 mt-2">
+                  <EmojiPicker
+                    onEmojiClick={(e) => {
+                      updateField("emoji", e.emoji);
+                      setShowEmoji(false);
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </FormField>
+
+          {/* 👇 STATUS TOGGLE: Visual indicator placed beautifully on desktop grid 👇 */}
+          <div className="flex items-center gap-3 p-3 bg-muted/20 border border-border rounded-xl md:col-span-3 h-10 self-end">
+            <input
+              id="isActive"
+              type="checkbox"
+              className="w-4 h-4 accent-primary bg-background border-border rounded focus:ring-ring focus:ring-2 cursor-pointer"
+              checked={formData.isActive}
+              onChange={(e) => updateField("isActive", e.target.checked)}
+            />
+            <div className="leading-none">
+              <label
+                htmlFor="isActive"
+                className="text-sm font-semibold select-none cursor-pointer hover:text-primary transition-colors"
+              >
+                Visible to Customers (Active)
+              </label>
+            </div>
+          </div>
         </FormGrid>
 
         <FormGrid cols={2}>
@@ -197,6 +280,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
           onChange={(l, v) => updateI18n("shortDescription", l, v)}
         />
       </FormSection>
+
       {/* SECTION 2: PRICES & PROMOS */}
       <FormSection
         title="Pricing & Availability"
@@ -225,7 +309,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
                 </FormField>
               </div>
 
-              {/* 2. UNIT (Native select prevents Radix trigger overflow) */}
+              {/* 2. UNIT */}
               <div className="w-20 shrink-0">
                 <FormField label="Unit">
                   <Select
@@ -246,7 +330,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
                 </FormField>
               </div>
 
-              {/* 3. SESSIONS COUNT (Bono logic) */}
+              {/* 3. SESSIONS COUNT */}
               <div className="w-24 shrink-0 p-1.5 bg-info-background rounded-lg border border-info-border">
                 <FormField label="Sessions">
                   <Input
@@ -345,6 +429,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
           )}
         </div>
       </FormSection>
+
       {/* SECTION 3: MARKDOWN CONTENT */}
       <FormSection title="Detailed Experience (Markdown content)">
         <LanguageTabs variant="inline" useShortLabels>
@@ -365,6 +450,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
           )}
         </LanguageTabs>
       </FormSection>
+
       {/* SECTION 4: MEDIA */}
       <Accordion title="Images & Banners" active={false}>
         <FormGrid cols={2}>
@@ -380,6 +466,7 @@ export default function TreatmentForm({ initialData, categories }: any) {
           />
         </FormGrid>
       </Accordion>
+
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}

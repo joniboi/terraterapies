@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getServicesData } from "@/app/lib/getService";
-import { Category, Subcategory } from "@/types/definitions";
+import { Category, Treatment } from "@/types/definitions";
 
 // 1. FORCE DYNAMIC - Prevents Next.js from trying to pre-render this during build
 export const dynamic = "force-dynamic";
@@ -28,14 +28,14 @@ export async function POST(req: Request) {
     // --- SECURITY CHECK START ---
     const servicesData = await getServicesData(lang);
 
-    const category = servicesData.navItems
+    const category = servicesData
       .flatMap((i) => i.categories)
       .find((c: Category) => c.slug === categorySlug);
 
     if (!category) throw new Error(`Categoría no encontrada: ${categorySlug}`);
 
-    const treatment = category.subcategories.find(
-      (s: Subcategory) => s.slug === subCategorySlug,
+    const treatment = category.treatments.find(
+      (s: Treatment) => s.slug === subCategorySlug,
     );
 
     if (!treatment)

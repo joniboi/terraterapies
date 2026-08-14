@@ -30,7 +30,7 @@ export default async function DefaultLayout({
       <Header
         lang={lang}
         dict={dict.header}
-        navItems={servicesData.navItems}
+        navItems={servicesData}
         logoUrl={settings?.logoUrl}
         businessName={settings?.businessName}
       />
