@@ -18,7 +18,9 @@ export default async function EditTreatmentPage(props: {
 
   // 2. Fetch all categories (so she can change a treatment's category if needed)
   const allCategories = await db.query.categories.findMany();
-
+  const allGroups = await db.query.serviceGroups.findMany({
+    orderBy: (serviceGroups, { asc }) => [asc(serviceGroups.orderIndex)],
+  });
   // If the ID is fake/wrong, show a 404 page
   if (!treatment) notFound();
 
@@ -34,7 +36,11 @@ export default async function EditTreatmentPage(props: {
       </div>
 
       {/* 3. Pass the database data to your Client Form */}
-      <TreatmentForm initialData={treatment} categories={allCategories} />
+      <TreatmentForm
+        initialData={treatment}
+        categories={allCategories}
+        groups={allGroups}
+      />
     </div>
   );
 }

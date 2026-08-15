@@ -22,6 +22,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { FormField } from "@/components/admin/form-logic/form-field";
 import { Input } from "@/components/ui/input";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
+import { Switch } from "@/components/ui/switch";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
@@ -241,23 +242,22 @@ export default function TreatmentForm({
             </div>
           </FormField>
 
-          {/* 👇 STATUS TOGGLE: Visual indicator placed beautifully on desktop grid 👇 */}
-          <div className="flex items-center gap-3 p-3 bg-muted/20 border border-border rounded-xl md:col-span-3 h-10 self-end">
-            <input
-              id="isActive"
-              type="checkbox"
-              className="w-4 h-4 accent-primary bg-background border-border rounded focus:ring-ring focus:ring-2 cursor-pointer"
-              checked={formData.isActive}
-              onChange={(e) => updateField("isActive", e.target.checked)}
-            />
-            <div className="leading-none">
-              <label
-                htmlFor="isActive"
-                className="text-sm font-semibold select-none cursor-pointer hover:text-primary transition-colors"
-              >
-                Visible to Customers (Active)
-              </label>
+          <div className="flex items-center justify-between gap-4 p-3 bg-muted/20 border border-border rounded-xl md:col-span-3 h-10 self-end">
+            <div className="flex items-center gap-2 leading-none">
+              <span className="text-sm font-semibold">
+                Visible to Customers
+              </span>
+
+              <span className="text-xs text-muted-foreground">
+                {formData.isActive ? "Active" : "Hidden"}
+              </span>
             </div>
+
+            <Switch
+              checked={formData.isActive}
+              onCheckedChange={(value) => updateField("isActive", value)}
+              aria-label="Visible to Customers"
+            />
           </div>
         </FormGrid>
 
