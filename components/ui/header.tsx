@@ -13,30 +13,34 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { Dictionary, ServiceGroup } from "@/types/definitions";
+import { ServiceGroup } from "@/types/definitions";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import { cn } from "@/app/lib/utils";
 
 interface HeaderProps {
   lang: string;
-  dict: Dictionary["header"];
   navItems: ServiceGroup[];
   logoUrl?: string | null;
   businessName?: string;
+  hasGallery?: boolean; // 🚀 NEW: Receive the prop
 }
 
 export default function Header({
   lang,
-  dict,
   navItems,
   logoUrl,
   businessName,
+  hasGallery = false, // Default to false
 }: HeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Expanded states for mobile accordions
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+
+  // 🚀 NEW: The Ultimate Logic Toggle
+  // True only if we are exactly on the homepage (e.g., "/es") AND a gallery is active
+  const isHome = pathname === `/${lang}`;
+  const isTransparent = isHome && hasGallery;
 
   const switchLang = (newLang: string) => {
     if (!pathname) return "/";
@@ -63,11 +67,13 @@ export default function Header({
           {navItems.map((item) => (
             <NavigationMenuItem key={item.id}>
               <NavigationMenuTrigger
-                className={`transition-colors duration-200 ${
-                  item.highlight
-                    ? "text-highlight hover:opacity-80 font-bold"
-                    : "text-muted-foreground hover:text-foreground font-medium"
-                }`}
+                className={cn(
+                  "transition-all duration-200 rounded-lg",
+                  isTransparent
+                    ? "glass-nav-item" // Applies semantic glass text & hover
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground", // Standard solid fallback
+                  item.highlight && "text-highlight font-bold",
+                )}
               >
                 {item.emoji && <span className="mr-1">{item.emoji}</span>}
                 {item.title}
@@ -197,7 +203,6 @@ export default function Header({
         </NavigationMenuList>
       </NavigationMenu>
 
-      {/* Desktop Lang Switcher */}
       <ul className="flex items-center justify-end gap-3">
         {["es", "ca", "en"].map((l) => (
           <li key={l}>
@@ -229,15 +234,33 @@ export default function Header({
     <>
       <header className="fixed top-2 z-30 w-full md:top-6">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-background/90 px-3 shadow-lg border border-border/50 backdrop-blur-xs">
+          {/* 🚀 THE FIX: 
+              1. Removed bg-background/90
+              2. Added bg-white/10 (pure white at just 10% opacity)
+              3. Added backdrop-blur-md (strong blur)
+              4. Added border-white/20 (subtle reflective glass edge) 
+          */}
+          <div
+            className={cn(
+              "relative flex h-14 items-center justify-between gap-3 rounded-2xl px-3 transition-all duration-500",
+              isTransparent
+                ? "glass-panel"
+                : "bg-background/90 backdrop-blur-xs border border-border/50 shadow-lg",
+            )}
+          >
             <DesktopNav />
 
             {/* Mobile Header Row */}
             <div className="flex md:hidden w-full items-center justify-between">
               <Logo lang={lang} logoUrl={logoUrl} businessName={businessName} />
+              {/* 🚀 CONDITIONAL STYLING FOR MOBILE ICON */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                className={`p-2 rounded-lg transition-colors ${
+                  isTransparent
+                    ? "text-white hover:bg-white/20"
+                    : "text-foreground hover:bg-foreground/5"
+                }`}
               >
                 <Menu className="w-6 h-6" />
               </button>
