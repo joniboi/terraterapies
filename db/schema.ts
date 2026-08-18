@@ -9,9 +9,12 @@ import {
   varchar,
   boolean,
   serial,
+  unique,
+  foreignKey,
+  check,
 } from "drizzle-orm/pg-core";
 
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 // Define a type for our translation objects to use in TypeScript
 export type I18nString = {
@@ -25,52 +28,78 @@ export type CategoryShowCase = {
   description: I18nString;
 };
 
-// 1. SERVICE GROUPS (The high-level pillars: Massages, Rituals, Products)
+// 1. SERVICE GROUPS
 export const serviceGroups = pgTable("service_groups", {
   id: uuid("id").defaultRandom().primaryKey(),
-  slug: varchar("slug", { length: 255 }).notNull().unique(), // 'treatments', 'rituals'
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
   label: jsonb("label").$type<I18nString>().notNull(),
-  layout: varchar("layout", { length: 50 }).default("mega-menu"), // 'mega-menu', 'rich-dropdown'
+  layout: varchar("layout", { length: 50 }).default("mega-menu"),
   highlight: boolean("highlight").default(false).notNull(),
   emoji: varchar("emoji", { length: 10 }),
   orderIndex: integer("order_index").default(0),
-});
-
-// 2. CATEGORIES
-export const categories = pgTable("categories", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  groupId: uuid("group_id")
-    .references(() => serviceGroups.id)
-    .notNull(),
-  slug: varchar("slug", { length: 255 }).notNull().unique(),
-  title: jsonb("title").$type<I18nString>().notNull(),
-  description: jsonb("description").$type<I18nString>().notNull(),
-  image: text("image").notNull(),
-  // --- ADD THESE ---
-  isFeatured: boolean("is_featured").default(false).notNull(),
+  // New editorial fields
+  description: jsonb("description").$type<I18nString>(),
+  image: text("image"),
   heroImages: jsonb("hero_images").$type<{ src: string; alt: string }[]>(),
   showCase: jsonb("show_case").$type<CategoryShowCase>(),
   badge: jsonb("badge").$type<I18nString>(),
-  // -----------------
-  orderIndex: integer("order_index").default(0),
 });
 
-export const treatments = pgTable("treatments", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  categoryId: uuid("category_id")
-    .references(() => categories.id)
-    .notNull(),
-  slug: varchar("slug", { length: 255 }).notNull().unique(),
-  title: jsonb("title").$type<I18nString>().notNull(),
-  tagline: jsonb("tagline").$type<I18nString>(),
-  shortDescription: jsonb("short_description").$type<I18nString>().notNull(),
-  longDescription: jsonb("long_description").$type<I18nString>().notNull(),
-  image: text("image").notNull(),
-  // --- ADD THIS ---
-  backgroundImage: text("background_image"),
-  // ----------------
-  emoji: varchar("emoji", { length: 10 }),
-});
+// 2. CATEGORIES
+export const categories = pgTable(
+  "categories",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    groupId: uuid("group_id")
+      .references(() => serviceGroups.id)
+      .notNull(),
+    slug: varchar("slug", { length: 255 }).notNull().unique(),
+    title: jsonb("title").$type<I18nString>().notNull(),
+    description: jsonb("description").$type<I18nString>().notNull(),
+    image: text("image").notNull(),
+    // --- ADD THESE ---
+    isFeatured: boolean("is_featured").default(false).notNull(),
+    heroImages: jsonb("hero_images").$type<{ src: string; alt: string }[]>(),
+    showCase: jsonb("show_case").$type<CategoryShowCase>(),
+    badge: jsonb("badge").$type<I18nString>(),
+    // -----------------
+    orderIndex: integer("order_index").default(0),
+  },
+  (t) => [unique("categories_id_group_id_unq").on(t.id, t.groupId)],
+);
+
+export const treatments = pgTable(
+  "treatments",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    serviceGroupId: uuid("service_group_id")
+      .references(() => serviceGroups.id)
+      .notNull(),
+    categoryId: uuid("category_id"), // Nullable
+    isActive: boolean("is_active").default(true).notNull(),
+    slug: varchar("slug", { length: 255 }).notNull().unique(),
+    title: jsonb("title").$type<I18nString>().notNull(),
+    tagline: jsonb("tagline").$type<I18nString>(),
+    shortDescription: jsonb("short_description").$type<I18nString>().notNull(),
+    longDescription: jsonb("long_description").$type<I18nString>().notNull(),
+    image: text("image").notNull(),
+    // --- ADD THIS ---
+    backgroundImage: text("background_image"),
+    // ----------------
+    emoji: varchar("emoji", { length: 10 }),
+  },
+  (t) => [
+    foreignKey({
+      columns: [t.categoryId, t.serviceGroupId],
+      foreignColumns: [categories.id, categories.groupId],
+      name: "treatments_category_group_fk",
+    }),
+    check(
+      "slug_active_check",
+      sql`is_active = false OR length(trim(slug)) > 0`,
+    ),
+  ],
+);
 
 // 4. VARIANTS (The actual sellable options: 60min, 90min)
 export const treatmentVariants = pgTable("treatment_variants", {
@@ -219,6 +248,20 @@ export const siteSettings = pgTable("site_settings", {
       }[]
     >()
     .default([]),
+  heroGallery: jsonb("hero_gallery")
+    .$type<
+      {
+        id: string;
+        desktopUrl: string;
+        mobileUrl: string;
+        treatmentId?: string;
+        title: I18nString;
+        subtitle: I18nString;
+        buttonText: I18nString;
+        isActive: boolean;
+      }[]
+    >()
+    .default([]),
 });
 
 export const visits = pgTable("visits", {
@@ -228,10 +271,13 @@ export const visits = pgTable("visits", {
   visitorHash: text("visitor_hash").notNull(),
   device: text("device").default("desktop"),
   source: text("source").default("direct"),
+  userAgent: text("user_agent"),
+  referer: text("referer"),
 });
 
 export const serviceGroupsRelations = relations(serviceGroups, ({ many }) => ({
   categories: many(categories),
+  treatments: many(treatments),
 }));
 
 export const categoriesRelations = relations(categories, ({ one, many }) => ({
@@ -243,6 +289,11 @@ export const categoriesRelations = relations(categories, ({ one, many }) => ({
 }));
 
 export const treatmentsRelations = relations(treatments, ({ one, many }) => ({
+  serviceGroup: one(serviceGroups, {
+    // <-- ADD THIS BLOCK
+    fields: [treatments.serviceGroupId],
+    references: [serviceGroups.id],
+  }),
   category: one(categories, {
     fields: [treatments.categoryId],
     references: [categories.id],

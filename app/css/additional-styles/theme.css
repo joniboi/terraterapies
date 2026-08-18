@@ -74,10 +74,10 @@
   --color-info-foreground: white;
   --color-info-background: var(--color-blue-50);
   --color-info-border: var(--color-blue-200);
-  --color-highlight: var(--color-amber-600);
-  --color-highlight-foreground: var(--color-amber-950);
-  --color-highlight-background: var(--color-amber-50);
-  --color-highlight-border: var(--color-amber-200);
+  --color-highlight: var(--brand-highlight);
+  --color-highlight-foreground: var(--brand-highlight-foreground);
+  --color-highlight-background: var(--brand-highlight-background);
+  --color-highlight-border: var(--brand-highlight-border);
 
   /* --- ANIMATION TOKENS --- */
   --animate-code-1: code-1;
@@ -249,6 +249,11 @@
     --brand-ring: var(--color-blue-500);
     --brand-popover: #ffffff;
     --brand-popover-foreground: var(--color-gray-950);
+
+    --brand-highlight: var(--color-amber-600);
+    --brand-highlight-foreground: var(--color-amber-950);
+    --brand-highlight-background: var(--color-amber-100);
+    --brand-highlight-border: var(--color-amber-200);
   }
 
   /* 2. LOTUS DE BALI & THAI (Using your new elegant logo palette) */
@@ -280,5 +285,10 @@
     /* Modals/Popovers */
     --brand-popover: #f6f6f6;
     --brand-popover-foreground: #101010;
+
+    --brand-highlight: #8b7355; /* Elegant Bronze */
+    --brand-highlight-foreground: #ffffff;
+    --brand-highlight-background: #e6e3db; /* Soft linen */
+    --brand-highlight-border: #d4cfc1;
   }
 }

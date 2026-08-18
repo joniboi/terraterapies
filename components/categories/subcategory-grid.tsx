@@ -4,13 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import AOS from "aos";
 import { useEffect } from "react";
-import { Subcategory } from "@/types/definitions";
 import { Button } from "@/components/ui/button";
 import { PricingPills } from "@/components/treatment/pricing-pills"; // <-- IMPORTED
 import { PromoBadge } from "@/components/ui/promo-badge";
 
-export interface ShowcaseItem extends Subcategory {
+export interface ShowcaseItem {
+  title: string;
+  image: string;
   link: string;
+  shortDescription?: string;
+  promoBadgeText?: string;
+  options?: any[]; // Pricing Options (Only rendered if present)
 }
 
 interface SubcategoryShowcaseProps {

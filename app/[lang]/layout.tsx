@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { Suspense } from "react";
 import { VisitTracker } from "@/components/visit-tracker";
 import LocalBusinessSchema from "@/components/seo/local-business-schema";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,7 +36,7 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang={lang} className={`scroll-smooth theme-${BRAND}`}>
       <body

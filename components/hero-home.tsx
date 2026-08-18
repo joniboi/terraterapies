@@ -5,16 +5,19 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { getLocalizedRoute, routes } from "@/app/lib/routes";
 import { Calendar, Gift } from "lucide-react";
+import HeroCarousel from "./hero-carousel";
 
 // 1. Define the Dictionary Interface
 
 export default function HeroHome({
   dict,
   settings,
+  hydratedGallery,
   lang,
 }: {
   dict: any;
   settings: any;
+  hydratedGallery: any[];
   lang: string;
 }) {
   const tagline = settings?.heroTagline?.[lang] || "";
@@ -74,6 +77,11 @@ export default function HeroHome({
             </div>
           </div>
         </div>
+        {hydratedGallery && hydratedGallery.length > 0 && (
+          <div className="px-4" data-aos="zoom-y-out" data-aos-delay={600}>
+            <HeroCarousel slides={hydratedGallery} />
+          </div>
+        )}
       </div>
     </section>
   );

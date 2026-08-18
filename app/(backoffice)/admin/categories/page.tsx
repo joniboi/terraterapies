@@ -35,7 +35,7 @@ export default async function CategoriesListPage() {
     {
       header: "Parent Group",
       render: (cat) => (
-        <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium uppercase text-gray-500">
+        <span className="bg-brand-secondary px-2 py-1 rounded text-xs font-medium uppercase text-gray-500">
           {cat.group?.label?.es}
         </span>
       ),
@@ -44,11 +44,11 @@ export default async function CategoriesListPage() {
       header: "Status",
       render: (cat) =>
         cat.isFeatured ? (
-          <span className="text-amber-500 text-sm flex items-center gap-1">
+          <span className="text-highlight text-sm flex items-center gap-1">
             ⭐ Featured
           </span>
         ) : (
-          <span className="text-gray-400 text-sm">Standard</span>
+          <span className="text-brand-muted-foreground text-sm">Standard</span>
         ),
     },
     {
