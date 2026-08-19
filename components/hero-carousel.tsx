@@ -71,6 +71,8 @@ export default function HeroCarousel({ slides }: { slides: any[] }) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
             <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-black/60 to-transparent z-10" />
 
+            <div className="absolute bottom-0 left-0 right-0 h-28 md:h-40 lg:h-48 bg-gradient-to-b from-transparent to-background z-10 pointer-events-none" />
+
             {/* PROMOTIONAL OVERLAY */}
             {(resolvedTitle || resolvedSubtitle) && (
               <div className="absolute bottom-0 left-0 right-0 w-full z-20 pb-12 md:pb-16">
@@ -80,7 +82,7 @@ export default function HeroCarousel({ slides }: { slides: any[] }) {
                     data-aos="fade-up"
                   >
                     {resolvedTitle && (
-                      <h3 className="text-2xl md:text-4xl font-bold mb-3 drop-shadow-md">
+                      <h3 className="font-heading text-2xl md:text-4xl font-bold mb-3 drop-shadow-md">
                         {resolvedTitle}
                       </h3>
                     )}

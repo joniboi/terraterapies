@@ -70,13 +70,13 @@ export default async function SuccessPage({
         </div>
 
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             {dict.success?.title || "Payment Successful!"}
           </h1>
 
-          <div className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto">
+          <div className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl mx-auto">
             {buyerName && (
-              <p className="font-medium text-gray-900 mb-2">
+              <p className="font-medium text-foreground mb-2">
                 {dict.success?.thankYou || "Thank you"}, {buyerName}.
               </p>
             )}

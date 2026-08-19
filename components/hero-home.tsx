@@ -38,7 +38,10 @@ export default function HeroHome({
       <div className="relative z-20 mx-auto w-full max-w-6xl px-4 sm:px-6 flex-1 flex flex-col pointer-events-none">
         <div className="pt-32 pb-12 md:pt-[15%] md:pb-20 pointer-events-auto">
           <div className="text-center">
-            <h1 className="mb-8 mx-auto max-w-3xl" data-aos="zoom-y-out">
+            <h1
+              className="font-heading text-4xl font-bold mb-8 mx-auto max-w-3xl"
+              data-aos="zoom-y-out"
+            >
               <span
                 className={cn(
                   "block mb-6 text-5xl font-bold md:text-6xl transition-colors duration-300",

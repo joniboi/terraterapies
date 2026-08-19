@@ -75,7 +75,7 @@ export default function BusinessCategories({
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
+          <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
             {dict.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
@@ -116,7 +116,7 @@ export default function BusinessCategories({
                     </span>
                   )}
 
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-sm">
+                  <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-3 drop-shadow-sm">
                     {getLabel(group.title)}
                   </h3>
 

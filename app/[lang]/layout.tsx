@@ -1,26 +1,18 @@
+// app/[lang]/layout.tsx
 import "../css/style.css";
-import { Inter } from "next/font/google";
 import { config, BRAND } from "@/app/lib/config";
 import { db } from "@/db";
 import { Suspense } from "react";
 import { VisitTracker } from "@/components/visit-tracker";
 import LocalBusinessSchema from "@/components/seo/local-business-schema";
 import Script from "next/script";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+import { resolveFont } from "@/app/lib/font-library"; // <-- NEW IMPORT
 
 export async function generateMetadata() {
   const settings = await db.query.siteSettings.findFirst();
-
   return {
     title: settings?.businessName || "Spa Management",
     icons: {
-      // 1. Point to the database URL if it exists
-      // 2. Add a version (?v=...) to force the browser to ignore its cache
       icon: settings?.faviconUrl
         ? `${settings.faviconUrl}?v=${Date.now()}`
         : "/favicon.ico",
@@ -37,13 +29,33 @@ export default async function RootLayout({
 }) {
   const { lang } = await params;
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
+  // 1. Fetch settings
+  const settings = await db.query.siteSettings.findFirst();
+
+  // 2. Resolve typography (defaults safely to Inter)
+  const headingF = resolveFont(settings?.headingFont);
+  const bodyF = resolveFont(settings?.bodyFont);
+  const uiF = resolveFont(settings?.uiFont);
+
+  // 3. Extract the unique Google Next.js CSS variable classes (deduplicated)
+  const fontVariableClasses = Array.from(
+    new Set([headingF.font.variable, bodyF.font.variable, uiF.font.variable]),
+  ).join(" ");
+
+  // 4. Map them directly to your existing application architecture
+  const dynamicFontStyles = {
+    "--app-font-heading": `var(${headingF.cssVar}), ${headingF.fallback}`,
+    "--app-font-body": `var(${bodyF.cssVar}), ${bodyF.fallback}`,
+    "--app-font-ui": `var(${uiF.cssVar}), ${uiF.fallback}`,
+  } as React.CSSProperties;
+
   return (
     <html lang={lang} className={`scroll-smooth theme-${BRAND}`}>
       <body
-        /* 4. Use bg-background and text-foreground to activate the Theme Engine */
-        className={`${inter.variable} bg-background font-inter tracking-tight text-foreground antialiased`}
+        className={`${fontVariableClasses} font-body bg-background text-foreground tracking-tight antialiased`}
+        style={dynamicFontStyles}
       >
-        {/* INJECT GOOGLE TAG DYNAMICALLY FOR SEO/ADS OPTIMIZATION */}
         {gaId && (
           <>
             <Script

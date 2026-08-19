@@ -22,7 +22,7 @@ export function AdminHeader({
     <div className="mb-8">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="font-heading text-3xl font-bold tracking-tight text-foreground">
             {title}
           </h1>
           {subtitle && <p className="text-muted-foreground mt-1">{subtitle}</p>}

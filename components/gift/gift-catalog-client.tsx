@@ -66,7 +66,7 @@ export default function GiftCatalogClient({
             key={navItem.id}
             className="animate-in fade-in slide-in-from-bottom-4 duration-500"
           >
-            <h2 className="text-2xl font-bold flex items-center gap-2 mb-8 text-foreground border-b pb-4">
+            <h2 className="font-heading text-2xl font-bold flex items-center gap-2 mb-8 text-foreground border-b pb-4">
               <span>{navItem.emoji}</span>{" "}
               {search ? storeDict?.allTreatments : navItem.title}
             </h2>
@@ -74,7 +74,7 @@ export default function GiftCatalogClient({
             <div className="space-y-12">
               {navItem.categories.map((cat) => (
                 <div key={cat.slug} className="space-y-6">
-                  <h3 className="text-muted-foreground font-semibold uppercase tracking-widest text-xs flex items-center gap-2">
+                  <h3 className="font-heading text-muted-foreground font-semibold uppercase tracking-widest text-xs flex items-center gap-2">
                     <div className="h-px w-6 bg-border" />
                     {cat.title}
                   </h3>

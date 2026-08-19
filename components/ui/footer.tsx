@@ -156,7 +156,7 @@ export default function Footer({
 
           {/* 5th block: Social Icons (Direct Inline SVGs) */}
           <div className="space-y-4 sm:col-span-6 md:col-span-3 lg:col-span-2">
-            <h3 className="text-sm font-bold uppercase tracking-wider">
+            <h3 className="font-heading text-sm font-bold uppercase tracking-wider">
               {dict.social.title}
             </h3>
             <ul className="flex gap-4">
@@ -255,14 +255,14 @@ function FooterSection({ title, children, className }: any) {
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between sm:hidden group"
       >
-        <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">
+        <h3 className="font-heading text-sm font-bold text-foreground uppercase tracking-wider">
           {title}
         </h3>
         <ChevronDown
           className={`w-4 h-4 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
-      <h3 className="hidden sm:block text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">
+      <h3 className="font-heading hidden sm:block text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">
         {title}
       </h3>
       <div

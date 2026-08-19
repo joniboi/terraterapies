@@ -192,6 +192,12 @@ export const siteSettings = pgTable("site_settings", {
   // We use a fixed string 'singleton' as the ID so there is only ever ONE row.
   id: varchar("id", { length: 20 }).primaryKey().default("singleton"),
 
+  headingFont: varchar("heading_font", { length: 50 })
+    .default("inter")
+    .notNull(),
+  bodyFont: varchar("body_font", { length: 50 }).default("inter").notNull(),
+  uiFont: varchar("ui_font", { length: 50 }).default("inter").notNull(),
+
   // Translatable Marketing Copy
   businessName: varchar("business_name", { length: 255 }).notNull(),
   heroTagline: jsonb("hero_tagline").$type<I18nString>().notNull(),

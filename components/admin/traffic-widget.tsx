@@ -149,7 +149,7 @@ export async function TrafficWidget() {
 
         {/* Row 2: Smart Conclusions (Last 30 Days) */}
         <div>
-          <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-wider">
+          <h3 className="font-heading text-sm font-bold text-foreground mb-4 uppercase tracking-wider">
             💡 Smart Insights (Last 30 days)
           </h3>
 

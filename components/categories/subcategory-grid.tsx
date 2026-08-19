@@ -40,7 +40,7 @@ export default function SubcategoryShowcase({
         {/* Header Section */}
         {title && (
           <div className="text-center mb-16" data-aos="fade-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
               {title}
             </h2>
             {description && (
@@ -80,7 +80,7 @@ export default function SubcategoryShowcase({
 
                 {/* Text & Pricing Section */}
                 <div className="w-full md:w-7/12 flex flex-col justify-center p-6 md:p-12 text-center md:text-left">
-                  <h3 className="text-2xl md:text-3xl font-semibold text-foreground mb-3">
+                  <h3 className="font-heading text-2xl md:text-3xl font-semibold text-foreground mb-3">
                     {sub.title}
                   </h3>
                   {sub.shortDescription && (

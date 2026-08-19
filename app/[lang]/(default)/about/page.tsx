@@ -20,17 +20,17 @@ export default async function AboutPage({ params }: PageProps) {
     settings?.aboutUsText?.[lang as "es" | "ca" | "en"] || "";
   const imageSrc = settings?.aboutImage || "/images/contact-portrait.jpg";
   return (
-    <main className="relative py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <main className="relative py-16 md:py-24 bg-gradient-to-b from-muted to-background">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column: Text */}
           <div data-aos="fade-right" className="order-2 lg:order-1">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-8">
               {aboutTitle}
             </h1>
 
             {/* The whitespace-pre-line class respects the \n\n in the JSON! */}
-            <div className="prose prose-lg text-gray-600 whitespace-pre-line leading-relaxed">
+            <div className="prose prose-lg text-muted-foreground whitespace-pre-line leading-relaxed">
               <p>{aboutDescription}</p>
             </div>
           </div>

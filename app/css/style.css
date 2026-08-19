@@ -7,6 +7,7 @@
 
 /* 1. TOKENS (Variables & Keyframes) */
 @import "./additional-styles/theme.css";
+@import "./additional-styles/custom-fonts.css";
 
 /* 2. PATTERNS (Classes & AOS Animations) */
 @import "./additional-styles/utility-patterns.css";

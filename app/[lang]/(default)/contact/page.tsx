@@ -34,10 +34,10 @@ export default async function ContactPage({ params }: PageProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 w-full">
         {/* Header */}
         <div className="text-center mb-16" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
             {contact.title}
           </h1>
-          <p className="text-lg text-gray-600">{contact.subtitle}</p>
+          <p className="text-lg text-muted-foreground">{contact.subtitle}</p>
         </div>
 
         {/* Info Cards Grid */}
@@ -50,7 +50,7 @@ export default async function ContactPage({ params }: PageProps) {
           >
             <div className="flex items-center gap-3 mb-8">
               <span className="text-2xl">🕒</span>
-              <h2 className="text-2xl font-semibold text-gray-900">
+              <h2 className="font-heading text-2xl font-semibold text-foreground">
                 {contact.schedule.title}
               </h2>
             </div>
@@ -86,7 +86,7 @@ export default async function ContactPage({ params }: PageProps) {
           >
             <div className="flex items-center gap-3 mb-8">
               <span className="text-2xl">📍</span>
-              <h2 className="text-2xl font-semibold text-gray-900">
+              <h2 className="font-heading text-2xl font-semibold text-foreground">
                 {contact.info.title}
               </h2>
             </div>
@@ -94,14 +94,14 @@ export default async function ContactPage({ params }: PageProps) {
             <div className="space-y-8 flex-grow">
               {/* Phone / WhatsApp */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <h3 className="font-heading text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                   {contact.info.phoneTitle}
                 </h3>
                 <a
                   href={`https://wa.me/${cleanPhone}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl font-medium text-gray-900 hover:text-[#25D366] transition-colors flex items-center gap-2"
+                  className="text-xl font-medium text-foreground hover:text-[#25D366] transition-colors flex items-center gap-2"
                 >
                   {phone}
                 </a>
@@ -109,14 +109,14 @@ export default async function ContactPage({ params }: PageProps) {
 
               {/* Address with Google Maps Pin */}
               <div>
-                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                <h3 className="font-heading text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                   {contact.info.addressTitle}
                 </h3>
                 <a
                   href={mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-start gap-2 text-xl font-medium text-gray-900 hover:text-blue-600 transition-colors"
+                  className="group flex items-start gap-2 text-xl font-medium text-foreground hover:text-blue-600 transition-colors"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

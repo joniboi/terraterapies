@@ -32,6 +32,9 @@ export async function POST(req: Request) {
       .insert(siteSettings)
       .values({
         id: "singleton",
+        headingFont: body.headingFont,
+        bodyFont: body.bodyFont,
+        uiFont: body.uiFont,
         businessName: body.businessName,
         contactEmail: body.contactEmail,
         contactPhone: body.contactPhone,
@@ -56,6 +59,9 @@ export async function POST(req: Request) {
       .onConflictDoUpdate({
         target: siteSettings.id,
         set: {
+          headingFont: body.headingFont,
+          bodyFont: body.bodyFont,
+          uiFont: body.uiFont,
           businessName: body.businessName,
           contactEmail: body.contactEmail,
           contactPhone: body.contactPhone,

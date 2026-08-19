@@ -130,7 +130,7 @@ export default function ReviewsSlider({
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="max-w-2xl text-left" data-aos="fade-up">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
               {title}
             </h2>
             <p className="text-muted-foreground text-lg italic">{subtitle}</p>

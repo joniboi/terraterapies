@@ -26,7 +26,7 @@ export function CategoryHero({ title, images }: CategoryHeroProps) {
         <div className="pb-12 pt-32 md:pb-1 md:pt-25">
           <div className="pb-12 text-center md:pb-1">
             <h1
-              className="mb-6 border-y text-5xl font-bold [border-image:linear-gradient(to_right,transparent,var(--color-slate-300),transparent)1] md:text-6xl"
+              className="font-heading text-5xl font-bold mb-6 border-y [border-image:linear-gradient(to_right,transparent,var(--color-border),transparent)1] md:text-6xl"
               data-aos="zoom-y-out"
               data-aos-delay={150}
             >

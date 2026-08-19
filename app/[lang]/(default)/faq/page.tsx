@@ -23,7 +23,7 @@ export default async function FAQPage({ params }: PageProps) {
       <section className="relative py-20 bg-muted/20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
           <h1
-            className="text-4xl md:text-5xl font-bold text-foreground mb-4"
+            className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4"
             data-aos="fade-up"
           >
             {hero?.title?.[lang as keyof I18nString] || "FAQ"}
@@ -49,7 +49,7 @@ export default async function FAQPage({ params }: PageProps) {
               data-aos-delay={sectionIndex * 100}
             >
               {/* Section Title */}
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 pb-3 border-b-2 border-primary/20">
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-6 pb-3 border-b-2 border-primary/20">
                 {section.title[lang as keyof I18nString]}
               </h2>
 
@@ -81,7 +81,7 @@ export default async function FAQPage({ params }: PageProps) {
               className="mt-16 p-8 rounded-2xl bg-muted/50 border border-border text-center"
               data-aos="fade-up"
             >
-              <h3 className="text-xl font-semibold text-foreground mb-3">
+              <h3 className="font-heading text-xl font-semibold text-foreground mb-3">
                 {cta.title[lang as keyof I18nString]}
               </h3>
               <p className="text-muted-foreground mb-6">
