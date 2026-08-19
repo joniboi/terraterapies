@@ -26,7 +26,9 @@ export default async function NewTreatmentPage() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Add New Treatment</h1>
+      <h1 className="font-heading text-3xl font-bold mb-8">
+        Add New Treatment
+      </h1>
       <TreatmentForm
         initialData={emptyTreatment}
         categories={allCategories}

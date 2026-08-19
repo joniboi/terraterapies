@@ -15,6 +15,7 @@ import { FormSection } from "@/components/admin/form-logic/form-section";
 import { FormGrid } from "@/components/admin/form-logic/form-grid";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
 import Accordion from "@/components/ui/accordion";
+import AdminFormFooter from "@/components/admin/admin-form-footer";
 
 // Empty boilerplate for new items
 const emptyI18n: I18nString = { es: "", ca: "", en: "" };
@@ -110,11 +111,13 @@ export default function FAQForm({ initialData }: { initialData: any }) {
         }),
       });
       if (res.ok) {
-        alert("FAQs saved successfully!");
         router.refresh();
+        return true;
       }
+      return false;
     } catch (error) {
       console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -129,7 +132,7 @@ export default function FAQForm({ initialData }: { initialData: any }) {
       >
         <FormGrid cols={2}>
           <div className="space-y-4">
-            <h3 className="text-xs font-bold uppercase text-muted-foreground border-b pb-1">
+            <h3 className="font-heading text-xs font-bold uppercase text-muted-foreground border-b pb-1">
               Hero Section
             </h3>
             <I18nField
@@ -149,7 +152,7 @@ export default function FAQForm({ initialData }: { initialData: any }) {
             />
           </div>
           <div className="space-y-4">
-            <h3 className="text-xs font-bold uppercase text-muted-foreground border-b pb-1">
+            <h3 className="font-heading text-xs font-bold uppercase text-muted-foreground border-b pb-1">
               Contact CTA
             </h3>
             <I18nField
@@ -172,7 +175,7 @@ export default function FAQForm({ initialData }: { initialData: any }) {
 
       {/* 2. THE SECTIONS (Table of Contents via Vertical Tabs) */}
       <div className="flex justify-between items-center mt-12 mb-6">
-        <h2 className="text-xl font-bold tracking-tight">
+        <h2 className="font-heading text-xl font-bold tracking-tight">
           FAQ Content Sections
         </h2>
         {sections.length === 0 && (
@@ -249,7 +252,7 @@ export default function FAQForm({ initialData }: { initialData: any }) {
 
                 <div className="pt-8 border-t border-border mt-8">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                    <h3 className="font-heading text-sm font-bold uppercase tracking-widest text-muted-foreground">
                       Questions ({sec.questions.length})
                     </h3>
                     <Button
@@ -321,17 +324,12 @@ export default function FAQForm({ initialData }: { initialData: any }) {
         </Tabs>
       )}
 
-      {/* FIXED FOOTER */}
-      <div className="fixed bottom-0 left-0 right-0 md:left-64 p-4 bg-background border-t border-border z-50 flex justify-end">
-        <Button
-          type="button"
-          onClick={handleSave}
-          disabled={loading}
-          className="px-6"
-        >
-          {loading ? "Saving..." : "Save FAQs"}
-        </Button>
-      </div>
+      <AdminFormFooter
+        isLoading={loading}
+        onSave={handleSave}
+        onSaveSuccess={() => router.refresh()}
+        isEdit={false}
+      />
     </div>
   );
 }

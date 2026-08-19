@@ -17,6 +17,16 @@ import * as schema from "@/db/schema";
 import { FormSection } from "@/components/admin/form-logic/form-section";
 import { FormField } from "@/components/admin/form-logic/form-field";
 import { FormGrid } from "@/components/admin/form-logic/form-grid";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 type TreatmentWithVariants = typeof schema.treatments.$inferSelect & {
   variants: (typeof schema.treatmentVariants.$inferSelect)[];
@@ -29,6 +39,7 @@ export default function ManualGiftCardForm({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     buyerName: "",
     buyerEmail: "",
@@ -43,7 +54,12 @@ export default function ManualGiftCardForm({
   const activeV = activeT?.variants.find((v) => v.id === formData.variantId);
 
   async function handleSave() {
-    if (!activeT || !activeV) return alert("Select treatment and variant.");
+    if (!activeT || !activeV) {
+      setValidationError(
+        "Please select both a treatment and a price/duration variant.",
+      );
+      return false;
+    }
     setLoading(true);
     try {
       const payload = {
@@ -58,9 +74,13 @@ export default function ManualGiftCardForm({
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        router.push("/admin/gift-cards");
         router.refresh();
+        return true;
       }
+      return false;
+    } catch (error) {
+      console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -180,7 +200,32 @@ export default function ManualGiftCardForm({
         </FormGrid>
       </FormSection>
 
-      <AdminFormFooter isLoading={loading} onSave={handleSave} isEdit={false} />
+      <AdminFormFooter
+        isLoading={loading}
+        onSave={handleSave}
+        onSaveSuccess={() => router.push("/admin/gift-cards")}
+        isEdit={false}
+      />
+
+      {/* Validation Warning Alert Dialog */}
+      <AlertDialog
+        open={!!validationError}
+        onOpenChange={(open) => !open && setValidationError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Required Selection Missing</AlertDialogTitle>
+            <AlertDialogDescription>{validationError}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={
+                <Button onClick={() => setValidationError(null)}>OK</Button>
+              }
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

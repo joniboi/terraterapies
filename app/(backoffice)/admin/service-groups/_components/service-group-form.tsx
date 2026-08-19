@@ -20,6 +20,15 @@ import { Button } from "@/components/ui/button";
 import { FormSection } from "@/components/admin/form-logic/form-section";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
 import { FormField } from "@/components/admin/form-logic/form-field";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
 
 export default function ServiceGroupForm({
   initialData,
@@ -28,6 +37,7 @@ export default function ServiceGroupForm({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const isEdit = !!initialData?.id;
 
   const [formData, setFormData] = useState({
@@ -100,11 +110,13 @@ export default function ServiceGroupForm({
       });
 
       if (res.ok) {
-        router.push("/admin/service-groups");
         router.refresh();
+        return true;
       }
+      return false;
     } catch (error) {
       console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -123,10 +135,11 @@ export default function ServiceGroupForm({
         router.refresh();
       } else {
         const data = await res.text();
-        alert(data || "Cannot delete service group.");
+        setDeleteError(data || "Cannot delete service group.");
       }
     } catch (error) {
       console.error("Delete failed", error);
+      setDeleteError("Delete operation failed.");
     } finally {
       setLoading(false);
     }
@@ -314,9 +327,28 @@ export default function ServiceGroupForm({
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
+        onSaveSuccess={() => router.push("/admin/service-groups")}
         onDelete={handleDelete}
         isEdit={isEdit}
       />
+
+      {/* Delete Error Alert Dialog */}
+      <AlertDialog
+        open={!!deleteError}
+        onOpenChange={(open) => !open && setDeleteError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cannot Delete Service Group</AlertDialogTitle>
+            <AlertDialogDescription>{deleteError}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={<Button onClick={() => setDeleteError(null)}>OK</Button>}
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

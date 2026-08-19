@@ -109,11 +109,13 @@ export default function TreatmentForm({
       });
 
       if (res.ok) {
-        router.push("/admin/treatments");
         router.refresh();
+        return true;
       }
+      return false;
     } catch (error) {
-      console.error("Update failed");
+      console.error("Update failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -470,6 +472,7 @@ export default function TreatmentForm({
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
+        onSaveSuccess={() => router.push("/admin/treatments")}
         onDelete={handleDelete}
         isEdit={!!initialData.id}
       />

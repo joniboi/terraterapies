@@ -74,7 +74,7 @@ export default function HeroGalleryManager({
   return (
     <div className="space-y-6">
       <div className="bg-muted/30 p-4 rounded-lg border border-border">
-        <h3 className="font-semibold">Homepage Dynamic Gallery</h3>
+        <h3 className="font-heading font-semibold">Homepage Dynamic Gallery</h3>
         <p className="text-sm text-muted-foreground">
           Link photos to treatments. The system automatically handles links and
           discount badges.

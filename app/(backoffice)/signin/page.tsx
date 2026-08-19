@@ -45,8 +45,10 @@ export default async function SignIn({
   return (
     <>
       <div className="mb-10">
-        <h1 className="text-4xl font-bold">Terraterapies Thai & Bali Admin</h1>
-        <p className="text-gray-500 mt-2">
+        <h1 className="font-heading text-4xl font-bold">
+          Terraterapies Thai & Bali Admin
+        </h1>
+        <p className="text-muted-foreground mt-2">
           Sign in to manage treatments and prices.
         </p>
       </div>

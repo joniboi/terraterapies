@@ -1,14 +1,8 @@
 // app/(backoffice)/layout.tsx
 import "@/app/css/style.css";
-import { Inter } from "next/font/google";
 import { BRAND } from "@/app/lib/config";
 import { db } from "@/db";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+import { resolveFont } from "@/app/lib/font-library";
 
 export async function generateMetadata() {
   const settings = await db.query.siteSettings.findFirst();
@@ -20,15 +14,31 @@ export async function generateMetadata() {
   };
 }
 
-export default function BackofficeRootLayout({
+export default async function BackofficeRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settings = await db.query.siteSettings.findFirst();
+
+  const headingF = resolveFont(settings?.headingFont);
+  const bodyF = resolveFont(settings?.bodyFont);
+  const uiF = resolveFont(settings?.uiFont);
+
+  const fontVariableClasses = Array.from(
+    new Set([headingF.font.variable, bodyF.font.variable, uiF.font.variable]),
+  ).join(" ");
+
+  const dynamicFontStyles = {
+    "--app-font-heading": `var(${headingF.cssVar}), ${headingF.fallback}`,
+    "--app-font-body": `var(${bodyF.cssVar}), ${bodyF.fallback}`,
+    "--app-font-ui": `var(${uiF.cssVar}), ${uiF.fallback}`,
+  } as React.CSSProperties;
   return (
     <html lang="en" className={`theme-${BRAND}`}>
       <body
-        className={`${inter.variable} font-inter bg-gray-100 text-gray-900 tracking-tight antialiased`}
+        className={`${fontVariableClasses} font-body bg-background text-foreground tracking-tight antialiased`}
+        style={dynamicFontStyles}
       >
         {children}
       </body>

@@ -63,7 +63,7 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8 text-foreground">
+      <h1 className="font-heading text-3xl font-bold mb-8 text-foreground">
         Welcome back, {session?.user?.name || "Admin"}!
       </h1>
 

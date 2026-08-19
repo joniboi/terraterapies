@@ -91,7 +91,7 @@ export default async function AdminServicesList() {
       header: "Group",
       render: (t) => (
         <div className="text-sm text-gray-500">
-          <span className="bg-gray-100 px-2 py-1 rounded text-xs font-medium uppercase">
+          <span className="bg-muted px-2 py-1 rounded text-xs font-medium uppercase">
             {t.serviceGroup?.label?.es || "Unknown"}
           </span>
           {t.serviceGroup?.highlight && (

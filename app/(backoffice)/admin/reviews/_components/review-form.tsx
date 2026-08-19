@@ -15,10 +15,21 @@ import {
 import LanguageTabs from "@/components/admin/language-tabs";
 import AdminFormFooter from "@/components/admin/admin-form-footer";
 import Accordion from "@/components/ui/accordion";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 export default function ReviewForm({ initialData }: { initialData?: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const isEdit = !!initialData?.id;
 
   const [formData, setFormData] = useState({
@@ -34,8 +45,10 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
 
   async function handleSave() {
     if (!formData.authorName || !formData.text.es) {
-      alert("Please fill at least the Author Name and Spanish Text.");
-      return;
+      setValidationError(
+        "Please fill in at least the Author Name and Spanish Text.",
+      );
+      return false;
     }
 
     setLoading(true);
@@ -49,11 +62,13 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
       });
 
       if (res.ok) {
-        router.push("/admin/reviews");
         router.refresh();
+        return true;
       }
+      return false;
     } catch (error) {
       console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -61,7 +76,7 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
 
   async function handleDelete() {
     if (!isEdit) return;
-    if (!confirm("Are you sure you want to delete this review?")) return;
+    // Native confirm removed; footer handles the modal confirmation
 
     setLoading(true);
     try {
@@ -83,7 +98,7 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
     <div className="space-y-6 pb-24 max-w-7xl mx-auto">
       {/* SECTION 1: PRIMARY CONFIGURATION */}
       <div className="bg-background p-6 rounded-xl border border-border shadow-sm space-y-6">
-        <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">
+        <h2 className="font-heading text-lg font-bold text-foreground border-b border-border pb-2">
           Review Settings
         </h2>
 
@@ -197,9 +212,30 @@ export default function ReviewForm({ initialData }: { initialData?: any }) {
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
+        onSaveSuccess={() => router.push("/admin/reviews")}
         onDelete={handleDelete}
         isEdit={!!initialData}
       />
+
+      {/* Validation Warning Alert Dialog */}
+      <AlertDialog
+        open={!!validationError}
+        onOpenChange={(open) => !open && setValidationError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Required Selection Missing</AlertDialogTitle>
+            <AlertDialogDescription>{validationError}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={
+                <Button onClick={() => setValidationError(null)}>OK</Button>
+              }
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

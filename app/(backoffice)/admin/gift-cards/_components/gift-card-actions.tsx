@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Download, Mail, Send, CheckCircle2 } from "lucide-react";
-import RedeemButton from "./redeem-button"; // <-- Import your existing button!
+import RedeemButton from "./redeem-button";
 import { useRouter } from "next/dist/client/components/navigation";
 
 interface UnifiedActionsProps {
@@ -30,6 +30,7 @@ export function GiftCardActions({ card }: UnifiedActionsProps) {
   const [email, setEmail] = useState(card.buyerEmail);
   const [isSending, setIsSending] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleDownload = () => {
     window.location.href = `/api/admin/gift-cards/${card.id}/download?lang=es`;
@@ -39,6 +40,7 @@ export function GiftCardActions({ card }: UnifiedActionsProps) {
     e.preventDefault();
     setIsSending(true);
     setIsSuccess(false);
+    setErrorMessage(null);
 
     try {
       const res = await fetch(`/api/admin/gift-cards/${card.id}/resend`, {
@@ -49,13 +51,14 @@ export function GiftCardActions({ card }: UnifiedActionsProps) {
 
       if (res.ok) {
         setIsSuccess(true);
-        router.refresh(); // 3. <-- Trigger the background table refresh!
+        router.refresh();
         setTimeout(() => setIsSuccess(false), 3000);
       } else {
-        alert("Error al reenviar. Revisa la consola.");
+        setErrorMessage("Error al reenviar. Por favor, inténtelo de nuevo.");
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("Error de red o conexión.");
     } finally {
       setIsSending(false);
     }
@@ -110,6 +113,13 @@ export function GiftCardActions({ card }: UnifiedActionsProps) {
                   className="bg-background border-input h-8 text-sm"
                 />
               </div>
+
+              {errorMessage && (
+                <p className="text-xs text-destructive font-semibold">
+                  {errorMessage}
+                </p>
+              )}
+
               <Button
                 type="submit"
                 disabled={isSending || isSuccess}
@@ -143,7 +153,10 @@ export function GiftCardActions({ card }: UnifiedActionsProps) {
           />
         ) : (
           <div className="text-[10px] text-success font-black uppercase tracking-widest px-2 text-right">
-            Completed {card.redeemedAt?.toLocaleDateString("en-GB")}
+            Completed{" "}
+            {card.redeemedAt
+              ? new Date(card.redeemedAt).toLocaleDateString("en-GB")
+              : ""}
           </div>
         )}
       </div>

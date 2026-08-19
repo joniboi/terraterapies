@@ -17,7 +17,7 @@ export default async function CategoriesListPage() {
         <img
           src={cat.image}
           alt=""
-          className="w-12 h-12 rounded-lg object-cover bg-gray-100"
+          className="w-12 h-12 rounded-lg object-cover bg-muted"
         />
       ),
     },
@@ -25,10 +25,12 @@ export default async function CategoriesListPage() {
       header: "Category (ES)",
       render: (cat) => (
         <>
-          <div className="font-semibold text-gray-800">
+          <div className="font-semibold text-foreground">
             {cat.title?.es || "Unnamed Category"}
           </div>
-          <div className="text-xs text-gray-400 font-mono">{cat.slug}</div>
+          <div className="text-xs text-muted-foreground font-mono">
+            {cat.slug}
+          </div>
         </>
       ),
     },
