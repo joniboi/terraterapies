@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { AdminTable, ColumnDef } from "@/components/admin/table/admin-table";
 import { AdminHeader } from "@/components/admin/table/admin-header";
-import { AdminAction } from "@/components/admin/admin-action";
+import Image from "next/image";
 
 export default async function CategoriesListPage() {
   const allCategories = await db.query.categories.findMany({
@@ -9,58 +9,66 @@ export default async function CategoriesListPage() {
     orderBy: (categories, { asc }) => [asc(categories.orderIndex)],
   });
 
-  // Define how the generic table should render Category rows
   const columns: ColumnDef<(typeof allCategories)[0]>[] = [
     {
-      header: "Image",
+      header: "Category",
+      className: "flex-1 min-w-0",
       render: (cat) => (
-        <img
-          src={cat.image}
-          alt=""
-          className="w-12 h-12 rounded-lg object-cover bg-muted"
-        />
-      ),
-    },
-    {
-      header: "Category (ES)",
-      render: (cat) => (
-        <>
-          <div className="font-semibold text-foreground">
-            {cat.title?.es || "Unnamed Category"}
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 shrink-0 bg-muted rounded-lg overflow-hidden relative border border-border">
+            {cat.image ? (
+              <Image
+                src={cat.image}
+                alt={cat.slug || ""}
+                fill
+                sizes="56px"
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">
+                No Img
+              </div>
+            )}
           </div>
-          <div className="text-xs text-muted-foreground font-mono">
-            {cat.slug}
+          <div className="min-w-0">
+            <div className="font-heading font-bold text-base text-foreground">
+              {cat.title?.es || "Unnamed Category"}
+            </div>
+            <div className="text-xs text-muted-foreground font-mono mt-0.5">
+              /{cat.slug}
+            </div>
           </div>
-        </>
+        </div>
       ),
     },
     {
       header: "Parent Group",
+      className: "hidden md:flex shrink-0 w-48",
       render: (cat) => (
-        <span className="bg-brand-secondary px-2 py-1 rounded text-xs font-medium uppercase text-gray-500">
-          {cat.group?.label?.es}
+        <span className="bg-secondary text-secondary-foreground px-2.5 py-1 rounded-md text-xs font-semibold uppercase tracking-wider border border-border">
+          {cat.group?.label?.es || "No Parent"}
         </span>
       ),
     },
     {
       header: "Status",
+      className: "hidden md:flex shrink-0 w-32",
       render: (cat) =>
         cat.isFeatured ? (
-          <span className="text-highlight text-sm flex items-center gap-1">
+          <span className="bg-highlight-background text-highlight border border-highlight-border px-2.5 py-0.5 rounded-full text-xs font-bold inline-flex items-center gap-1">
             ⭐ Featured
           </span>
         ) : (
-          <span className="text-brand-muted-foreground text-sm">Standard</span>
+          <span className="text-muted-foreground text-xs font-medium">
+            Standard
+          </span>
         ),
     },
     {
       header: "Action",
-      className: "text-right w-32", // Keeps the column tight to the right
-      render: (row) => (
-        <div className="flex justify-end gap-2">
-          <AdminAction type="edit" href={`/admin/categories/${row.id}`} />
-        </div>
-      ),
+      className:
+        "text-right w-24 shrink-0 text-muted-foreground group-hover:text-primary transition-colors",
+      render: () => <>Edit &rarr;</>,
     },
   ];
 
@@ -72,7 +80,11 @@ export default async function CategoriesListPage() {
         actionLabel="+ Add Category"
         actionHref="/admin/categories/new"
       />
-      <AdminTable data={allCategories} columns={columns} />
+      <AdminTable
+        data={allCategories}
+        columns={columns}
+        rowHref={(category) => `/admin/categories/${category.id}`}
+      />
     </div>
   );
 }

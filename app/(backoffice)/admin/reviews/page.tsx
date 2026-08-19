@@ -70,7 +70,11 @@ export default async function ReviewsListPage() {
         actionLabel="+ Add Review"
         actionHref="/admin/reviews/new"
       />
-      <AdminTable data={allReviews} columns={columns} />
+      <AdminTable
+        data={allReviews}
+        columns={columns}
+        rowHref={(review) => `/admin/reviews/${review.id}`}
+      />
     </div>
   );
 }

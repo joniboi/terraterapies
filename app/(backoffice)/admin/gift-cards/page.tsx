@@ -1,7 +1,6 @@
 import { db } from "@/db";
 import { desc, eq } from "drizzle-orm";
 import * as schema from "@/db/schema";
-import RedeemButton from "@/app/(backoffice)/admin/gift-cards/_components/redeem-button";
 import { GiftCardActions } from "@/app/(backoffice)/admin/gift-cards/_components/gift-card-actions";
 import { AdminHeader } from "@/components/admin/table/admin-header";
 import { AdminTable, ColumnDef } from "@/components/admin/table/admin-table";
@@ -16,9 +15,7 @@ export default async function AdminGiftCardsPage(props: {
   const searchParams = await props.searchParams;
   const statusFilter = searchParams.status;
 
-  // 1. Fetch cards based on status
   const cards = await db.query.giftCards.findMany({
-    // If statusFilter exists, filter by it. If not, don't apply a where clause.
     where: statusFilter
       ? eq(schema.giftCards.status, statusFilter as any)
       : undefined,
@@ -28,31 +25,29 @@ export default async function AdminGiftCardsPage(props: {
   const columns: ColumnDef<(typeof cards)[0]>[] = [
     {
       header: "Date",
-      render: (card) => (
-        <span className="text-sm text-gray-500">
-          {card.purchasedAt?.toLocaleDateString() || "N/A"}
-        </span>
-      ),
+      className: "w-24 shrink-0 text-muted-foreground",
+      render: (card) => card.purchasedAt?.toLocaleDateString() || "N/A",
     },
     {
       header: "Usage",
+      className: "w-32 shrink-0",
       render: (card) => {
         const isBono = card.totalSessions > 1;
         return (
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <span
-                className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                className={`text-xs font-bold px-2 py-0.5 rounded-full border ${
                   card.status === "redeemed"
-                    ? "bg-destructive/10 text-destructive"
-                    : "bg-success-background text-success"
+                    ? "bg-destructive/10 text-destructive border-destructive/20"
+                    : "bg-success-background text-success border-success-border"
                 }`}
               >
                 {card.usedSessions} / {card.totalSessions}
               </span>
             </div>
             {isBono && (
-              <p className="text-[10px] text-muted-foreground mt-1 uppercase font-bold">
+              <p className="text-[10px] text-muted-foreground mt-1 uppercase font-bold tracking-wider">
                 {card.totalSessions - card.usedSessions} sessions left
               </p>
             )}
@@ -62,20 +57,22 @@ export default async function AdminGiftCardsPage(props: {
     },
     {
       header: "Locator",
+      className: "w-28 shrink-0",
       render: (card) => (
-        <span className="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded text-xs">
+        <span className="font-mono font-bold text-info bg-info-background border border-info-border px-2.5 py-1 rounded-md text-xs">
           {card.locatorCode}
         </span>
       ),
     },
     {
       header: "Treatment",
+      className: "flex-1 min-w-0",
       render: (card) => (
         <>
-          <div className="text-sm font-semibold text-gray-800">
+          <div className="text-sm font-semibold text-foreground">
             {card.treatmentNameSnapshot}
           </div>
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-muted-foreground mt-0.5">
             {card.durationSnapshot} — {card.priceSnapshot}€
           </div>
         </>
@@ -83,17 +80,17 @@ export default async function AdminGiftCardsPage(props: {
     },
     {
       header: "Recipient / Buyer",
+      className: "w-48 shrink-0",
       render: (card) => (
         <>
           <div className="text-sm font-medium text-foreground">
             {card.recipientName}
           </div>
-          <div className="text-[10px] text-muted-foreground uppercase mt-0.5">
+          <div className="text-[10px] text-muted-foreground uppercase tracking-wide mt-0.5">
             From: {card.buyerName}
           </div>
-          {/* Added the email so your wife can spot the typo easily */}
           <div
-            className="text-[10px] text-muted-foreground lowercase truncate max-w-[150px]"
+            className="text-[10px] text-muted-foreground lowercase truncate max-w-[150px] mt-0.5"
             title={card.buyerEmail}
           >
             {card.buyerEmail}
@@ -101,11 +98,10 @@ export default async function AdminGiftCardsPage(props: {
         </>
       ),
     },
-
     {
       header: "Action",
-      className: "text-right",
-      render: (card) => <GiftCardActions card={card} />, // Look how clean this is now!
+      className: "text-right w-24 shrink-0",
+      render: (card) => <GiftCardActions card={card} />,
     },
   ];
 
