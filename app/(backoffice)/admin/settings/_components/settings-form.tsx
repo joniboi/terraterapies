@@ -18,6 +18,9 @@ import { FormSection } from "@/components/admin/form-logic/form-section";
 import { FormGrid } from "@/components/admin/form-logic/form-grid";
 import { FormField } from "@/components/admin/form-logic/form-field";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
+import HeroGalleryManager from "./hero-gallery-manager";
+import { FONT_OPTIONS } from "@/app/lib/font-library";
+import AdminFormFooter from "@/components/admin/admin-form-footer";
 
 const DAY_OPTIONS = [
   { value: 1, label: "Monday / Lunes" },
@@ -30,7 +33,13 @@ const DAY_OPTIONS = [
   { value: 8, label: "Holidays / Festivos" },
 ];
 
-export default function SettingsForm({ initialData }: { initialData: any }) {
+export default function SettingsForm({
+  initialData,
+  availableTreatments,
+}: {
+  initialData: any;
+  availableTreatments: any[];
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
@@ -69,9 +78,13 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        alert("Settings saved!");
         router.refresh();
+        return true;
       }
+      return false;
+    } catch (error) {
+      console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -88,6 +101,7 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
           <TabsTrigger value="schedule">Schedule</TabsTrigger>
           <TabsTrigger value="links">Links & Partners</TabsTrigger>
           <TabsTrigger value="content">Content & Media</TabsTrigger>
+          <TabsTrigger value="homepage">Homepage Gallery</TabsTrigger>
         </TabsList>
 
         {/* TAB 1: LOCATION */}
@@ -347,6 +361,64 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
 
         {/* TAB 4: CONTENT & MEDIA */}
         <TabsContent value="content" className="space-y-6">
+          <FormSection title="Typography">
+            <FormGrid cols={3}>
+              <FormField label="Heading Font">
+                <Select
+                  value={formData.headingFont || "inter"}
+                  onValueChange={(v) => updateField("headingFont", v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONT_OPTIONS.map((f) => (
+                      <SelectItem key={f.value} value={f.value}>
+                        {f.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormField>
+
+              <FormField label="Body Text Font">
+                <Select
+                  value={formData.bodyFont || "inter"}
+                  onValueChange={(v) => updateField("bodyFont", v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONT_OPTIONS.map((f) => (
+                      <SelectItem key={f.value} value={f.value}>
+                        {f.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormField>
+
+              <FormField label="UI / Accent Font">
+                <Select
+                  value={formData.uiFont || "inter"}
+                  onValueChange={(v) => updateField("uiFont", v)}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {FONT_OPTIONS.map((f) => (
+                      <SelectItem key={f.value} value={f.value}>
+                        {f.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormField>
+            </FormGrid>
+          </FormSection>
+
           <FormSection title="Marketing Copy">
             <I18nField
               label="Hero Tagline"
@@ -398,13 +470,23 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
             </FormGrid>
           </FormSection>
         </TabsContent>
+
+        {/* TAB 5: HOMEPAGE GALLERY */}
+        <TabsContent value="homepage" className="space-y-6">
+          <HeroGalleryManager
+            slides={formData.heroGallery || []}
+            onChange={(newSlides) => updateField("heroGallery", newSlides)}
+            availableTreatments={availableTreatments}
+          />
+        </TabsContent>
       </Tabs>
 
-      <div className="fixed bottom-0 left-0 right-0 md:left-64 p-4 bg-background border-t border-border z-50 flex justify-end">
-        <Button onClick={handleSave} disabled={loading} className="px-8">
-          {loading ? "Saving..." : "Save Settings"}
-        </Button>
-      </div>
+      <AdminFormFooter
+        isLoading={loading}
+        onSave={handleSave}
+        onSaveSuccess={() => router.refresh()}
+        isEdit={false}
+      />
     </div>
   );
 }

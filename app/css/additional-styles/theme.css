@@ -74,10 +74,10 @@
   --color-info-foreground: white;
   --color-info-background: var(--color-blue-50);
   --color-info-border: var(--color-blue-200);
-  --color-highlight: var(--color-amber-600);
-  --color-highlight-foreground: var(--color-amber-950);
-  --color-highlight-background: var(--color-amber-50);
-  --color-highlight-border: var(--color-amber-200);
+  --color-highlight: var(--brand-highlight);
+  --color-highlight-foreground: var(--brand-highlight-foreground);
+  --color-highlight-background: var(--brand-highlight-background);
+  --color-highlight-border: var(--brand-highlight-border);
 
   /* --- ANIMATION TOKENS --- */
   --animate-code-1: code-1;
@@ -249,6 +249,18 @@
     --brand-ring: var(--color-blue-500);
     --brand-popover: #ffffff;
     --brand-popover-foreground: var(--color-gray-950);
+
+    --brand-highlight: var(--color-amber-600);
+    --brand-highlight-foreground: var(--color-amber-950);
+    --brand-highlight-background: var(--color-amber-100);
+    --brand-highlight-border: var(--color-amber-200);
+
+    /* 🚀 NEW: Terra's Glass Variables (Blue tint) */
+    --glass-bg: rgba(37, 99, 235, 0.35); /* blue-600 */
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-text: #ffffff;
+    --glass-hover-bg: rgba(37, 99, 235, 0.55);
+    --glass-nav-hover: rgba(255, 255, 255, 0.15);
   }
 
   /* 2. LOTUS DE BALI & THAI (Using your new elegant logo palette) */
@@ -280,5 +292,65 @@
     /* Modals/Popovers */
     --brand-popover: #f6f6f6;
     --brand-popover-foreground: #101010;
+
+    --brand-highlight: #8b7355; /* Elegant Bronze */
+    --brand-highlight-foreground: #ffffff;
+    --brand-highlight-background: #e6e3db; /* Soft linen */
+    --brand-highlight-border: #d4cfc1;
+
+    /* 🚀 NEW: Lotus's Glass Variables (Pitch Black tint) */
+    --glass-bg: rgba(16, 15, 12, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-text: #ffffff;
+    --glass-hover-bg: rgba(16, 15, 12, 0.6);
+    --glass-nav-hover: rgba(255, 255, 255, 0.15);
+  }
+}
+/* ========================================= */
+/* GLASSMORPHISM DESIGN SYSTEM               */
+/* ========================================= */
+
+@layer components {
+  /* For Buttons */
+  .glass-btn {
+    background-color: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--glass-text) !important;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2) !important;
+  }
+  .glass-btn:hover {
+    background-color: var(--glass-hover-bg) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: translateY(-2px);
+  }
+
+  /* For Panels (Like the Header container or Dropdowns) */
+  .glass-panel {
+    background-color: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* For Text Links inside the Header */
+  .glass-nav-item {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background-color: transparent !important;
+  }
+  .glass-nav-item:hover,
+  .glass-nav-item[data-state="open"] {
+    background-color: var(--glass-nav-hover) !important;
+    color: #ffffff !important;
+  }
+
+  /* For Mobile Menu Icon */
+  .glass-icon-btn {
+    color: #ffffff !important;
+  }
+  .glass-icon-btn:hover {
+    background-color: var(--glass-nav-hover) !important;
   }
 }

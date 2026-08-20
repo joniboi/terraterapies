@@ -28,9 +28,11 @@ export default function RedeemButton({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRedeem = async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch(`/api/admin/gift-cards/${id}`, {
         method: "PATCH",
@@ -39,10 +41,11 @@ export default function RedeemButton({
         setOpen(false);
         router.refresh();
       } else {
-        alert("Error updating card");
+        setError("Error: No se pudo registrar la visita en el servidor.");
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setError("Error: Error de conexión de red.");
     } finally {
       setLoading(false);
     }
@@ -53,7 +56,13 @@ export default function RedeemButton({
     : "Mark as Redeemed";
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog
+      open={open}
+      onOpenChange={(val) => {
+        setOpen(val);
+        if (!val) setError(null); // Reset error state on close
+      }}
+    >
       <AlertDialogTrigger
         render={
           <Button
@@ -73,6 +82,12 @@ export default function RedeemButton({
               ? `You are about to deduct 1 session from pack ${code}. There will be ${remaining! - 1} sessions remaining.`
               : `You are about to mark gift card ${code} as REDEEMED. This action is final.`}
           </AlertDialogDescription>
+
+          {error && (
+            <div className="mt-3 text-sm text-destructive font-semibold">
+              {error}
+            </div>
+          )}
         </AlertDialogHeader>
 
         <AlertDialogFooter>

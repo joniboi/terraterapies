@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -16,7 +17,8 @@ import { useRouter } from "next/navigation";
 
 interface AdminFormFooterProps {
   isLoading: boolean;
-  onSave: () => void;
+  onSave: () => Promise<boolean> | boolean;
+  onSaveSuccess?: () => void;
   onDelete?: () => void;
   isEdit?: boolean;
 }
@@ -24,10 +26,19 @@ interface AdminFormFooterProps {
 export default function AdminFormFooter({
   isLoading,
   onSave,
+  onSaveSuccess,
   onDelete,
   isEdit,
 }: AdminFormFooterProps) {
   const router = useRouter();
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSave = async () => {
+    const success = await onSave();
+    if (success) {
+      setShowSuccess(true);
+    }
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:left-64 bg-white/80 backdrop-blur-md border-t border-gray-200 p-4 z-40 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
@@ -79,7 +90,7 @@ export default function AdminFormFooter({
             Cancel
           </Button>
           <Button
-            onClick={onSave}
+            onClick={handleSave}
             disabled={isLoading}
             className="min-w-[120px]"
           >
@@ -94,6 +105,31 @@ export default function AdminFormFooter({
           </Button>
         </div>
       </div>
+
+      {/* Save Success AlertDialog */}
+      <AlertDialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Successfully saved</AlertDialogTitle>
+            <AlertDialogDescription>
+              The data has been saved successfully.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={
+                <Button
+                  onClick={() => {
+                    onSaveSuccess?.();
+                  }}
+                >
+                  OK
+                </Button>
+              }
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

@@ -20,6 +20,15 @@ import { Button } from "@/components/ui/button";
 import { FormSection } from "@/components/admin/form-logic/form-section";
 import { I18nField } from "@/components/admin/form-logic/i18-field";
 import { FormField } from "@/components/admin/form-logic/form-field";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
 
 export default function CategoryForm({
   initialData,
@@ -30,7 +39,9 @@ export default function CategoryForm({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const isEdit = !!initialData?.id;
+
   // Unified State
   const [formData, setFormData] = useState({
     groupId: initialData?.groupId || "",
@@ -81,11 +92,13 @@ export default function CategoryForm({
       });
 
       if (res.ok) {
-        router.push("/admin/categories");
         router.refresh();
+        return true;
       }
+      return false;
     } catch (error) {
       console.error("Save failed", error);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -104,10 +117,13 @@ export default function CategoryForm({
         router.refresh();
       } else {
         const data = await res.text();
-        alert(data || "Cannot delete category while it has treatments.");
+        setDeleteError(
+          data || "Cannot delete category while it has treatments.",
+        );
       }
     } catch (error) {
       console.error("Delete failed", error);
+      setDeleteError("Delete operation failed.");
     } finally {
       setLoading(false);
     }
@@ -169,7 +185,7 @@ export default function CategoryForm({
         </FormGrid>
       </FormSection>
 
-      {/* SECTION 2: TRANSLATED CONTENT (No more manual Accordion/Tabs nesting!) */}
+      {/* SECTION 2: TRANSLATED CONTENT */}
       <FormSection title="Content & Messaging">
         <FormGrid cols={2}>
           <I18nField
@@ -192,7 +208,7 @@ export default function CategoryForm({
         />
       </FormSection>
 
-      {/* SECTION 3: MEDIA (Using Accordion for less visual clutter) */}
+      {/* SECTION 3: MEDIA */}
       <Accordion title="Images & Gallery" active={false}>
         <div className="space-y-8">
           <ImageUploadField
@@ -254,9 +270,28 @@ export default function CategoryForm({
       <AdminFormFooter
         isLoading={loading}
         onSave={handleSave}
+        onSaveSuccess={() => router.push("/admin/categories")}
         onDelete={handleDelete}
         isEdit={isEdit}
       />
+
+      {/* Delete Error Alert Dialog */}
+      <AlertDialog
+        open={!!deleteError}
+        onOpenChange={(open) => !open && setDeleteError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cannot Delete Category</AlertDialogTitle>
+            <AlertDialogDescription>{deleteError}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={<Button onClick={() => setDeleteError(null)}>OK</Button>}
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

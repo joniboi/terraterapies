@@ -19,7 +19,7 @@ export default async function EditCategoryPage(props: {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">
+      <h1 className="font-heading text-3xl font-bold mb-8">
         Edit Category: {category.title?.es}
       </h1>
       <CategoryForm initialData={category} groups={groups} />

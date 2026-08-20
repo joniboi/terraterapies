@@ -21,7 +21,7 @@ export default async function GiftPage({
     <div className="pt-32 pb-20 bg-background min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <header className="text-center mb-12" data-aos="fade-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
             {dict.giftStore?.title || "Regala Bienestar"}
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

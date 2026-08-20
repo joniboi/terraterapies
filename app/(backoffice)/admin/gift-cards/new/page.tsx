@@ -19,7 +19,7 @@ export default async function NewGiftCardPage() {
         subtitle="Generate a card for in-store purchases"
       />
 
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <div className="bg-background p-8 rounded-2xl shadow-sm border border-border">
         <ManualGiftCardForm treatments={treatments} />
       </div>
     </div>

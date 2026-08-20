@@ -56,7 +56,7 @@ export const proxy = auth((request) => {
   const locale = getLocale(request as NextRequest);
   request.nextUrl.pathname = `/${locale}${pathname}`;
 
-  return NextResponse.redirect(request.nextUrl);
+  return NextResponse.redirect(request.nextUrl, 308);
 });
 
 export const config = {

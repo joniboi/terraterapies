@@ -18,23 +18,29 @@ export default async function EditTreatmentPage(props: {
 
   // 2. Fetch all categories (so she can change a treatment's category if needed)
   const allCategories = await db.query.categories.findMany();
-
+  const allGroups = await db.query.serviceGroups.findMany({
+    orderBy: (serviceGroups, { asc }) => [asc(serviceGroups.orderIndex)],
+  });
   // If the ID is fake/wrong, show a 404 page
   if (!treatment) notFound();
 
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="font-heading text-3xl font-bold text-foreground">
           Edit Treatment: {treatment.title?.es}
         </h1>
-        <p className="text-gray-500">
+        <p className="text-muted-foreground">
           Make changes to descriptions and details.
         </p>
       </div>
 
       {/* 3. Pass the database data to your Client Form */}
-      <TreatmentForm initialData={treatment} categories={allCategories} />
+      <TreatmentForm
+        initialData={treatment}
+        categories={allCategories}
+        groups={allGroups}
+      />
     </div>
   );
 }

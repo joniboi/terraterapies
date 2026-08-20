@@ -8,14 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"; // 🚀 Import your Button
 import { PriceFrom } from "@/components/treatment/price-from"; // 🚀 Import the new component
 import { PromoBadge } from "@/components/ui/promo-badge";
-import { ServicesData } from "@/types/definitions";
+import { ServiceGroup } from "@/types/definitions";
 
 export default function GiftCatalogClient({
   servicesData,
   lang,
   dict,
 }: {
-  servicesData: ServicesData;
+  servicesData: ServiceGroup[];
   lang: string;
   dict: any;
 }) {
@@ -24,15 +24,15 @@ export default function GiftCatalogClient({
 
   const filteredNavItems = useMemo(() => {
     const query = search.toLowerCase();
-    if (!query) return servicesData.navItems;
+    if (!query) return servicesData;
 
-    return servicesData.navItems
+    return servicesData
       .map((item) => ({
         ...item,
         categories: item.categories
           .map((cat) => ({
             ...cat,
-            subcategories: cat.subcategories.filter(
+            subcategories: cat.treatments.filter(
               (sub) =>
                 sub.title.toLowerCase().includes(query) ||
                 sub.shortDescription?.toLowerCase().includes(query) ||
@@ -66,22 +66,22 @@ export default function GiftCatalogClient({
             key={navItem.id}
             className="animate-in fade-in slide-in-from-bottom-4 duration-500"
           >
-            <h2 className="text-2xl font-bold flex items-center gap-2 mb-8 text-foreground border-b pb-4">
+            <h2 className="font-heading text-2xl font-bold flex items-center gap-2 mb-8 text-foreground border-b pb-4">
               <span>{navItem.emoji}</span>{" "}
-              {search ? storeDict?.allTreatments : navItem.label}
+              {search ? storeDict?.allTreatments : navItem.title}
             </h2>
 
             <div className="space-y-12">
               {navItem.categories.map((cat) => (
                 <div key={cat.slug} className="space-y-6">
-                  <h3 className="text-muted-foreground font-semibold uppercase tracking-widest text-xs flex items-center gap-2">
+                  <h3 className="font-heading text-muted-foreground font-semibold uppercase tracking-widest text-xs flex items-center gap-2">
                     <div className="h-px w-6 bg-border" />
                     {cat.title}
                   </h3>
 
                   {/* ADAPTIVE GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {cat.subcategories.map((sub) => (
+                    {cat.treatments.map((sub) => (
                       <div
                         key={sub.slug}
                         className="flex flex-col bg-card rounded-3xl border border-border overflow-hidden hover:shadow-2xl hover:border-primary/30 transition-all duration-300 group"

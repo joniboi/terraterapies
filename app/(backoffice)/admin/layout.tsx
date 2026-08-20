@@ -14,7 +14,7 @@ export default async function AdminSidebarLayout({
     <div className="flex min-h-screen bg-background">
       {/* Sidebar - Strictly using semantic inverse colors */}
       <aside className="w-64 bg-foreground text-background p-6 hidden md:block">
-        <h2 className="text-xl font-bold mb-8">{businessName}</h2>
+        <h2 className="font-heading text-xl font-bold mb-8">{businessName}</h2>
         <nav className="space-y-4">
           <Link
             href="/admin"
@@ -33,6 +33,12 @@ export default async function AdminSidebarLayout({
             className="block hover:text-highlight transition-colors"
           >
             Treatments
+          </Link>
+          <Link
+            href="/admin/service-groups"
+            className="block hover:text-highlight transition-colors"
+          >
+            Service Groups
           </Link>
           <Link
             href="/admin/categories"

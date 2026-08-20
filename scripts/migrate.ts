@@ -116,7 +116,9 @@ async function migrate() {
           const [newTreatment] = await db
             .insert(schema.treatments)
             .values({
+              serviceGroupId: newGroup.id,
               categoryId: newCategory.id,
+              isActive: true, // Default to active; adjust if needed
               slug: sub.slug,
               emoji: sub.emoji || "🌸",
               image: sub.image,

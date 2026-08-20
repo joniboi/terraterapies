@@ -2,10 +2,20 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { cn } from "@/app/lib/utils"; // Assuming you have a cn helper
+import { cn } from "@/app/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogClose,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadFieldProps {
-  label?: string; // 1. MADE OPTIONAL
+  label?: string;
   description?: string;
   currentImage?: string;
   uploadType?: string;
@@ -22,11 +32,13 @@ export default function ImageUploadField({
   onUploadSuccess,
 }: ImageUploadFieldProps) {
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setIsUploading(true);
+    setUploadError(null);
 
     try {
       const form = new FormData();
@@ -39,7 +51,9 @@ export default function ImageUploadField({
       onUploadSuccess(data.url);
     } catch (error) {
       console.error(error);
-      alert("Error uploading image.");
+      setUploadError(
+        "Failed to upload the file. Please ensure it is less than 4MB and is a valid image type.",
+      );
     } finally {
       setIsUploading(false);
       e.target.value = "";
@@ -48,7 +62,6 @@ export default function ImageUploadField({
 
   return (
     <div className="space-y-3">
-      {/* 2. ONLY RENDER LABEL IF PROVIDED (Avoids double labels in FormField) */}
       {label && (
         <label className="block text-xs font-bold text-muted-foreground uppercase tracking-widest">
           {label}
@@ -60,7 +73,6 @@ export default function ImageUploadField({
         </label>
       )}
 
-      {/* 3. SEMANTIC THEME COLORS (border-border, bg-muted/20) */}
       <div
         className={cn(
           "relative w-full rounded-xl overflow-hidden border-2 border-dashed border-border bg-muted/20 group",
@@ -95,6 +107,24 @@ export default function ImageUploadField({
           </label>
         </div>
       </div>
+
+      {/* Upload Error Alert Dialog */}
+      <AlertDialog
+        open={!!uploadError}
+        onOpenChange={(open) => !open && setUploadError(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Upload Failed</AlertDialogTitle>
+            <AlertDialogDescription>{uploadError}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogClose
+              render={<Button onClick={() => setUploadError(null)}>OK</Button>}
+            />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

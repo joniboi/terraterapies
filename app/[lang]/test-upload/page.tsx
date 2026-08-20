@@ -15,7 +15,9 @@ export default function TestUpload() {
 
   return (
     <div className="p-20">
-      <h1 className="mb-4">Test Image Guardrail</h1>
+      <h1 className="font-heading text-3xl font-bold mb-4">
+        Test Image Guardrail
+      </h1>
       <input type="file" onChange={handleUpload} accept="image/*" />
     </div>
   );

@@ -22,6 +22,13 @@ const QUICK_LINKS = [
     linkText: "Go to Treatments",
   },
   {
+    title: "Service Groups",
+    description:
+      "Manage the main service families displayed throughout the website.",
+    href: "/admin/service-groups",
+    linkText: "Manage Service Groups",
+  },
+  {
     title: "Categories",
     description:
       "Manage families of treatments, assign parent groups, and control what is featured.",
@@ -56,7 +63,7 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8 text-foreground">
+      <h1 className="font-heading text-3xl font-bold mb-8 text-foreground">
         Welcome back, {session?.user?.name || "Admin"}!
       </h1>
 

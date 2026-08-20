@@ -1,6 +1,6 @@
 // types/definitions.ts
 
-import { siteSettings } from "@/db/schema";
+import { siteSettings, treatments, treatmentVariants } from "@/db/schema";
 
 // --- 1. CORE DATA TYPES (From your JSON) ---
 
@@ -25,33 +25,32 @@ export interface ShowcaseData {
   description: string;
 }
 
-export interface Subcategory {
+export interface Treatment {
   slug: string;
   title: string;
-  emoji?: string;
+  emoji: string;
+  image: string;
+  backgroundImage: string;
   tagline?: string;
-  image: string; // Made optional just in case, but usually present
-  backgroundImage?: string;
-  shortDescription?: string;
-  longDescription?: string;
-  options?: Option[]; // Typed strictly now, not "any[]"
-  // 'link' is often calculated in components (/${lang}/${cat}/${sub}),
-  // but if it comes from JSON, add it here.
-  hasPromo?: boolean;
+  shortDescription: string;
+  longDescription: string;
+  options: Option[];
+  hasPromo: boolean;
   promoBadgeText?: string;
+  isActive: boolean;
 }
 
 export interface Category {
   slug: string;
   title: string;
-  image: string; // Required for BusinessCategories
-  shortDescription?: string;
-  heroImages?: HeroImage[];
-  showCase?: ShowcaseData;
-  subcategories: Subcategory[];
-  isFeatured?: boolean; // true for Rituals
-  badge?: string; // "✨ Exclusive Experience"
-  orderIndex?: number; // For manual sorting
+  description: string;
+  image: string;
+  isFeatured: boolean;
+  orderIndex: number;
+  badge?: string;
+  heroImages?: { src: string; alt: string }[];
+  showCase?: { title: string; description: string };
+  treatments: Treatment[];
 }
 
 export interface NavItem {
@@ -63,13 +62,29 @@ export interface NavItem {
   categories: Category[];
 }
 
-export interface ServicesData {
-  defaultBackground: string;
-  navItems: NavItem[];
+export interface ServiceGroup {
+  id: string; // The slug is used as the ID in the frontend
+  slug: string;
+  title: string;
+  description?: string;
+  image?: string;
+  layout: "mega-menu" | "rich-dropdown";
+  highlight: boolean;
+  emoji?: string;
+  badge?: string;
+  heroImages?: { src: string; alt: string }[];
+  showCase?: { title: string; description: string };
+  // The crucial structural split
+  categories: Category[];
+  treatments: Treatment[]; // Direct treatments
 }
 
 export type SiteSettings = typeof siteSettings.$inferSelect;
-
+export type DBTreatment = typeof treatments.$inferSelect;
+export type DBVariant = typeof treatmentVariants.$inferSelect;
+export type DBTreatmentWithVariants = DBTreatment & {
+  variants: DBVariant[];
+};
 // --- 2. DICTIONARY TYPES (For Multi-language text) ---
 
 export interface Dictionary {

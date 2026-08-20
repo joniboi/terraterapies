@@ -1,0 +1,18 @@
+/* app/css/additional-styles/custom-fonts.css */
+@layer base {
+  /* Hard-coded typography definitions (.theme-terraterapies / .theme-lotus) 
+     have been removed. Values are now provided dynamically from the DB via RootLayout */
+}
+
+/* These semantic definitions stay exactly as they were! */
+.font-body {
+  font-family: var(--app-font-body);
+}
+
+.font-heading {
+  font-family: var(--app-font-heading);
+}
+
+.font-ui {
+  font-family: var(--app-font-ui);
+}

@@ -78,7 +78,9 @@ export default async function VerifyPage(props: {
             <CheckCircle2 size={48} />
           </div>
 
-          <h1 className="text-3xl font-black text-foreground mb-1">¡VÁLIDA!</h1>
+          <h1 className="font-heading text-3xl font-black text-foreground mb-1">
+            ¡VÁLIDA!
+          </h1>
           <p className="text-success font-bold tracking-widest text-xs uppercase mb-6">
             Tarjeta Regalo Activa
           </p>
@@ -174,7 +176,7 @@ function StatusScreen({
       className={`flex-1 flex flex-col items-center justify-center p-6 text-center ${color}`}
     >
       <div className="mb-6 animate-bounce-slow">{icon}</div>
-      <h1 className="text-4xl font-black mb-2">{title}</h1>
+      <h1 className="font-heading text-4xl font-black mb-2">{title}</h1>
       <p className="text-lg max-w-xs mx-auto font-medium opacity-80">{desc}</p>
       <div className="mt-12 opacity-30">
         <Logo lang="es" />

@@ -14,7 +14,9 @@ export async function POST(req: Request) {
     const newTreatment = await db
       .insert(treatments)
       .values({
+        serviceGroupId: body.serviceGroupId,
         categoryId: body.categoryId,
+        isActive: body.isActive,
         slug: body.slug,
         emoji: body.emoji,
         title: body.title,

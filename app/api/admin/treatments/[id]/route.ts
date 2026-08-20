@@ -20,6 +20,8 @@ export async function PATCH(
     await db
       .update(treatments)
       .set({
+        serviceGroupId: body.serviceGroupId,
+        isActive: body.isActive,
         categoryId: body.categoryId,
         slug: body.slug, // <--- ADDED HERE
         emoji: body.emoji,

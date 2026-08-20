@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import ReactMarkdown from "react-markdown";
 import { Option, Dictionary } from "@/types/definitions";
-import { BigPriceDisplay } from "@/components/treatment/big-price-display"; // <-- IMPORTED
+import { BigPriceDisplay } from "@/components/treatment/big-price-display";
 
 interface TreatmentDetailProps {
   lang: string;
@@ -43,6 +43,8 @@ export default function TreatmentDetail({
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const [form, setForm] = useState({ from: "", to: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const cleanTitle = title
     .replace(
       /[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g,
@@ -52,6 +54,7 @@ export default function TreatmentDetail({
     .trim();
 
   const seoAltText = `${cleanTitle} - ${businessName}`;
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const durationParam = params.get("duration");
@@ -67,8 +70,9 @@ export default function TreatmentDetail({
   }, [options]);
 
   const handlePayment = async () => {
+    setErrorMessage(null);
     if (!selectedOption || !form.from || !form.to) {
-      alert(dict.alerts.fillAll); // <--- Dynamic Alert
+      setErrorMessage(dict.alerts.fillAll);
       return;
     }
 
@@ -79,7 +83,7 @@ export default function TreatmentDetail({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          lang, // <--- Send language to API
+          lang,
           categorySlug,
           subCategorySlug,
           optionIndex: options.indexOf(selectedOption),
@@ -97,7 +101,7 @@ export default function TreatmentDetail({
       }
     } catch (error) {
       console.error(error);
-      alert(dict.alerts.error); // <--- Dynamic Alert
+      setErrorMessage(dict.alerts.error);
       setLoading(false);
     }
   };
@@ -119,27 +123,18 @@ export default function TreatmentDetail({
       {/* Left side — description */}
       <div className="w-full md:w-2/3 px-8 md:px-16 py-20 flex flex-col justify-between">
         <div>
-          <h1 className="text-4xl font-semibold text-white mb-8 drop-shadow-lg">
+          <h1 className="font-heading text-4xl font-semibold text-white mb-8 drop-shadow-lg">
             {title}
           </h1>
           <div className="prose prose-invert prose-lg max-w-none drop-shadow-md">
             <ReactMarkdown>{description}</ReactMarkdown>
           </div>
         </div>
-        {/* 
-<div className="mt-12">
-  <Button asChild size="lg">
-    <a href={bookingUrl || "#"} target="_blank" rel="noopener noreferrer">
-      {dict.bookBtn}
-    </a>
-  </Button>
-</div> 
-*/}
       </div>
 
       {/* Right side — gift panel */}
       <div className="w-full md:w-1/3 bg-gray-900/45 border border-white/30 p-8 md:p-12 flex flex-col justify-center rounded-2xl shadow-xl">
-        <h2 className="text-2xl font-semibold text-white mb-6">
+        <h2 className="font-heading text-2xl font-semibold text-white mb-6">
           {dict.giftTitle}
         </h2>
 
@@ -207,6 +202,12 @@ export default function TreatmentDetail({
               color="light"
             />
           </div>
+
+          {errorMessage && (
+            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-200 text-sm font-medium mt-4">
+              {errorMessage}
+            </div>
+          )}
 
           <Button
             className="w-full mt-8 bg-primary text-primary-foreground text-lg py-3 rounded-full hover:bg-primary-hover transition-all"
