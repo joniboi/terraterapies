@@ -123,7 +123,7 @@ export default async function Home({ params }: PageProps) {
         resolvedSubtitle,
         resolvedLink: finalLink,
         resolvedButtonText,
-        promoBadgeText: maxDiscount > 0 ? `-${maxDiscount}%` : null,
+        promoDiscount: maxDiscount > 0 ? maxDiscount : null,
       };
     });
 

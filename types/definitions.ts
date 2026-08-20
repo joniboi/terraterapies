@@ -105,7 +105,9 @@ export interface Dictionary {
   home: {
     hero: {
       cta: string;
-      ctaGift?: string; // Optional, in case not present in some languages
+      ctaGift?: string;
+      carouselContext: string;
+      discountSuffix: string;
     };
     categories: {
       title: string;

@@ -15,7 +15,9 @@
   "home": {
     "hero": {
       "cta": "Reserva ahora",
-      "ctaGift": "Regala un tratamiento"
+      "ctaGift": "Regala un tratamiento",
+      "carouselContext": "Descubre nuestros tratamientos",
+      "discountSuffix": "de descuento"
     },
     "categories": {
       "title": "Nuestros Masajes",

@@ -18,7 +18,7 @@ export function PromoBadge({ text, className }: PromoBadgeProps) {
         className,
       )}
     >
-      🎁 {text}
+      {text}
     </div>
   );
 }

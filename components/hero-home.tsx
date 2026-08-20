@@ -14,7 +14,7 @@ export default function HeroHome({
   hydratedGallery,
   lang,
 }: {
-  dict: any;
+  dict: any; // Contains dict.home.hero
   settings: any;
   hydratedGallery: any[];
   lang: string;
@@ -29,7 +29,8 @@ export default function HeroHome({
     <section className="relative w-full flex flex-col justify-start min-h-[100svh] md:min-h-[850px] md:h-[90vh] max-h-[1200px] overflow-hidden">
       {/* BACKGROUND LAYER */}
       {hasGallery ? (
-        <HeroCarousel slides={hydratedGallery} />
+        // 🚀 PASSED THE DICTIONARY DOWN TO THE CAROUSEL
+        <HeroCarousel slides={hydratedGallery} dict={dict} />
       ) : (
         <PageIllustration />
       )}
@@ -74,7 +75,6 @@ export default function HeroHome({
                   size="lg"
                   className={cn(
                     "w-full sm:w-auto min-w-[220px] transition-all duration-300",
-                    // 🚀 APPLIED THE GLASS CLASS HERE!
                     hasGallery ? "glass-btn" : "shadow-lg",
                   )}
                 >
@@ -95,7 +95,6 @@ export default function HeroHome({
                   size="lg"
                   className={cn(
                     "w-full sm:w-auto min-w-[220px] transition-all duration-300",
-                    // 🚀 APPLIED THE GLASS CLASS HERE!
                     hasGallery ? "glass-btn" : "shadow-lg",
                   )}
                 >

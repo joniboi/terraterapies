@@ -15,7 +15,9 @@
   "home": {
     "hero": {
       "cta": "Reserva ara",
-      "ctaGift": "Regala un tractament"
+      "ctaGift": "Regala un tractament",
+      "carouselContext": "Descobreix els nostres tractaments",
+      "discountSuffix": "de descompte"
     },
     "categories": {
       "title": "Els nostres massatges",
