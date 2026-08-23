@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    proxyClientMaxBodySize: "25mb",
+  },
   reactStrictMode: true,
   output: "standalone",
   distDir:

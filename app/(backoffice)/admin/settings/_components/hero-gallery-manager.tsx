@@ -200,10 +200,11 @@ export default function HeroGalleryManager({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3">
                   <label className="text-sm font-semibold">
-                    Desktop Image (Landscape 16:9)
+                    Desktop Hero Image (Panoramic)
                   </label>
                   <ImageUploadField
                     currentImage={slide.desktopUrl}
+                    uploadType="hero-desktop"
                     aspectRatioClass="aspect-video"
                     onUploadSuccess={(url) =>
                       updateSlide(index, "desktopUrl", url)
@@ -216,6 +217,7 @@ export default function HeroGalleryManager({
                   </label>
                   <ImageUploadField
                     currentImage={slide.mobileUrl}
+                    uploadType="hero-mobile"
                     aspectRatioClass="aspect-[3/4] max-w-[250px]"
                     onUploadSuccess={(url) =>
                       updateSlide(index, "mobileUrl", url)
