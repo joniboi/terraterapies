@@ -7,6 +7,11 @@ import {
   DBTreatmentWithVariants,
 } from "@/types/definitions";
 import { unstable_noStore as noStore } from "next/cache";
+import {
+  getActiveCampaignsWithTargets,
+  resolveVariantPrice,
+} from "./campaign-pricing";
+import { CampaignWithRelations } from "@/types/definitions";
 // 1. Languages definition
 const SUPPORTED_LANGS = ["es", "en", "ca"];
 
@@ -62,28 +67,26 @@ export const getServicesData = async (
 ): Promise<ServiceGroup[]> => {
   noStore();
 
-  const groups = await db.query.serviceGroups.findMany({
-    with: {
-      categories: {
-        with: {
-          treatments: { with: { variants: true } },
+  const [groups, activeCampaigns] = await Promise.all([
+    db.query.serviceGroups.findMany({
+      with: {
+        categories: {
+          with: {
+            treatments: { with: { variants: true } },
+          },
         },
+        treatments: { with: { variants: true } },
       },
-      treatments: {
-        // Query direct treatments
-        with: { variants: true },
-      },
-    },
-    orderBy: (groups, { asc }) => [asc(groups.orderIndex)],
-  });
+      orderBy: (groups, { asc }) => [asc(groups.orderIndex)],
+    }),
+    getActiveCampaignsWithTargets(),
+  ]);
 
   const parsedGroups: ServiceGroup[] = [];
 
   for (const group of groups) {
-    // 1. Process Categories
     const validCategories: Category[] = [];
     for (const cat of group.categories) {
-      // Filter out inactive treatments if required
       const activeCatTreatments = includeInactive
         ? cat.treatments
         : cat.treatments.filter((t) => t.isActive);
@@ -104,21 +107,21 @@ export const getServicesData = async (
                 description: getTranslation(cat.showCase.description, lang),
               }
             : undefined,
-          treatments: activeCatTreatments.map((t) => mapTreatment(t, lang)),
+          treatments: activeCatTreatments.map((t) =>
+            mapTreatment(t, lang, activeCampaigns),
+          ),
         });
       }
     }
 
-    // 2. Process Direct Treatments (where categoryId is null)
     const activeDirectTreatments = includeInactive
       ? group.treatments.filter((t) => !t.categoryId)
       : group.treatments.filter((t) => !t.categoryId && t.isActive);
 
     const parsedDirectTreatments = activeDirectTreatments.map((t) =>
-      mapTreatment(t, lang),
+      mapTreatment(t, lang, activeCampaigns),
     );
 
-    // 3. Keep the Group only if it has valid content
     if (
       validCategories.length > 0 ||
       parsedDirectTreatments.length > 0 ||
@@ -150,40 +153,45 @@ export const getServicesData = async (
   return parsedGroups;
 };
 
-function mapTreatment(t: DBTreatmentWithVariants, lang: string): Treatment {
+function mapTreatment(
+  t: DBTreatmentWithVariants,
+  lang: string,
+  activeCampaigns: CampaignWithRelations[] = [],
+): Treatment {
   const now = new Date();
   let maxDiscountPercentage = 0;
+  let highestCampaignBadge: string | undefined = undefined;
 
-  // Because 't' is typed, TypeScript instantly knows t.variants is DBVariant[]!
-  // No casts needed. 'a', 'b', and 'v' are perfectly understood.
   const mappedOptions = t.variants
     .sort((a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0))
     .map((v) => {
-      const promoExpiry = v.promoEndsAt ? new Date(v.promoEndsAt) : null;
-
-      const isPromoActive = !!(
-        v.promotionalPrice &&
-        (!promoExpiry || now < promoExpiry)
+      // Single Source of Truth Price Resolution
+      const priceResult = resolveVariantPrice(
+        v,
+        {
+          id: t.id,
+          serviceGroupId: t.serviceGroupId,
+          categoryId: t.categoryId,
+        },
+        activeCampaigns,
+        now,
+        lang,
       );
 
-      let discountPercent = 0;
-      if (isPromoActive && v.promotionalPrice) {
-        discountPercent = Math.round(
-          100 - (Number(v.promotionalPrice) / Number(v.price)) * 100,
-        );
-        if (discountPercent > maxDiscountPercentage) {
-          maxDiscountPercentage = discountPercent;
-        }
+      if (priceResult.discountPercentage > maxDiscountPercentage) {
+        maxDiscountPercentage = priceResult.discountPercentage;
+        highestCampaignBadge = priceResult.campaignBadge;
       }
 
-      // We return exactly what the UI 'Option' interface expects
       return {
         duration: formatDuration(v, lang),
-        price: isPromoActive ? `${v.promotionalPrice}€` : `${v.price}€`,
-        originalPrice: isPromoActive ? `${v.price}€` : undefined,
-        isPromo: isPromoActive,
-        promoEnds: promoExpiry
-          ? promoExpiry.toLocaleDateString(
+        price: priceResult.finalPriceFormatted,
+        originalPrice: priceResult.isPromo
+          ? priceResult.regularPriceFormatted
+          : undefined,
+        isPromo: priceResult.isPromo,
+        promoEnds: priceResult.promoEndsAt
+          ? priceResult.promoEndsAt.toLocaleDateString(
               ["es", "en", "ca"].includes(lang)
                 ? lang === "en"
                   ? "en-GB"
@@ -191,24 +199,26 @@ function mapTreatment(t: DBTreatmentWithVariants, lang: string): Treatment {
                 : "es-ES",
             )
           : undefined,
-        discountPercent,
+        discountPercent: priceResult.discountPercentage,
         sessionsCount: v.sessionsCount || 1,
       };
     });
 
+  const promoBadge =
+    highestCampaignBadge ||
+    (maxDiscountPercentage > 0 ? `-${maxDiscountPercentage}%` : undefined);
+
   return {
     slug: t.slug,
-    // We cast these safely because we know our DB stores them as I18nString
     title: getTranslation(t.title, lang),
     emoji: t.emoji || "🌸",
     image: t.image,
     backgroundImage: t.backgroundImage || "/images/treatment-detail.jpg",
     shortDescription: getTranslation(t.shortDescription, lang),
     longDescription: getTranslation(t.longDescription, lang),
-    options: mappedOptions, // Passes the mapped array directly
+    options: mappedOptions,
     hasPromo: maxDiscountPercentage > 0,
-    promoBadgeText:
-      maxDiscountPercentage > 0 ? `-${maxDiscountPercentage}%` : undefined,
+    promoBadgeText: promoBadge,
     isActive: t.isActive,
   };
 }

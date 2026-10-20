@@ -1,6 +1,28 @@
 // types/definitions.ts
 
-import { siteSettings, treatments, treatmentVariants } from "@/db/schema";
+import {
+  siteSettings,
+  treatments,
+  treatmentVariants,
+  campaigns,
+  campaignReservations,
+  I18nString,
+} from "@/db/schema";
+
+export type SlideType = "treatment" | "campaign";
+
+export interface HeroGallerySlide {
+  id: string;
+  slideType?: SlideType; // Default/backward-compatible: "treatment"
+  treatmentId?: string;
+  campaignId?: string;
+  desktopUrl: string;
+  mobileUrl: string;
+  title: I18nString;
+  subtitle: I18nString;
+  buttonText: I18nString;
+  isActive: boolean;
+}
 
 // --- 1. CORE DATA TYPES (From your JSON) ---
 
@@ -79,12 +101,66 @@ export interface ServiceGroup {
   treatments: Treatment[]; // Direct treatments
 }
 
+export interface TargetSelection {
+  serviceGroupIds: string[];
+  categoryIds: string[];
+  treatmentIds: string[];
+}
+
+export interface MatchReason {
+  type: "treatment" | "category" | "service_group";
+  targetId: string;
+}
+
+export interface MatchedTreatmentResult {
+  treatment: DBTreatmentWithVariants;
+  matchReasons: MatchReason[];
+}
+
+export interface CampaignWithRelations extends DBCampaign {
+  serviceGroupTargets: { serviceGroupId: string }[];
+  categoryTargets: { categoryId: string }[];
+  treatmentTargets: { treatmentId: string }[];
+  currentPurchases?: number;
+}
+
 export type SiteSettings = typeof siteSettings.$inferSelect;
 export type DBTreatment = typeof treatments.$inferSelect;
 export type DBVariant = typeof treatmentVariants.$inferSelect;
 export type DBTreatmentWithVariants = DBTreatment & {
   variants: DBVariant[];
 };
+
+export type DBCampaign = typeof campaigns.$inferSelect;
+export type DBCampaignInsert = typeof campaigns.$inferInsert;
+export type DBCampaignReservation = typeof campaignReservations.$inferSelect;
+
+export type CampaignOperationalStatus =
+  | "disabled"
+  | "scheduled"
+  | "expired"
+  | "sold_out"
+  | "active";
+
+export type PriceSource = "campaign" | "legacy_promo" | "regular";
+
+export interface ResolvedVariantPrice {
+  variantId: string;
+  regularPrice: number; // e.g. 60.00
+  finalPrice: number; // e.g. 48.00
+  regularPriceFormatted: string; // e.g. "60.00€" or "60€"
+  finalPriceFormatted: string; // e.g. "48.00€" or "48€"
+  centsAmount: number; // Exact integer cents for Stripe (e.g. 4800)
+  isPromo: boolean;
+  source: PriceSource;
+  discountPercentage: number; // e.g. 20
+  promoEndsAt: Date | null;
+  promoEndsFormatted?: string;
+  campaignId?: string;
+  campaignName?: string;
+  campaignBadge?: string;
+}
+
 // --- 2. DICTIONARY TYPES (For Multi-language text) ---
 
 export interface Dictionary {

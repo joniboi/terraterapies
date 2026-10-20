@@ -36,9 +36,11 @@ const DAY_OPTIONS = [
 export default function SettingsForm({
   initialData,
   availableTreatments,
+  availableCampaigns = [],
 }: {
   initialData: any;
   availableTreatments: any[];
+  availableCampaigns?: any[];
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -477,6 +479,7 @@ export default function SettingsForm({
             slides={formData.heroGallery || []}
             onChange={(newSlides) => updateField("heroGallery", newSlides)}
             availableTreatments={availableTreatments}
+            availableCampaigns={availableCampaigns}
           />
         </TabsContent>
       </Tabs>

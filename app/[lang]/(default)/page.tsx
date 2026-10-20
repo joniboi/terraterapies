@@ -1,3 +1,4 @@
+// app/[lang]/(default)/page.tsx
 import { Metadata } from "next";
 import Hero from "@/components/hero-home";
 import BusinessCategories from "@/components/business-categories";
@@ -8,6 +9,12 @@ import { db } from "@/db";
 import { reviews } from "@/db/schema";
 import { eq, asc } from "drizzle-orm";
 import ReviewsSlider from "@/components/reviews-slider";
+import {
+  getActiveCampaignsWithTargets,
+  isCampaignEligible,
+  resolveVariantPrice,
+} from "@/app/lib/campaign-pricing";
+import { getLocalizedRoute, routes } from "@/app/lib/routes";
 
 interface PageProps {
   params: Promise<{ lang: string }>;
@@ -20,7 +27,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
 
-  // Fetch settings from DB
   const settings = await db.query.siteSettings.findFirst();
   const baseUrl = process.env.NEXT_PUBLIC_URL || "https://lotusdebaliythai.com";
 
@@ -46,68 +52,109 @@ export async function generateMetadata({
 export default async function Home({ params }: PageProps) {
   const { lang } = await params;
 
-  // 1. Fetch Data & Dictionary in parallel
-  const [services, dict, activeReviews, settings, dbTreatments] =
-    await Promise.all([
-      getServicesData(lang),
-      getDictionary(lang),
-      db
-        .select()
-        .from(reviews)
-        .where(eq(reviews.isActive, true))
-        .orderBy(asc(reviews.orderIndex)),
-      db.query.siteSettings.findFirst(),
-      db.query.treatments.findMany({
-        with: {
-          category: true,
-          serviceGroup: true,
-          variants: true,
-        },
-      }),
-    ]);
+  // 1. Fetch Data, Dictionary & Active Campaigns in parallel
+  const [
+    services,
+    dict,
+    activeReviews,
+    settings,
+    dbTreatments,
+    activeCampaigns,
+  ] = await Promise.all([
+    getServicesData(lang),
+    getDictionary(lang),
+    db
+      .select()
+      .from(reviews)
+      .where(eq(reviews.isActive, true))
+      .orderBy(asc(reviews.orderIndex)),
+    db.query.siteSettings.findFirst(),
+    db.query.treatments.findMany({
+      with: {
+        category: true,
+        serviceGroup: true,
+        variants: true,
+      },
+    }),
+    getActiveCampaignsWithTargets(),
+  ]);
 
   const businessName = settings?.businessName || "";
-  const personalizedSubtitle = dict.home.reviews.subtitle.replace(
+  const personalizedSubtitle = (dict.home.reviews.subtitle || "").replace(
     "{businessName}",
     businessName,
   );
 
-  // Hydrate the Gallery Slides
+  const now = new Date();
+
+  // 2. Hydrate Gallery Slides (Treatment or Campaign)
   const hydratedGallery = (settings?.heroGallery || [])
-    .filter((s) => s.isActive && s.treatmentId)
+    .filter((slide) => {
+      if (!slide.isActive) return false;
+
+      const slideType =
+        slide.slideType || (slide.treatmentId ? "treatment" : "campaign");
+
+      // Campaign Slide Guard: must have a valid, eligible campaign
+      if (slideType === "campaign") {
+        if (!slide.campaignId) return false;
+        const campaign = activeCampaigns.find((c) => c.id === slide.campaignId);
+        return campaign ? isCampaignEligible(campaign, now) : false;
+      }
+
+      // Treatment Slide Guard: must have a valid treatment
+      return !!slide.treatmentId;
+    })
     .map((slide) => {
+      const slideType =
+        slide.slideType || (slide.treatmentId ? "treatment" : "campaign");
+
       let fallbackTitle = "";
       let fallbackSubtitle = "";
       let finalLink = "#";
       let maxDiscount = 0;
 
-      const treatment = dbTreatments.find((t) => t.id === slide.treatmentId);
+      if (slideType === "campaign") {
+        const campaign = activeCampaigns.find(
+          (c) => c.id === slide.campaignId,
+        )!;
+        fallbackTitle =
+          (campaign.headline as any)?.[lang] ||
+          (campaign.headline as any)?.es ||
+          "";
+        fallbackSubtitle =
+          (campaign.description as any)?.[lang] ||
+          (campaign.description as any)?.es ||
+          "";
+        finalLink = getLocalizedRoute(routes.gift, lang);
+        maxDiscount = Math.round(parseFloat(campaign.discountPercentage));
+      } else {
+        const treatment = dbTreatments.find((t) => t.id === slide.treatmentId);
+        if (treatment) {
+          fallbackTitle = (treatment.title as any)?.[lang] || "";
+          fallbackSubtitle = (treatment.shortDescription as any)?.[lang] || "";
+          const parentSlug =
+            treatment.category?.slug || treatment.serviceGroup?.slug || "";
+          finalLink = `/${lang}/${parentSlug}/${treatment.slug}`;
 
-      if (treatment) {
-        fallbackTitle = (treatment.title as any)?.[lang] || "";
-        fallbackSubtitle = (treatment.shortDescription as any)?.[lang] || "";
-        const parentSlug =
-          treatment.category?.slug || treatment.serviceGroup?.slug || "";
-        finalLink = `/${lang}/${parentSlug}/${treatment.slug}`;
+          treatment.variants.forEach((v) => {
+            const priceResult = resolveVariantPrice(
+              v,
+              {
+                id: treatment.id,
+                serviceGroupId: treatment.serviceGroupId,
+                categoryId: treatment.categoryId,
+              },
+              activeCampaigns,
+              now,
+              lang,
+            );
 
-        const now = new Date();
-        treatment.variants.forEach((v) => {
-          const promoExpiry = v.promoEndsAt ? new Date(v.promoEndsAt) : null;
-          const isPromoActive = !!(
-            v.promotionalPrice &&
-            (!promoExpiry || now < promoExpiry)
-          );
-
-          if (isPromoActive && v.promotionalPrice) {
-            const original = Number(v.price);
-            const promo = Number(v.promotionalPrice);
-            const discountPercent = Math.round(100 - (promo / original) * 100);
-
-            if (discountPercent > maxDiscount) {
-              maxDiscount = discountPercent;
+            if (priceResult.discountPercentage > maxDiscount) {
+              maxDiscount = priceResult.discountPercentage;
             }
-          }
-        });
+          });
+        }
       }
 
       const resolvedTitle =
@@ -115,7 +162,10 @@ export default async function Home({ params }: PageProps) {
       const resolvedSubtitle =
         (slide.subtitle as any)?.[lang]?.trim() || fallbackSubtitle;
       const resolvedButtonText =
-        (slide.buttonText as any)?.[lang]?.trim() || "Ver Tratamiento";
+        (slide.buttonText as any)?.[lang]?.trim() ||
+        (slideType === "campaign"
+          ? dict.home.hero.ctaGift || "Ver Oferta"
+          : "Ver Tratamiento");
 
       return {
         ...slide,
@@ -136,7 +186,6 @@ export default async function Home({ params }: PageProps) {
         lang={lang}
       />
 
-      {/* 2. Pass services directly as groups */}
       <BusinessCategories
         lang={lang}
         groups={services}

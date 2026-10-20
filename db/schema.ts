@@ -12,6 +12,7 @@ import {
   unique,
   foreignKey,
   check,
+  index,
 } from "drizzle-orm/pg-core";
 
 import { relations, sql } from "drizzle-orm";
@@ -127,32 +128,180 @@ export const dailyCounters = pgTable("daily_counters", {
   dateKey: varchar("date_key", { length: 6 }).primaryKey(), // e.g. '010424' (DDMMYY)
   count: integer("count").default(0).notNull(),
 });
-// 5. GIFT CARDS (The Registry)
-export const giftCards = pgTable("gift_cards", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  locatorCode: varchar("locator_code", { length: 50 }).notNull().unique(),
-  stripeSessionId: varchar("stripe_session_id", { length: 255 })
-    .notNull()
-    .unique(),
-  // Status: 'valid', 'redeemed', 'cancelled'
-  status: varchar("status", { length: 20 }).default("valid").notNull(),
-  treatmentNameSnapshot: varchar("treatment_name", { length: 255 }).notNull(),
-  durationSnapshot: varchar("duration_snapshot", { length: 50 }).notNull(),
-  priceSnapshot: decimal("price_snapshot", {
-    precision: 10,
-    scale: 2,
-  }).notNull(),
 
-  totalSessions: integer("total_sessions").default(1).notNull(),
-  usedSessions: integer("used_sessions").default(0).notNull(),
-  // Who bought it
-  buyerName: varchar("buyer_name", { length: 255 }).notNull(),
-  buyerEmail: varchar("buyer_email", { length: 255 }).notNull(),
-  recipientName: varchar("recipient_name", { length: 255 }).notNull(),
-  messageSnapshot: text("message_snapshot"), // ADD THIS! (The personal note)
-  purchasedAt: timestamp("purchased_at").defaultNow(),
-  redeemedAt: timestamp("redeemed_at"),
-});
+// 5. CAMPAIGNS (Reusable promotional campaigns)
+export const campaigns = pgTable(
+  "campaigns",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    slug: varchar("slug", { length: 255 }).notNull().unique(),
+    name: varchar("name", { length: 255 }).notNull(), // Internal management name (e.g. "Black Friday 2026")
+    isActive: boolean("is_active").default(true).notNull(),
+    startDate: timestamp("start_date"), // Optional start timestamp
+    endDate: timestamp("end_date"), // Optional end timestamp
+    discountPercentage: decimal("discount_percentage", {
+      precision: 5,
+      scale: 2,
+    }).notNull(),
+    maxPurchases: integer("max_purchases"), // Shared limit across all gift cards under this campaign
+    headline: jsonb("headline").$type<I18nString>().notNull(),
+    description: jsonb("description").$type<I18nString>().notNull(),
+    badge: jsonb("badge").$type<I18nString>(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (t) => [
+    check(
+      "campaign_discount_percentage_range",
+      sql`discount_percentage > 0 AND discount_percentage <= 100`,
+    ),
+    check(
+      "campaign_max_purchases_positive",
+      sql`max_purchases IS NULL OR max_purchases > 0`,
+    ),
+    check(
+      "campaign_date_range_valid",
+      sql`start_date IS NULL OR end_date IS NULL OR start_date <= end_date`,
+    ),
+  ],
+);
+
+// 6. DYNAMIC CAMPAIGN TARGETING
+export const campaignServiceGroups = pgTable(
+  "campaign_service_groups",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    campaignId: uuid("campaign_id")
+      .references(() => campaigns.id, { onDelete: "cascade" })
+      .notNull(),
+    serviceGroupId: uuid("service_group_id")
+      .references(() => serviceGroups.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    unique("campaign_service_groups_campaign_group_unq").on(
+      t.campaignId,
+      t.serviceGroupId,
+    ),
+    index("campaign_service_groups_group_id_idx").on(t.serviceGroupId),
+  ],
+);
+
+export const campaignCategories = pgTable(
+  "campaign_categories",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    campaignId: uuid("campaign_id")
+      .references(() => campaigns.id, { onDelete: "cascade" })
+      .notNull(),
+    categoryId: uuid("category_id")
+      .references(() => categories.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    unique("campaign_categories_campaign_cat_unq").on(
+      t.campaignId,
+      t.categoryId,
+    ),
+    index("campaign_categories_cat_id_idx").on(t.categoryId),
+  ],
+);
+
+export const campaignTreatments = pgTable(
+  "campaign_treatments",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    campaignId: uuid("campaign_id")
+      .references(() => campaigns.id, { onDelete: "cascade" })
+      .notNull(),
+    treatmentId: uuid("treatment_id")
+      .references(() => treatments.id, { onDelete: "cascade" })
+      .notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    unique("campaign_treatments_campaign_treatment_unq").on(
+      t.campaignId,
+      t.treatmentId,
+    ),
+    index("campaign_treatments_treatment_id_idx").on(t.treatmentId),
+  ],
+);
+
+export const campaignReservations = pgTable(
+  "campaign_reservations",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    campaignId: uuid("campaign_id")
+      .references(() => campaigns.id, { onDelete: "restrict" })
+      .notNull(),
+    stripeSessionId: varchar("stripe_session_id", { length: 255 }).unique(),
+    giftCardId: uuid("gift_card_id").references(() => giftCards.id, {
+      onDelete: "restrict",
+    }),
+    status: varchar("status", { length: 20 }).default("reserved").notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    completedAt: timestamp("completed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    // Ensure strict 1:0..1 relationship between gift card and campaign reservation
+    unique("campaign_reservations_gift_card_id_unq").on(t.giftCardId),
+    check(
+      "campaign_reservation_status_check",
+      sql`status IN ('reserved', 'completed', 'released', 'expired')`,
+    ),
+    // Performance index for atomic quota reservation counting
+    index("campaign_reservations_quota_idx").on(
+      t.campaignId,
+      t.status,
+      t.expiresAt,
+    ),
+  ],
+);
+
+// 7. GIFT CARDS (The Registry)
+export const giftCards = pgTable(
+  "gift_cards",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    locatorCode: varchar("locator_code", { length: 50 }).notNull().unique(),
+    stripeSessionId: varchar("stripe_session_id", { length: 255 })
+      .notNull()
+      .unique(),
+    // Status: 'valid', 'redeemed', 'cancelled'
+    status: varchar("status", { length: 20 }).default("valid").notNull(),
+    treatmentNameSnapshot: varchar("treatment_name", { length: 255 }).notNull(),
+    durationSnapshot: varchar("duration_snapshot", { length: 50 }).notNull(),
+    priceSnapshot: decimal("price_snapshot", {
+      precision: 10,
+      scale: 2,
+    }).notNull(),
+
+    totalSessions: integer("total_sessions").default(1).notNull(),
+    usedSessions: integer("used_sessions").default(0).notNull(),
+    // Who bought it
+    buyerName: varchar("buyer_name", { length: 255 }).notNull(),
+    buyerEmail: varchar("buyer_email", { length: 255 }).notNull(),
+    recipientName: varchar("recipient_name", { length: 255 }).notNull(),
+    messageSnapshot: text("message_snapshot"), // ADD THIS! (The personal note)
+    purchasedAt: timestamp("purchased_at").defaultNow(),
+    redeemedAt: timestamp("redeemed_at"),
+    campaignId: uuid("campaign_id").references(() => campaigns.id, {
+      onDelete: "restrict",
+    }),
+    campaignDiscountPercentage: decimal("campaign_discount_percentage", {
+      precision: 5,
+      scale: 2,
+    }),
+  },
+  (t) => [index("gift_cards_campaign_id_idx").on(t.campaignId)],
+);
 
 export const giftCardRedemptions = pgTable("gift_card_redemptions", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -162,8 +311,77 @@ export const giftCardRedemptions = pgTable("gift_card_redemptions", {
   redeemedAt: timestamp("redeemed_at").defaultNow().notNull(),
 });
 
-export const giftCardsRelations = relations(giftCards, ({ many }) => ({
+export const campaignsRelations = relations(campaigns, ({ many }) => ({
+  serviceGroupTargets: many(campaignServiceGroups),
+  categoryTargets: many(campaignCategories),
+  treatmentTargets: many(campaignTreatments),
+  reservations: many(campaignReservations),
+  giftCards: many(giftCards),
+}));
+
+export const campaignServiceGroupsRelations = relations(
+  campaignServiceGroups,
+  ({ one }) => ({
+    campaign: one(campaigns, {
+      fields: [campaignServiceGroups.campaignId],
+      references: [campaigns.id],
+    }),
+    serviceGroup: one(serviceGroups, {
+      fields: [campaignServiceGroups.serviceGroupId],
+      references: [serviceGroups.id],
+    }),
+  }),
+);
+
+export const campaignCategoriesRelations = relations(
+  campaignCategories,
+  ({ one }) => ({
+    campaign: one(campaigns, {
+      fields: [campaignCategories.campaignId],
+      references: [campaigns.id],
+    }),
+    category: one(categories, {
+      fields: [campaignCategories.categoryId],
+      references: [categories.id],
+    }),
+  }),
+);
+
+export const campaignTreatmentsRelations = relations(
+  campaignTreatments,
+  ({ one }) => ({
+    campaign: one(campaigns, {
+      fields: [campaignTreatments.campaignId],
+      references: [campaigns.id],
+    }),
+    treatment: one(treatments, {
+      fields: [campaignTreatments.treatmentId],
+      references: [treatments.id],
+    }),
+  }),
+);
+
+export const campaignReservationsRelations = relations(
+  campaignReservations,
+  ({ one }) => ({
+    campaign: one(campaigns, {
+      fields: [campaignReservations.campaignId],
+      references: [campaigns.id],
+    }),
+    giftCard: one(giftCards, {
+      fields: [campaignReservations.giftCardId],
+      references: [giftCards.id],
+    }),
+  }),
+);
+
+export const giftCardsRelations = relations(giftCards, ({ one, many }) => ({
   redemptions: many(giftCardRedemptions),
+  campaign: one(campaigns, {
+    fields: [giftCards.campaignId],
+    references: [campaigns.id],
+  }),
+  campaignReservation: one(campaignReservations),
 }));
 
 export const giftCardRedemptionsRelations = relations(
@@ -258,9 +476,11 @@ export const siteSettings = pgTable("site_settings", {
     .$type<
       {
         id: string;
+        slideType?: "treatment" | "campaign";
+        treatmentId?: string;
+        campaignId?: string;
         desktopUrl: string;
         mobileUrl: string;
-        treatmentId?: string;
         title: I18nString;
         subtitle: I18nString;
         buttonText: I18nString;

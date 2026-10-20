@@ -1,11 +1,22 @@
+// app/(backoffice)/admin/settings/page.tsx
 import { db } from "@/db";
 import SettingsForm from "./_components/settings-form";
 
-export default async function SettingsPage() {
-  // Try to fetch the single row
-  let settings = await db.query.siteSettings.findFirst();
+export const dynamic = "force-dynamic";
 
-  // If it doesn't exist yet (first time running), we provide empty defaults
+export default async function SettingsPage() {
+  const [dbSettings, treatments, campaignsList] = await Promise.all([
+    db.query.siteSettings.findFirst(),
+    db.query.treatments.findMany({
+      orderBy: (t, { asc }) => [asc(t.slug)],
+    }),
+    db.query.campaigns.findMany({
+      orderBy: (c, { desc }) => [desc(c.createdAt)],
+    }),
+  ]);
+
+  let settings = dbSettings;
+
   if (!settings) {
     settings = {
       id: "singleton",
@@ -47,20 +58,23 @@ export default async function SettingsPage() {
     };
   }
 
-  const treatments = await db.query.treatments.findMany({
-    columns: { id: true, title: true },
-  });
-
   return (
-    <div className="max-w-5xl mx-auto">
-      <h1 className="font-heading text-3xl font-bold mb-8">
-        Global Site Settings
-      </h1>
-      <p className="text-muted-foreground mb-8">
-        Manage the core text, taglines, and contact info for this center.
-      </p>
+    <div className="max-w-7xl mx-auto space-y-6">
+      <div>
+        <h1 className="font-heading text-3xl font-bold text-foreground">
+          Global Settings
+        </h1>
+        <p className="text-muted-foreground text-sm mt-1">
+          Manage identity, contact info, brand typography, and dynamic homepage
+          gallery.
+        </p>
+      </div>
 
-      <SettingsForm initialData={settings} availableTreatments={treatments} />
+      <SettingsForm
+        initialData={settings}
+        availableTreatments={treatments}
+        availableCampaigns={campaignsList}
+      />
     </div>
   );
 }

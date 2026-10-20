@@ -15,6 +15,13 @@ export async function generateMetadata() {
 // Define the cards once to eliminate HTML repetition
 const QUICK_LINKS = [
   {
+    title: "Promotional Campaigns",
+    description:
+      "Configure seasonal discounts (Black Friday, Christmas, Easter), dynamic targets, and purchase quotas.",
+    href: "/admin/campaigns",
+    linkText: "Manage Campaigns",
+  },
+  {
     title: "Treatments Database",
     description:
       "Manage prices, descriptions, and images for all your massages and rituals.",
