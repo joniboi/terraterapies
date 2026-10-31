@@ -1,20 +1,28 @@
+// app/api/checkout/route.tsx
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getService, getServicesData } from "@/app/lib/getService";
-import { Category, Treatment } from "@/types/definitions";
+import { db } from "@/db";
+import { treatments } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import {
+  getActiveCampaignsWithTargets,
+  resolveVariantPrice,
+} from "@/app/lib/campaign-pricing";
+import {
+  reserveCampaignSlot,
+  attachStripeSessionToReservation,
+  releaseCampaignReservation,
+} from "@/app/lib/campaign-reservation";
 
-// 1. FORCE DYNAMIC - Prevents Next.js from trying to pre-render this during build
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
-  // 2. INITIALIZE STRIPE INSIDE THE FUNCTION
-  // We provide a dummy 'sk_test' fallback so the Stripe constructor doesn't crash
-  // if the variable is missing for a split-second during the build scan.
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy");
+
+  let reservationId: string | undefined;
 
   try {
     const body = await req.json();
-
     const {
       categorySlug,
       subCategorySlug,
@@ -25,31 +33,79 @@ export async function POST(req: Request) {
       lang = "es",
     } = body;
 
-    // --- SECURITY CHECK START ---
-    const resolvedService = await getService(
-      lang,
-      categorySlug,
-      subCategorySlug,
-    );
+    // 1. Server-authoritative resolution from DB
+    const treatment = await db.query.treatments.findFirst({
+      where: eq(treatments.slug, subCategorySlug),
+      with: {
+        category: true,
+        serviceGroup: true,
+        variants: {
+          orderBy: (v, { asc }) => [asc(v.orderIndex)],
+        },
+      },
+    });
 
-    if (!resolvedService) {
-      throw new Error(
-        `Tratamiento o categoría no encontrados: ${categorySlug}/${subCategorySlug}`,
+    if (!treatment || !treatment.isActive) {
+      return NextResponse.json(
+        {
+          error: `Tratamiento no disponible: ${categorySlug}/${subCategorySlug}`,
+        },
+        { status: 404 },
       );
     }
 
-    const treatment = resolvedService.subcategory;
+    const selectedVariant = treatment.variants[optionIndex];
+    if (!selectedVariant) {
+      return NextResponse.json(
+        { error: `Opción inválida: ${optionIndex}` },
+        { status: 400 },
+      );
+    }
 
-    const selectedOption = treatment.options?.[optionIndex];
+    // 2. Resolve authoritative pricing and campaign eligibility
+    const activeCampaigns = await getActiveCampaignsWithTargets();
+    const now = new Date();
 
-    if (!selectedOption) throw new Error(`Opción inválida: ${optionIndex}`);
+    const priceResult = resolveVariantPrice(
+      selectedVariant,
+      {
+        id: treatment.id,
+        serviceGroupId: treatment.serviceGroupId,
+        categoryId: treatment.categoryId,
+      },
+      activeCampaigns,
+      now,
+      lang,
+    );
 
-    const sessionsCount = selectedOption.sessionsCount?.toString() || "1";
+    // 3. Atomic reservation if price is backed by a campaign
+    if (priceResult.source === "campaign" && priceResult.campaignId) {
+      const reservation = await reserveCampaignSlot(priceResult.campaignId);
 
-    const priceString = selectedOption.price.replace("€", "").trim();
-    const priceAmount = parseInt(priceString, 10) * 100;
-    // --- SECURITY CHECK END ---
+      if (!reservation.success) {
+        return NextResponse.json(
+          {
+            error:
+              reservation.message ||
+              "Lo sentimos, las plazas para esta promoción especial se acaban de agotar.",
+            code: reservation.error,
+          },
+          { status: 409 },
+        );
+      }
 
+      reservationId = reservation.reservationId;
+    }
+
+    const sessionsCount = (selectedVariant.sessionsCount || 1).toString();
+    const durationLabel = `${selectedVariant.duration} ${selectedVariant.unit}`;
+    const treatmentTitle =
+      (treatment.title as any)?.[lang] || (treatment.title as any)?.es;
+
+    // 4. Align Stripe Session expiry with reservation (30 mins from now)
+    const expiresAtEpoch = Math.floor(Date.now() / 1000) + 30 * 60;
+
+    // 5. Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -57,34 +113,53 @@ export async function POST(req: Request) {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Gift Card: ${treatment.title}`,
-              description: selectedOption.duration,
+              name: `Gift Card: ${treatmentTitle}`,
+              description: durationLabel,
               images: [`${process.env.NEXT_PUBLIC_URL}${treatment.image}`],
             },
-            unit_amount: priceAmount,
+            unit_amount: priceResult.centsAmount,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
+      expires_at: expiresAtEpoch,
       success_url: `${process.env.NEXT_PUBLIC_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_URL}/${lang}/${categorySlug}/${subCategorySlug}`,
       metadata: {
         buyerName: from,
         receiverName: to,
         message: message || "",
-        treatmentName: treatment.title,
-        duration: selectedOption.duration,
+        treatmentName: treatmentTitle,
+        duration: durationLabel,
         categorySlug,
         subCategorySlug,
         lang,
-        sessionsCount: sessionsCount,
+        sessionsCount,
+        // Attribution and quota tracking metadata
+        campaignId: priceResult.campaignId || "",
+        campaignDiscountPercentage: priceResult.discountPercentage.toString(),
+        reservationId: reservationId || "",
       },
     });
+
+    // 6. Link Stripe Session ID to reservation
+    if (reservationId && session.id) {
+      await attachStripeSessionToReservation(reservationId, session.id);
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
     console.error("Stripe Checkout Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 400 });
+
+    // Rollback reservation immediately if checkout failed
+    if (reservationId) {
+      await releaseCampaignReservation({ reservationId });
+    }
+
+    return NextResponse.json(
+      { error: error.message || "Error al iniciar el pago" },
+      { status: 400 },
+    );
   }
 }

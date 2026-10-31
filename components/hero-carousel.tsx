@@ -4,9 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { cn } from "@/app/lib/utils";
-import { PromoBadge } from "@/components/ui/promo-badge";
 
-export default function HeroCarousel({ slides }: { slides: any[] }) {
+export default function HeroCarousel({
+  slides,
+  dict,
+}: {
+  slides: any[];
+  // Typing the dict loosely for safety based on the keys we need
+  dict: { carouselContext: string; discountSuffix: string; [key: string]: any };
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -28,7 +34,7 @@ export default function HeroCarousel({ slides }: { slides: any[] }) {
           resolvedSubtitle,
           resolvedLink,
           resolvedButtonText,
-          promoBadgeText,
+          promoDiscount,
           desktopUrl,
           mobileUrl,
         } = slide;
@@ -55,52 +61,61 @@ export default function HeroCarousel({ slides }: { slides: any[] }) {
               <img
                 src={desktopUrl}
                 alt={resolvedTitle}
-                // 🚀 FIXED: Changed to object-[center_10%]
-                // This anchors the photo almost entirely to the top edge,
-                // guaranteeing the therapist's face is never cropped on wide screens.
                 className="w-full h-full object-cover object-[center_10%] hidden md:block"
               />
             )}
 
-            <PromoBadge
-              text={promoBadgeText}
-              className="absolute top-28 right-6 md:top-32 md:right-10 z-30 scale-110 shadow-xl"
-            />
-
-            <div className="absolute inset-0 bg-black/20 z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-            <div className="absolute top-0 inset-x-0 h-48 bg-gradient-to-b from-black/60 to-transparent z-10" />
+            <div className="absolute inset-0 bg-black/15 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent z-10" />
+            <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/50 to-transparent z-10" />
 
             <div className="absolute bottom-0 left-0 right-0 h-28 md:h-40 lg:h-48 bg-gradient-to-b from-transparent to-background z-10 pointer-events-none" />
 
             {/* PROMOTIONAL OVERLAY */}
             {(resolvedTitle || resolvedSubtitle) && (
-              <div className="absolute bottom-0 left-0 right-0 w-full z-20 pb-12 md:pb-16">
+              <div className="absolute bottom-0 left-0 right-0 w-full z-20 pb-10 md:pb-12">
                 <div className="mx-auto max-w-6xl px-4 sm:px-6">
                   <div
-                    className="max-w-3xl text-center md:text-left text-white"
+                    className="max-w-md text-center md:text-left text-white"
                     data-aos="fade-up"
                   >
+                    {/* 🚀 CONSUMED FROM DICTIONARY */}
+                    <span className="block text-[10px] md:text-xs font-semibold text-white/80 uppercase tracking-widest mb-2 drop-shadow-sm">
+                      {dict.carouselContext}
+                    </span>
+
                     {resolvedTitle && (
-                      <h3 className="font-heading text-2xl md:text-4xl font-bold mb-3 drop-shadow-md">
+                      <h3 className="font-heading text-lg md:text-2xl font-bold mb-1 drop-shadow-md">
                         {resolvedTitle}
                       </h3>
                     )}
+
                     {resolvedSubtitle && (
-                      <p className="text-base md:text-lg text-white/90 mb-6 drop-shadow-md line-clamp-2 md:line-clamp-none">
+                      <p className="text-sm md:text-base text-white/90 mb-4 drop-shadow-md line-clamp-2 md:line-clamp-none">
                         {resolvedSubtitle}
                       </p>
                     )}
-                    {resolvedLink && resolvedButtonText && (
-                      <Button
-                        asChild
-                        size="default"
-                        variant="default"
-                        className="shadow-xl ring-1 ring-white/20"
-                      >
-                        <Link href={resolvedLink}>{resolvedButtonText}</Link>
-                      </Button>
-                    )}
+
+                    {/* 🚀 FIX: flex-row ensures items stay horizontally aligned. 
+                        Whitespace-nowrap and mobile-optimized paddings prevent overflow on small screens */}
+                    <div className="flex flex-row items-center justify-center md:justify-start gap-2 md:gap-3 mt-2">
+                      {promoDiscount && (
+                        <span className="inline-flex items-center bg-highlight text-highlight-foreground px-2.5 py-1 md:px-3 md:py-1.5 rounded-sm text-[10px] md:text-sm font-bold shadow-md border border-highlight-border whitespace-nowrap">
+                          {promoDiscount}% {dict.discountSuffix}
+                        </span>
+                      )}
+
+                      {resolvedLink && resolvedButtonText && (
+                        <Button
+                          asChild
+                          size="sm"
+                          variant="outline"
+                          className="h-7 md:h-9 px-3 md:px-4 text-[10px] md:text-sm bg-black/20 text-white border-white/40 hover:bg-white hover:text-black backdrop-blur-sm transition-all shadow-sm whitespace-nowrap"
+                        >
+                          <Link href={resolvedLink}>{resolvedButtonText}</Link>
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

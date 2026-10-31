@@ -15,7 +15,9 @@
   "home": {
     "hero": {
       "cta": "Book now",
-      "ctaGift": "Gift a Treatment"
+      "ctaGift": "Gift a Treatment",
+      "carouselContext": "Discover our treatments",
+      "discountSuffix": "off"
     },
     "categories": {
       "title": "Our Massages",

@@ -46,13 +46,17 @@ export default function ImageUploadField({
       if (uploadType) form.append("type", uploadType);
 
       const res = await fetch("/api/upload", { method: "POST", body: form });
-      if (!res.ok) throw new Error("Upload failed");
       const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Upload failed due to an unknown error.");
+      }
+
       onUploadSuccess(data.url);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setUploadError(
-        "Failed to upload the file. Please ensure it is less than 4MB and is a valid image type.",
+        error.message || "Failed to upload the file. Please try again.",
       );
     } finally {
       setIsUploading(false);

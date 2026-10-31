@@ -35,6 +35,13 @@ export default async function AdminSidebarLayout({
             Treatments
           </Link>
           <Link
+            href="/admin/campaigns"
+            className="block hover:text-highlight transition-colors"
+          >
+            🔥 Campaigns
+          </Link>
+
+          <Link
             href="/admin/service-groups"
             className="block hover:text-highlight transition-colors"
           >
