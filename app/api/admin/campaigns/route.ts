@@ -64,6 +64,9 @@ export async function POST(req: Request) {
     const maxPurchases = body.maxPurchases
       ? parseInt(body.maxPurchases, 10)
       : null;
+    const minDuration = body.minDuration
+      ? parseInt(body.minDuration, 10)
+      : null;
     const startDate = body.startDate ? new Date(body.startDate) : null;
     const endDate = body.endDate ? new Date(body.endDate) : null;
 
@@ -83,6 +86,12 @@ export async function POST(req: Request) {
     if (maxPurchases !== null && (isNaN(maxPurchases) || maxPurchases <= 0)) {
       return NextResponse.json(
         { error: "Max purchases must be a positive integer" },
+        { status: 400 },
+      );
+    }
+    if (minDuration !== null && (isNaN(minDuration) || minDuration <= 0)) {
+      return NextResponse.json(
+        { error: "Minimum duration must be a positive number of minutes" },
         { status: 400 },
       );
     }
@@ -121,6 +130,7 @@ export async function POST(req: Request) {
         endDate,
         discountPercentage: discount.toFixed(2),
         maxPurchases,
+        minDuration,
         headline: body.headline,
         description: body.description,
         badge: body.badge || null,

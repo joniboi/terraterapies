@@ -110,11 +110,18 @@ export function getCampaignOperationalStatus(campaign: {
 
 /**
  * Computes price under campaign discount using exact cent rounding.
+ * If minDuration is provided and the variant is shorter, discount is not applied.
  */
 export function calculateDiscountedPrice(
   regularPrice: string | number,
   discountPercentage: string | number,
-): { discountedPrice: number; discountedPriceFormatted: string } {
+  variantDuration?: number,
+  minDuration?: number | null,
+): {
+  discountedPrice: number;
+  discountedPriceFormatted: string;
+  isDiscounted: boolean;
+} {
   const numericPrice =
     typeof regularPrice === "string" ? parseFloat(regularPrice) : regularPrice;
   const numericDiscount =
@@ -123,7 +130,25 @@ export function calculateDiscountedPrice(
       : discountPercentage;
 
   if (isNaN(numericPrice) || isNaN(numericDiscount)) {
-    return { discountedPrice: 0, discountedPriceFormatted: "0.00" };
+    return {
+      discountedPrice: 0,
+      discountedPriceFormatted: "0.00",
+      isDiscounted: false,
+    };
+  }
+
+  // 🚀 If variant duration is shorter than minDuration, keep regular price
+  if (
+    minDuration !== undefined &&
+    minDuration !== null &&
+    variantDuration !== undefined &&
+    variantDuration < minDuration
+  ) {
+    return {
+      discountedPrice: numericPrice,
+      discountedPriceFormatted: numericPrice.toFixed(2),
+      isDiscounted: false,
+    };
   }
 
   const multiplier = (100 - numericDiscount) / 100;
@@ -132,5 +157,6 @@ export function calculateDiscountedPrice(
   return {
     discountedPrice,
     discountedPriceFormatted: discountedPrice.toFixed(2),
+    isDiscounted: true,
   };
 }

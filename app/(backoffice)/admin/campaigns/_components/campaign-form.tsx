@@ -40,6 +40,7 @@ export default function CampaignForm({
     isActive: initialData?.isActive ?? true,
     discountPercentage: initialData?.discountPercentage || "20",
     maxPurchases: initialData?.maxPurchases?.toString() || "",
+    minDuration: initialData?.minDuration?.toString() || "",
     startDate: initialData?.startDate
       ? new Date(initialData.startDate).toISOString().slice(0, 16)
       : "",
@@ -257,7 +258,7 @@ export default function CampaignForm({
           </FormSection>
 
           <FormSection title="Pricing & Quota">
-            <FormGrid cols={2}>
+            <FormGrid cols={3}>
               <FormField label="Discount Percentage (%)">
                 <Input
                   type="number"
@@ -278,6 +279,18 @@ export default function CampaignForm({
                   value={formData.maxPurchases}
                   onChange={(e) => updateField("maxPurchases", e.target.value)}
                   placeholder="Unlimited (leave blank)"
+                />
+              </FormField>
+              <FormField
+                label="Min Duration (Minutes)"
+                description="e.g. 60 (leaves shorter options at regular price)"
+              >
+                <Input
+                  type="number"
+                  min="1"
+                  value={formData.minDuration}
+                  onChange={(e) => updateField("minDuration", e.target.value)}
+                  placeholder="All durations (leave blank)"
                 />
               </FormField>
             </FormGrid>
@@ -485,11 +498,19 @@ export default function CampaignForm({
                     {treatment.variants && treatment.variants.length > 0 && (
                       <div className="border-t border-border pt-2 space-y-1">
                         {treatment.variants.map((v) => {
-                          const { discountedPriceFormatted } =
+                          const minDur = formData.minDuration
+                            ? parseInt(formData.minDuration, 10)
+                            : null;
+
+                          // 🚀 Pass duration and minDuration to calculateDiscountedPrice
+                          const { discountedPriceFormatted, isDiscounted } =
                             calculateDiscountedPrice(
                               v.price,
                               formData.discountPercentage,
+                              v.duration,
+                              minDur,
                             );
+
                           return (
                             <div
                               key={v.id}
@@ -499,12 +520,23 @@ export default function CampaignForm({
                                 {v.duration} {v.unit}:
                               </span>
                               <span>
-                                <span className="line-through text-muted-foreground mr-1">
-                                  {v.price}€
-                                </span>
-                                <span className="font-bold text-primary">
-                                  {discountedPriceFormatted}€
-                                </span>
+                                {isDiscounted ? (
+                                  <>
+                                    <span className="line-through text-muted-foreground mr-1">
+                                      {v.price}€
+                                    </span>
+                                    <span className="font-bold text-primary">
+                                      {discountedPriceFormatted}€
+                                    </span>
+                                  </>
+                                ) : (
+                                  <span className="text-muted-foreground font-medium">
+                                    {v.price}€{" "}
+                                    <span className="text-[10px] italic">
+                                      (regular)
+                                    </span>
+                                  </span>
+                                )}
                               </span>
                             </div>
                           );

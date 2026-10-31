@@ -144,6 +144,7 @@ export const campaigns = pgTable(
       scale: 2,
     }).notNull(),
     maxPurchases: integer("max_purchases"), // Shared limit across all gift cards under this campaign
+    minDuration: integer("min_duration"), // Optional minimum duration filter in minutes (e.g. 60)
     headline: jsonb("headline").$type<I18nString>().notNull(),
     description: jsonb("description").$type<I18nString>().notNull(),
     badge: jsonb("badge").$type<I18nString>(),
@@ -165,6 +166,10 @@ export const campaigns = pgTable(
     check(
       "campaign_date_range_valid",
       sql`start_date IS NULL OR end_date IS NULL OR start_date <= end_date`,
+    ),
+    check(
+      "campaign_min_duration_positive",
+      sql`min_duration IS NULL OR min_duration > 0`,
     ),
   ],
 );

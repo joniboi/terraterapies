@@ -114,10 +114,23 @@ export function resolveVariantPrice(
   const regularPrice = regularCents / 100;
 
   // 1. Find all matching eligible campaigns for this treatment
-  const matchingCampaigns = eligibleCampaigns.filter(
-    (c) =>
-      isCampaignEligible(c, now) && doesTreatmentMatchCampaign(treatment, c),
-  );
+  const matchingCampaigns = eligibleCampaigns.filter((c) => {
+    // Basic date, quota & manual toggle check
+    if (!isCampaignEligible(c, now)) return false;
+
+    // Hierarchy targeting check (service group, category, treatment)
+    if (!doesTreatmentMatchCampaign(treatment, c)) return false;
+
+    // 🚀 NEW: Minimum duration filter check
+    // If campaign sets minDuration (e.g. 60), exclude shorter variants (e.g. 15, 30, 45 min)
+    if (c.minDuration !== null && c.minDuration !== undefined) {
+      if (variant.duration < c.minDuration) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 
   // 2. Overlap Runtime Guard:
   // If multiple campaigns match, resolve deterministically using highest discount
