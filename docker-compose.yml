@@ -1,7 +1,8 @@
 version: "3.8"
 
 services:
-  postgres_db:
+  # Container 1: Terraterapies DB
+  terraterapies_db:
     image: postgres:16-alpine
     container_name: terraterapies_db_local
     restart: always
@@ -10,9 +11,24 @@ services:
       POSTGRES_PASSWORD: dev_password
       POSTGRES_DB: terraterapies_local
     ports:
-      - "5432:5432"
+      - "5432:5432" # Maps container port 5432 to local port 5432
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - terraterapies_data:/var/lib/postgresql/data
+
+  # Container 2: Lotus DB
+  lotus_db:
+    image: postgres:16-alpine
+    container_name: lotus_db_local
+    restart: always
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: lotus_local
+    ports:
+      - "5433:5432" # Maps container port 5432 to local port 5433
+    volumes:
+      - lotus_data:/var/lib/postgresql/data
 
 volumes:
-  pg_data:
+  terraterapies_data:
+  lotus_data:
