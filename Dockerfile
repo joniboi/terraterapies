@@ -1,7 +1,8 @@
 FROM node:22.14.0-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+# Install pnpm globally directly (avoids Corepack path bugs)
+RUN npm install -g pnpm@10.18.2
 
 # 1. Install dependencies
 FROM base AS deps
@@ -36,10 +37,10 @@ ENV HOSTNAME="0.0.0.0"
 ARG NEXT_PUBLIC_BRAND=terra
 ENV NEXT_PUBLIC_BRAND=$NEXT_PUBLIC_BRAND
 
-# Copy public folder (if it exists)
+# Copy public folder
 COPY --from=builder /app/public ./public
 
-# Dynamically copy from .next-terra or .next-lotus depending on the brand
+# Dynamically copy from .next-terra or .next-lotus depending on brand
 COPY --from=builder /app/.next-${NEXT_PUBLIC_BRAND}/standalone ./
 COPY --from=builder /app/.next-${NEXT_PUBLIC_BRAND}/static ./.next-${NEXT_PUBLIC_BRAND}/static
 
